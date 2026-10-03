@@ -1,0 +1,67 @@
+<!-- ================= LOOKING AFTER YOUR ROOF (seasonal care) =================
+     Teaching section: what to check in each season. Opens on today's season (care.js). The garden changes with the season
+     (falling leaves, snow, blossom, a hot sun) and the tree leans towards the pointer. The yearly check offer needs the
+     owner's confirmation (data-confirm="maintenance"); delete that box if they do not offer it. -->
+<section class="sec sec-sky cr e-dormer" id="care" data-reveal="drop" data-season="autumn" aria-labelledby="h-care">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="cr-bk-cal" viewBox="0 0 90 90" data-depth="-0.1" data-px="10" data-rot="-6" focusable="false"><path d="M10 18h70v62H10zM10 34h70M28 10v14M62 10v14M24 48h10M42 48h10M60 48h10M24 62h10M42 62h10"/></svg>
+    <svg class="cr-bk-leaf" viewBox="0 0 40 40" data-depth="-0.05" data-drift="60" data-rot="40" focusable="false"><path d="M6 34C6 14 20 4 36 4c0 18-12 30-30 30zM6 34L26 14"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="head2">
+      <div><h2 id="h-care">Looking after your roof.</h2></div>
+      <p>A few minutes each season, mostly from the ground, saves most of the repairs we see. Here is what to look for and when.</p>
+    </div>
+    <div class="cr-box">
+      <div class="cr-art" aria-hidden="true">
+        <svg class="cr-scene" viewBox="0 0 480 340" focusable="false">
+          <rect class="cr-sky" width="480" height="340"/>
+          <circle class="cr-sun" cx="400" cy="62" r="28"/>
+          <path class="cr-gnd" d="M0 300C120 290 300 296 480 288V340H0Z"/>
+          <path class="cr-snowgnd" d="M0 300C120 290 300 296 480 288V300C300 306 120 300 0 310Z"/>
+          <path class="cr-wall" d="M150 190H350V300H150Z"/>
+          <path class="cr-roof" d="M130 194L250 110L370 194Z"/>
+          <path class="cr-snowroof" d="M140 186L250 110L360 186C330 178 290 184 250 176S170 180 140 186Z"/>
+          <path class="cr-chim" d="M300 116h22v44h-22z"/>
+          <path class="cr-gut" d="M126 198H374"/><g class="cr-gutleaves"><circle cx="160" cy="196" r="4"/><circle cx="176" cy="195" r="3.5"/><circle cx="330" cy="196" r="4"/></g>
+          <path class="cr-win" d="M176 220h40v34h-40zM284 220h40v34h-40z"/><path class="cr-door" d="M234 246h32v54h-32z"/>
+          <g class="cr-tree"><path class="cr-trunk" d="M78 300V200M78 236l-20-22M78 222l18-20M78 210l-8-16"/>
+            <g class="cr-crown"><circle cx="78" cy="176" r="38"/><circle cx="50" cy="196" r="24"/><circle cx="106" cy="194" r="26"/></g>
+            <g class="cr-bloss"><circle cx="60" cy="168" r="4"/><circle cx="92" cy="160" r="4"/><circle cx="78" cy="186" r="4"/><circle cx="104" cy="186" r="3.5"/><circle cx="50" cy="196" r="3.5"/><circle cx="72" cy="150" r="3.5"/></g></g>
+          <g class="cr-fx cr-fx-autumn"><path d="M60 120c6-6 14-6 14 0s-8 8-14 0z"/><path d="M120 100c6-6 14-6 14 0s-8 8-14 0z"/><path d="M200 80c6-6 14-6 14 0s-8 8-14 0z"/><path d="M30 150c6-6 14-6 14 0s-8 8-14 0z"/><path d="M100 140c6-6 14-6 14 0s-8 8-14 0z"/></g>
+          <g class="cr-fx cr-fx-winter"><circle cx="40" cy="40" r="3"/><circle cx="120" cy="20" r="2.5"/><circle cx="200" cy="50" r="3"/><circle cx="280" cy="30" r="2.5"/><circle cx="360" cy="60" r="3"/><circle cx="440" cy="20" r="2.5"/><circle cx="80" cy="90" r="2.5"/><circle cx="320" cy="100" r="3"/></g>
+          <g class="cr-fx cr-fx-spring"><path d="M140 90c8-4 14 4 8 8"/><path d="M180 70c8-4 14 4 8 8"/><g class="cr-bird"><path d="M380 130c5-5 10-5 13 0 3-5 8-5 13 0"/></g><g class="cr-bird cr-bird2"><path d="M410 110c4-4 8-4 10 0 2-4 6-4 10 0"/></g></g>
+          <g class="cr-fx cr-fx-summer"><path d="M400 20v12M400 92v12M360 62h-12M452 62h-12M372 34l-8-8M436 98l-8-8M372 90l-8 8M436 26l-8 8"/></g>
+        </svg>
+        <div class="cr-tabs" role="tablist" aria-label="Seasons">
+          <button class="cr-tab" type="button" role="tab" id="cr-t1" aria-controls="cr-p1" aria-selected="true" data-s="autumn">Autumn</button>
+          <button class="cr-tab" type="button" role="tab" id="cr-t2" aria-controls="cr-p2" aria-selected="false" tabindex="-1" data-s="winter">Winter</button>
+          <button class="cr-tab" type="button" role="tab" id="cr-t3" aria-controls="cr-p3" aria-selected="false" tabindex="-1" data-s="spring">Spring</button>
+          <button class="cr-tab" type="button" role="tab" id="cr-t4" aria-controls="cr-p4" aria-selected="false" tabindex="-1" data-s="summer">Summer</button>
+        </div>
+      </div>
+      <div class="cr-panels">
+        <div class="cr-panel" role="tabpanel" id="cr-p1" aria-labelledby="cr-t1">
+          <h3>Autumn</h3>
+          <ul class="cr-list"><li>Clear leaves out of gutters, valleys and downpipe tops.</li><li>Look for slipped or cracked tiles before the winter storms.</li><li>Check the lead and pointing round the chimney.</li><li>Cut back branches that touch or overhang the roof.</li></ul>
+        </div>
+        <div class="cr-panel" role="tabpanel" id="cr-p2" aria-labelledby="cr-t2" hidden>
+          <h3>Winter</h3>
+          <ul class="cr-list"><li>After a storm, look for tiles or slates on the ground.</li><li>Watch ceilings and the tops of walls for new damp patches.</li><li>Drips in the loft on frosty mornings are often condensation, not a leak.</li><li>Never go up on a wet or icy roof. Call us instead.</li></ul>
+        </div>
+        <div class="cr-panel" role="tabpanel" id="cr-p3" aria-labelledby="cr-t3" hidden>
+          <h3>Spring</h3>
+          <ul class="cr-list"><li>Look for moss and lichen building up on the tiles.</li><li>Check gutters once nesting birds have moved on.</li><li>Look along the ridge and verges for loose or missing mortar.</li><li>Plan bigger jobs for the drier months.</li></ul>
+        </div>
+        <div class="cr-panel" role="tabpanel" id="cr-p4" aria-labelledby="cr-t4" hidden>
+          <h3>Summer</h3>
+          <ul class="cr-list"><li>Settled weather is the best time for re-roofing and bigger repairs.</li><li>Check flat roofs for blisters and cracks after hot spells.</li><li>Clean or repaint fascias and soffits.</li><li>Have a survey done while it is easy to see everything.</li></ul>
+        </div>
+        <div class="cr-offer" data-confirm="maintenance">
+          <svg class="cr-offer-ic" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M6 20a14 14 0 1 1 4 9.9M6 30v-8h8"/><path d="M15 20l4 4 7-8"/></svg>
+          <div><p class="cr-offer-h">A yearly roof check</p><p>We look at the roof and gutters once a year and send photos and a short report.</p><a class="link" href="?issue=maintain#contact">Ask about a yearly check</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

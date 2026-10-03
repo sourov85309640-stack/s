@@ -1,0 +1,60 @@
+/* WHO WE WORK FOR, prefix .sc- (owner: lead). Four cards, four little scenes, each with its own motion:
+   the home's door swings open and the windows glow, the To Let sign swings, the shop shutter rolls up, the camera flashes
+   and the photo prints onto the report. Each plays once on arrival (.is-play) and again on hover or focus. */
+.sc{overflow:hidden}
+.sc-bk-crane{width:150px;height:190px;right:5%;top:1.5rem;fill:none;stroke:rgba(31,43,48,.13);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.sc-bk-gulls{width:120px;height:40px;left:8%;top:3rem;fill:none;stroke:rgba(31,43,48,.3);stroke-width:2;stroke-linecap:round}
+.sc-grid{display:grid;gap:1rem}
+@media (min-width:640px){.sc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.sc-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.sc-card{position:relative;display:flex;flex-direction:column;padding:1.25rem 1.25rem 1rem;border-radius:18px;background:var(--card);box-shadow:var(--shadow-card);transition:transform .25s var(--ease),box-shadow .25s}
+.sc-card h3{font-size:var(--h4);margin:.9rem 0 .4rem}
+.sc-card p{color:var(--muted);line-height:1.5;margin-bottom:.5rem;flex:1}
+.sc-art{display:block;width:100%;height:auto;border-radius:12px;background:linear-gradient(#EEF3F5,#FAF9F6);overflow:hidden}
+@media (hover:hover){.sc-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}}
+/* shared drawing */
+.sc .sc-gnd{stroke:rgba(31,43,48,.5);stroke-width:2;stroke-linecap:round}
+.sc .sc-wl{fill:#F1E7DA;stroke:rgba(31,43,48,.6);stroke-width:1.8}
+.sc .sc-rf{fill:#D9A383;stroke:var(--copper);stroke-width:2;stroke-linejoin:round}
+.sc .sc-ch{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:1.8}
+.sc .sc-smoke circle{fill:#E8E6E1;stroke:rgba(31,43,48,.2);stroke-width:1.2;transform-box:fill-box;transform-origin:50% 50%}
+.sc .sc-wn{fill:#E3EAED;stroke:rgba(31,43,48,.6);stroke-width:1.8;transition:fill .5s}
+.sc .sc-dr,.sc .sc-dr-f{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:1.8}
+.sc .sc-dr-f{fill:#F6C979}
+.sc .sc-sep{stroke:rgba(31,43,48,.5);stroke-width:1.8}
+.sc .sc-post{fill:none;stroke:#7A5A40;stroke-width:3;stroke-linecap:round}
+.sc .sc-board path:first-child{fill:#FAF9F6;stroke:var(--copper);stroke-width:2}
+.sc .sc-board-t{fill:none;stroke:var(--copper);stroke-width:2;stroke-linecap:round}
+.sc .sc-in{fill:#5B4A3C}
+.sc .sc-boxes path{fill:#C98B62;stroke:rgba(31,43,48,.5);stroke-width:1.5}
+.sc .sc-sh{fill:#AEB8BC;stroke:rgba(31,43,48,.55);stroke-width:1.8}
+.sc .sc-sh-l{fill:none;stroke:rgba(31,43,48,.3);stroke-width:1.5}
+.sc .sc-clip{fill:#FAF9F6;stroke:rgba(31,43,48,.6);stroke-width:2;stroke-linejoin:round}
+.sc .sc-clip-top{fill:#9C7A5E;stroke:rgba(31,43,48,.6);stroke-width:1.8}
+.sc .sc-ln{fill:none;stroke:rgba(31,43,48,.35);stroke-width:2.5;stroke-linecap:round}
+.sc .sc-ph{fill:#DCE6EA;stroke:rgba(31,43,48,.5);stroke-width:1.5}
+.sc .sc-ph-r{fill:#D9A383}
+.sc .sc-cam-b,.sc .sc-cam-t{fill:#3F5560}
+.sc .sc-cam-l{fill:#9DBACA;stroke:#E3EAED;stroke-width:2}
+.sc .sc-flash{fill:#FFF3C4;opacity:0}
+.sc-art *{transform-box:fill-box}
+/* the scenes */
+.sc .sc-dr{transform-origin:0 50%}
+.sc .sc-board{transform-origin:50% 0;transform-box:view-box;transform-origin:165px 96px}
+.sc .sc-shutter{transform-origin:50% 0}
+.sc .sc-photo{transform-origin:50% 0}
+@keyframes sc-door{0%,100%{transform:none}30%,70%{transform:perspective(200px) rotateY(-70deg)}}
+@keyframes sc-swing{0%{transform:none}20%{transform:rotate(14deg)}45%{transform:rotate(-10deg)}65%{transform:rotate(6deg)}82%{transform:rotate(-3deg)}100%{transform:none}}
+@keyframes sc-roll{0%,100%{transform:none}35%,70%{transform:scaleY(.12)}}
+@keyframes sc-flash{0%,100%{opacity:0;transform:scale(.4)}12%{opacity:1;transform:scale(1.6)}30%{opacity:0;transform:scale(2)}}
+@keyframes sc-print{0%,20%{transform:translateY(-14px) scaleY(.1);opacity:0}45%{opacity:1}100%{transform:none;opacity:1}}
+@keyframes sc-smoke{0%{transform:translateY(6px) scale(.4);opacity:0}30%{opacity:1}100%{transform:translate(6px,-14px) scale(1.3);opacity:0}}
+@keyframes sc-glow{0%,25%{fill:#E3EAED}40%,80%{fill:#F6C979}100%{fill:#E3EAED}}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-dr{animation:sc-door 2.2s var(--ease)}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-glow{animation:sc-glow 2.2s ease}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle{animation:sc-smoke 1.6s ease-out 2}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle:nth-child(2){animation-delay:.5s}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-board{animation:sc-swing 1.8s ease-out}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-shutter{animation:sc-roll 2.6s var(--ease)}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-flash{animation:sc-flash .9s ease-out}
+html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:sc-print 1.2s var(--ease) .25s backwards}

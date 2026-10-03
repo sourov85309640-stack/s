@@ -1,0 +1,104 @@
+/* QUICK ROOF CHECK, prefix .qz- (owner: lead). One question at a time; the drawing answers each tap.
+   State lives on the section: data-step (0 to 3), data-what, data-where, data-when. */
+.qz{overflow:hidden}
+.qz-bk-q{width:56px;height:84px;right:8%;top:2.5rem;fill:none;stroke:rgba(152,86,50,.22);stroke-width:7;stroke-linecap:round}
+.qz-bk-ticks{width:200px;height:60px;left:5%;bottom:10%;fill:none;stroke:rgba(31,43,48,.12);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.qz-fr-pencil{width:120px;height:24px;right:2.5%;bottom:22%;fill:#F2C35B;stroke:rgba(31,43,48,.5);stroke-width:1.5;stroke-linejoin:round}
+.qz-box{display:grid;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+@media (min-width:960px){.qz-box{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}}
+.qz-art{position:relative;border-radius:22px;background:linear-gradient(#EEF3F5,#FAF9F6 70%);box-shadow:var(--shadow-card);padding:clamp(.75rem,2vw,1.25rem) clamp(.75rem,2vw,1.25rem) 1rem}
+.qz-scene{display:block;width:100%;height:auto;overflow:visible}
+.qz-steps{display:flex;justify-content:center;gap:.5rem;margin-top:.5rem}
+.qz-st{padding:.3rem .8rem;border-radius:999px;background:var(--chip);font:600 .8125rem/1.2 var(--ui);color:var(--muted);transition:background-color .3s,color .3s}
+.qz-st.is-on{background:var(--card);color:var(--text);box-shadow:inset 0 0 0 1.5px var(--copper)}
+.qz-st.is-done{background:var(--copper);color:var(--paper)}
+/* the drawing */
+.qz .qz-ground{stroke:rgba(31,43,48,.55);stroke-width:2.5;stroke-linecap:round}
+.qz .qz-wall,.qz .qz-ext{fill:#F1E7DA;stroke:rgba(31,43,48,.6);stroke-width:2}
+.qz .qz-roof{fill:#D9A383;stroke:var(--copper);stroke-width:2.5;stroke-linejoin:round}
+.qz .qz-tiles path{fill:none;stroke:rgba(152,86,50,.5);stroke-width:1.6}
+.qz .qz-flat{stroke:#5B656A;stroke-width:6;stroke-linecap:round}
+.qz .qz-chim{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:2}
+.qz .qz-chimtop{stroke:rgba(31,43,48,.7);stroke-width:5;stroke-linecap:round}
+.qz .qz-gut{stroke:#3F4A50;stroke-width:5;stroke-linecap:round}
+.qz .qz-win{fill:#E3EAED;stroke:rgba(31,43,48,.6);stroke-width:2}
+.qz .qz-door{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:2}
+.qz .qz-ladder path{fill:none;stroke:#9C7A5E;stroke-width:3;stroke-linecap:round}
+.qz .qz-man circle{fill:#E9C8A8;stroke:rgba(31,43,48,.6);stroke-width:1.6}
+.qz .qz-cap{fill:var(--copper)}
+.qz .qz-bd{fill:none;stroke:#3F5560;stroke-width:4;stroke-linecap:round}
+.qz .qz-flag path{fill:none;stroke:rgba(31,43,48,.6);stroke-width:2}
+.qz .qz-flag .qz-flag-f{fill:var(--copper);stroke:none}
+.qz .qz-sun{fill:#F6C979;stroke:rgba(214,160,70,.6);stroke-width:2}
+.qz .qz-cloud path{fill:#fff;stroke:rgba(31,43,48,.25);stroke-width:1.5}
+.qz .qz-rain path{stroke:#6F98AE;stroke-width:2.2;stroke-linecap:round}
+.qz .qz-lens circle{fill:rgba(234,240,242,.6);stroke:var(--ink);stroke-width:2.5}
+.qz .qz-lens path{stroke:var(--ink);stroke-width:4;stroke-linecap:round}
+.qz .qz-slip{fill:#C9774F;stroke:var(--copper);stroke-width:1.5}
+.qz .qz-moss ellipse{fill:#8E9C4F}
+.qz .qz-crack{fill:none;stroke:#3C2A20;stroke-width:2;stroke-linecap:round}
+.qz .qz-damp{fill:rgba(120,96,60,.3)}
+.qz .qz-puddle{fill:rgba(111,152,174,.55)}
+/* every changeable part fades and moves with transform only */
+.qz-scene>*,.qz-scene g{transform-box:fill-box}
+.qz .qz-rain,.qz .qz-cloud,.qz .qz-slip,.qz .qz-moss,.qz .qz-crack,.qz .qz-damp,.qz .qz-puddle,.qz .qz-lens,.qz .qz-flag-f{opacity:0;transition:opacity .4s,transform .5s var(--ease)}
+.qz .qz-sun{transition:opacity .4s,transform .6s var(--ease)}
+.qz .qz-man{transform:translate(42px,328px);transition:transform .8s cubic-bezier(.3,1.3,.5,1)}
+.qz[data-step="1"] .qz-man{transform:translate(53px,282px)}
+.qz[data-step="2"] .qz-man{transform:translate(65px,236px)}
+.qz[data-step="3"] .qz-man{transform:translate(122px,150px) rotate(-8deg)}
+.qz .qz-flag-f{transform:translateY(26px) scaleY(.2);transform-origin:0 100%}
+.qz[data-step="3"] .qz-flag-f{opacity:1;transform:none;transition-delay:.6s}
+/* weather from "when" */
+.qz:not([data-when]) .qz-cloud{opacity:.7}
+.qz[data-when="now"] .qz-cloud,.qz[data-when="now"] .qz-rain,.qz[data-what="leak"] .qz-rain{opacity:1}
+.qz[data-when="now"] .qz-sun{opacity:0;transform:translateY(20px)}
+.qz[data-when="soon"] .qz-cloud{opacity:1}
+.qz[data-when="soon"] .qz-sun{transform:translate(-30px,6px) scale(.85)}
+.qz[data-when="plan"] .qz-sun{transform:scale(1.15)}
+/* what they noticed */
+.qz[data-what="leak"] .qz-damp,.qz[data-what="slipped"] .qz-slip,.qz[data-what="moss"] .qz-moss,.qz[data-what="chimney"] .qz-crack,.qz[data-what="flat"] .qz-puddle,.qz[data-what="check"] .qz-lens,.qz[data-where="notsure"] .qz-lens{opacity:1}
+.qz[data-what="slipped"] .qz-slip{transform:translate(8px,14px) rotate(14deg)}
+.qz .qz-lens{transform:translate(170px,170px)}
+/* where it is: that part glows copper */
+.qz .qz-roof,.qz .qz-flat,.qz .qz-chim,.qz .qz-gut{transition:stroke .4s}
+.qz[data-where="main"] .qz-roof,.qz[data-where="flat"] .qz-flat,.qz[data-where="chimney"] .qz-chim,.qz[data-where="edges"] .qz-gut{stroke:#E0782F}
+@keyframes qz-pulse{0%,100%{opacity:1}50%{opacity:.55}}
+html.has-motion .qz[data-where="main"] .qz-roof,html.has-motion .qz[data-where="flat"] .qz-flat,html.has-motion .qz[data-where="chimney"] .qz-chim,html.has-motion .qz[data-where="edges"] .qz-gut{animation:qz-pulse 1.4s ease-in-out infinite}
+@keyframes qz-rain{0%{transform:translateY(-6px);opacity:0}30%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+html.has-motion .qz .qz-rain path{animation:qz-rain .8s linear infinite}
+html.has-motion .qz .qz-rain path:nth-child(2n){animation-delay:-.4s}
+@keyframes qz-scan{0%{transform:translate(110px,170px)}25%{transform:translate(180px,140px)}50%{transform:translate(240px,200px)}75%{transform:translate(330px,250px)}100%{transform:translate(110px,170px)}}
+html.has-motion .qz[data-what="check"] .qz-lens,html.has-motion .qz[data-where="notsure"] .qz-lens{animation:qz-scan 5s ease-in-out infinite}
+@keyframes qz-grow{0%{transform:scale(.2);opacity:0}100%{transform:none;opacity:1}}
+html.has-motion .qz[data-what="moss"] .qz-moss ellipse{animation:qz-grow .5s var(--ease) backwards}
+html.has-motion .qz[data-what="moss"] .qz-moss ellipse:nth-child(2){animation-delay:.12s}
+html.has-motion .qz[data-what="moss"] .qz-moss ellipse:nth-child(3){animation-delay:.24s}
+.qz .qz-moss ellipse{transform-box:fill-box;transform-origin:50% 100%}
+/* questions */
+.qz-form{min-width:0}
+.qz-q{border:0;margin:0;padding:0;min-width:0}
+.qz-leg{display:block;font-family:var(--display);font-weight:700;font-size:var(--h3);line-height:1.25;color:var(--text);margin-bottom:1rem;outline:none}
+.qz-n{display:block;font:600 .875rem/1.3 var(--ui);color:var(--copper-deep);margin-bottom:.35rem}
+.qz-opts{display:grid;gap:.6rem}
+@media (min-width:600px){.qz-opts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.qz-o{position:relative;display:flex;align-items:center;min-height:56px;padding:.8rem 1rem .8rem 2.9rem;border-radius:14px;background:var(--card);box-shadow:var(--shadow-card);cursor:pointer;line-height:1.35;color:var(--text);transition:transform .16s var(--ease),box-shadow .2s}
+.qz-o input{position:absolute;left:1rem;top:50%;width:20px;height:20px;margin:-10px 0 0;accent-color:var(--copper)}
+.qz-o:has(input:checked){box-shadow:inset 0 0 0 2px var(--copper),var(--shadow-card)}
+.qz-o:has(input:focus-visible){outline:3px solid var(--copper);outline-offset:2px}
+.qz-o:active{transform:scale(.97)}
+@media (hover:hover){.qz-o:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}}
+.qz-res{padding:clamp(1.25rem,3vw,1.75rem);border-radius:18px;background:var(--card);box-shadow:var(--shadow-lift)}
+.qz-res-h{font-size:var(--h3);margin-bottom:.6rem;outline:none}
+.qz-res-p,.qz-res-next{color:var(--muted);margin-bottom:.9rem;line-height:1.55}
+.qz-res-next{color:var(--text)}
+.qz-res-act{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.25rem}
+.qz-nav{display:flex;gap:1rem;margin-top:1rem}
+.qz-back,.qz-again{min-height:44px;padding:.5rem .25rem;border:0;background:none;font:600 1rem/1.2 var(--ui);color:var(--copper);text-decoration:underline;text-underline-offset:.25em;cursor:pointer}
+.qz-back:focus-visible,.qz-again:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+.qz-nojs{color:var(--muted)}
+.qz.is-js .qz-nojs{display:none}
+.qz:not(.is-js) .qz-box>.qz-form,.qz:not(.is-js) .qz-art{display:none}
+/* the question swap */
+@keyframes qz-in{0%{opacity:0;transform:translateX(24px)}100%{opacity:1;transform:none}}
+html.has-motion .qz-q.is-in,html.has-motion .qz-res.is-in{animation:qz-in .45s var(--ease)}

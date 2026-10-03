@@ -1,0 +1,71 @@
+<!-- ================= BEFORE AND AFTER =================
+     A drawing, not a photo: it shows the kind of difference a repair makes. When the client has real before and after photos
+     of their own work, swap the two <svg> scenes for two <img> of the same size (see SWAP-MAP). The range input is the real
+     control (keyboard and screen readers); the handle is drawn on top. Without JS both drawings show side by side. -->
+<section class="sec sec-sky bf e-slate" id="before" data-reveal="slide" aria-labelledby="h-before">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="bf-bk-sun" viewBox="0 0 120 120" data-depth="-0.12" data-px="12" focusable="false"><circle cx="60" cy="60" r="26"/><path d="M60 14v12M60 94v12M14 60h12M94 60h12M27 27l9 9M84 84l9 9M27 93l9-9M84 36l9-9"/></svg>
+    <svg class="bf-bk-cloud" viewBox="0 0 200 60" data-drift="50" data-depth="-0.06" focusable="false"><path d="M20 50h160c12 0 16-18 2-22 0-16-22-22-32-10-6-14-30-16-38 0-12-8-30 0-28 12-14-2-22 20-4 20z"/></svg>
+  </div>
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="bf-fr-brush" viewBox="0 0 80 40" data-depth="0.25" data-rot="12" data-px="-16" focusable="false"><path d="M4 30h44M48 22h26v16H48z"/><path d="M52 38v-4M58 38v-4M64 38v-4M70 38v-4"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="head2">
+      <div><h2 id="h-before">The difference a repair makes.</h2></div>
+      <p>Drag the handle across the cottage. One side is a tired roof we are often called to, the other is the same roof put right.</p>
+    </div>
+    <div class="bf-box">
+      <div class="bf-view" style="--bf:50%">
+        <svg class="bf-sc bf-after" viewBox="0 0 900 520" role="img" aria-labelledby="bf-a-t" focusable="false">
+          <title id="bf-a-t">After: the same cottage with a straight, complete slate roof, a clean gutter and a repointed chimney.</title>
+          <rect class="bf-sky" width="900" height="520"/>
+          <path class="bf-hill" d="M0 400C160 360 300 380 450 370S760 340 900 360V520H0Z"/>
+          <path class="bf-wall" d="M170 300H730V470H170Z"/>
+          <path class="bf-roof-a" d="M140 306L260 150H640L760 306Z"/>
+          <g class="bf-rows-a"><path d="M150 292H750M162 276H738M174 260H726M186 244H714M198 228H702M210 212H690M222 196H678M234 180H666M246 164H654"/></g>
+          <path class="bf-ridge-a" d="M258 152H642"/>
+          <path class="bf-chim-a" d="M560 96H612V170H560Z"/><path class="bf-pot" d="M570 80h12v16h-12zM590 84h12v12h-12z"/>
+          <path class="bf-lead-a" d="M552 170h68"/>
+          <path class="bf-gut-a" d="M130 310H770"/><path class="bf-pipe" d="M752 314V470"/>
+          <path class="bf-win" d="M220 340h90v70h-90zM590 340h90v70h-90zM265 340v70M220 375h90M635 340v70M590 375h90"/>
+          <path class="bf-door" d="M420 360h60v110h-60z"/>
+          <g class="bf-flowers"><circle cx="380" cy="462" r="7"/><circle cx="396" cy="458" r="6"/><circle cx="508" cy="460" r="7"/><circle cx="524" cy="464" r="6"/></g>
+          <g class="bf-spark"><path d="M300 130l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/><path d="M700 220l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/></g>
+        </svg>
+        <div class="bf-clipper" aria-hidden="true">
+          <svg class="bf-sc bf-before" viewBox="0 0 900 520" focusable="false">
+            <rect class="bf-sky bf-sky-b" width="900" height="520"/>
+            <path class="bf-hill" d="M0 400C160 360 300 380 450 370S760 340 900 360V520H0Z"/>
+            <path class="bf-wall" d="M170 300H730V470H170Z"/>
+            <path class="bf-stain" d="M600 310c10 30 4 70 20 100-30-10-40-50-36-100z"/>
+            <path class="bf-roof-b" d="M140 306L260 150H640L760 306Z"/>
+            <g class="bf-rows-b"><path d="M150 292C350 296 550 286 750 292M162 276C360 282 560 270 738 276M174 260C380 266 520 254 726 260M186 244H714M198 228C400 236 500 222 702 228M210 212H690M222 196C420 202 520 190 678 196M234 180H666M246 164H654"/></g>
+            <g class="bf-holes"><path d="M330 228h34v16h-34zM470 260h30v16h-30zM380 180h28v16h-28z"/></g>
+            <g class="bf-slip"><path d="M332 262l34 2-2 16-34-2z"/><path d="M468 294l30 4-2 14-30-4z"/></g>
+            <g class="bf-moss"><ellipse cx="300" cy="290" rx="22" ry="6"/><ellipse cx="520" cy="246" rx="18" ry="5"/><ellipse cx="620" cy="292" rx="26" ry="6"/><ellipse cx="410" cy="212" rx="14" ry="4"/></g>
+            <path class="bf-ridge-b" d="M258 152L330 150M352 156L470 150M492 154L642 152"/>
+            <path class="bf-chim-b" d="M560 96H612V170H560Z"/><path class="bf-crack" d="M576 104l8 14-6 10 10 16"/><path class="bf-pot" d="M570 80h12v16h-12z"/>
+            <path class="bf-lead-b" d="M552 170c10 6 22-8 34 0s24-6 34 0"/>
+            <path class="bf-gut-b" d="M130 310C300 312 500 318 770 330"/><path class="bf-pipe" d="M752 334V470"/>
+            <g class="bf-weeds"><path d="M200 310c-4-12 2-20 0-28M210 310c6-10 2-18 8-24M690 324c-4-10 4-18 0-26"/></g>
+            <g class="bf-drip"><path class="bf-dr" d="M772 334c-3 5-4.5 7.5-4.5 9.5a4.5 4.5 0 0 0 9 0c0-2-1.5-4.5-4.5-9.5z"/></g>
+            <path class="bf-win" d="M220 340h90v70h-90zM590 340h90v70h-90zM265 340v70M220 375h90M635 340v70M590 375h90"/>
+            <path class="bf-door" d="M420 360h60v110h-60z"/>
+            <g class="bf-rain"><path d="M80 60l-8 22M180 30l-8 22M260 90l-8 22M380 40l-8 22M470 80l-8 22M560 30l-8 22M680 70l-8 22M800 40l-8 22M860 100l-8 22M120 140l-8 22M720 140l-8 22"/></g>
+          </svg>
+        </div>
+        <span class="bf-tag bf-tag-b" aria-hidden="true">Before</span>
+        <span class="bf-tag bf-tag-a" aria-hidden="true">After</span>
+        <span class="bf-handle" aria-hidden="true"><span class="bf-grip"><svg viewBox="0 0 44 44" focusable="false"><path d="M16 15l-7 7 7 7M28 15l7 7-7 7"/></svg></span></span>
+        <input class="bf-range" type="range" min="0" max="100" value="50" aria-label="Before and after: move to compare" aria-valuetext="Half before, half after">
+      </div>
+      <ul class="bf-notes">
+        <li><span class="bf-n">1</span><span><b>Slipped and missing slates</b> refixed with new matched slate.</span></li>
+        <li><span class="bf-n">2</span><span><b>Moss and blocked gutter</b> cleared, and the gutter re-hung to fall to the downpipe.</span></li>
+        <li><span class="bf-n">3</span><span><b>Cracked chimney and lifted flashing</b> repointed and the lead renewed.</span></li>
+      </ul>
+      <p class="bf-small">Drawing for illustration only. Your own before and after photos can go here.</p>
+    </div>
+  </div>
+</section>

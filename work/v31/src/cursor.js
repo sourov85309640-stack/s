@@ -75,7 +75,8 @@
     function size() { W = window.innerWidth; H = window.innerHeight; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR); }
     size(); window.addEventListener('resize', size);
     var KIND = { top: 'breeze', reviews: 'stars', services: 'chips', problems: 'leaves', where: 'rain', decide: 'dust', whole: 'shavings',
-      about: 'smoke', work: 'glint', projects: 'stones', how: 'chalk', checks: 'scan', areas: 'ripple', faq: '', urgent: 'drops', contact: 'sparks', trust: 'chips' };
+      about: 'smoke', work: 'glint', projects: 'stones', how: 'chalk', checks: 'scan', areas: 'ripple', faq: '', urgent: 'drops', contact: 'sparks', trust: 'chips',
+      accred: '', types: 'stones', quiz: 'sparks', team: 'stars', before: 'drops', sectors: 'breeze', survey: 'scan', care: 'leaves', advice: 'dust' };
     var STEP = { breeze: 26, stars: 30, chips: 34, leaves: 40, rain: 22, dust: 14, shavings: 26, smoke: 30, glint: 36, stones: 30, chalk: 12, scan: 70, ripple: 64, drops: 24, sparks: 16 };
     var secs = RW.$$('main > section[id]'), secTops = [];
     function measure() { var sy = window.pageYOffset; secTops = secs.map(function (s) { var r = s.getBoundingClientRect(); return { id: s.id, t: r.top + sy, b: r.bottom + sy }; }); }

@@ -1,0 +1,87 @@
+/* LOOKING AFTER YOUR ROOF, prefix .cr- (owner: lead). The garden changes with the chosen season (data-season on the
+   section): sky, tree, ground, snow, falling leaves, blossom, birds, sun. The tree leans towards the pointer (care.js). */
+.cr{overflow:hidden}
+.cr-bk-cal{width:84px;height:84px;right:6%;top:2.4rem;fill:none;stroke:rgba(31,43,48,.16);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.cr-bk-leaf{width:38px;height:38px;left:7%;top:4rem;fill:rgba(201,119,79,.25);stroke:rgba(152,86,50,.3);stroke-width:2}
+.cr-box{display:grid;gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
+@media (min-width:960px){.cr-box{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+.cr-art{border-radius:22px;background:var(--card);box-shadow:var(--shadow-card);padding:clamp(.6rem,1.5vw,1rem);overflow:hidden}
+.cr-scene{display:block;width:100%;height:auto;border-radius:14px}
+.cr-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;margin-top:.7rem}
+.cr-tab{min-height:44px;border:0;border-radius:10px;background:var(--chip);font:600 .9375rem/1.2 var(--ui);color:var(--text);cursor:pointer;transition:background-color .2s,color .2s,transform .16s var(--ease)}
+.cr-tab:active{transform:scale(.96)}
+.cr-tab[aria-selected="true"]{background:var(--copper);color:var(--paper)}
+.cr-tab:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+@media (hover:hover){.cr-tab:not([aria-selected="true"]):hover{background:var(--sand)}}
+.cr-panel h3{font-size:var(--h3);margin-bottom:.9rem}
+.cr-list{display:grid;gap:.6rem;margin-bottom:1.5rem}
+.cr-list li{position:relative;padding:.8rem 1rem .8rem 2.6rem;border-radius:12px;background:var(--card);box-shadow:var(--shadow-card);line-height:1.5;color:var(--muted)}
+.cr-list li::before{content:"";position:absolute;left:1rem;top:1.05rem;width:12px;height:8px;border-left:2.5px solid var(--copper);border-bottom:2.5px solid var(--copper);transform:rotate(-45deg)}
+@keyframes cr-in{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:none}}
+html.has-motion .cr-panel.is-in .cr-list li{animation:cr-in .5s var(--ease) backwards}
+html.has-motion .cr-panel.is-in .cr-list li:nth-child(2){animation-delay:.06s}
+html.has-motion .cr-panel.is-in .cr-list li:nth-child(3){animation-delay:.12s}
+html.has-motion .cr-panel.is-in .cr-list li:nth-child(4){animation-delay:.18s}
+.cr-offer{display:grid;grid-template-columns:40px minmax(0,1fr);gap:1rem;padding:1.1rem 1.25rem;border-radius:16px;background:var(--copper-wash);box-shadow:inset 0 0 0 1px rgba(152,86,50,.25)}
+.cr-offer-ic{width:40px;height:40px;fill:none;stroke:var(--copper);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.cr-offer-h{font:700 var(--h4)/1.3 var(--display);color:var(--text);margin-bottom:.25rem}
+.cr-offer p{color:var(--muted)}
+/* scene */
+.cr .cr-sky{fill:#E9EFF2;transition:fill .8s}
+.cr .cr-sun{fill:#F6C979;stroke:rgba(214,160,70,.5);stroke-width:2;transition:opacity .6s,transform .8s var(--ease);transform-box:fill-box;transform-origin:50% 50%}
+.cr .cr-gnd{fill:#B9C99E;transition:fill .8s}
+.cr .cr-snowgnd,.cr .cr-snowroof{fill:#fff;opacity:0;transition:opacity .8s}
+.cr .cr-wall{fill:#F1E7DA;stroke:rgba(31,43,48,.6);stroke-width:2}
+.cr .cr-roof{fill:#D9A383;stroke:var(--copper);stroke-width:2.5;stroke-linejoin:round}
+.cr .cr-chim{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:2}
+.cr .cr-gut{stroke:#3F4A50;stroke-width:5;stroke-linecap:round}
+.cr .cr-gutleaves circle{fill:#C9774F;opacity:0;transition:opacity .5s}
+.cr .cr-win{fill:#E3EAED;stroke:rgba(31,43,48,.6);stroke-width:2;transition:fill .8s}
+.cr .cr-door{fill:#7A4326;stroke:rgba(31,43,48,.6);stroke-width:2}
+.cr .cr-trunk{fill:none;stroke:#7A5A40;stroke-width:6;stroke-linecap:round}
+.cr .cr-crown circle{fill:#86A35B;transition:fill .8s,opacity .8s,transform .8s var(--ease);transform-box:fill-box;transform-origin:50% 50%}
+.cr .cr-bloss circle{fill:#F4B8C4;opacity:0;transition:opacity .6s;transform-box:fill-box}
+.cr .cr-tree{transform-box:view-box;transform-origin:78px 300px}
+.cr .cr-fx{opacity:0;transition:opacity .6s}
+.cr .cr-fx-autumn path{fill:#C9774F}
+.cr .cr-fx-winter circle{fill:#fff;stroke:rgba(31,43,48,.15)}
+.cr .cr-fx-spring>path{fill:none;stroke:#F4B8C4;stroke-width:3;stroke-linecap:round}
+.cr .cr-bird path{fill:none;stroke:#3F5560;stroke-width:2;stroke-linecap:round}
+.cr .cr-fx-summer path{stroke:rgba(214,160,70,.7);stroke-width:3;stroke-linecap:round}
+.cr-scene .cr-fx *{transform-box:fill-box;transform-origin:50% 50%}
+/* seasons */
+.cr[data-season="autumn"] .cr-crown circle{fill:#D08A4A}
+.cr[data-season="autumn"] .cr-crown circle:nth-child(2){fill:#C9774F}
+.cr[data-season="autumn"] .cr-gutleaves circle,.cr[data-season="autumn"] .cr-fx-autumn{opacity:1}
+.cr[data-season="autumn"] .cr-sun{transform:translate(-20px,30px) scale(.85)}
+.cr[data-season="winter"] .cr-sky{fill:#DCE3E7}
+.cr[data-season="winter"] .cr-gnd{fill:#E8ECEC}
+.cr[data-season="winter"] .cr-snowgnd,.cr[data-season="winter"] .cr-snowroof,.cr[data-season="winter"] .cr-fx-winter{opacity:1}
+.cr[data-season="winter"] .cr-crown circle{opacity:0;transform:scale(.6)}
+.cr[data-season="winter"] .cr-sun{opacity:.35;transform:translate(-40px,50px) scale(.7)}
+.cr[data-season="winter"] .cr-win{fill:#F6C979}
+.cr[data-season="spring"] .cr-crown circle{fill:#A5C27A}
+.cr[data-season="spring"] .cr-bloss circle,.cr[data-season="spring"] .cr-fx-spring{opacity:1}
+.cr[data-season="summer"] .cr-sky{fill:#DDEBF2}
+.cr[data-season="summer"] .cr-gnd{fill:#A9BE7E}
+.cr[data-season="summer"] .cr-crown circle{fill:#6E9148}
+.cr[data-season="summer"] .cr-fx-summer{opacity:1}
+.cr[data-season="summer"] .cr-sun{transform:translate(-10px,-10px) scale(1.2)}
+/* weather loops, only while on screen */
+@keyframes cr-leaf{0%{transform:translate(0,-20px) rotate(0);opacity:0}15%{opacity:1}100%{transform:translate(70px,190px) rotate(320deg);opacity:0}}
+@keyframes cr-snow{0%{transform:translate(0,-30px);opacity:0}15%{opacity:1}100%{transform:translate(-16px,280px);opacity:0}}
+@keyframes cr-bird{0%{transform:translate(0,0)}50%{transform:translate(-60px,-10px)}100%{transform:translate(-120px,4px)}}
+@keyframes cr-rays{0%{transform:rotate(0)}100%{transform:rotate(45deg)}}
+@keyframes cr-sway{0%,100%{transform:none}50%{transform:translateY(-3px)}}
+html.has-motion .cr.is-live[data-season="autumn"] .cr-fx-autumn path{animation:cr-leaf 4.2s ease-in infinite}
+html.has-motion .cr.is-live .cr-fx-autumn path:nth-child(2){animation-delay:-1s}
+html.has-motion .cr.is-live .cr-fx-autumn path:nth-child(3){animation-delay:-2s}
+html.has-motion .cr.is-live .cr-fx-autumn path:nth-child(4){animation-delay:-2.8s}
+html.has-motion .cr.is-live .cr-fx-autumn path:nth-child(5){animation-delay:-3.5s}
+html.has-motion .cr.is-live[data-season="winter"] .cr-fx-winter circle{animation:cr-snow 5s linear infinite}
+html.has-motion .cr.is-live .cr-fx-winter circle:nth-child(2n){animation-delay:-2.5s;animation-duration:6s}
+html.has-motion .cr.is-live .cr-fx-winter circle:nth-child(3n){animation-delay:-1.2s}
+html.has-motion .cr.is-live[data-season="spring"] .cr-bird{animation:cr-bird 7s linear infinite}
+html.has-motion .cr.is-live[data-season="spring"] .cr-bird2{animation-delay:-3s}
+html.has-motion .cr.is-live[data-season="summer"] .cr-fx-summer{animation:cr-rays 6s linear infinite;transform-box:view-box;transform-origin:400px 62px}
+html.has-motion .cr.is-live[data-season="spring"] .cr-fx-spring>path{animation:cr-sway 2s ease-in-out infinite}

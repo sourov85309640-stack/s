@@ -28,7 +28,7 @@
     var SHAPE = { trust: 'sweep', reviews: 'ring', services: 'gable', problems: 'glow', where: 'ripple', decide: 'dots',
       whole: 'sweep', about: 'ring', work: 'gable', projects: 'glow', how: 'dots', checks: 'ripple', areas: 'ring',
       faq: 'gable', urgent: 'sweep', contact: 'glow', types: 'dots', before: 'ripple', sectors: 'sweep', team: 'glow',
-      quiz: 'ring', care: 'gable', advice: 'dots', survey: 'ripple', footer: 'ripple' };
+      quiz: 'ring', care: 'gable', advice: 'dots', survey: 'ripple', accred: 'glow', footer: 'ripple' };
     var lastWash = new WeakMap();
     function wash(sec, cx, cy, fromAbove) {
       var key = sec.id || (sec.tagName === 'FOOTER' ? 'footer' : '');

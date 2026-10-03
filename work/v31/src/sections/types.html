@@ -1,0 +1,72 @@
+<!-- ================= ROOFS WE WORK ON =================
+     SAMPLE LIST (data-sample="roof-types"): keep the roof types the client really works on, delete the rest (tab + panel together).
+     The swatch is drawn by types.js from data-swatch (tiles, slate, stone, flat, lead, heritage). Running the pointer over it
+     lifts the pieces under it; choosing a type lays the new courses from the eaves up. Without JS every panel shows as text. -->
+<section class="sec sec-sky ty e-terrace" id="types" data-reveal="tilt" data-sample="roof-types" aria-labelledby="h-types">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="ty-bk-vane" viewBox="0 0 80 120" data-depth="-0.1" data-px="10" data-rot="-8" focusable="false"><path d="M40 118V30M18 44h44M40 30l-6-10h12zM14 44l-6 4 6 4M66 44l6-4-6-4"/><circle cx="40" cy="30" r="3"/></svg>
+    <svg class="ty-bk-roofs" viewBox="0 0 1200 160" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" focusable="false"><path d="M0 160V110l60-46 60 46h20V80h14v30h30l80-60 80 60h26l40-30 40 30h34V70h12v40h24l70-52 70 52h20l50-38 50 38h30V76h14v34h30l64-48 64 48h40l40-30 40 30h36V160z"/></svg>
+  </div>
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="ty-fr-nail" viewBox="0 0 20 70" data-depth="0.22" data-rot="20" data-px="-14" focusable="false"><path d="M4 4h12M10 4v58l-3 6"/></svg>
+    <svg class="ty-fr-slate" viewBox="0 0 60 40" data-depth="0.3" data-rot="-14" data-px="-18" focusable="false"><path d="M4 8l50-4 2 30-50 4z"/><circle cx="30" cy="10" r="1.6"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="head2">
+      <div><h2 id="h-types">Roofs we work on.</h2></div>
+      <p>Every roof is built a little differently. Pick yours to see how it is laid and what usually goes wrong with it.</p>
+    </div>
+    <div class="ty-box">
+      <div class="ty-tabs" role="tablist" aria-label="Roof types">
+        <button class="ty-tab" type="button" role="tab" id="ty-t1" aria-controls="ty-p1" aria-selected="true" data-swatch="tiles"><span class="ty-dot" aria-hidden="true"></span>Clay and concrete tiles</button>
+        <button class="ty-tab" type="button" role="tab" id="ty-t2" aria-controls="ty-p2" aria-selected="false" tabindex="-1" data-swatch="slate"><span class="ty-dot" aria-hidden="true"></span>Natural slate</button>
+        <button class="ty-tab" type="button" role="tab" id="ty-t3" aria-controls="ty-p3" aria-selected="false" tabindex="-1" data-swatch="stone"><span class="ty-dot" aria-hidden="true"></span>Stone slate</button>
+        <button class="ty-tab" type="button" role="tab" id="ty-t4" aria-controls="ty-p4" aria-selected="false" tabindex="-1" data-swatch="flat"><span class="ty-dot" aria-hidden="true"></span>Flat roofs</button>
+        <button class="ty-tab" type="button" role="tab" id="ty-t5" aria-controls="ty-p5" aria-selected="false" tabindex="-1" data-swatch="lead"><span class="ty-dot" aria-hidden="true"></span>Lead and metal</button>
+        <button class="ty-tab" type="button" role="tab" id="ty-t6" aria-controls="ty-p6" aria-selected="false" tabindex="-1" data-swatch="heritage"><span class="ty-dot" aria-hidden="true"></span>Older and listed roofs</button>
+      </div>
+      <div class="ty-stage" aria-hidden="true">
+        <svg class="ty-sw" viewBox="0 0 560 380" focusable="false"><g class="ty-pieces"></g><g class="ty-trim"></g></svg>
+        <p class="ty-hint">Run your pointer over the roof</p>
+      </div>
+      <div class="ty-panels">
+        <div class="ty-panel" role="tabpanel" id="ty-p1" aria-labelledby="ty-t1">
+          <h3>Clay and concrete tiles</h3>
+          <p>The most common roof in the area. Each tile hangs on a timber batten by its nibs, and every few courses are nailed.</p>
+          <ul class="ty-facts"><li><b>Usually goes wrong:</b> slipped or cracked tiles, a loose ridge, perished mortar at the verges.</li><li><b>What we do:</b> match and replace tiles, re-bed or dry-fix ridges, re-tile a slope or the whole roof.</li></ul>
+          <a class="link ty-go" href="?issue=repair#contact">Ask about a tiled roof</a>
+        </div>
+        <div class="ty-panel" role="tabpanel" id="ty-p2" aria-labelledby="ty-t2" hidden>
+          <h3>Natural slate</h3>
+          <p>Thin split slates, each held by two nails or a hook, laid so every joint is covered by the slate above.</p>
+          <ul class="ty-facts"><li><b>Usually goes wrong:</b> nails rust through and slates slide down, called nail sickness, and old slates crack.</li><li><b>What we do:</b> refix slipped slates with tingles or hooks, replace with matched slate, re-slate when too many have gone.</li></ul>
+          <a class="link ty-go" href="?issue=slipped#contact">Ask about a slate roof</a>
+        </div>
+        <div class="ty-panel" role="tabpanel" id="ty-p3" aria-labelledby="ty-t3" hidden>
+          <h3>Stone slate</h3>
+          <p>Heavy limestone slates laid in diminishing courses: the biggest at the eaves, getting smaller towards the ridge.</p>
+          <ul class="ty-facts"><li><b>Usually goes wrong:</b> oak pegs rot, battens give way, moss holds water, slates slip in groups.</li><li><b>What we do:</b> sort, re-peg and re-lay sound slates, top up with reclaimed stone of the same size and colour.</li></ul>
+          <a class="link ty-go" href="?issue=reroof#contact">Ask about a stone slate roof</a>
+        </div>
+        <div class="ty-panel" role="tabpanel" id="ty-p4" aria-labelledby="ty-t4" hidden>
+          <h3>Flat roofs</h3>
+          <p>Extensions, garages and dormers, covered in felt, rubber (EPDM) or fibreglass (GRP) over a timber deck.</p>
+          <ul class="ty-facts"><li><b>Usually goes wrong:</b> ponding water, splits at the edges, blisters, failed upstands against a wall.</li><li><b>What we do:</b> patch where it is sound, or strip and re-cover with a new deck and better falls.</li></ul>
+          <a class="link ty-go" href="?issue=flat#contact">Ask about a flat roof</a>
+        </div>
+        <div class="ty-panel" role="tabpanel" id="ty-p5" aria-labelledby="ty-t5" hidden>
+          <h3>Lead and metal</h3>
+          <p>Flashings, valleys, bays and porches, dressed by hand so water runs past every join.</p>
+          <ul class="ty-facts"><li><b>Usually goes wrong:</b> splits from pieces that were too long, lifted flashings, theft, old soldered patches.</li><li><b>What we do:</b> renew lead in the right sizes and codes, re-dress and re-point flashings, line valleys and gutters.</li></ul>
+          <a class="link ty-go" href="?issue=lead#contact">Ask about leadwork</a>
+        </div>
+        <div class="ty-panel" role="tabpanel" id="ty-p6" aria-labelledby="ty-t6" hidden data-confirm="heritage">
+          <h3>Older and listed roofs</h3>
+          <p>Handmade clay, old peg tiles and lime mortar. Repairs keep as much of the old roof as possible.</p>
+          <ul class="ty-facts"><li><b>Usually goes wrong:</b> soft handmade tiles flake, lime pointing washes out, hidden timbers decay.</li><li><b>What we do:</b> reuse what is sound, source matching reclaimed materials, and work with your conservation officer where needed.</li></ul>
+          <a class="link ty-go" href="?issue=repair#contact">Ask about an older roof</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

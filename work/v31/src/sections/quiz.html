@@ -1,0 +1,88 @@
+<!-- ================= QUICK ROOF CHECK =================
+     Three taps, then a plain answer and a button that fills in the enquiry form for them. The drawing answers every tap:
+     the weather changes, the part they pick lights up and a little roofer climbs the ladder one rung per answer.
+     Wording of the answers is in quiz.js (RESULT). Without JS the quiz hides and the fallback links show. -->
+<section class="sec qz e-zig" id="quiz" data-reveal="scale" aria-labelledby="h-quiz">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="qz-bk-q" viewBox="0 0 60 90" data-depth="-0.1" data-px="10" data-rot="10" focusable="false"><path d="M12 26C12 4 48 4 48 26c0 14-18 16-18 32M30 76v4"/></svg>
+    <svg class="qz-bk-ticks" viewBox="0 0 200 60" data-depth="-0.06" data-drift="-30" focusable="false"><path d="M10 30l8 8 16-18M80 30l8 8 16-18M150 30l8 8 16-18"/></svg>
+  </div>
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="qz-fr-pencil" viewBox="0 0 120 24" data-depth="0.24" data-rot="-10" data-px="-14" focusable="false"><path d="M6 12l14-8h86v16H20z"/><path d="M20 4v16M96 4v16"/></svg>
+  </div>
+  <div class="wrap">
+    <div class="head2">
+      <div><h2 id="h-quiz">Quick roof check.</h2></div>
+      <p>Three taps and we will tell you what it usually is, how soon it needs looking at, and fill in the form for you.</p>
+    </div>
+    <div class="qz-box">
+      <div class="qz-art" aria-hidden="true">
+        <svg class="qz-scene" viewBox="0 0 440 360" focusable="false">
+          <g class="qz-sky"><circle class="qz-sun" cx="360" cy="64" r="26"/><g class="qz-cloud"><path d="M250 80h110c10 0 13-14 2-17 0-13-18-17-26-8-5-11-24-12-30 0-10-6-24 0-22 10-11-2-17 15-34 15z"/></g>
+            <g class="qz-rain"><path d="M270 100l-6 16M296 104l-6 16M322 100l-6 16M348 104l-6 16M284 124l-6 16M334 126l-6 16"/></g></g>
+          <path class="qz-ground" d="M10 330H430"/>
+          <path class="qz-ext" d="M290 250H400V330H290Z"/><path class="qz-flat" d="M284 246H406"/><ellipse class="qz-puddle" cx="345" cy="243" rx="30" ry="4"/>
+          <path class="qz-wall" d="M60 210H290V330H60Z"/>
+          <path class="qz-roof" d="M40 214L175 110L310 214Z"/>
+          <g class="qz-tiles"><path d="M86 192H264M110 172H240M136 152H214"/></g>
+          <path class="qz-slip" d="M190 176h22v12h-22z"/>
+          <g class="qz-moss"><ellipse cx="120" cy="200" rx="12" ry="4"/><ellipse cx="230" cy="186" rx="10" ry="3.5"/><ellipse cx="170" cy="160" rx="8" ry="3"/></g>
+          <path class="qz-chim" d="M220 108H246V160H220Z"/><path class="qz-chimtop" d="M216 108h34"/><path class="qz-crack" d="M230 116l6 10-4 8 6 10"/>
+          <path class="qz-gut" d="M34 218H316"/>
+          <path class="qz-win" d="M88 240h46v40H88zM216 240h46v40h-46z"/><path class="qz-door" d="M152 270h40v60h-40z"/>
+          <path class="qz-damp" d="M100 246c6 6 14 6 20 0v10c-6 6-14 6-20 0z"/>
+          <g class="qz-ladder"><path d="M30 330L66 190M52 330L88 190"/><path d="M36 306h22M42 282h22M48 258h22M54 234h22M60 210h22"/></g>
+          <g class="qz-man"><circle cx="0" cy="-34" r="7"/><path class="qz-cap" d="M-7 -36c1-8 13-9 15 0z"/><path class="qz-bd" d="M0 -27v18M0 -9l-6 12M0 -9l7 11M0 -22l-9 6M0 -22l9 -4"/></g>
+          <g class="qz-flag"><path d="M175 110V78"/><path class="qz-flag-f" d="M175 78h22l-6 7 6 7h-22z"/></g>
+          <g class="qz-lens"><circle cx="0" cy="0" r="14"/><path d="M10 10l12 12"/></g>
+        </svg>
+        <ol class="qz-steps"><li class="qz-st">What</li><li class="qz-st">Where</li><li class="qz-st">When</li></ol>
+      </div>
+      <form class="qz-form" novalidate>
+        <fieldset class="qz-q" data-q="what">
+          <legend class="qz-leg" tabindex="-1"><span class="qz-n">1 of 3</span>What have you noticed?</legend>
+          <div class="qz-opts">
+            <label class="qz-o"><input type="radio" name="qz-what" value="leak"><span>Water coming in or a damp patch</span></label>
+            <label class="qz-o"><input type="radio" name="qz-what" value="slipped"><span>Slipped, cracked or missing tiles or slates</span></label>
+            <label class="qz-o"><input type="radio" name="qz-what" value="moss"><span>Moss, or gutters blocked and overflowing</span></label>
+            <label class="qz-o"><input type="radio" name="qz-what" value="chimney"><span>Something wrong with the chimney or lead</span></label>
+            <label class="qz-o"><input type="radio" name="qz-what" value="flat"><span>A flat roof that ponds, splits or leaks</span></label>
+            <label class="qz-o"><input type="radio" name="qz-what" value="check"><span>Nothing yet, I would like it checked</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="qz-q" data-q="where">
+          <legend class="qz-leg" tabindex="-1"><span class="qz-n">2 of 3</span>Where is it?</legend>
+          <div class="qz-opts">
+            <label class="qz-o"><input type="radio" name="qz-where" value="main"><span>The main roof</span></label>
+            <label class="qz-o"><input type="radio" name="qz-where" value="flat"><span>A flat roof, extension or garage</span></label>
+            <label class="qz-o"><input type="radio" name="qz-where" value="chimney"><span>The chimney</span></label>
+            <label class="qz-o"><input type="radio" name="qz-where" value="edges"><span>Gutters, fascias or the edges</span></label>
+            <label class="qz-o"><input type="radio" name="qz-where" value="notsure"><span>Not sure</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="qz-q" data-q="when">
+          <legend class="qz-leg" tabindex="-1"><span class="qz-n">3 of 3</span>How soon does it need looking at?</legend>
+          <div class="qz-opts">
+            <label class="qz-o"><input type="radio" name="qz-when" value="now"><span>Water is coming in now</span></label>
+            <label class="qz-o"><input type="radio" name="qz-when" value="soon"><span>In the next few weeks</span></label>
+            <label class="qz-o"><input type="radio" name="qz-when" value="plan"><span>I am planning ahead</span></label>
+          </div>
+        </fieldset>
+        <div class="qz-res" hidden>
+          <h3 class="qz-res-h" tabindex="-1"></h3>
+          <p class="qz-res-p"></p>
+          <p class="qz-res-next"></p>
+          <div class="qz-res-act">
+            <button class="btn btn-fill qz-send" type="button">Send this to us<svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <a class="btn btn-line qz-call" href="tel:+441632960482" data-sample="phone"><svg aria-hidden="true"><use href="#i-phone"/></svg>01632 960 482</a>
+          </div>
+        </div>
+        <div class="qz-nav">
+          <button class="qz-back" type="button" hidden>Back</button>
+          <button class="qz-again" type="button" hidden>Start again</button>
+        </div>
+      </form>
+      <p class="qz-nojs">Not sure what it is? <a class="link" href="#problems">Start with what you can see</a> or <a class="link" href="#contact">tell us about your roof</a>.</p>
+    </div>
+  </div>
+</section>

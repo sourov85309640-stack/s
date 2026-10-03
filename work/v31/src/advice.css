@@ -1,0 +1,57 @@
+/* ROOFING ADVICE, prefix .ad- (owner: lead). Guide cards that open in place (<details>). Covers loop a tiny scene while
+   hovered, focused or open: binoculars scan with a glint, wind blows a tile off, a brush sweeps the moss away. */
+.ad{overflow:hidden}
+.ad-bk-book{width:100px;height:70px;right:7%;top:2.5rem;fill:none;stroke:rgba(31,43,48,.15);stroke-width:3;stroke-linejoin:round}
+.ad-grid{display:grid;gap:1rem;align-items:start}
+@media (min-width:900px){.ad-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.ad-card{border-radius:18px;background:var(--card);box-shadow:var(--shadow-card);overflow:hidden;transition:box-shadow .25s,transform .25s var(--ease)}
+@media (hover:hover){.ad-card:hover{box-shadow:var(--shadow-lift);transform:translateY(-3px)}}
+.ad-s{display:grid;gap:.35rem;padding:0 0 1.1rem;cursor:pointer;list-style:none}
+.ad-s::-webkit-details-marker{display:none}
+.ad-s:focus-visible{outline:3px solid var(--copper);outline-offset:-3px;border-radius:18px}
+.ad-cov{display:block;width:100%;height:auto;margin-bottom:.6rem}
+.ad-t{padding:0 1.25rem;font:700 var(--h4)/1.3 var(--display);color:var(--text)}
+.ad-m{padding:0 1.25rem;font-size:.875rem;color:var(--muted)}
+.ad-m::after{content:" \00B7  Open";color:var(--copper);font-weight:600}
+.ad-d[open] .ad-m::after{content:" \00B7  Close"}
+.ad-body{padding:0 1.25rem 1.25rem;color:var(--muted);line-height:1.55}
+.ad-body p{margin-bottom:.75rem}
+.ad-body ul{display:grid;gap:.45rem;margin-bottom:.75rem;padding-left:1.1rem;list-style:disc}
+@keyframes ad-open{0%{opacity:0;transform:translateY(-6px)}100%{opacity:1;transform:none}}
+html.has-motion .ad-d[open] .ad-body{animation:ad-open .35s var(--ease)}
+/* covers */
+.ad .ad-bg{fill:#EAF0F2}.ad .ad-bg2{fill:#E3E7EA}.ad .ad-bg3{fill:#F0ECE3}
+.ad .ad-rf{fill:#D9A383;stroke:var(--copper);stroke-width:2;stroke-linejoin:round}
+.ad .ad-rw{fill:none;stroke:rgba(152,86,50,.5);stroke-width:1.6}
+.ad .ad-bino circle{fill:#3F5560;stroke:#1F2B30;stroke-width:2}
+.ad .ad-bino path{stroke:#1F2B30;stroke-width:5}
+.ad .ad-bino .ad-glint{fill:#fff;stroke:none;opacity:.8}
+.ad .ad-bino{transform:translate(60px,38px)}
+.ad .ad-wind path{fill:none;stroke:rgba(74,104,122,.5);stroke-width:2.5;stroke-linecap:round}
+.ad .ad-flytile{fill:#C9774F;stroke:var(--copper);stroke-width:1.2}
+.ad .ad-tree{fill:none;stroke:#7A5A40;stroke-width:4;stroke-linecap:round}
+.ad .ad-moss ellipse{fill:#8E9C4F}
+.ad .ad-brush path:first-child{stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}
+.ad .ad-brush path:last-child{fill:#C9A27E}
+.ad .ad-brush{transform:translate(170px,40px)}
+.ad-cov *{transform-box:fill-box}
+.ad .ad-bino,.ad .ad-brush{transform-box:view-box}
+.ad .ad-tree{transform-origin:50% 100%}
+@keyframes ad-scan{0%,100%{transform:translate(60px,38px)}35%{transform:translate(130px,26px)}70%{transform:translate(160px,50px)}}
+@keyframes ad-glint{0%,40%,100%{opacity:0}50%{opacity:1}}
+@keyframes ad-fly{0%,10%{transform:none;opacity:1}60%{transform:translate(50px,-30px) rotate(200deg);opacity:1}80%,100%{transform:translate(70px,-34px) rotate(260deg);opacity:0}}
+@keyframes ad-wind{0%{transform:translateX(-20px);opacity:0}30%{opacity:1}100%{transform:translateX(40px);opacity:0}}
+@keyframes ad-bend{0%,100%{transform:none}40%{transform:skewX(-12deg)}}
+@keyframes ad-sweep{0%,100%{transform:translate(170px,40px)}50%{transform:translate(90px,62px)}}
+@keyframes ad-gone{0%,30%{transform:none;opacity:1}60%,85%{transform:translateX(-14px) scale(.3);opacity:0}100%{transform:none;opacity:1}}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-bino,html.has-motion .ad-d[open] .ad-bino{animation:ad-scan 3.6s ease-in-out infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-glint,html.has-motion .ad-d[open] .ad-glint{animation:ad-glint 1.8s ease infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-flytile,html.has-motion .ad-d[open] .ad-flytile{animation:ad-fly 2.4s cubic-bezier(.3,.1,.4,1) infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path,html.has-motion .ad-d[open] .ad-wind path{animation:ad-wind 1.2s linear infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path:nth-child(2){animation-delay:-.4s}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path:nth-child(3){animation-delay:-.8s}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-tree,html.has-motion .ad-d[open] .ad-tree{animation:ad-bend 1.2s ease-in-out infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-brush,html.has-motion .ad-d[open] .ad-brush{animation:ad-sweep 1.6s ease-in-out infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse,html.has-motion .ad-d[open] .ad-moss ellipse{animation:ad-gone 3.2s ease infinite}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(2){animation-delay:.3s}
+html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(3){animation-delay:.6s}

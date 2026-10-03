@@ -84,3 +84,16 @@ MOTION
 
 OPTIONAL MODULES (not in the page)  docs/optional_modules.html: proof strip (real accreditations only), specialism band, team note, before and after.
 =====================================================================
+
+ROUND 3 SECTIONS (all optional: delete any section the client does not want, the page reflows)
+- #accred  Accreditations: five neutral placeholder seals. data-confirm="accreditations". Replace each with the client's
+           real scheme logo (img, alt naming the scheme) or delete. Never show a logo they are not entitled to.
+- #types   Roofs we work on: six tabs (tiles, slate, stone, flat, lead, older/listed). data-sample="roof-types".
+           Delete a tab AND its panel together. Swatches are drawn in code (types.js), no images needed.
+- #quiz    Quick roof check: wording of answers in quiz.js (RESULT, WHEN). Fills the form issue tag and notes.
+- #team    Team: four drawn people, names/roles/lines are samples (data-sample="team"). Swap for photos in .tm-pic.
+- #before  Before and after: a drawing, not a photo. Swap the two <svg> scenes for two same-size <img> of real work.
+- #sectors Who we work for: landlords, business and insurance need data-confirm. Delete cards they do not do.
+- #survey  Free survey band: data-confirm="free-survey"; finance line data-confirm="finance" (delete if not offered).
+- #care    Seasonal care: opens on today's season. Yearly check box data-confirm="maintenance".
+- #advice  Three short guides that open in place. Add a link to the client's full article at the end of each, if any.

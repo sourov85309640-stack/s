@@ -1,0 +1,51 @@
+/* ROOFS WE WORK ON, prefix .ty- (owner: lead). Tabs on the left, a drawn swatch in the middle, the facts on the right.
+   Pieces are laid from the eaves up when a type is chosen, and lift and swing on their nails under the pointer. */
+.ty{overflow:hidden}
+.ty-bk-vane{width:70px;height:105px;right:7%;top:3rem;fill:none;stroke:rgba(31,43,48,.22);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ty-bk-roofs{left:0;right:0;bottom:-4px;width:100%;height:clamp(60px,8vw,120px);fill:rgba(185,197,201,.32)}
+.ty-fr-nail{width:16px;height:56px;left:3.5%;top:38%;fill:none;stroke:#7E8A90;stroke-width:3;stroke-linecap:round}
+.ty-fr-slate{width:64px;height:44px;right:3%;bottom:16%;fill:#66737B;stroke:rgba(20,28,32,.5);stroke-width:1.2}
+.ty-fr-slate circle{fill:#EAF0F2;stroke:none}
+.ty-box{display:grid;gap:clamp(1.25rem,3vw,2.5rem);align-items:start}
+@media (min-width:1000px){.ty-box{grid-template-columns:minmax(200px,.8fr) minmax(0,1.5fr) minmax(0,1fr)}}
+.ty-tabs{display:flex;flex-wrap:wrap;gap:.5rem}
+@media (min-width:1000px){.ty-tabs{flex-direction:column;flex-wrap:nowrap}}
+.ty-tab{display:flex;align-items:center;gap:.65rem;min-height:44px;padding:.6rem 1rem .6rem .8rem;border:0;border-radius:12px;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px var(--slate-line);font:600 1rem/1.25 var(--ui);color:var(--text);text-align:left;cursor:pointer;transition:background-color .2s,box-shadow .2s,transform .16s var(--ease)}
+.ty-tab:active{transform:scale(.97)}
+.ty-tab[aria-selected="true"]{background:var(--card);box-shadow:inset 0 0 0 1.5px var(--copper),var(--shadow-soft)}
+.ty-tab:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+.ty-dot{flex:none;width:18px;height:12px;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.ty-tab[data-swatch="tiles"] .ty-dot{background:#C9774F}
+.ty-tab[data-swatch="slate"] .ty-dot{background:#5E6B73}
+.ty-tab[data-swatch="stone"] .ty-dot{background:#C9B48E}
+.ty-tab[data-swatch="flat"] .ty-dot{background:#4A5257}
+.ty-tab[data-swatch="lead"] .ty-dot{background:#97A2A7}
+.ty-tab[data-swatch="heritage"] .ty-dot{background:linear-gradient(90deg,#A4532F 50%,#C98058 50%)}
+@media (hover:hover){.ty-tab:hover{background:var(--card)}}
+.ty-stage{position:relative;border-radius:20px;background:linear-gradient(#F4F7F8,#FAF9F6);box-shadow:var(--shadow-card);padding:clamp(.75rem,2vw,1.25rem)}
+.ty-sw{display:block;width:100%;height:auto;overflow:visible}
+.ty-hint{position:absolute;left:0;right:0;bottom:.7rem;margin:0;text-align:center;font-size:.8125rem;color:var(--muted);pointer-events:none}
+@media (hover:none),(pointer:coarse){.ty-hint{display:none}}
+.ty-panel h3{font-size:var(--h3);margin-bottom:.6rem}
+.ty-panel>p{color:var(--muted);margin-bottom:1rem}
+.ty-facts{display:grid;gap:.75rem;margin-bottom:1.25rem;color:var(--muted);line-height:1.5}
+.ty-facts li{padding:.85rem 1rem;border-radius:12px;background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px var(--slate-line)}
+.ty-facts b{color:var(--text);font-family:var(--ui);font-weight:600}
+/* without JS: no tabs, no swatch, every panel shows */
+.ty:not(.is-js) .ty-tabs,.ty:not(.is-js) .ty-stage{display:none}
+.ty:not(.is-js) .ty-panel[hidden]{display:block}
+.ty:not(.is-js) .ty-panels{display:grid;gap:2rem}
+@media (min-width:1000px){.ty:not(.is-js) .ty-box{grid-template-columns:1fr}.ty:not(.is-js) .ty-panels{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* pieces: laid from the eaves up, then swing on their nails under the pointer */
+.ty-pc,.ty-pcs{transform-box:fill-box}
+.ty-pcs{transform-origin:50% 0}
+@keyframes ty-lay{0%{transform:translateY(-34px);opacity:0}60%{opacity:1}100%{transform:none;opacity:1}}
+html.has-motion .ty-sw.is-wait .ty-pc{opacity:0}
+html.has-motion .ty-sw.is-laying .ty-pc{animation:ty-lay .55s var(--ease) var(--d) backwards}
+@keyframes ty-ridge{0%{transform:translateY(-14px);opacity:0}100%{transform:none;opacity:1}}
+.ty-ridge{transform-box:fill-box}
+html.has-motion .ty-sw.is-laying .ty-ridge{animation:ty-ridge .5s var(--ease) .9s backwards}
+@media (hover:hover) and (pointer:fine){
+  .ty-pcs{transition:transform .8s cubic-bezier(.3,1.7,.45,1)}
+  html.has-motion .ty-pc:hover .ty-pcs{transform:translateY(-7px) rotate(-5deg);transition:transform .12s ease-out}
+}

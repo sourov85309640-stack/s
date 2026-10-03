@@ -1,0 +1,35 @@
+/* FREE SURVEY BAND, prefix .sv- (owner: lead). A clipboard ticks itself off as the band arrives; hovering the button
+   makes the pencil sign the bottom line. */
+.sv{position:relative;background:var(--copper-wash);padding-block:clamp(2.5rem,5vw,4rem);overflow:hidden}
+.sv-grid{inset:0;background:linear-gradient(rgba(152,86,50,.07) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(152,86,50,.07) 1px,transparent 1px) 0 0/28px 28px}
+.sv-in{display:grid;gap:1.25rem 2.5rem;align-items:center}
+@media (min-width:900px){.sv-in{grid-template-columns:160px minmax(0,1fr) auto}}
+.sv-art{width:130px}
+@media (min-width:900px){.sv-art{width:160px}}
+.sv-art svg{display:block;width:100%;height:auto;overflow:visible}
+.sv-copy h2{margin-bottom:.5rem}
+.sv-copy p{color:var(--muted);max-width:40rem;line-height:1.55}
+.sv-fin{margin-top:.5rem;font-weight:600;color:var(--text)!important}
+.sv-act{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+.sv .sv-board{fill:#C9A27E;stroke:rgba(31,43,48,.5);stroke-width:2;stroke-linejoin:round}
+.sv .sv-clip{fill:#7E8A90;stroke:rgba(31,43,48,.5);stroke-width:2}
+.sv .sv-board+.sv-clip{filter:none}
+.sv .sv-row .sv-box{fill:#FAF9F6;stroke:rgba(31,43,48,.55);stroke-width:2}
+.sv .sv-tick{fill:none;stroke:var(--copper);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:0}
+.sv .sv-ln{stroke:rgba(31,43,48,.35);stroke-width:4;stroke-linecap:round}
+.sv .sv-sign{fill:none;stroke:#1F2B30;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:120;stroke-dashoffset:0}
+.sv .sv-pencil path:first-child{fill:#F2C35B;stroke:rgba(31,43,48,.55);stroke-width:1.5;stroke-linejoin:round}
+.sv .sv-pencil path:last-child{stroke:rgba(31,43,48,.55);stroke-width:1.5}
+.sv .sv-pencil{transform:translate(150px,190px);transition:transform .5s var(--ease)}
+/* motion: ticks draw in sequence when the band arrives; the signature writes on button hover */
+html.has-motion .sv:not(.is-in) .sv-tick{stroke-dashoffset:20}
+html.has-motion .sv.is-in .sv-tick{transition:stroke-dashoffset .35s var(--ease)}
+html.has-motion .sv.is-in .sv-row:nth-of-type(2) .sv-tick{transition-delay:.35s}
+html.has-motion .sv.is-in .sv-row:nth-of-type(3) .sv-tick{transition-delay:.7s}
+html.has-motion .sv .sv-sign{stroke-dashoffset:120}
+@keyframes sv-write{0%{transform:translate(50px,184px)}100%{transform:translate(124px,180px)}}
+@keyframes sv-wob{0%,100%{transform:none}50%{transform:translateY(-3px)}}
+html.has-motion .sv.is-sign .sv-sign{stroke-dashoffset:0;transition:stroke-dashoffset .9s ease}
+html.has-motion .sv.is-sign .sv-pencil{animation:sv-write .9s ease forwards}
+html.has-motion .sv.is-in:not(.is-sign) .sv-pencil{animation:sv-wob 2s ease-in-out infinite}
+.sv-pencil{transform-box:view-box}

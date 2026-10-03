@@ -1,0 +1,26 @@
+/* ACCREDITATIONS, prefix .ac- (owner: lead). A slim band of placeholder seals. Each stamps down as it arrives and spins
+   its ring once on hover. The ribbons flutter. Replace with real logos (see the comment in accred.html). */
+.ac{position:relative;background:var(--warm);border-top:1px solid var(--line-soft);padding-block:clamp(1.5rem,3vw,2.25rem);border-bottom:1px solid var(--line-soft)}
+.ac-in{display:grid;gap:1rem;align-items:center}
+@media (min-width:1000px){.ac-in{grid-template-columns:150px minmax(0,1fr)}.ac-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}}
+.ac-h{font:600 1rem/1.35 var(--ui);color:var(--muted);letter-spacing:0;margin:0}
+.ac-list{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;justify-content:space-between}
+.ac-it{display:flex;align-items:center;gap:.6rem;font:600 .9375rem/1.25 var(--ui);color:var(--text);max-width:12rem}
+.ac-seal{flex:none;width:48px;height:48px;overflow:visible}
+.ac .ac-ring{fill:var(--copper-wash);stroke:var(--copper);stroke-width:2;stroke-dasharray:4 3}
+.ac .ac-in2{fill:#fff;stroke:rgba(152,86,50,.5);stroke-width:1.5}
+.ac .ac-mk{fill:none;stroke:var(--copper-deep);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ac .ac-rib{fill:#DDA783;stroke:var(--copper);stroke-width:1.5;stroke-linejoin:round}
+.ac-seal *{transform-box:fill-box;transform-origin:50% 50%}
+.ac .ac-rib{transform-origin:50% 0}
+@keyframes ac-stamp{0%{transform:scale(1.8) rotate(-20deg);opacity:0}60%{transform:scale(.92) rotate(3deg);opacity:1}100%{transform:none;opacity:1}}
+@keyframes ac-spin{0%{transform:none}100%{transform:rotate(180deg)}}
+@keyframes ac-flut{0%,100%{transform:none}50%{transform:skewX(6deg) scaleY(.94)}}
+html.has-motion .ac:not(.is-in) .ac-seal{opacity:0}
+html.has-motion .ac.is-in .ac-seal{animation:ac-stamp .6s cubic-bezier(.3,1.4,.5,1) backwards}
+html.has-motion .ac.is-in .ac-it:nth-child(2) .ac-seal{animation-delay:.08s}
+html.has-motion .ac.is-in .ac-it:nth-child(3) .ac-seal{animation-delay:.16s}
+html.has-motion .ac.is-in .ac-it:nth-child(4) .ac-seal{animation-delay:.24s}
+html.has-motion .ac.is-in .ac-it:nth-child(5) .ac-seal{animation-delay:.32s}
+html.has-motion .ac.is-live .ac-rib{animation:ac-flut 2.4s ease-in-out infinite}
+@media (hover:hover){html.has-motion .ac-it:hover .ac-ring{animation:ac-spin .7s var(--ease)}}

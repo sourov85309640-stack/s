@@ -1,0 +1,71 @@
+/* BEFORE AND AFTER, prefix .bf- (owner: lead). One drawn cottage, two states, a drag handle between them.
+   On fine pointers the handle also follows the pointer while it hovers the drawing. */
+.bf{overflow:hidden}
+.bf-bk-sun{width:110px;height:110px;right:9%;top:2.2rem;fill:rgba(246,201,121,.35);stroke:rgba(214,160,70,.4);stroke-width:3;stroke-linecap:round}
+.bf-bk-cloud{width:200px;height:60px;left:6%;top:3rem;fill:#fff;opacity:.8}
+.bf-fr-brush{width:76px;height:38px;left:2.5%;bottom:18%;fill:none;stroke:#9C7A5E;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.bf-box{display:grid;gap:1.25rem 2.5rem}
+@media (min-width:1000px){.bf-box{grid-template-columns:minmax(0,1fr) 300px;align-items:center}.bf-small{grid-column:1}}
+.bf-view{position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-lift);aspect-ratio:900/520;background:var(--sky);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.bf-sc{position:absolute;inset:0;display:block;width:100%;height:100%}
+.bf-clipper{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--bf)) 0 0)}
+/* drawing */
+.bf .bf-sky{fill:#E4EEF3}.bf .bf-sky-b{fill:#D9DEE1}
+.bf .bf-hill{fill:#C9D6B8}
+.bf .bf-wall{fill:#EFE3CF;stroke:rgba(31,43,48,.6);stroke-width:2.5}
+.bf .bf-roof-a{fill:#5E6B73;stroke:#3C474D;stroke-width:3;stroke-linejoin:round}
+.bf .bf-rows-a path{fill:none;stroke:rgba(255,255,255,.2);stroke-width:2}
+.bf .bf-ridge-a{stroke:#3C474D;stroke-width:9;stroke-linecap:round}
+.bf .bf-roof-b{fill:#6A747A;stroke:#3C474D;stroke-width:3;stroke-linejoin:round}
+.bf .bf-rows-b path{fill:none;stroke:rgba(255,255,255,.14);stroke-width:2}
+.bf .bf-holes path{fill:#2E2A26;opacity:.75}
+.bf .bf-slip path{fill:#5E6B73;stroke:#3C474D;stroke-width:1.5}
+.bf .bf-moss ellipse{fill:#8E9C4F;opacity:.9}
+.bf .bf-ridge-b{stroke:#3C474D;stroke-width:9;stroke-linecap:round;fill:none}
+.bf .bf-chim-a,.bf .bf-chim-b{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:2.5}
+.bf .bf-pot{fill:#B5603C;stroke:rgba(31,43,48,.55);stroke-width:2}
+.bf .bf-crack{fill:none;stroke:#3C2A20;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bf .bf-lead-a{stroke:#8E9AA0;stroke-width:7;stroke-linecap:round}
+.bf .bf-lead-b{fill:none;stroke:#8E9AA0;stroke-width:6;stroke-linecap:round}
+.bf .bf-gut-a,.bf .bf-gut-b{fill:none;stroke:#3F4A50;stroke-width:8;stroke-linecap:round}
+.bf .bf-pipe{stroke:#3F4A50;stroke-width:7;stroke-linecap:round}
+.bf .bf-stain{fill:rgba(120,96,60,.28)}
+.bf .bf-weeds path{fill:none;stroke:#6E8A3E;stroke-width:3;stroke-linecap:round}
+.bf .bf-win{fill:#DCE6EA;stroke:rgba(31,43,48,.6);stroke-width:2.5}
+.bf .bf-door{fill:#7A4326;stroke:rgba(31,43,48,.6);stroke-width:2.5}
+.bf .bf-flowers circle{fill:#E59A7A;stroke:rgba(31,43,48,.3)}
+.bf .bf-spark path{fill:#F6C979;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+.bf .bf-dr{fill:#6F98AE;opacity:0;transform-box:fill-box}
+.bf .bf-rain path{stroke:rgba(74,104,122,.4);stroke-width:2;stroke-linecap:round;opacity:0}
+/* living details while on screen: rain and a drip on the before side, glints on the after side */
+@keyframes bf-rain{0%{transform:translate(0,-30px);opacity:0}20%{opacity:1}100%{transform:translate(-14px,60px);opacity:0}}
+@keyframes bf-drip{0%,30%{transform:none;opacity:0}40%{opacity:1}90%{transform:translateY(120px);opacity:1}100%{transform:translateY(126px);opacity:0}}
+@keyframes bf-spark{0%,70%{transform:scale(.2) rotate(0);opacity:0}80%{opacity:1;transform:scale(1) rotate(45deg)}100%{transform:scale(.2) rotate(90deg);opacity:0}}
+html.has-motion .bf.is-live .bf-rain path{animation:bf-rain 1.4s linear infinite}
+html.has-motion .bf.is-live .bf-rain path:nth-child(3n){animation-delay:-.5s}
+html.has-motion .bf.is-live .bf-rain path:nth-child(3n+1){animation-delay:-1s}
+html.has-motion .bf.is-live .bf-dr{animation:bf-drip 2.4s ease-in infinite}
+html.has-motion .bf.is-live .bf-spark path{animation:bf-spark 3.2s ease-out infinite}
+html.has-motion .bf.is-live .bf-spark path:nth-child(2){animation-delay:1.6s}
+/* tags, handle and the real control */
+.bf-tag{position:absolute;top:14px;padding:.3rem .7rem;border-radius:999px;background:rgba(255,255,255,.88);font:600 .8125rem/1.2 var(--ui);color:var(--text);pointer-events:none;transition:opacity .2s}
+.bf-tag-b{left:14px}.bf-tag-a{right:14px}
+.bf-handle{position:absolute;top:0;bottom:0;left:var(--bf);width:0;pointer-events:none}
+.bf-handle::before{content:"";position:absolute;top:0;bottom:0;left:-1.5px;width:3px;background:#fff;box-shadow:0 0 0 1px rgba(31,43,48,.15)}
+.bf-grip{position:absolute;left:-24px;top:50%;width:48px;height:48px;margin-top:-24px;border-radius:50%;background:var(--copper);box-shadow:0 4px 14px rgba(31,43,48,.3);display:grid;place-items:center;transition:transform .18s var(--ease)}
+.bf-grip svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.bf-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;-webkit-appearance:none;appearance:none}
+.bf-view:has(.bf-range:focus-visible) .bf-grip{outline:3px solid var(--ink);outline-offset:3px}
+.bf-view.is-drag .bf-grip{transform:scale(.92)}
+@media (hover:hover){.bf-view:hover .bf-grip{transform:scale(1.08)}}
+.bf-notes{display:grid;gap:.75rem}
+.bf-notes li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:.75rem;align-items:start;padding:.85rem 1rem;border-radius:12px;background:var(--card);box-shadow:var(--shadow-card);color:var(--muted);line-height:1.5;transition:transform .25s var(--ease),box-shadow .25s}
+.bf-notes b{color:var(--text);font-family:var(--ui);font-weight:600}
+.bf-n{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--copper-wash);color:var(--copper-deep);font:700 .875rem/1 var(--ui)}
+.bf-notes li.is-hit{transform:translateX(-6px);box-shadow:inset 0 0 0 1.5px var(--copper),var(--shadow-card)}
+.bf-small{font-size:.8125rem;color:var(--muted)}
+/* without JS: both drawings side by side, no handle */
+.bf:not(.is-js) .bf-view{aspect-ratio:auto;display:grid;grid-template-columns:1fr 1fr;gap:4px;background:none;box-shadow:none}
+.bf:not(.is-js) .bf-sc{position:static;height:auto}
+.bf:not(.is-js) .bf-clipper{position:static;clip-path:none;order:-1}
+.bf:not(.is-js) .bf-handle,.bf:not(.is-js) .bf-range{display:none}
