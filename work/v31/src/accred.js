@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('accred'); if (s) RW.variant(s, 'acv', ['1','2'], ['Row of badges','Slow moving strip']); }());
+  (function () { var s = document.getElementById('accred'); if (s) RW.variant(s, 'acv', ['2','1'], ['Slow moving strip','Row of badges']); }());
   RW.add('accred', function () {
     var sec = RW.$('#accred'); if (!sec) return;
     RW.onView(sec, { once: true, margin: '0px 0px -15% 0px', enter: function () { sec.classList.add('is-in'); } });

@@ -56,43 +56,6 @@
   }, { motion: true });
 }());
 
-/* LOUPE (owner: lead): in "Start with what you can see", a round magnifier follows the pointer over the problem photos,
-   so people can look closer at the slates the way a roofer would. The lead photo's hand-drawn notes draw in on arrival
-   and again whenever the photo is hovered. */
-(function () {
-  'use strict';
-  var RW = window.RW;
-  RW.add('loupe', function () {
-    var sec = RW.$('#problems'); if (!sec) return;
-    var lead = RW.$('.svc:first-child', sec);
-    if (lead && RW.$('.svc-notes', lead)) {
-      RW.onView(lead, { once: true, margin: '0px 0px -30% 0px', enter: function () { lead.classList.add('is-noted'); } });
-    }
-    if (!RW.fine) return;
-    var Z = 2.4, R = 78, L = document.createElement('div');
-    L.className = 'rx-loupe'; L.setAttribute('aria-hidden', 'true'); L.innerHTML = '<i></i><span>Look closer</span>';
-    document.body.appendChild(L);
-    var cur = null;
-    /* the whole card is a stretched link, so listen on the card and check whether the pointer is over its photo */
-    function off() { if (!cur) return; cur = null; L.classList.remove('is-on'); document.documentElement.classList.remove('is-loupe'); }
-    RW.$$('.svc', sec).forEach(function (card) {
-      var img = RW.$('.cw img', card); if (!img) return;
-      card.addEventListener('pointermove', function (e) {
-        var r = img.closest('.cw').getBoundingClientRect();
-        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { off(); return; }
-        if (cur !== img) { cur = img; L.style.backgroundImage = 'url("' + (img.currentSrc || img.src) + '")'; L.classList.add('is-on'); document.documentElement.classList.add('is-loupe'); }
-        var ir = img.getBoundingClientRect(), nw = img.naturalWidth || ir.width, nh = img.naturalHeight || ir.height;
-        var sc = Math.max(ir.width / nw, ir.height / nh), dw = nw * sc, dh = nh * sc, ox = (ir.width - dw) / 2, oy = (ir.height - dh) / 2;
-        var ix = e.clientX - ir.left - ox, iy = e.clientY - ir.top - oy;
-        L.style.transform = 'translate(' + (e.clientX - R) + 'px,' + (e.clientY - R) + 'px)';
-        L.style.backgroundSize = (dw * Z).toFixed(0) + 'px ' + (dh * Z).toFixed(0) + 'px';
-        L.style.backgroundPosition = (R - ix * Z).toFixed(0) + 'px ' + (R - iy * Z).toFixed(0) + 'px';
-      });
-      card.addEventListener('pointerleave', off);
-    });
-  }, { motion: true });
-}());
-
 /* EVENING (owner: lead): at the very bottom the little town in the footer settles in for the evening. Windows light up one
    by one as the footer arrives, and the ones nearest the pointer glow brighter as it passes over the roofs. */
 (function () {
@@ -171,5 +134,15 @@
       items.forEach(function (el, i) { el.classList.add('bd-wait'); el.style.setProperty('--bd', (i * 110) + 'ms'); });
       RW.onView(sec, { once: true, margin: '0px 0px -15% 0px', enter: function () { items.forEach(function (el) { el.classList.add('bd-in'); }); } });
     });
+  }, { motion: true });
+}());
+
+/* lead-photo notes for "Start with what you can see" version B (hand-drawn rings draw in once) */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('svc-notes', function () {
+    var lead = RW.$('#problems .svc:first-child'); if (!lead || !RW.$('.svc-notes', lead)) return;
+    RW.onView(lead, { once: true, margin: '0px 0px -30% 0px', enter: function () { lead.classList.add('is-noted'); } });
   }, { motion: true });
 }());

@@ -4,7 +4,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('types'); if (s) RW.variant(s, 'tyv', ['1','2','3'], ['Tabs beside the roof','Tabs above a big roof','Roof first, words beside']); }());
+  (function () { var s = document.getElementById('types'); if (s) RW.variant(s, 'tyv', ['3','1','2'], ['Roof first, words beside','Tabs beside the roof','Tabs above a big roof']); }());
   RW.add('types', function () {
     var sec = RW.$('#types'); if (!sec) return;
     var tabs = RW.$$('.ty-tab', sec), panels = RW.$$('.ty-panel', sec);

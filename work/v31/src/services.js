@@ -9,7 +9,7 @@
   var $ = RW.$, $$ = RW.$$;
 
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'sv', ['1', '2', '6', '3', '4', '5'], ['Lead card and list', 'Roof slope of tiles', 'Chooser', 'Sketch: roof map', 'Sketch: floating photo', 'Sketch: slate pile']);
+  var V = RW.variant(sec, 'sv', ['6', '1', '2', '3', '4', '5'], ['Chooser', 'Lead card and list', 'Roof slope of tiles', 'Sketch: roof map', 'Sketch: floating photo', 'Sketch: slate pile']);
   var list = $('.svc-list', sec), stage = $('.svc-stage', sec);
   var cards = $$('.svc', sec);
   function byKey(k) { return $('.svc[data-issue="' + k + '"]', sec); }
@@ -83,6 +83,7 @@
       cur = i;
       tabs.forEach(function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); b.tabIndex = j === i ? 0 : -1; });
       cards.forEach(function (li, j) { li.classList.toggle('is-on', j === i); });
+      if (bar.scrollWidth > bar.clientWidth + 4) bar.scrollTo({ left: Math.max(0, tabs[i].offsetLeft - 16), behavior: RW.motionOK ? 'smooth' : 'auto' });
       if (focus) tabs[i].focus();
     }
     var timer = 0;
@@ -102,7 +103,32 @@
     });
     var k = issueFromURL(), start = 0;
     cards.forEach(function (li, i) { if (li.getAttribute('data-issue') === k) start = i; });
+    /* the words move onto the photo: title, text and link are gathered into one caption block with a counter */
+    cards.forEach(function (li, i) {
+      var cap = d.createElement('div'); cap.className = 'svc-cap';
+      var n = d.createElement('span'); n.className = 'svc-n'; n.setAttribute('aria-hidden', 'true'); n.textContent = (i + 1) + ' of ' + cards.length;
+      cap.appendChild(n);
+      ['.svc-t', '.svc-p', '.svc-a'].forEach(function (s) { var el = $(s, li); if (el) cap.appendChild(el); });
+      li.appendChild(cap);
+    });
     select(start);
+    /* stories-style: while the section is on screen it moves to the next problem every few seconds, until the visitor
+       touches anything in it. Swipe the photo left or right on touch screens. */
+    if (RW.motionOK) {
+      var auto = 0, live = false, stopped = false, T = 5500;
+      var stopAuto = function () { stopped = true; clearInterval(auto); sec.classList.remove('is-auto'); };
+      var run = function () { if (stopped || !live) return; clearInterval(auto); sec.classList.add('is-auto'); auto = setInterval(function () { select((cur + 1) % cards.length); }, T); };
+      sec.style.setProperty('--svc-t', T + 'ms');
+      RW.onView(stage, { margin: '0px 0px -25% 0px', enter: function () { live = true; run(); }, leave: function () { live = false; clearInterval(auto); sec.classList.remove('is-auto'); } });
+      ['pointerdown', 'keydown', 'focusin'].forEach(function (ev) { stage.addEventListener(ev, stopAuto, { passive: true }); });
+      if (RW.fine) stage.addEventListener('pointerenter', stopAuto);
+    }
+    var sx = null;
+    list.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    list.addEventListener('touchend', function (e) {
+      if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 50) select((cur + (dx < 0 ? 1 : -1) + cards.length) % cards.length);
+    }, { passive: true });
   });
 
   /* ---- 4. V4: a roof-cut photo rides beside the rows and floods from grey into colour (reveal-hover-effect) ---- */

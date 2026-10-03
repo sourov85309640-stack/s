@@ -281,3 +281,37 @@ html.has-motion .svc.is-noted .svc-ring{stroke-dashoffset:0}
 html.has-motion .svc.is-noted .svc-note{opacity:1;transform:none}
 html.has-motion .svc.is-noted .svc-ring:nth-child(2){transition-delay:.25s}html.has-motion .svc.is-noted .svc-ring:nth-child(3){transition-delay:.5s}
 html.has-motion .svc.is-noted .svc-note2{transition-delay:.35s}html.has-motion .svc.is-noted .svc-note3{transition-delay:.6s}
+
+/* ===== Chooser, round 6 ("Start with what you can see" default): a photo stage with the words on the photo ===== */
+.svc-sec[data-v="6"] .head2{margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.svc-sec[data-v="6"] .svc-tab{counter-increment:svc;border-radius:14px;background:rgba(255,255,255,.6);border-color:transparent;box-shadow:inset 0 0 0 1px var(--line)}
+.svc-sec[data-v="6"] .svc-tabs{counter-reset:svc}
+.svc-sec[data-v="6"] .svc-tab .cw{border-radius:10px;clip-path:none}
+.svc-sec[data-v="6"] .svc-tab[aria-selected="true"]{background:var(--card);box-shadow:inset 0 0 0 2px var(--copper),var(--shadow-soft)}
+.svc-sec[data-v="6"] .svc-tab::after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;border-radius:1px;background:var(--copper);transform:scaleX(0);transform-origin:0 50%;opacity:0}
+.svc-sec[data-v="6"].is-auto .svc-tab[aria-selected="true"]::after{opacity:.8;animation:svc-prog var(--svc-t,5.5s) linear forwards}
+@keyframes svc-prog{to{transform:scaleX(1)}}
+/* the stage: one big photo, the words sit on a soft shade at its foot */
+.svc-sec[data-v="6"] .svc{position:relative;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"ph"!important;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lift);background:var(--ink)}
+.svc-sec[data-v="6"] .svc-ph{grid-area:1/1!important;margin:0}
+.svc-sec[data-v="6"] .svc-ph .cw{clip-path:none;aspect-ratio:16/10;max-height:none;border-radius:0}
+.svc-sec[data-v="6"] .svc-ph .cw img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 6s linear}
+.svc-sec[data-v="6"] .svc.is-on .svc-ph .cw img{transform:scale(1.16)}
+.svc-sec[data-v="6"] .svc-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,29,0) 35%,rgba(20,26,29,.78) 100%);pointer-events:none}
+.svc-sec[data-v="6"] .svc-cap>*{grid-area:auto!important;align-self:auto}
+.svc-sec[data-v="6"] .svc-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;display:grid;gap:.5rem;padding:clamp(1.25rem,3vw,2.25rem);color:#fff}
+.svc-sec[data-v="6"] .svc-cap .svc-t{color:#fff;margin:0}
+.svc-sec[data-v="6"] .svc-cap .svc-p{color:rgba(255,255,255,.88);max-width:40rem;margin:0}
+.svc-sec[data-v="6"] .svc-cap .svc-a{justify-self:start;margin-top:.5rem}
+.svc-sec[data-v="6"] .svc-n{font:600 .875rem/1 var(--ui);color:rgba(255,255,255,.75)}
+html.has-motion .svc-sec[data-v="6"] .svc .svc-cap>*{opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .6s var(--ease)}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*{opacity:1;transform:none}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(2){transition-delay:.06s}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(3){transition-delay:.12s}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(4){transition-delay:.18s}
+.svc-sec[data-v="6"] .svc-drip,.svc-sec[data-v="6"] .svc-stamp,.svc-sec[data-v="6"] .svc-notes{display:none}
+@media (max-width:899px){
+  .svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:4/5}
+  .svc-sec[data-v="6"] .svc-tab{min-height:52px}
+  .svc-sec[data-v="6"] .svc-tab::after{bottom:4px}
+}

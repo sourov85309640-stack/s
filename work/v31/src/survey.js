@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('survey'); if (s) RW.variant(s, 'svv', ['1','2'], ['Band','Centred card']); }());
+  (function () { var s = document.getElementById('survey'); if (s) RW.variant(s, 'svv', ['2','1'], ['Centred card','Band']); }());
   RW.add('survey', function () {
     var sec = RW.$('#survey'); if (!sec) return;
     RW.headings(sec);
