@@ -200,3 +200,11 @@ html.js .are[data-v="5"] .are-van{display:block;position:absolute;left:0;top:0;w
 .are[data-v="5"] .are-chip::before{transform:none;opacity:0;transition:opacity .2s ease}
 @media (hover:hover){.are[data-v="5"] .are-chip:hover::before{opacity:1}}
 .are[data-v="5"] .are-town.is-hl .are-chip::before{opacity:1}
+/* V2 extras: windows light in a wave, chimneys puff on hover, focus or tap (motion only; still pages show neither) */
+.are[data-v="2"] .h-win{transition:fill .35s ease}
+.are[data-v="2"] .are-town.is-lit .h-win{fill:#F6D7A8}
+.are .h-smoke circle{fill:#EEEAE3;stroke:rgba(31,43,48,.25);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+@keyframes are-puff{0%{opacity:0;transform:translateY(4px) scale(.4)}30%{opacity:1}100%{opacity:0;transform:translate(5px,-12px) scale(1.3)}}
+html.has-motion .are-chip.is-puff .h-smoke circle{animation:are-puff 1.1s ease-out both}
+html.has-motion .are-chip.is-puff .h-smoke circle:nth-child(2){animation-delay:.12s}
+html.has-motion .are-chip.is-puff .h-smoke circle:nth-child(3){animation-delay:.24s}

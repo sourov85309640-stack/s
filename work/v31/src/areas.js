@@ -156,7 +156,25 @@
       gsap.set(roofs, { y: -14, opacity: 0 });
       ST.create({ trigger: RW.$('.are-list', sec), start: 'top 80%', once: true, onEnter: function () {
         gsap.to(roofs, { y: 0, opacity: 1, duration: 0.9, ease: 'expo.out', stagger: 0.06, clearProps: 'transform,opacity' });
+        /* then the windows light in a wave out from the home town, like an evening across the Cotswolds */
+        var home = RW.$('.are-town.is-home', sec), hp = home ? (home.getAttribute('data-pos') || '50,50').split(',') : [50, 50];
+        towns.forEach(function (t) {
+          var q = (t.getAttribute('data-pos') || '50,50').split(','), dist = Math.hypot(q[0] - hp[0], q[1] - hp[1]);
+          setTimeout(function () { t.classList.add('is-lit'); setTimeout(function () { t.classList.remove('is-lit'); }, 1400); }, 900 + dist * 16);
+        });
       } });
+      /* each chimney puffs when its town is hovered, focused or tapped */
+      towns.forEach(function (t) {
+        var ch = RW.$('.h-ch', t), chip = RW.$('.are-chip', t), roof = RW.$('.h-roof', t);
+        if (!ch || !chip || !roof) return;
+        var bb; try { bb = ch.getBBox(); } catch (e) { return; }
+        var g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'h-smoke');
+        var cx = bb.x + bb.width / 2, cy = bb.y - 2;
+        g.innerHTML = '<circle cx="' + cx + '" cy="' + cy + '" r="2.6"/><circle cx="' + (cx + 2) + '" cy="' + (cy - 5) + '" r="3.4"/><circle cx="' + (cx - 1) + '" cy="' + (cy - 11) + '" r="4"/>';
+        roof.appendChild(g);
+        var puff = function () { if (chip.classList.contains('is-puff')) return; chip.classList.add('is-puff'); setTimeout(function () { chip.classList.remove('is-puff'); }, 1300); };
+        chip.addEventListener('pointerenter', puff); chip.addEventListener('focus', puff); chip.addEventListener('pointerdown', puff);
+      });
     }
     if (V === 4) {
       var tiles = RW.$$('.are-town', sec);

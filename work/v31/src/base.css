@@ -511,3 +511,9 @@ html{scroll-padding-top:calc(var(--hdr-h) + .75rem)}
 @media (min-width:1240px){.hdr .mega{top:calc(100% + 8px)}}
 @media (min-width:1240px){.hdr .mega-tg{width:34px;margin-left:-.4rem}}
 html.menu-open .hdr::before{background:var(--paper)}
+/* phones: intro lines one step down so headings keep their lead */
+@media (max-width:599px){
+  .lead,.head2>p,.sec-head p,.dia-intro,.how-intro,.are-lead,.ug-lead,.rv-lead,.faq-call,.dec-keep{font-size:1.0625rem;line-height:1.55}
+  .svc-p{font-size:1rem}
+  .cap{font-size:.8125rem}
+}
