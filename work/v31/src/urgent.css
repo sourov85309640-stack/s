@@ -1,0 +1,30 @@
+/* URGENT LEAK BAND, prefix .ug- (owner: lead). Pale sky surface, a drip that keeps falling into a bucket while the band
+   is on screen (paused offscreen by urgent.js), staggered rings on the water. */
+.ug{position:relative;background:var(--sky);padding-block:clamp(2.5rem,5vw,4rem);overflow:hidden}
+.ug-rain{inset:0;opacity:.5;background:repeating-linear-gradient(105deg,transparent 0 22px,rgba(74,104,122,.07) 22px 23px,transparent 23px 46px)}
+.ug-grid{display:grid;gap:1.25rem 2.5rem;align-items:center;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.ug-grid{grid-template-columns:150px minmax(0,1fr) auto}}
+.ug-art{width:120px;justify-self:start}
+@media (min-width:860px){.ug-art{width:150px}}
+.ug-art svg{display:block;width:100%;height:auto;overflow:visible}
+.ug-copy h2{margin-bottom:.5rem}
+.ug-lead{color:var(--muted);max-width:40rem;font-size:var(--h4);line-height:1.5}
+.ug-act{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+@media (max-width:519px){.ug-act .btn{flex:1 1 100%}}
+.ug .ug-ceil,.ug .ug-floor{fill:none;stroke:rgba(31,43,48,.55);stroke-width:2;stroke-linecap:round}
+.ug .ug-stain{fill:rgba(152,86,50,.18);stroke:none}
+.ug .ug-drop{fill:#6F98AE;opacity:0;transform-box:fill-box;transform-origin:50% 0}
+.ug .ug-bucket{fill:#E6DFD0;stroke:rgba(31,43,48,.65);stroke-width:2;stroke-linejoin:round}
+.ug .ug-handle{fill:none;stroke:rgba(31,43,48,.55);stroke-width:2}
+.ug .ug-water{fill:#9DBACA;opacity:.9}
+.ug .ug-ripple{fill:none;stroke:#4E7487;stroke-width:1.2;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
+@keyframes ug-fall{0%{transform:translateY(0) scaleY(.6);opacity:0}8%{opacity:1;transform:translateY(0) scaleY(1)}70%{transform:translateY(104px) scaleY(1.25);opacity:1}72%,100%{transform:translateY(106px);opacity:0}}
+@keyframes ug-ring{0%,68%{transform:scale(.4);opacity:0}72%{opacity:.9}100%{transform:scale(4.2);opacity:0}}
+html.has-motion .ug.is-live .ug-drop{animation:ug-fall 1.8s cubic-bezier(.45,0,.9,.5) infinite}
+html.has-motion .ug.is-live .ug-d2{animation-delay:.6s}
+html.has-motion .ug.is-live .ug-d3{animation-delay:1.2s}
+html.has-motion .ug.is-live .ug-ripple{animation:ug-ring 1.8s ease-out infinite}
+html.has-motion .ug.is-live .ug-r2{animation-delay:.9s}
+/* the phone button rings gently when the band arrives */
+@keyframes ug-ring-ic{0%,100%{transform:none}20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg)}80%{transform:rotate(5deg)}}
+html.has-motion .ug.is-live .ug-call svg{animation:ug-ring-ic .7s ease .5s 2}

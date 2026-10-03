@@ -7,7 +7,7 @@
   var MAX = 5;
 
   function variantOf(sec, key) {
-    return RW.variant(sec, key, ['1', '2'], ['Facts list', 'Before and after drawing']);
+    return RW.variant(sec, key, ['1', '2', '3', '4', '5'], ['Facts list', 'Before and after drawing', 'Sketch: scrubbed reading', 'Sketch: layered frame', 'Sketch: short pin']);
   }
 
   /* ---------- always: variant + v2 toggle (works with motion off) ---------- */

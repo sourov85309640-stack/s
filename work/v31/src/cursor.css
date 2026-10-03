@@ -1,0 +1,45 @@
+/* CURSOR (cursor.js). Only exists on fine pointers with motion allowed. The system cursor stays visible. */
+.cur{position:fixed;left:0;top:0;z-index:95;pointer-events:none;opacity:0;transition:opacity .2s}
+.cur.is-on{opacity:1}
+.cur>span{position:absolute;left:0;top:0;will-change:transform}
+.cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--copper)}
+.cur-ring{width:0;height:0}
+.cur-ring::before{content:"";position:absolute;left:-17px;top:-17px;width:34px;height:34px;border-radius:50%;border:1.5px solid rgba(152,86,50,.55);transition:transform .22s var(--ease),opacity .2s,background-color .2s,border-color .2s}
+.cur.is-down .cur-ring::before{transform:scale(.8)}
+/* survey brackets (four corners) */
+.cur-b{width:0;height:0}
+.cur-b::before{content:"";position:absolute;width:9px;height:9px;border:2px solid var(--copper);opacity:0;transition:opacity .18s}
+.cur-b1::before{left:0;top:0;border-right:0;border-bottom:0}
+.cur-b2::before{right:0;top:0;border-left:0;border-bottom:0}
+.cur-b3::before{right:0;bottom:0;border-left:0;border-top:0}
+.cur-b4::before{left:0;bottom:0;border-right:0;border-top:0}
+.cur[data-s="frame"] .cur-b::before{opacity:1}
+.cur[data-s="frame"] .cur-ring::before{transform:scale(.3);opacity:0}
+.cur[data-s="frame"] .cur-dot{transform-origin:50% 50%}
+/* label pill: Drag, Tilt, View, Look */
+.cur-lab{width:0;height:0}
+.cur-lab::before{content:"";position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:50%;background:rgba(152,86,50,.92);transform:scale(.4);opacity:0;transition:transform .25s var(--ease),opacity .2s}
+.cur-lab b{position:absolute;left:0;top:0;transform:translate(-50%,-50%);font-family:var(--ui);font-weight:600;font-size:.75rem;line-height:1;color:var(--paper);white-space:nowrap;opacity:0;transition:opacity .2s}
+.cur:is([data-s="drag"],[data-s="tilt"],[data-s="look"]) .cur-lab::before{transform:none;opacity:1}
+.cur:is([data-s="drag"],[data-s="tilt"],[data-s="look"]) .cur-lab b{opacity:1}
+.cur:is([data-s="drag"],[data-s="tilt"],[data-s="look"]) .cur-ring::before,.cur:is([data-s="drag"],[data-s="tilt"],[data-s="look"]) .cur-dot{opacity:0}
+/* spirit level under headings */
+.cur-level{width:64px;height:14px;margin:0 0 0 -32px;border-radius:7px;background:rgba(234,240,242,.95);box-shadow:inset 0 0 0 1.5px rgba(31,43,48,.45);opacity:0;transition:opacity .2s}
+.cur-level::before,.cur-level::after{content:"";position:absolute;top:3px;bottom:3px;width:1.5px;background:rgba(31,43,48,.4)}
+.cur-level::before{left:24px}.cur-level::after{right:24px}
+.cur-level i{position:absolute;left:50%;top:3px;width:12px;height:8px;margin-left:-6px;border-radius:4px;background:#9CC28E;box-shadow:inset 0 0 0 1px rgba(31,43,48,.25);transition:transform .25s var(--ease)}
+.cur[data-s="level"] .cur-level{opacity:1}
+.cur[data-s="level"] .cur-ring::before{transform:scale(.5);opacity:.4}
+/* crosshair over the leak diagram */
+.cur-x{width:0;height:0}
+.cur-x::before,.cur-x::after{content:"";position:absolute;background:rgba(152,86,50,.75);opacity:0;transition:opacity .2s}
+.cur-x::before{left:-14px;top:-.75px;width:28px;height:1.5px}
+.cur-x::after{left:-.75px;top:-14px;width:1.5px;height:28px}
+.cur[data-s="cross"] .cur-x::before,.cur[data-s="cross"] .cur-x::after{opacity:1}
+.cur[data-s="cross"] .cur-ring::before{transform:scale(1.25);border-style:dashed}
+/* fields: get out of the way */
+.cur[data-s="text"] .cur-ring::before,.cur[data-s="text"] .cur-dot{opacity:0}
+/* trail canvas */
+.cur-trail{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:55;pointer-events:none}
+@media (hover:none),(pointer:coarse){.cur,.cur-trail{display:none}}
+@media print{.cur,.cur-trail{display:none}}

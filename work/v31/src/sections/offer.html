@@ -1,0 +1,114 @@
+<!-- ================= WHAT WE DO (services overview) =================
+     SAMPLE LIST (data-sample="services"): keep the services the client really offers (6 to 9 work best), delete the rest.
+     Each card links to the form with ?issue=KEY (keys in app.js). The header builds its Services mega menu from these cards,
+     so editing this list edits the menu too. Each icon has its own small animation (offer.css). -->
+<section class="sec of e-ridge" id="services" data-nav="services" data-sample="services" data-reveal="drop" aria-labelledby="h-offer">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="of-bk-house" viewBox="0 0 520 320" data-depth="-0.08" data-px="8" focusable="false"><path d="M20 300H500M60 300V170L260 30L460 170V300M60 170L260 30L460 170M330 79V40H370V107M150 300V200H230V300M290 210H400V260H290Z"/></svg>
+    <span class="of-bk-tiles" data-depth="-0.04"></span>
+  </div>
+  <div class="wrap">
+    <div class="head2 of-head">
+      <div><h2 id="h-offer">What we do.</h2></div>
+      <p>Repairs, re-roofs and every part in between, on tile, slate and flat roofs. Choose one and the form opens with it filled in.</p>
+    </div>
+    <ul class="of-grid">
+      <li class="of-card" data-of="repair">
+        <a class="of-link" href="?issue=repair#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M6 46L32 22L58 46"/>
+            <g class="i-row"><rect class="i-tl" x="14" y="38" width="10" height="7" rx="1"/><rect class="i-tl" x="27" y="38" width="10" height="7" rx="1"/><rect class="i-tl" x="40" y="38" width="10" height="7" rx="1"/><rect class="i-tl" x="21" y="30" width="10" height="7" rx="1"/><rect class="i-tl i-slip" x="34" y="30" width="10" height="7" rx="1"/></g>
+            <path class="i-spark" d="M48 18v6M45 21h6"/>
+          </svg></span>
+          <h3 class="of-t">Roof repairs</h3>
+          <p class="of-d">Slipped or broken tiles and slates replaced, leaks traced to the source and fixed.</p>
+          <span class="of-go">Ask about a repair<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="reroof">
+        <a class="of-link" href="?issue=reroof#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M6 50L32 18L58 50"/>
+            <g class="i-r i-r3"><rect class="i-tl" x="13" y="42" width="9" height="6" rx="1"/><rect class="i-tl" x="23" y="42" width="9" height="6" rx="1"/><rect class="i-tl" x="33" y="42" width="9" height="6" rx="1"/><rect class="i-tl" x="43" y="42" width="9" height="6" rx="1"/></g>
+            <g class="i-r i-r2"><rect class="i-tl" x="19" y="34" width="9" height="6" rx="1"/><rect class="i-tl" x="29" y="34" width="9" height="6" rx="1"/><rect class="i-tl" x="39" y="34" width="9" height="6" rx="1"/></g>
+            <g class="i-r i-r1"><rect class="i-tl" x="25" y="26" width="9" height="6" rx="1"/><rect class="i-tl" x="34" y="26" width="7" height="6" rx="1"/></g>
+          </svg></span>
+          <h3 class="of-t">Re-roofing</h3>
+          <p class="of-d">A full strip and recover in tile or slate, with new battens and underlay.</p>
+          <span class="of-go">Ask about re-roofing<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="flat">
+        <a class="of-link" href="?issue=flat#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M6 44H58M10 44V54M54 44V54"/>
+            <rect class="i-mem" x="8" y="38" width="46" height="5" rx="1"/>
+            <g class="i-roll"><circle class="i-rl" cx="14" cy="34" r="6"/><circle class="i-rl2" cx="14" cy="34" r="2"/></g>
+          </svg></span>
+          <h3 class="of-t">Flat roofs</h3>
+          <p class="of-d">Felt, rubber (EPDM) and fibreglass (GRP) roofs on extensions, garages and dormers.</p>
+          <span class="of-go">Ask about a flat roof<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="chimney">
+        <a class="of-link" href="?issue=chimney#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M6 54L28 34L50 54"/>
+            <rect class="i-ch" x="34" y="22" width="12" height="26"/><path class="i-ln" d="M32 22H48M36 22V17H40V22M41 22V18H45V22"/>
+            <circle class="i-puff i-p1" cx="38" cy="12" r="3"/><circle class="i-puff i-p2" cx="43" cy="9" r="3.6"/><circle class="i-puff i-p3" cx="39" cy="5" r="4"/>
+          </svg></span>
+          <h3 class="of-t">Chimney work</h3>
+          <p class="of-d">Repointing, new flaunching, caps and cowls, and rebuilds of unsafe stacks.</p>
+          <span class="of-go">Ask about a chimney<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="lead">
+        <a class="of-link" href="?issue=lead#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M8 56L40 24"/><rect class="i-ch" x="40" y="10" width="14" height="46"/>
+            <g class="i-steps"><path class="i-st i-s1" d="M24 40h8v-6"/><path class="i-st i-s2" d="M30 34h8v-6"/><path class="i-st i-s3" d="M36 28h4v-4"/></g>
+            <path class="i-drop" d="M30 18c-2 3-3 4.6-3 6a3 3 0 0 0 6 0c0-1.4-1-3-3-6z"/>
+          </svg></span>
+          <h3 class="of-t">Leadwork</h3>
+          <p class="of-d">Flashings, valleys and soakers where the roof meets a wall, a chimney or a window.</p>
+          <span class="of-go">Ask about leadwork<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="gutters">
+        <a class="of-link" href="?issue=gutters#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M6 20H50M6 14L28 4L50 14"/>
+            <path class="i-gut" d="M6 24H52a4 4 0 0 1-4 5H10a4 4 0 0 1-4-5z"/><path class="i-ln" d="M48 29V58M44 58H54"/>
+            <circle class="i-w i-w1" cx="12" cy="26" r="1.8"/><circle class="i-w i-w2" cx="12" cy="26" r="1.8"/><circle class="i-w i-w3" cx="12" cy="26" r="1.8"/>
+          </svg></span>
+          <h3 class="of-t">Fascias, soffits and gutters</h3>
+          <p class="of-d">Rotten boards replaced, gutters cleared, realigned or renewed so water leaves the roof.</p>
+          <span class="of-go">Ask about gutters<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="inspection">
+        <a class="of-link" href="?issue=inspection#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-ln" d="M6 50L32 22L58 50M14 50V56H50V50"/>
+            <g class="i-lens"><circle class="i-lg" cx="22" cy="40" r="7"/><path class="i-ln" d="M27 45l6 6"/><path class="i-glint" d="M18 37a5 5 0 0 1 4-3"/></g>
+          </svg></span>
+          <h3 class="of-t">Roof inspections</h3>
+          <p class="of-d">A look from the ground, a ladder and the loft, with photos and a plain written summary.</p>
+          <span class="of-go">Ask about an inspection<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+      <li class="of-card" data-of="emergency" data-confirm="emergency">
+        <a class="of-link" href="?issue=emergency#contact">
+          <span class="of-ic" aria-hidden="true"><svg viewBox="0 0 64 64" focusable="false">
+            <path class="i-rain i-ra1" d="M14 4l-3 8"/><path class="i-rain i-ra2" d="M30 2l-3 8"/><path class="i-rain i-ra3" d="M46 4l-3 8"/>
+            <path class="i-ln" d="M6 54L32 26L58 54"/>
+            <path class="i-tarp" d="M18 41L32 26L46 41L40 44L32 39L24 44Z"/>
+          </svg></span>
+          <h3 class="of-t">Urgent repairs</h3>
+          <p class="of-d">Storm damage and sudden leaks made safe, with a temporary cover until the repair.</p>
+          <span class="of-go">Ask about an urgent repair<svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

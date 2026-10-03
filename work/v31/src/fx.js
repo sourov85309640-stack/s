@@ -39,7 +39,7 @@
   /* ---------------- ambient defaults by section id (used only when a section has no data-fx) ---------------- */
   var DEFAULTS = {
     top: 'birds 3', hero: 'birds 3',
-    services: 'leaves 6', where: 'rain 10', decide: 'dust 8', whole: 'dust 6',
+    services: 'none', problems: 'leaves 6', where: 'rain 10', decide: 'dust 8', whole: 'dust 6',
     projects: 'leaves 5', checks: 'leaves 4', areas: 'dust 6', contact: 'dust 6'
   };
   /* the weather story (fxv=3) lets the page-wide weather layer carry the rain, and the sun breaks through after it */
@@ -53,7 +53,7 @@
   var MOTE_RGB = '178,128,86';   /* warm dust: darker than paper so it reads on light surfaces */
   var BIRD_RGB = '31,43,48';     /* ink */
 
-  var EDGE_SEL = '.e-wave,.e-step,.e-rake,.e-hip,.e-saw,.e-arc,.e-zig,.e-terrace,.e-chim';
+  var EDGE_SEL = '.e-wave,.e-step,.e-rake,.e-hip,.e-saw,.e-arc,.e-zig,.e-terrace,.e-chim,.e-ridge,.e-slate,.e-dormer,.e-gable';
   var TAU = Math.PI * 2;
   var clamp = RW.clamp;
   function rnd(a, b) { return a + Math.random() * (b - a); }

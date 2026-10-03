@@ -1,0 +1,41 @@
+/* TRUST STRIP, prefix .tr- (owner: lead). A quiet band under the hero. Each icon draws in its own way once in view,
+   and again on hover. */
+.tr{position:relative;background:var(--paper);padding-block:clamp(1.1rem,2.4vw,1.75rem);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.tr-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.25rem}
+@media (min-width:960px){.tr-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:0}}
+.tr-item{display:flex;align-items:center;gap:.85rem;min-width:0;padding:.35rem .25rem}
+@media (min-width:960px){.tr-item{padding:.4rem 1.5rem}.tr-item+.tr-item{border-left:1px solid var(--line-soft)}.tr-item:first-child{padding-left:0}}
+.tr-ic{flex:none;width:40px;height:40px;overflow:visible}
+.tr-txt{display:grid;gap:.1rem;min-width:0;font-size:.875rem;line-height:1.35;color:var(--muted)}
+.tr-txt b{font-family:var(--ui);font-weight:600;font-size:.9375rem;color:var(--text)}
+.tr .t-pg{fill:var(--warm);stroke:rgba(31,43,48,.7);stroke-width:1.6;stroke-linejoin:round}
+.tr .t-fold,.tr .t-l{fill:none;stroke:rgba(31,43,48,.7);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.tr .t-l1,.tr .t-l2,.tr .t-l3{stroke:var(--copper)}
+.tr .t-lens{fill:#E3EAED;stroke:rgba(31,43,48,.7);stroke-width:1.6}
+.tr .t-flash{fill:var(--copper)}
+.tr .t-tick{fill:none;stroke:var(--copper);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.tr .t-rose{transform-box:fill-box;transform-origin:50% 50%}
+.tr-ic *{transform-box:fill-box}
+.tr .t-l1,.tr .t-l2,.tr .t-l3{transform-origin:0 50%}
+.tr .t-tick{transform-origin:0 100%}
+@keyframes tr-write{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+@keyframes tr-flash{0%,100%{opacity:1;transform:none}40%{opacity:.2;transform:scale(2.2)}}
+@keyframes tr-lens{0%,100%{transform:none}50%{transform:scale(.8)}}
+@keyframes tr-tick{0%{transform:scale(.4);opacity:0}60%{transform:scale(1.15);opacity:1}100%{transform:none}}
+@keyframes tr-spin{0%{transform:rotate(-60deg) scale(.9)}100%{transform:none}}
+:is(.tr-item.is-seen) .t-l1{animation:tr-write .35s var(--ease) .1s backwards}
+:is(.tr-item.is-seen) .t-l2{animation:tr-write .35s var(--ease) .3s backwards}
+:is(.tr-item.is-seen) .t-l3{animation:tr-write .3s var(--ease) .5s backwards}
+:is(.tr-item.is-seen) .t-flash{animation:tr-flash .5s ease .15s}
+:is(.tr-item.is-seen) .t-lens{animation:tr-lens .5s ease .1s;transform-origin:50% 50%}
+:is(.tr-item.is-seen) .t-tick{animation:tr-tick .5s var(--ease) .15s backwards}
+:is(.tr-item.is-seen) .t-rose{animation:tr-spin .7s var(--ease)}
+@media (hover:hover){
+  .tr-item:hover .t-l1{animation:tr-write .35s var(--ease) .0s backwards}
+  .tr-item:hover .t-l2{animation:tr-write .35s var(--ease) .15s backwards}
+  .tr-item:hover .t-l3{animation:tr-write .3s var(--ease) .3s backwards}
+  .tr-item:hover .t-flash{animation:tr-flash .5s ease}
+  .tr-item:hover .t-lens{animation:tr-lens .5s ease;transform-origin:50% 50%}
+  .tr-item:hover .t-tick{animation:tr-tick .5s var(--ease) backwards}
+  .tr-item:hover .t-rose{animation:tr-spin .7s var(--ease)}
+}

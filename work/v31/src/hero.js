@@ -25,7 +25,7 @@
   /* ---------- prototype variant switch ---------- */
   RW.add('hero-variant', function () {
     var sec = RW.$('.hero'); if (!sec) return;
-    H.sec = sec; H.v = +RW.variant(sec, 'hm', ['1', '2', '6'], ['Calm roofscape', 'Roof assembles', 'Wind']);
+    H.sec = sec; H.v = +RW.variant(sec, 'hm', ['1', '2', '6', '3', '4', '5'], ['Calm roofscape', 'Roof assembles', 'Wind', 'Sketch: pointer diorama', 'Sketch: morning light', 'Sketch: rising horizon']);
   });
 
   /* ---------- intro: one composed load sequence (cinematic-gsap-lenis: media first, headline, copy, CTA) ---------- */

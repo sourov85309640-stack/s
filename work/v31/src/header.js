@@ -73,24 +73,33 @@
     /* 4. scroll state: shadow, progress, current section, hide on the way down */
     var links = $$('#nav a[data-nav]');
     var secs = links.map(function (a) { return d.querySelector('section[data-nav="' + a.getAttribute('data-nav') + '"]'); });
-    var ind = $('.nav-ind');
+    var ind = $('.nav-ind'), house = $('.hdr-house');
     var lastY = window.pageYOffset, ticking = false, curIdx = -2;
     var canHide = !RW.reduced && !RW.off;
-    function placeInd(i) {
+    function placeInd(i, el) {
       if (!ind) return;
-      if (i < 0 || !links[i] || window.innerWidth < 1240) { ind.style.setProperty('--io', 0); return; }
-      var ul = ind.parentNode, a = links[i], ar = a.getBoundingClientRect(), ur = ul.getBoundingClientRect();
+      var a = el || links[i];
+      if (!a || window.innerWidth < 1240) { ind.style.setProperty('--io', 0); return; }
+      var base = (ind.offsetParent || ind.parentNode).getBoundingClientRect(), ar = a.getBoundingClientRect();
       var pad = 12; /* .75rem side padding */
-      ind.style.setProperty('--ix', (ar.left - ur.left + pad).toFixed(1) + 'px');
+      ind.style.setProperty('--ix', (ar.left - base.left + pad).toFixed(1) + 'px');
       ind.style.setProperty('--iw', Math.max(1, ar.width - pad * 2).toFixed(1));
       ind.style.setProperty('--io', 1);
     }
+    /* the ridge line follows the pointer across the nav, then returns to the current section */
+    var hoverLink = null;
+    $$('#nav > ul > li > a').forEach(function (a) {
+      a.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hoverLink = a; placeInd(-1, a); } });
+    });
+    if (nav) nav.addEventListener('pointerleave', function () { hoverLink = null; placeInd(curIdx); });
     function onScroll() {
       ticking = false;
       var y = window.pageYOffset || d.documentElement.scrollTop;
       var max = d.documentElement.scrollHeight - window.innerHeight;
       if (hdr) hdr.classList.toggle('is-stuck', y > 8);
-      if (prog) prog.style.setProperty('--p', max > 0 ? Math.min(1, y / max).toFixed(4) : 0);
+      var pr = max > 0 ? Math.min(1, y / max).toFixed(4) : 0;
+      if (prog) prog.style.setProperty('--p', pr);
+      if (house) house.style.setProperty('--p', pr);
       var cur = -1, line = window.innerHeight * 0.35;
       secs.forEach(function (sec, i) {
         if (!sec) return;
@@ -100,10 +109,10 @@
       if (cur !== curIdx) {
         curIdx = cur;
         links.forEach(function (a, i) { if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
-        placeInd(cur);
+        if (!hoverLink) placeInd(cur);
       }
       if (hdr && canHide) {
-        var menuOpen = btn && btn.getAttribute('aria-expanded') === 'true';
+        var menuOpen = (btn && btn.getAttribute('aria-expanded') === 'true') || d.documentElement.classList.contains('mega-open');
         var dy = y - lastY;
         if (window.innerWidth < 1024 || menuOpen || y < 240) hdr.classList.remove('is-hidden');
         else if (dy > 6) hdr.classList.add('is-hidden');
@@ -115,6 +124,56 @@
     window.addEventListener('resize', function () { curIdx = -2; onScroll(); });
     onScroll();
     if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { curIdx = -2; onScroll(); });
+  });
+
+
+  /* 4b. Services mega menu: built from the cards in the "What we do" section, so the menu and the section never disagree.
+     Desktop: opens on hover (with intent delay) or with the chevron button; Escape closes. Mobile drawer: an accordion. */
+  RW.add('mega', function () {
+    var li = $('#nav .nav-mega'), cards = $$('#services .of-card');
+    if (!li || !cards.length) return;
+    var link = $('a', li), root = d.documentElement;
+    var tg = d.createElement('button');
+    tg.type = 'button'; tg.className = 'mega-tg'; tg.setAttribute('aria-expanded', 'false'); tg.setAttribute('aria-controls', 'mega');
+    tg.innerHTML = '<span class="vh">Show all services</span><svg viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5l5 5 5-5"/></svg>';
+    var panel = d.createElement('div');
+    panel.className = 'mega'; panel.id = 'mega'; panel.hidden = true;
+    var html = '<div class="mega-in"><ul class="mega-grid">';
+    cards.forEach(function (c) {
+      var a = $('.of-link', c), ic = $('.of-ic', c), t = $('.of-t', c), dsc = $('.of-d', c);
+      html += '<li><a class="mega-it" href="' + a.getAttribute('href') + '" data-of="' + (c.getAttribute('data-of') || '') + '">' +
+        '<span class="of-ic mega-ic" aria-hidden="true">' + (ic ? ic.innerHTML : '') + '</span>' +
+        '<span class="mega-tx"><b>' + (t ? t.textContent : '') + '</b><span>' + (dsc ? dsc.textContent : '') + '</span></span></a></li>';
+    });
+    html += '</ul><aside class="mega-side"><p class="mega-side-h">Not sure what it needs?</p><p class="mega-side-p">Tell us what you can see and we will tell you what we think, before anyone climbs up.</p>' +
+      '<a class="btn btn-fill mega-cta" href="#problems">Start with the problem</a>' +
+      '<a class="mega-tel" href="tel:+441632960482" data-sample="phone"><svg aria-hidden="true"><use href="#i-phone"/></svg>01632 960 482</a></aside></div>';
+    panel.innerHTML = html;
+    li.appendChild(tg); li.appendChild(panel);
+    var openT = 0, closeT = 0, isOpen = false;
+    function wide() { return window.innerWidth >= 1240; }
+    function set(open, focusFirst) {
+      clearTimeout(openT); clearTimeout(closeT);
+      if (open === isOpen) return;
+      isOpen = open;
+      tg.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.hidden = !open;
+      li.classList.toggle('is-open', open);
+      root.classList.toggle('mega-open', open && wide());
+      if (open && RW.motionOK) RW.gsap.fromTo($$('.mega-grid li, .mega-side', panel), { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.26, ease: 'power2.out', stagger: 0.03, clearProps: 'transform,opacity' });
+      if (open && focusFirst) { var f = $('.mega-it', panel); if (f) f.focus(); }
+    }
+    tg.addEventListener('click', function () { set(!isOpen); });
+    li.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'mouse' || !wide()) return; clearTimeout(closeT); openT = setTimeout(function () { set(true); }, 90); });
+    li.addEventListener('pointerleave', function (e) { if (e.pointerType !== 'mouse' || !wide()) return; clearTimeout(openT); closeT = setTimeout(function () { set(false); }, 220); });
+    li.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isOpen) { e.stopPropagation(); set(false); tg.focus(); }
+      if (e.key === 'ArrowDown' && (e.target === link || e.target === tg)) { e.preventDefault(); set(true, true); }
+    });
+    li.addEventListener('focusout', function (e) { if (wide() && !li.contains(e.relatedTarget)) set(false); });
+    panel.addEventListener('click', function (e) { if (e.target.closest('a')) set(false); });
+    d.addEventListener('pointerdown', function (e) { if (isOpen && wide() && !li.contains(e.target)) set(false); });
+    window.addEventListener('resize', function () { if (isOpen && !wide()) root.classList.remove('mega-open'); });
   });
 
   /* 5. weathervane: the arrow turns with scroll direction and settles back (transform only) */

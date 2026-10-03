@@ -19,10 +19,20 @@ phone                [data-sample="phone"]  (9 places)        Client number writ
 email, address       [data-sample="email"], ["address"]       Footer and JSON-LD
 service areas        [data-sample="areas"]                    Up to 8 real towns: areas section (src/sections/areas.html, map positions in the same file), footer list, JSON-LD areaServed.
                                                               Town links use ?town=NAME#contact (the form records the town).
-hero photos          [data-sample="hero-photo"]               Three portrait panels (img/hero-p1..p3.webp, about 720x900). Keep the top fifth quiet: the gable peak is cut there.
-                                                              ONE wide client photo works too: delete two .hero-pane blocks (comment in src/sections/hero.html).
-                                                              p2 carries data-smoke="x y" (chimney top as fractions): move or delete it with the photo.
+hero photo           [data-sample="hero-photo"]               ONE wide photo (img/hero-single.webp, about 1600x700 or larger). Keep the top fifth quiet: the gable peak is cut there.
+                                                              TODAY IT IS A PLACEHOLDER upscaled from a small stock photo: replace it first. data-smoke="x y" marks the chimney
+                                                              top (fractions of the image) for the drifting smoke: move it or delete it with the photo.
 hero detail tile     [data-sample="hero-tile"]                Close-up detail photo, or delete the figure
+trust strip          #trust (each item data-confirm)          Keep only what is true: written quotes, photos, insurance, guarantee. Edit or delete.
+services             #services [data-sample="services"]       The client's real services (6 to 9). The header mega menu and the footer Services list are built from / copy this list:
+                                                              edit src/sections/offer.html, then the footer list in src/index.html. Issue keys for ?issue= are in src/app.js.
+about                #about [data-sample="about"]             Client's own story, owner name (data-sample="owner") and numbers (data-sample="stats", data-confirm="stats").
+                                                              Every number is a placeholder. A team photo can replace the drawing.
+gallery              #work [data-sample="gallery"]            6 to 9 real job photos with job type and town. Today: stock photos for illustration (the intro says so).
+urgent band          #urgent (data-confirm="urgent")          Keep only if the client takes urgent work; never promise a response time they cannot keep.
+opening hours        [data-sample="hours"] (footer)           Real hours, confirm with the client
+company details      [data-sample="company-details"]          Company number and VAT number, or delete the line
+social links         [data-sample="social"]                   Real profile URLs, or delete the list
 reviews              #reviews [data-sample="reviews"]         The reviews are INVENTED SAMPLES. Paste the client's real Google reviews (15 to 60 words each), real rating and count,
                                                               or delete the whole <section id="reviews"> (the nav link removes itself).
 rating chip          [data-sample="rating"]                   Real rating and count (reviews widget header, hero layout C chip)
@@ -48,19 +58,21 @@ DESIGN OPTIONS (owner tool, bottom-left "Design options" button)
   Each section keeps a default and one or two alternatives. The panel adds ?param=N to the address. To fix a choice for a client, set
   data-v="N" on that <section> in src/sections/NAME.html (hero layout: data-hero="a|b|c" on <html> in src/index.html), then delete the panel.
   Hero layout   ?hero=   a headline left (default) | b gable plate with text card | c centred with rating chip
-  Hero motion   ?hm=     1 calm roofscape (default) | 2 roof assembles | 6 wind
-  Reviews       ?rv=     1 card rail (default) | 2 card deck | 6 cover flow
-  Services      ?sv=     1 lead card and list (default) | 2 roof slope of tiles | 6 chooser
-  Where water   ?wv=     2 follow the water (default) | 3 rain and loupe | 6 camera zoom
-  Decide        ?dv=     2 weathering roof (default) | 1 gauge | 4 dial
+  (Each row also lists "rougher sketches" from the prototype round: less polished, kept so you can see every idea.)
+  Hero motion   ?hm=     1 calm roofscape (default) | 2 roof assembles | 6 wind | sketches 3 pointer diorama, 4 morning light, 5 rising horizon
+  Reviews       ?rv=     1 card rail (default) | 2 card deck | 6 cover flow | sketches 3 scroll drift, 4 spotlight, 5 timed rail
+  Problems      ?sv=     1 lead card and list (default) | 2 roof slope of tiles | 6 chooser | sketches 3 roof map, 4 floating photo, 5 slate pile
+  Where water   ?wv=     2 follow the water (default) | 3 rain and loupe | 6 camera zoom | sketch 1 marker and splash
+  Decide        ?dv=     2 weathering roof (default) | 1 gauge | 4 dial | sketches 3 timeline rail, 5 tabs, 6 self-check slider
   3D roof       ?xv=     1 layers lift apart (default) | 2 roof builds itself | 5 raindrop through the layers
-  Project       ?pv=     1 facts list (default) | 2 before and after drawing
-  How it works  ?hv=     1 timeline (default) | 2 ridge walk | 4 quote fills in
-  Checks        ?cv=     1 sightline diagram (default) | 4 binocular photo
-  Areas         ?av=     1 contour map (default) | 2 rooftops
-  FAQ           ?fv=     1 accordion (default) | 2 answer panel
-  Contact       ?ctv=    4 evening house (default) | 2 clipboard | 5 roof outline draws
+  Project       ?pv=     1 facts list (default) | 2 before and after drawing | sketches 3 scrubbed reading, 4 layered frame, 5 short pin
+  How it works  ?hv=     1 timeline (default) | 2 ridge walk | 4 quote fills in | sketches 3 chapters, 5 ladder, 6 gable tabs
+  Checks        ?cv=     1 sightline diagram (default) | 4 binocular photo | sketches 2 flip cards, 3 scrubbed sightline, 5 phone viewfinder
+  Areas         ?av=     1 contour map (default) | 2 rooftops | sketches 3 distance rings, 4 tile grid, 5 route and search
+  FAQ           ?fv=     1 accordion (default) | 2 answer panel | sketches 3 chat, 4 open with index
+  Contact       ?ctv=    4 evening house (default) | 2 clipboard | 5 roof outline draws | sketches 1 plain split, 3 one question at a time, 6 picture cards first
   Atmosphere    ?fxv=    6 full (default) | 3 weather story | 1 particles only | 0 off
+  Cursor        ?cur=    full: follower + trail per section (default) | ring: follower only | off
 
 3D ROOF COVERING
   The "Tiles | Slates" switch swaps the covering artwork and its name. Default: data-cover="tiles" on #whole. Layer names and copy are in

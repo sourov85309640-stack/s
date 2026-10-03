@@ -42,18 +42,16 @@
     </div>
 
     <div class="hero-frame">
-      <!-- HERO PHOTO SLOT (data-sample="hero-photo"). Today: three portrait photos side by side (a triptych).
-           To use ONE wide client photo instead: delete two of the three <div class="hero-pane"> blocks and put the client's
-           photo in the one that is left (about 1600x700 or larger works best). A single pane fills the whole gable by itself.
+      <!-- HERO PHOTO SLOT (data-sample="hero-photo"): ONE wide photo (about 1600x700 or larger works best), cropped to the gable in CSS.
+           Today it is a placeholder stock photo upscaled from a small original: replace it with the client's own wide roof photo.
+           (Three portrait photos side by side also work: add up to three <div class="hero-pane"> blocks.)
            Keep the top fifth of the photo quiet: the gable peak is cut there. Update the alt text.
            data-smoke="x y" marks the chimney top (fractions of the image) for the drifting smoke; delete that attribute if the
            new photo has no chimney. -->
       <div class="hero-plate" data-sample="hero-photo">
         <div class="hero-plate-in">
           <div class="hero-panes">
-            <div class="hero-pane"><img src="img/hero-p1.webp" width="720" height="900" fetchpriority="high" alt="Red sandstone lodge with a steep slate roof, green bargeboards and a tall chimney stack."></div>
-            <div class="hero-pane"><img src="img/hero-p2.webp" width="720" height="900" data-smoke="0.47 0.375" alt="Brick chimney with smoke rising above a white painted gable."></div>
-            <div class="hero-pane"><img src="img/hero-p3.webp" width="720" height="900" alt="Stone cottage with a stone tile roof, three dormer gables and a cottage garden."></div>
+            <div class="hero-pane"><img src="img/hero-single.webp" width="1600" height="696" fetchpriority="high" data-smoke="0.49 0.27" alt="Brick chimney stack with smoke rising, above a white painted gable and a tiled roof."></div>
           </div>
         </div>
         <div class="hero-sweep" aria-hidden="true"></div>

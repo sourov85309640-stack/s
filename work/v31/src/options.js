@@ -9,7 +9,7 @@
   if (!RW || root.getAttribute('data-options') === 'off') return;
 
   RW.add('options', function () {
-    var LABELS = { top: 'Hero motion', reviews: 'Reviews', services: 'Services', where: 'Where water gets in', decide: 'Repair or replace',
+    var LABELS = { top: 'Hero motion', reviews: 'Reviews', services: 'Services', problems: 'Start with the problem', where: 'Where water gets in', decide: 'Repair or replace',
       whole: '3D roof', projects: 'Project', how: 'How it works', checks: 'Checks from the ground', areas: 'Areas', faq: 'FAQ', contact: 'Contact' };
     var order = RW.$$('main > section[id]').map(function (s) { return s.id; });
     var opts = RW.options.slice().sort(function (a, b) {
@@ -33,12 +33,19 @@
     opts.forEach(function (o) { html += row(o.label || LABELS[o.id] || o.id, o.param, o.allowed, o.names, o.current); });
     panel.innerHTML = html;
 
+    function mkBtn(param, v, label, cur, isDefault) {
+      return '<button type="button" data-p="' + param + '" data-val="' + v + '" aria-pressed="' + (String(cur) === String(v)) + '">' + label + (isDefault ? ' <small>(default)</small>' : '') + '</button>';
+    }
     function row(label, param, vals, names, cur) {
-      var s = '<div class="rwopt-row" role="group" aria-label="' + label + '"><p class="rwopt-l">' + label + '</p><div class="rwopt-btns">';
+      var main = '', sk = '';
       vals.forEach(function (v, i) {
-        s += '<button type="button" data-p="' + param + '" data-val="' + v + '" aria-pressed="' + (String(cur) === String(v)) + '">' + (i === 0 ? names[i] + ' <small>(default)</small>' : names[i]) + '</button>';
+        var n = names[i] || v;
+        if (/^Sketch: /.test(n)) sk += mkBtn(param, v, n.replace(/^Sketch: /, ''), cur, false);
+        else main += mkBtn(param, v, n, cur, i === 0);
       });
-      return s + '</div></div>';
+      var s = '<div class="rwopt-row" role="group" aria-label="' + label + '"><p class="rwopt-l">' + label + '</p><div class="rwopt-btns">' + main + '</div>';
+      if (sk) s += '<p class="rwopt-sk">Rougher sketches from the prototype round</p><div class="rwopt-btns rwopt-btns-sk">' + sk + '</div>';
+      return s + '</div>';
     }
 
     wrap.appendChild(panel); wrap.appendChild(btn); d.body.appendChild(wrap);

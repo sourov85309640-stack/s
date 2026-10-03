@@ -7,7 +7,7 @@
   var RW = window.RW;
   var sec = document.getElementById('faq');
   if (!sec) return;
-  var V = +RW.variant(sec, 'fv', ['1', '2'], ['Accordion', 'Answer panel']);
+  var V = +RW.variant(sec, 'fv', ['1', '2', '3', '4'], ['Accordion', 'Answer panel', 'Sketch: chat', 'Sketch: open with index']);
 
   RW.add('faq', function () {
     var items = RW.$$('.faq-item', sec);

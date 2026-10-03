@@ -6,7 +6,7 @@
   var RW = window.RW;
   var sec = document.getElementById('areas');
   if (!sec) return;
-  var V = +RW.variant(sec, 'av', ['1', '2'], ['Contour map', 'Rooftops']);
+  var V = +RW.variant(sec, 'av', ['1', '2', '3', '4', '5'], ['Contour map', 'Rooftops', 'Sketch: distance rings', 'Sketch: tile grid', 'Sketch: route and search']);
 
   var towns = RW.$$('.are-town', sec);
   var stage = RW.$('.are-stage', sec);

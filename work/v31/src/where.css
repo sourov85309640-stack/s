@@ -134,7 +134,7 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
 
 /* ---------- list: rows + progress rail ---------- */
 .dia-list{position:relative;display:grid;gap:.15rem;--rail:0}
-.dia-list li{position:relative;display:grid;grid-template-columns:2.25rem minmax(0,1fr);column-gap:.75rem;align-items:start;padding:.55rem .75rem .55rem .5rem;border-radius:6px;color:var(--muted);font-size:.9375rem;line-height:1.45;transition:background-color .2s,box-shadow .2s}
+.dia-list li{position:relative;display:grid;grid-template-columns:2.25rem minmax(0,1fr);column-gap:.75rem;align-items:start;padding:.7rem .9rem .7rem .6rem;border-radius:10px;color:var(--muted);font-size:.9375rem;line-height:1.5;transition:background-color .2s,box-shadow .2s}
 .dia-n{display:flex;align-items:center;justify-content:center;width:1.75rem;height:1.75rem;margin-top:-.05rem;border-radius:50%;background:var(--copper);color:var(--paper);font-family:var(--ui);font-weight:600;font-size:.875rem;position:relative;z-index:1;transition:background-color .2s,color .2s,box-shadow .2s}
 .dia-t b{display:block;font-family:var(--ui);font-weight:600;font-size:var(--h5);color:var(--text);margin-bottom:.05rem}
 .dia-row{appearance:none;-webkit-appearance:none;background:none;border:0;margin:0;font:inherit;color:inherit;text-align:left;width:100%;display:grid;grid-template-columns:2.25rem minmax(0,1fr);column-gap:.75rem;align-items:start;padding:.55rem .75rem .55rem .5rem;border-radius:6px;cursor:pointer;min-height:44px}

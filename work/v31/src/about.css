@@ -1,0 +1,61 @@
+/* ABOUT AND WHY CHOOSE US, prefix .ab- (owner: lead).
+   The drawing is a small working scene: a roofer on a ladder slots the last tile into the gap, smoke drifts from the stack.
+   The tile goes in once when the section arrives and again whenever the pointer visits the drawing. */
+.ab{overflow:hidden}
+.ab-bk-cloud{width:200px;height:60px;top:2.5rem;left:6%;fill:#fff;opacity:.75}
+.ab-bk-cloud2{width:150px;height:45px;top:auto;bottom:18%;left:auto;right:8%;opacity:.6}
+.ab-grid{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+@media (min-width:960px){.ab-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
+.ab-art{position:relative;border-radius:22px;background:linear-gradient(#F4F7F8,#FAF9F6);box-shadow:var(--shadow-card);padding:clamp(1rem,2.5vw,1.75rem);max-width:560px;width:100%;justify-self:center}
+.ab-scene{display:block;width:100%;height:auto;overflow:visible}
+.ab .ab-ground{fill:none;stroke:rgba(31,43,48,.6);stroke-width:2.5;stroke-linecap:round}
+.ab .ab-wall{fill:#F1E7DA;stroke:rgba(31,43,48,.65);stroke-width:2}
+.ab .ab-win,.ab .ab-door{fill:#E3EAED;stroke:rgba(31,43,48,.6);stroke-width:2}
+.ab .ab-roof{fill:#D9A383;stroke:var(--copper);stroke-width:2.5;stroke-linejoin:round}
+.ab .ab-courses path{fill:none;stroke:rgba(152,86,50,.5);stroke-width:1.6}
+.ab .ab-gap-r{fill:#8E6A55;opacity:.45}
+.ab .ab-chim{fill:#C98B62;stroke:rgba(31,43,48,.6);stroke-width:2}
+.ab .ab-chimtop{stroke:rgba(31,43,48,.7);stroke-width:5;stroke-linecap:round}
+.ab .ab-smoke circle{fill:#E8E6E1;stroke:rgba(31,43,48,.18);stroke-width:1.5;transform-box:fill-box;transform-origin:50% 50%}
+.ab .ab-ladder path{fill:none;stroke:#9C7A5E;stroke-width:3.2;stroke-linecap:round}
+.ab .ab-head{fill:#E9C8A8;stroke:rgba(31,43,48,.6);stroke-width:2}
+.ab .ab-cap{fill:var(--copper)}
+.ab .ab-body{fill:none;stroke:#3F5560;stroke-width:6;stroke-linecap:round}
+.ab .ab-armline{fill:none;stroke:#3F5560;stroke-width:5;stroke-linecap:round}
+.ab .ab-tile{fill:#D9A383;stroke:var(--copper);stroke-width:2}
+.ab .ab-arm{transform-box:view-box;transform-origin:392px 150px}
+.ab .ab-tile{transform-box:view-box;transform-origin:357px 168px}
+.ab .ab-van{fill:#FAF9F6;stroke:rgba(31,43,48,.6);stroke-width:2;stroke-linejoin:round}
+.ab .ab-wheel{fill:#3F5560}
+/* still page: the tile sits in the gap */
+html:not(.has-motion) .ab-tile{transform:translate(-93px,13px)}
+html:not(.has-motion) .ab-gap{opacity:0}
+@keyframes ab-place{0%{transform:none}20%{transform:translate(-14px,-10px) rotate(-8deg)}55%{transform:translate(-90px,4px) rotate(5deg)}68%,100%{transform:translate(-93px,13px)}}
+@keyframes ab-swing{0%,100%{transform:none}25%{transform:rotate(-22deg)}55%{transform:rotate(-34deg)}}
+@keyframes ab-gap{0%,50%{opacity:1}62%,100%{opacity:0}}
+@keyframes ab-smoke{0%{transform:translateY(10px) scale(.4);opacity:0}25%{opacity:.95}100%{transform:translate(10px,-26px) scale(1.25);opacity:0}}
+.ab.is-place .ab-tile{animation:ab-place 1.6s var(--ease) forwards}
+.ab.is-place .ab-arm{animation:ab-swing 1.6s var(--ease)}
+.ab.is-place .ab-gap{animation:ab-gap 1.6s ease forwards}
+.ab.is-live .ab-smoke circle{animation:ab-smoke 3s ease-out infinite}
+.ab.is-live .ab-smoke circle:nth-child(2){animation-delay:1s}
+.ab.is-live .ab-smoke circle:nth-child(3){animation-delay:2s}
+
+
+.ab-copy h2{max-width:18ch;margin-bottom:1rem}
+.ab-lead{margin-bottom:1.5rem}
+.ab-why{display:grid;gap:.9rem;margin-bottom:1.75rem}
+.ab-why li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:.75rem;align-items:start;color:var(--muted);line-height:1.5}
+.ab-why b{color:var(--text);font-family:var(--ui);font-weight:600}
+.ab-tick{width:28px;height:28px;padding:4px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 1px rgba(152,86,50,.25)}
+.ab-tick path{fill:none;stroke:var(--copper);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transform-box:fill-box;transform-origin:0 100%}
+@keyframes ab-tick{0%{transform:scale(.3);opacity:0}70%{transform:scale(1.15);opacity:1}100%{transform:none}}
+.ab-why li.is-seen .ab-tick path{animation:ab-tick .45s var(--ease) backwards}
+.ab-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.75rem;margin-bottom:1.25rem}
+.ab-stats>div{display:flex;flex-direction:column-reverse;justify-content:flex-end;gap:.25rem;padding:1rem 1.1rem;border-radius:14px;background:var(--card);box-shadow:var(--shadow-card)}
+.ab-stats dt{font-size:.8125rem;line-height:1.35;color:var(--muted)}
+.ab-stats dd{font-family:var(--display);font-weight:700;font-size:clamp(1.5rem,1.1rem + 1.4vw,2.125rem);line-height:1;color:var(--text);font-variant-numeric:tabular-nums}
+.ab-plus{color:var(--copper)}
+@media (max-width:479px){.ab-stats{grid-template-columns:minmax(0,1fr)}.ab-stats>div{flex-direction:row-reverse;align-items:baseline;justify-content:space-between}}
+.ab-sign{font-family:var(--ui);color:var(--muted)}
+.ab-sign-n{font-weight:600;color:var(--text)}

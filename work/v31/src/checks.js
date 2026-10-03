@@ -8,7 +8,7 @@
   var sec = document.getElementById('checks');
   if (!sec) return;
   /* variant first, before anything paints in a later frame */
-  var V = +RW.variant(sec, 'cv', ['1', '4'], ['Sightline diagram', 'Binocular photo']);
+  var V = +RW.variant(sec, 'cv', ['1', '4', '2', '3', '5'], ['Sightline diagram', 'Binocular photo', 'Sketch: flip cards', 'Sketch: scrubbed sightline', 'Sketch: phone viewfinder']);
 
   var items = RW.$$('.chk-item', sec);
   var photo = RW.$('.chk-photo', sec);

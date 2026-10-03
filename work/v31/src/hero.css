@@ -12,7 +12,7 @@
   --stage-h:clamp(260px,38vw,560px);
   --gap:6px;                   /* paper gap between the three photos */
   position:relative;overflow-x:clip;
-  padding-top:clamp(2.25rem,5.5vw,5rem);padding-bottom:clamp(3.75rem,6vw,5.25rem);
+  padding-top:clamp(2.25rem,5.5vw,5rem);padding-bottom:clamp(3.25rem,4.5vw,4rem);
   background:var(--paper)}
 .hero::before{content:"";position:absolute;inset:0;background:url(img/hero-texture-light.webp) 50% 30%/cover no-repeat;opacity:.3;pointer-events:none}
 .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(52% 46% at 86% 4%,rgba(221,167,131,.13),rgba(221,167,131,0) 72%);pointer-events:none}

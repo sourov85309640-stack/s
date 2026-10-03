@@ -11,7 +11,7 @@
   /* ---------- variant switch ---------- */
   RW.add('ct-variant', function () {
     var s = sec(); if (!s) return;
-    RW.variant(s, 'ctv', ['4', '2', '5'], ['Evening house', 'Clipboard', 'Roof outline draws']);
+    RW.variant(s, 'ctv', ['4', '2', '5', '1', '3', '6'], ['Evening house', 'Clipboard', 'Roof outline draws', 'Sketch: plain split', 'Sketch: one question at a time', 'Sketch: picture cards first']);
   });
   function v() { var s = sec(); return s ? s.getAttribute('data-v') : '1'; }
 

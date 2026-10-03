@@ -77,7 +77,7 @@ html.js .chk-hint{display:block}
 html:not(.js) .d-mark path{stroke-dashoffset:1}
 
 /* ---------- list rows (v1, v3, v4, v5) ---------- */
-.chk-item{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"tick txt";column-gap:1rem;padding:1.15rem 0;border-top:1px solid var(--line)}
+.chk-item{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"tick txt";column-gap:1rem;padding:1.15rem .85rem;margin-inline:-.85rem;border-radius:10px;border-top:1px solid var(--line)}
 .chk-item:last-child{border-bottom:1px solid var(--line)}
 html:not(.js) .chk-item{grid-template-columns:minmax(0,1fr);grid-template-areas:"txt"}
 .chk-card,.chk-front{display:contents}

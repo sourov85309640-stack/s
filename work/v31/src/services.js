@@ -4,12 +4,12 @@
 (function () {
   'use strict';
   var RW = window.RW, d = document;
-  var sec = d.getElementById('services');
+  var sec = d.getElementById('problems');
   if (!RW || !sec) return;
   var $ = RW.$, $$ = RW.$$;
 
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'sv', ['1', '2', '6'], ['Lead card and list', 'Roof slope of tiles', 'Chooser']);
+  var V = RW.variant(sec, 'sv', ['1', '2', '6', '3', '4', '5'], ['Lead card and list', 'Roof slope of tiles', 'Chooser', 'Sketch: roof map', 'Sketch: floating photo', 'Sketch: slate pile']);
   var list = $('.svc-list', sec), stage = $('.svc-stage', sec);
   var cards = $$('.svc', sec);
   function byKey(k) { return $('.svc[data-issue="' + k + '"]', sec); }

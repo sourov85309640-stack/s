@@ -34,18 +34,24 @@
 <script>(function(d){var r=d.documentElement;r.className+=" js";try{var m=/[?&]hero=([abc])\b/.exec(location.search);if(m)r.setAttribute("data-hero",m[1]);}catch(e){}}(document))</script>
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="hero.css">
+<link rel="stylesheet" href="trust.css">
 <link rel="stylesheet" href="reviews.css">
+<link rel="stylesheet" href="offer.css">
 <link rel="stylesheet" href="services.css">
 <link rel="stylesheet" href="where.css">
 <link rel="stylesheet" href="decide.css">
 <link rel="stylesheet" href="whole.css">
+<link rel="stylesheet" href="about.css">
+<link rel="stylesheet" href="work.css">
 <link rel="stylesheet" href="projects.css">
 <link rel="stylesheet" href="how.css">
 <link rel="stylesheet" href="checks.css">
 <link rel="stylesheet" href="areas.css">
 <link rel="stylesheet" href="faq.css">
+<link rel="stylesheet" href="urgent.css">
 <link rel="stylesheet" href="contact.css">
 <link rel="stylesheet" href="fx.css">
+<link rel="stylesheet" href="cursor.css">
 <!-- OWNER TOOL: Design options panel. Delete this line and the options.js line before sending to a client. -->
 <link rel="stylesheet" href="options.css">
 </head>
@@ -60,6 +66,7 @@
 
 <a class="skip" href="#main">Skip to the content</a>
 <span class="hdr-progress" id="progress" aria-hidden="true"></span>
+<span class="hdr-house" aria-hidden="true"><svg viewBox="0 0 16 14" focusable="false"><path d="M1 7L8 1l7 6M3 6v7h10V6"/></svg></span>
 
 <header class="hdr" id="header">
   <div class="wrap hdr-in">
@@ -75,9 +82,10 @@
     </a>
     <nav class="nav" id="nav" aria-label="Main">
       <ul>
+        <li class="nav-mega"><a href="#services" data-nav="services">Services</a></li>
+        <li><a href="#about" data-nav="about">About</a></li>
         <li><a href="#reviews" data-nav="reviews">Reviews</a></li>
-        <li><a href="#services" data-nav="services">Services</a></li>
-        <li><a href="#projects" data-nav="projects">Projects</a></li>
+        <li><a href="#work" data-nav="work">Our work</a></li>
         <li><a href="#how" data-nav="how">How it works</a></li>
         <li><a href="#faq" data-nav="faq">FAQ</a></li>
       </ul>
@@ -95,16 +103,21 @@
 
 <main id="main">
 <!-- @include sections/hero.html -->
+<!-- @include sections/trust.html -->
 <!-- @include sections/reviews.html -->
+<!-- @include sections/offer.html -->
 <!-- @include sections/services.html -->
 <!-- @include sections/where.html -->
 <!-- @include sections/decide.html -->
 <!-- @include sections/whole.html -->
+<!-- @include sections/about.html -->
+<!-- @include sections/work.html -->
 <!-- @include sections/projects.html -->
 <!-- @include sections/how.html -->
 <!-- @include sections/checks.html -->
 <!-- @include sections/areas.html -->
 <!-- @include sections/faq.html -->
+<!-- @include sections/urgent.html -->
 <!-- @include sections/contact.html -->
 </main>
 
@@ -115,6 +128,10 @@
     <svg class="ftr-bird ftr-bird2" viewBox="0 0 40 16" data-drift="-40" data-depth="0.12" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>
   </div>
   <svg class="ridge-line wrap-edge" viewBox="0 0 1200 20" preserveAspectRatio="xMinYMid slice" aria-hidden="true"><path d="M0 16H48L72 4L96 16H1200" vector-effect="non-scaling-stroke"/></svg>
+  <div class="wrap ftr-top">
+    <p class="ftr-cta-t">Questions about your roof? <span>Talk to a roofer, not a call centre.</span></p>
+    <div class="ftr-cta-a"><a class="btn btn-fill" href="tel:+441632960482" data-sample="phone"><svg aria-hidden="true"><use href="#i-phone"/></svg>01632 960 482</a><a class="btn btn-line" href="#contact">Get a written quote</a></div>
+  </div>
   <div class="wrap ftr-grid">
     <div class="ftr-id">
       <p class="ftr-name" data-sample="company">Ridgewell Roofing</p>
@@ -123,18 +140,36 @@
         <a href="tel:+441632960482" data-sample="phone">01632 960 482</a><br>
         <a href="mailto:hello@ridgewell-roofing.example" data-sample="email">hello@ridgewell-roofing.example</a>
       </address>
+      <p class="ftr-h ftr-h-hours">Opening hours</p>
+      <dl class="ftr-hours" data-sample="hours" data-confirm="hours"><div><dt>Monday to Friday</dt><dd>8am to 6pm</dd></div><div><dt>Saturday</dt><dd>9am to 1pm</dd></div><div><dt>Sunday</dt><dd>Closed</dd></div></dl>
     </div>
-    <div>
+    <nav class="ftr-col" aria-label="Services">
+      <p class="ftr-h">Services</p>
+      <ul class="ftr-links" data-sample="services">
+        <li><a href="?issue=repair#contact">Roof repairs</a></li><li><a href="?issue=reroof#contact">Re-roofing</a></li><li><a href="?issue=flat#contact">Flat roofs</a></li><li><a href="?issue=chimney#contact">Chimney work</a></li><li><a href="?issue=lead#contact">Leadwork</a></li><li><a href="?issue=gutters#contact">Fascias, soffits and gutters</a></li><li><a href="?issue=inspection#contact">Roof inspections</a></li><li><a href="?issue=emergency#contact">Urgent repairs</a></li>
+      </ul>
+    </nav>
+    <nav class="ftr-col" aria-label="Company">
+      <p class="ftr-h">Company</p>
+      <ul class="ftr-links">
+        <li><a href="#about">About us</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#work">Recent work</a></li><li><a href="#how">How it works</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="ftr-col">
       <p class="ftr-h">Areas</p>
       <ul class="ftr-areas" data-sample="areas">
         <li>Cirencester</li><li>Tetbury</li><li>Fairford</li><li>Malmesbury</li><li>Stroud</li><li>Cheltenham</li><li>Swindon</li><li>Lechlade</li>
+      </ul>
+      <p class="ftr-h ftr-h-social">Follow</p>
+      <ul class="ftr-social" data-sample="social">
+        <li><a href="https://www.facebook.com/" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/" rel="noopener">Instagram</a></li>
       </ul>
     </div>
   </div>
   <div class="wrap legal">
     <details id="privacy" data-sample="legal"><summary>Privacy notice</summary><p>Sample text. Replace with the client's own notice. We collect your name, phone number, postcode and any message or photos you send, only to reply about your roof. We do not sell your details. You can ask us to delete them at any time by emailing the address above.</p></details>
     <details id="terms" data-sample="legal"><summary>Terms</summary><p>Sample text. Replace with the client's own terms. Quotes are written, show what is included and what is left out, and are valid for the period stated on the quote.</p></details>
-    <p class="copy">&copy; 2026 <span data-sample="company">Ridgewell Roofing</span>. Photographs are for illustration only and do not show this firm's work.</p>
+    <p class="copy">&copy; 2026 <span data-sample="company">Ridgewell Roofing</span>. <span data-sample="company-details">Registered in England and Wales, company number 00000000. VAT number GB 000 0000 00.</span> Photographs are for illustration only and do not show this firm's work.</p>
   </div>
 </footer>
 
@@ -150,18 +185,24 @@
 <script src="header.js"></script>
 <script src="app.js"></script>
 <script src="hero.js"></script>
+<script src="trust.js"></script>
 <script src="reviews.js"></script>
+<script src="offer.js"></script>
 <script src="services.js"></script>
 <script src="where.js"></script>
 <script src="decide.js"></script>
 <script src="whole.js"></script>
+<script src="about.js"></script>
+<script src="work.js"></script>
 <script src="projects.js"></script>
 <script src="how.js"></script>
 <script src="checks.js"></script>
 <script src="areas.js"></script>
 <script src="faq.js"></script>
+<script src="urgent.js"></script>
 <script src="contact.js"></script>
 <script src="fx.js"></script>
+<script src="cursor.js"></script>
 <script src="depth.js"></script>
 <!-- OWNER TOOL: delete before sending to a client -->
 <script src="options.js"></script>

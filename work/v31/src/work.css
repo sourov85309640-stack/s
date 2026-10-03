@@ -1,0 +1,39 @@
+/* RECENT WORK GALLERY, prefix .wk- (owner: lead). A bento grid; on hover the photo pushes in, survey brackets close on the
+   corners and the caption rises. Click opens a lightbox (<dialog>) with arrow keys and Escape. */
+.wk-grid{display:grid;gap:clamp(.6rem,1.2vw,1rem);grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:clamp(150px,30vw,210px)}
+.wk-a{grid-column:span 2;grid-row:span 2}
+@media (min-width:900px){.wk-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:clamp(180px,17vw,250px);grid-template-areas:"a a b" "a a c" "d e f"}
+  .wk-a{grid-area:a}.wk-b{grid-area:b}.wk-c{grid-area:c}.wk-d{grid-area:d}.wk-e{grid-area:e}.wk-f{grid-area:f}}
+.wk-it{min-width:0}
+.wk-btn{position:relative;display:block;width:100%;height:100%;padding:0;border:0;border-radius:14px;overflow:hidden;background:var(--warm);cursor:pointer;text-align:left;isolation:isolate}
+.wk-cw{position:absolute;inset:0;overflow:hidden}
+.wk-cw img{width:100%;height:100%;object-fit:cover;transition:scale .6s var(--ease)}
+.wk-btn::before,.wk-btn::after{content:"";position:absolute;z-index:2;width:22px;height:22px;border:2px solid #fff;opacity:0;transition:transform .3s var(--ease),opacity .2s;pointer-events:none}
+.wk-btn::before{left:12px;top:12px;border-right:0;border-bottom:0;transform:translate(10px,10px)}
+.wk-btn::after{right:12px;bottom:58px;border-left:0;border-top:0;transform:translate(-10px,-10px)}
+.wk-cap{position:absolute;left:0;right:0;bottom:0;z-index:1;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.25rem .75rem;padding:1.6rem 1rem .85rem;
+  background:linear-gradient(to top,rgba(24,32,36,.78),rgba(24,32,36,0));color:#fff;font-size:.875rem;line-height:1.3;transform:translateY(6px);transition:transform .3s var(--ease)}
+.wk-cap b{font-family:var(--ui);font-weight:600;font-size:.9375rem}
+.wk-cap span{opacity:.85}
+@media (hover:hover){
+  .wk-btn:hover .wk-cw img{scale:1.07}
+  .wk-btn:hover::before,.wk-btn:hover::after{opacity:1;transform:none}
+  .wk-btn:hover .wk-cap{transform:none}
+}
+.wk-btn:focus-visible{outline:3px solid var(--copper);outline-offset:3px}
+.wk-btn:focus-visible::before,.wk-btn:focus-visible::after{opacity:1;transform:none}
+.wk-btn:active{scale:.985}
+/* lightbox */
+.wk-dlg{padding:0;border:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%;overflow:hidden}
+.wk-dlg::backdrop{background:rgba(24,32,36,.86)}
+.wk-dlg[open]{display:grid;place-items:center}
+.wk-fig{margin:0;display:grid;gap:.6rem;justify-items:center;max-width:min(92vw,1000px)}
+.wk-big{display:block;max-width:100%;max-height:78vh;width:auto;height:auto;border-radius:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.wk-figcap{color:#fff;font-family:var(--ui);font-size:.9375rem;text-align:center}
+.wk-x,.wk-nav{position:fixed;display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:rgba(250,249,246,.95);color:var(--text);font-size:1.75rem;line-height:1;cursor:pointer}
+.wk-x{top:16px;right:16px}
+.wk-prev{left:16px;top:50%;margin-top:-24px}.wk-next{right:16px;top:50%;margin-top:-24px}
+.wk-x:focus-visible,.wk-nav:focus-visible{outline:3px solid var(--copper-tint);outline-offset:3px}
+html.has-motion .wk-dlg[open] .wk-fig{animation:wk-in .3s var(--ease)}
+@keyframes wk-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@media (max-width:899px){.wk-f{grid-column:span 2}}

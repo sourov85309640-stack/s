@@ -13,7 +13,7 @@
   if (!RW || !sec) return;
   var $ = RW.$, $$ = RW.$$;
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'dv', ['2', '1', '4'], ['Weathering roof', 'Gauge', 'Dial']);
+  var V = RW.variant(sec, 'dv', ['2', '1', '4', '3', '5', '6'], ['Weathering roof', 'Gauge', 'Dial', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
 
   var body = $('.dec-body', sec), cards = $$('.dec-card', sec), picks = $$('.dec-pick', sec);
   var NAMES = ['Sound', 'Tired', 'Unclear', 'Past repair'];

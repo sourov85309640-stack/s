@@ -15,7 +15,7 @@
   if (!RW || !sec) return;
 
   /* ---- variant switch (prototype stage): ?v=1..6, default 1 ---- */
-  var V = RW.variant(sec, 'rv', ['1', '2', '6'], ['Card rail', 'Card deck', 'Cover flow']);
+  var V = RW.variant(sec, 'rv', ['1', '2', '6', '3', '4', '5'], ['Card rail', 'Card deck', 'Cover flow', 'Sketch: scroll drift', 'Sketch: spotlight', 'Sketch: timed rail']);
   var MODE = { 1: 'rail', 2: 'deck', 3: 'rail', 4: 'spot', 5: 'rail', 6: 'flow' }[V];
 
   var car = RW.$('.rv-car', sec), vp = RW.$('.rv-vp', sec), track = RW.$('.rv-track', sec);

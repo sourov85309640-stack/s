@@ -23,7 +23,14 @@
       patching: 'About: an old roof that keeps needing patching',
       notsure: 'About: not sure yet',
       maintain: 'About: keeping the roof in good order',
-      investigate: 'About: finding the cause of a problem'
+      investigate: 'About: finding the cause of a problem',
+      repair: 'About: a roof repair',
+      reroof: 'About: re-roofing',
+      flat: 'About: a flat roof',
+      lead: 'About: leadwork',
+      gutters: 'About: fascias, soffits or gutters',
+      inspection: 'About: a roof inspection',
+      emergency: 'About: an urgent repair'
     };
     function emit(name, detail) {
       if (!form) return;

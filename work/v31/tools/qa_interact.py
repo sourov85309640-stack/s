@@ -8,9 +8,9 @@ def ev(pg, js, arg=None): return pg.evaluate(js, arg) if arg is not None else pg
 with sync_playwright() as p:
     b = launch(p)
     # 1. every design option loads clean
-    opts = [('hm', ['1', '2', '6']), ('rv', ['1', '2', '6']), ('sv', ['1', '2', '6']), ('wv', ['2', '3', '6']), ('dv', ['2', '1', '4']),
-            ('xv', ['1', '2', '5']), ('pv', ['1', '2']), ('hv', ['1', '2', '4']), ('cv', ['1', '4']), ('av', ['1', '2']), ('fv', ['1', '2']),
-            ('ctv', ['4', '2', '5']), ('fxv', ['6', '3', '1', '0']), ('hero', ['a', 'b', 'c'])]
+    opts = [('hm', ['1', '2', '6', '3', '4', '5']), ('rv', ['1', '2', '6', '3', '4', '5']), ('sv', ['1', '2', '6', '3', '4', '5']), ('wv', ['2', '3', '6', '1']), ('dv', ['2', '1', '4', '3', '5', '6']),
+            ('xv', ['1', '2', '5']), ('pv', ['1', '2', '3', '4', '5']), ('hv', ['1', '2', '4', '3', '5', '6']), ('cv', ['1', '4', '2', '3', '5']), ('av', ['1', '2', '3', '4', '5']), ('fv', ['1', '2', '3', '4']),
+            ('ctv', ['4', '2', '5', '1', '3', '6']), ('fxv', ['6', '3', '1', '0']), ('hero', ['a', 'b', 'c']), ('cur', ['full', 'ring', 'off'])]
     out['options'] = {}
     for (w, h, m) in [(1440, 900, False), (390, 844, True)]:
         pg = newpage(b, w, h, mob=m)
@@ -57,7 +57,7 @@ with sync_playwright() as p:
     jump_to(pg, '#faq'); q = pg.query_selector('#q2');
     if q: q.click(); pg.wait_for_timeout(500); out['faq_toggle'] = q.get_attribute('aria-expanded')
     # 6. service link prefill + form validation + success
-    jump_to(pg, '#services'); a = pg.query_selector('#services a[href*="issue=leak"]')
+    jump_to(pg, '#problems'); a = pg.query_selector('#problems a[href*="issue=leak"]')
     if a: a.click(); pg.wait_for_timeout(1800)
     out['issue'] = ev(pg, "()=>({tag:(document.getElementById('issue-tag')||{}).textContent, hidden:(document.getElementById('issue-tag')||{}).hidden, val:(document.getElementById('f-issue')||{}).value, url:location.search, focused:document.activeElement&&document.activeElement.id})")
     pg.click('#enquiry button[type=submit]'); pg.wait_for_timeout(400)
@@ -95,7 +95,7 @@ with sync_playwright() as p:
     pg.context.close()
     # 10. hover sweep at desktop on cards/buttons
     pg = newpage(b, 1440, 900); goto(pg, F, 1500)
-    sels = ['.btn', '#services .svc', '#reviews .rv-card', '#decide .dec-card', '#areas a', '#faq button', '.hdr-phone', '.nav a']
+    sels = ['.btn', '#problems .svc', '#services .of-link', '#work .wk-btn', '.nav-mega > a', '.mega-it', '#reviews .rv-card', '#decide .dec-card', '#areas a', '#faq button', '.hdr-phone', '.nav a']
     for s in sels:
         for el in pg.query_selector_all(s)[:4]:
             try:

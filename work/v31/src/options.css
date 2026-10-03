@@ -20,3 +20,5 @@
 .rwopt-btns button:active{transform:scale(.97)}
 @media print{.rwopt{display:none}}
 @media (max-width:599px){.rwopt-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.rwopt-toggle{width:44px;padding:0;justify-content:center}}
+.rwopt-sk{font-size:.75rem;color:var(--muted);margin:.55rem 0 .3rem}
+.rwopt-btns-sk button{font-weight:400;border-style:dashed}

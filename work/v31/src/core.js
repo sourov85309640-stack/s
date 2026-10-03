@@ -112,13 +112,28 @@
   };
 
   /* ---- masked word reveal for every h2 inside root (call from your feature): RW.headings(sectionEl) ---- */
+  /* each section can pick its own heading entrance with data-reveal on the <section>:
+     rise (default) | drop | slide | tilt | scale | skew. All transform and opacity, inside the word masks. */
+  var REVEALS = {
+    rise: { from: { yPercent: 112 } },
+    drop: { from: { yPercent: -112 } },
+    slide: { from: { xPercent: -60, opacity: 0 } },
+    tilt: { from: { rotateX: -85, opacity: 0, transformOrigin: '50% 100%' }, persp: true },
+    scale: { from: { scale: 0.6, opacity: 0, transformOrigin: '50% 80%' } },
+    skew: { from: { yPercent: 112, skewY: 9 } }
+  };
   RW.headings = function (scope) {
     if (!RW.motionOK) return;
     RW.$$('h2:not(.vh-h)', scope || d).forEach(function (h) {
       if (h.getAttribute('data-split')) return;
+      var sec = h.closest('[data-reveal]'), kind = sec ? sec.getAttribute('data-reveal') : 'rise';
+      var R = REVEALS[kind] || REVEALS.rise;
       var words = RW.splitWords(h);
-      RW.gsap.set(words, { yPercent: 112 });
-      RW.ST.create({ trigger: h, start: 'top 88%', once: true, onEnter: function () { RW.gsap.to(words, { yPercent: 0, duration: 1.05, ease: 'expo.out', stagger: 0.05 }); } });
+      if (R.persp) RW.$$('.w', h).forEach(function (w) { w.style.perspective = '600px'; });
+      RW.gsap.set(words, R.from);
+      var to = { duration: 1.05, ease: 'expo.out', stagger: 0.05, overwrite: true };
+      Object.keys(R.from).forEach(function (k) { if (k !== 'transformOrigin') to[k] = (k === 'opacity' || k === 'scale') ? 1 : 0; });
+      RW.ST.create({ trigger: h, start: 'top 88%', once: true, onEnter: function () { RW.gsap.to(words, to); } });
     });
   };
 

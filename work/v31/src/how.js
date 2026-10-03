@@ -8,7 +8,7 @@
   var NAMES = ['Inspect', 'Quote', 'Work', 'Handover'];
 
   function variantOf(sec) {
-    return RW.variant(sec, 'hv', ['1', '2', '4'], ['Timeline', 'Ridge walk', 'Quote fills in']);
+    return RW.variant(sec, 'hv', ['1', '2', '4', '3', '5', '6'], ['Timeline', 'Ridge walk', 'Quote fills in', 'Sketch: chapters', 'Sketch: ladder', 'Sketch: gable tabs']);
   }
 
   /* ---------------- always ---------------- */

@@ -1,0 +1,27 @@
+<!-- ================= RECENT WORK GALLERY =================
+     SAMPLE GALLERY (data-sample="gallery"): the photos are stock images for illustration, NOT the client's work.
+     Replace each <li> with a real job photo (about 900x700 works well), job type and town. 6 to 9 photos work best.
+     Clicking a photo opens it larger (work.js); without JS each tile simply shows its photo and caption. -->
+<section class="sec wk e-gable" id="work" data-nav="work" data-reveal="drop" data-sample="gallery" aria-labelledby="h-work">
+  <div class="wrap">
+    <div class="head2">
+      <div><h2 id="h-work">Recent work.</h2></div>
+      <p>A few of the roofs we have repaired and replaced. Photos here are for illustration only.</p>
+    </div>
+    <ul class="wk-grid">
+      <li class="wk-it wk-a"><button class="wk-btn" type="button" aria-label="Open photo: slate roof repair"><span class="wk-cw"><img src="img/broken-slate.webp" width="570" height="441" alt="Old slate roof with slipped and broken slates before a repair." loading="lazy"></span><span class="wk-cap"><b>Slate roof repair</b><span>Tetbury</span></span></button></li>
+      <li class="wk-it wk-b"><button class="wk-btn" type="button" aria-label="Open photo: stone slate re-roof"><span class="wk-cw"><img src="img/cottage-roofline.webp" width="640" height="402" alt="Stone cottage with a stone slate roof and three gables." loading="lazy"></span><span class="wk-cap"><b>Stone slate re-roof</b><span>Fairford</span></span></button></li>
+      <li class="wk-it wk-c"><button class="wk-btn" type="button" aria-label="Open photo: chimney repointing"><span class="wk-cw"><img src="img/lodge-chimney.webp" width="400" height="400" alt="Tall brick chimney stack on a slate roof." loading="lazy"></span><span class="wk-cap"><b>Chimney repointing</b><span>Cirencester</span></span></button></li>
+      <li class="wk-it wk-d"><button class="wk-btn" type="button" aria-label="Open photo: lead valley"><span class="wk-cw"><img src="img/lead-valley.webp" width="328" height="180" alt="Slate roof meeting a stone wall at a lead-lined valley." loading="lazy"></span><span class="wk-cap"><b>New lead valley</b><span>Malmesbury</span></span></button></li>
+      <li class="wk-it wk-e"><button class="wk-btn" type="button" aria-label="Open photo: clay tile roof"><span class="wk-cw"><img src="img/clay-tiles.webp" width="410" height="180" alt="Clay-tiled roof with two brick chimney stacks." loading="lazy"></span><span class="wk-cap"><b>Clay tile repairs</b><span>Stroud</span></span></button></li>
+      <li class="wk-it wk-f"><button class="wk-btn" type="button" aria-label="Open photo: fish-scale slates"><span class="wk-cw"><img src="img/fish-scale.webp" width="260" height="190" alt="Close view of fish-scale slates on a turret." loading="lazy"></span><span class="wk-cap"><b>Fish-scale slates matched</b><span>Cheltenham</span></span></button></li>
+    </ul>
+    <p class="sec-cta wk-cta"><a class="link" href="#contact">Tell us about your roof</a></p>
+  </div>
+  <dialog class="wk-dlg" id="wk-dlg" aria-label="Photo">
+    <figure class="wk-fig"><img class="wk-big" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="><figcaption class="wk-figcap"></figcaption></figure>
+    <button class="wk-x" type="button" aria-label="Close photo">&times;</button>
+    <button class="wk-nav wk-prev" type="button" aria-label="Previous photo">&lsaquo;</button>
+    <button class="wk-nav wk-next" type="button" aria-label="Next photo">&rsaquo;</button>
+  </dialog>
+</section>
