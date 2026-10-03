@@ -2,7 +2,7 @@
    Every icon has its own small animation: it plays once when the card first scrolls into view (so touch users see it)
    and again on hover or keyboard focus. Transform and opacity only; nothing animates under reduced motion. */
 .of,.mega{--of-ink:rgba(31,43,48,.72);--of-tile:#E9C3A6;--of-tile-2:#DDA783;--of-slate:#AEB8BC;--of-ease:cubic-bezier(.2,.7,.2,1)}
-.of{overflow:hidden}
+.of{overflow-x:clip}
 .of .layers-back{z-index:0}
 .of-bk-house{right:-60px;top:2rem;width:min(46vw,520px);height:auto;fill:none;stroke:rgba(31,43,48,.07);stroke-width:2;stroke-linejoin:round}
 .of-bk-tiles{left:0;right:0;bottom:0;height:40%;opacity:.5;background:linear-gradient(to top,rgba(240,236,227,.9),transparent);}

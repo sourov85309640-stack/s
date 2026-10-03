@@ -351,3 +351,5 @@ html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin
 .ftr .btn-fill{color:var(--paper)}
 .ftr .btn-line{color:var(--copper)}
 @media (hover:hover){.ftr .btn-line:hover{color:var(--paper)}}
+/* edges that slide in sideways are wider than the page: keep them from widening it */
+.e-wave,.e-ridge{overflow-x:clip}
