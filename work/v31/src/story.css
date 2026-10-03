@@ -1,0 +1,77 @@
+/* THE STORY OF ONE SLATE, prefix .st- (owner: lead). A full-screen pinned scene driven by scroll (story.js).
+   Static state (no JS, reduced motion): the repaired morning scene and the five steps as a list. */
+.st{padding:0;background:var(--sky);overflow-x:clip}
+.st-pin{position:relative;display:grid;min-height:100vh;min-height:100svh}
+.st-stage{position:relative;overflow:hidden;min-height:56svh}
+.st-sc{position:absolute;inset:0;width:100%;height:100%;display:block}
+.st-copy{position:relative;z-index:2;padding:1.25rem var(--gut) 1.75rem;background:var(--paper)}
+.st-copy h2{margin-bottom:.9rem}
+.st-caps{display:grid;gap:.9rem;counter-reset:st}
+.st-cap{counter-increment:st;color:var(--muted);line-height:1.55}
+.st-cap b{display:block;font:700 var(--h4)/1.3 var(--display);color:var(--text);margin-bottom:.2rem}
+.st-cap b::before{content:counter(st) ". ";color:var(--copper)}
+.st-go{margin-top:.25rem}
+.st-steps,.st-hint{display:none}
+@media (min-width:1000px){
+  .st-pin{display:block;height:100vh}
+  .st-stage{position:absolute;inset:0}
+  .st-copy{position:absolute;left:clamp(1.5rem,4vw,4rem);top:50%;transform:translateY(-50%);width:min(390px,30vw);padding:1.75rem 1.75rem 1.5rem;border-radius:22px;background:rgba(250,249,246,.94);box-shadow:var(--shadow-lift)}
+}
+/* scene paint */
+.st .st-moon{fill:#F4F1E8;stroke:rgba(31,43,48,.12);stroke-width:2}
+.st .st-sun{fill:#F6C979}
+.st .st-clouds path{fill:#fff;opacity:.85}
+.st .st-wind path{fill:none;stroke:rgba(74,104,122,.45);stroke-width:3;stroke-linecap:round}
+.st .st-hill{fill:#C9D6B8}.st .st-ground{fill:#B7C79E}
+.st .st-trunk{fill:none;stroke:#7A5A40;stroke-width:8;stroke-linecap:round}.st .st-crown circle{fill:#86A35B}
+.st .st-wall{fill:#E8D9BF;stroke:rgba(31,43,48,.55);stroke-width:3}
+.st .st-room-bg{fill:#F6EEE2}.st .st-wallpaper{fill:#F3E7D6}
+.st .st-pic{fill:#C9A27E}.st .st-pic-in{fill:#DCE6EA}
+.st .st-lamp-l{fill:#F2C35B}.st .st-lamp-p{fill:none;stroke:#7A5A40;stroke-width:3}
+.st .st-lamp-glow{fill:rgba(246,201,121,.35)}
+.st .st-bed{fill:#9FB3C2;stroke:rgba(31,43,48,.4);stroke-width:2}.st .st-bed-h{fill:#7A5A40}
+.st .st-stain{fill:rgba(120,96,60,.45)}
+.st .st-drip{fill:#6F98AE}.st .st-bucket{fill:#9DBACA;stroke:rgba(31,43,48,.5);stroke-width:2}
+.st .st-floor,.st .st-ceiling{stroke:rgba(31,43,48,.6);stroke-width:4}
+.st .st-loft{fill:#EFE6D8;stroke:none}
+.st .st-rafter-l,.st .st-rafter-r{stroke:#B98A5E;stroke-width:10;stroke-linecap:round}
+.st .st-chim{fill:#C98B62;stroke:rgba(31,43,48,.55);stroke-width:3}.st .st-chimtop{stroke:rgba(31,43,48,.7);stroke-width:7;stroke-linecap:round}
+.st .st-smoke circle{fill:#E8E6E1;opacity:.85}
+.st .st-felt{stroke:#7C93A3;stroke-width:3}.st .st-felt-wet{stroke:#4E7487;stroke-width:4}
+.st .st-battens rect{fill:#B98A5E}.st .st-rot rect{fill:#4A3526}
+.st .st-slates path,.st .st-slate path,.st .st-newslate path{fill:#5E6B73;stroke:#3C474D;stroke-width:1.2}
+.st .st-newslate path{fill:#6F7D86}
+.st .st-water{fill:none;stroke:#4E86A6;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.st .st-rain path{stroke:rgba(74,104,122,.55);stroke-width:2.5;stroke-linecap:round}
+.st .st-cal-b{fill:#fff;stroke:rgba(31,43,48,.45);stroke-width:2}.st .st-cal-t{fill:var(--copper)}
+.st .st-cal-n{font:700 30px Arial,sans-serif;fill:var(--text);text-anchor:middle}
+.st .st-cal-w{font:600 15px Arial,sans-serif;fill:var(--text);text-anchor:middle}
+.st .st-van-b{fill:#FAF9F6;stroke:rgba(31,43,48,.55);stroke-width:2.5;stroke-linejoin:round}.st .st-van-w{fill:#DCE6EA}
+.st .st-van-stripe{stroke:var(--copper);stroke-width:5}.st .st-wheel{fill:#3F5560}
+.st .st-ladder path{fill:none;stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}
+.st .st-man circle{fill:#E2B693;stroke:rgba(31,43,48,.5);stroke-width:1.6}.st .st-hat{fill:var(--copper)}
+.st .st-bd{fill:none;stroke:#3F5560;stroke-width:5;stroke-linecap:round}
+.st .st-birds path{fill:none;stroke:#3F5560;stroke-width:2.5;stroke-linecap:round}
+.st .st-spark path{fill:#F6C979}
+/* static (final) state */
+.st .st-sky-eve,.st .st-sky-storm,.st .st-moon,.st .st-wind,.st .st-rain,.st .st-water,.st .st-stain,.st .st-drips,.st .st-bucket,
+.st .st-slate,.st .st-rot,.st .st-felt-wet,.st .st-cal,.st .st-lamp-glow,.st .st-spark{opacity:0}
+.st .st-slate{display:none}
+@keyframes st-rain{0%{transform:translateY(-30px)}100%{transform:translate(-20px,60px)}}
+@keyframes st-drip{0%,20%{transform:none;opacity:0}30%{opacity:1}90%{transform:translateY(180px);opacity:1}100%{transform:translateY(184px);opacity:0}}
+html.has-motion .st.is-live .st-rain{animation:st-rain .6s linear infinite}
+html.has-motion .st.is-live .st-drip{animation:st-drip 1.4s ease-in infinite;transform-box:fill-box}
+/* motion: the story drives everything, the copy becomes one step at a time */
+html.has-motion .st.is-js .st-slate{display:inline}
+html.has-motion .st.is-js .st-caps{display:grid;gap:0}
+html.has-motion .st.is-js .st-cap{grid-area:1/1;opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .5s var(--ease);pointer-events:none}
+html.has-motion .st.is-js .st-cap.is-on{opacity:1;transform:none;pointer-events:auto}
+html.has-motion .st.is-js .st-steps{display:flex;position:absolute;z-index:3;gap:6px;right:16px;bottom:16px}
+.st-steps li{width:22px;height:4px;border-radius:2px;background:rgba(31,43,48,.18);transition:background-color .3s}
+.st-steps li.is-on{background:var(--copper)}
+html.has-motion .st.is-js .st-hint{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font:600 .8125rem/1 var(--ui);color:var(--muted);transition:opacity .3s}
+.st-hint-m{width:14px;height:22px;border:2px solid var(--muted);border-radius:8px;position:relative}
+.st-hint-m::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:5px;margin-left:-1px;background:var(--muted);border-radius:1px;animation:st-wheel 1.4s ease-in-out infinite}
+@keyframes st-wheel{0%{transform:none;opacity:1}100%{transform:translateY(7px);opacity:0}}
+.st.is-end .st-hint{opacity:0}
+@media (min-width:1000px){html.has-motion .st.is-js .st-steps{left:clamp(1.5rem,4vw,4rem);right:auto;bottom:clamp(1.5rem,4vh,2.5rem)}}

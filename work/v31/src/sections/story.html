@@ -1,0 +1,84 @@
+<!-- ================= THE STORY OF ONE SLATE (scroll story) =================
+     A pinned, scroll-driven scene: a quiet evening, a storm lifts one slate, water finds the gap and stains the ceiling,
+     a winter makes it worse, then a roofer puts it right in a morning. Scroll moves the story (story.js); nothing is
+     forced. Teaching copy, no claims. Without JS or with reduced motion: the repaired scene and all five steps as a list. -->
+<section class="sec st" id="story" aria-labelledby="h-story">
+  <div class="st-pin">
+    <div class="st-stage">
+      <svg class="st-sc" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="st-g-eve" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE5EC"/><stop offset="1" stop-color="#F3E6D6"/></linearGradient>
+          <linearGradient id="st-g-storm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9C3C9"/><stop offset="1" stop-color="#DCE1E3"/></linearGradient>
+          <linearGradient id="st-g-dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6DFC4"/><stop offset="1" stop-color="#FBF3E8"/></linearGradient>
+          <clipPath id="st-room"><path d="M402 382H798V598H402Z"/></clipPath>
+        </defs>
+        <rect class="st-sky st-sky-eve" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-eve)"/>
+        <rect class="st-sky st-sky-storm" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-storm)"/>
+        <rect class="st-sky st-sky-dawn" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-dawn)"/>
+        <circle class="st-moon" cx="1010" cy="120" r="30"/>
+        <circle class="st-sun" cx="1030" cy="150" r="46"/>
+        <g class="st-clouds"><path d="M120 150h170c14 0 18-20 3-24 0-18-24-24-35-12-7-15-33-17-41 0-13-8-33 0-31 13-14-2-22 23-66 23z"/><path d="M820 110h200c16 0 20-24 3-28 0-22-28-28-41-14-9-18-39-20-48 0-15-10-39 0-36 15-17-2-26 27-78 27z"/></g>
+        <g class="st-wind"><path d="M60 250h140c14 0 14-18 0-18M30 300h220M80 350h120c14 0 14 18 0 18"/><path d="M960 260h140c14 0 14-18 0-18M940 310h200"/></g>
+        <path class="st-hill" d="M-800 556C0 540 200 530 380 548S1000 520 2000 536V800H-800Z"/>
+        <path class="st-ground" d="M-800 600H2000V900H-800Z"/>
+        <!-- tree -->
+        <g class="st-tree"><path class="st-trunk" d="M1000 600V470M1000 510l-22-24M1000 495l20-22"/><g class="st-crown"><circle cx="1000" cy="440" r="48"/><circle cx="966" cy="468" r="30"/><circle cx="1036" cy="466" r="32"/></g></g>
+        <!-- house shell -->
+        <path class="st-wall" d="M380 380H820V600H380Z"/>
+        <path class="st-room-bg" d="M402 382H798V598H402Z"/>
+        <g clip-path="url(#st-room)">
+          <path class="st-wallpaper" d="M402 382H798V598H402Z"/>
+          <path class="st-pic" d="M450 430h70v52h-70z"/><path class="st-pic-in" d="M458 438h54v36h-54z"/>
+          <path class="st-lamp-l" d="M650 512h20l-6-20h-8z"/><path class="st-lamp-p" d="M660 512v28M648 540h24"/>
+          <ellipse class="st-lamp-glow" cx="660" cy="508" rx="60" ry="46"/>
+          <path class="st-bed" d="M520 560h200v30H520zM520 548h56v14h-56z"/><path class="st-bed-h" d="M716 520h8v70h-8z"/>
+          <ellipse class="st-stain" cx="752" cy="390" rx="44" ry="12"/>
+          <g class="st-drips"><path class="st-drip" d="M752 396c-3 5-4 7-4 9a4 4 0 0 0 8 0c0-2-1-4-4-9z"/></g>
+          <path class="st-bucket" d="M736 574h32l-4 24h-24z"/>
+        </g>
+        <path class="st-floor" d="M402 598H798"/>
+        <path class="st-ceiling" d="M380 382H820"/>
+        <!-- loft and roof, seen in section -->
+        <path class="st-loft" d="M360 390L600 190L840 390Z"/>
+        <path class="st-rafter-l" d="M360 390L600 190"/><path class="st-rafter-r" d="M600 190L840 390"/>
+        <path class="st-chim" d="M452 214h36v100h-36z"/><path class="st-chimtop" d="M446 214h48"/>
+        <g class="st-smoke"><circle cx="470" cy="196" r="8"/><circle cx="480" cy="178" r="10"/><circle cx="468" cy="158" r="12"/></g>
+        <!-- right slope in its own frame: x along the slope, -y outward -->
+        <g class="st-slope" transform="translate(600 190) rotate(39.8)">
+          <path class="st-felt" d="M0 0H312"/>
+          <path class="st-felt-wet" d="M232 0H312"/>
+          <g class="st-battens"><rect x="20" y="-4" width="6" height="4"/><rect x="60" y="-4" width="6" height="4"/><rect x="100" y="-4" width="6" height="4"/><rect x="140" y="-4" width="6" height="4"/><rect x="180" y="-4" width="6" height="4"/><rect x="220" y="-4" width="6" height="4"/><rect x="260" y="-4" width="6" height="4"/><rect x="300" y="-4" width="6" height="4"/></g>
+          <g class="st-rot"><rect x="220" y="-4" width="6" height="4"/><rect x="260" y="-4" width="6" height="4"/><rect x="300" y="-4" width="6" height="4"/></g>
+          <g class="st-slates"><path d="M0 -9h34v6H0z"/><path d="M20 -10h34v6H20z"/><path d="M40 -10h34v6H40z"/><path d="M60 -10h34v6H60z"/><path d="M80 -10h34v6H80z"/><path d="M100 -10h34v6h-34z"/><path d="M120 -10h34v6h-34z"/><path d="M140 -10h34v6h-34z"/><path d="M160 -10h34v6h-34z"/><path d="M180 -10h34v6h-34z"/><path d="M200 -10h34v6h-34z"/><path class="st-s2" d="M244 -10h34v6h-34z"/><path class="st-s3" d="M264 -10h34v6h-34z"/><path d="M284 -10h34v6h-34z"/></g>
+        </g>
+        <!-- the slate that slips (its own group so it can travel) -->
+        <g class="st-slate"><g transform="translate(776 337) rotate(39.8)"><path d="M-12 -10h34v6h-34z"/></g></g>
+        <g class="st-newslate"><g transform="translate(776 337) rotate(39.8)"><path d="M-12 -10h34v6h-34z"/></g></g>
+        <!-- water path -->
+        <path class="st-water" pathLength="1" d="M777 334L820 370L806 383L760 386"/>
+        <g class="st-rain"><path d="M100 40l-14 40M220 20l-14 40M340 60l-14 40M460 10l-14 40M580 50l-14 40M700 20l-14 40M820 60l-14 40M940 30l-14 40M1060 50l-14 40M160 120l-14 40M400 130l-14 40M640 110l-14 40M880 140l-14 40M1120 120l-14 40"/></g>
+        <!-- weeks later -->
+        <g class="st-cal"><path class="st-cal-b" d="M880 430h90v84h-90z"/><path class="st-cal-t" d="M880 430h90v20h-90z"/><text class="st-cal-n" x="925" y="494">6</text><text class="st-cal-w" x="925" y="534">weeks later</text></g>
+        <!-- the repair -->
+        <g class="st-van"><g transform="translate(230 0)"><path class="st-van-b" d="M0 548h120l26 22v30H0z"/><path class="st-van-w" d="M120 552l20 18h-20z"/><path class="st-van-stripe" d="M0 576h146"/><circle class="st-wheel" cx="30" cy="600" r="13"/><circle class="st-wheel" cx="112" cy="600" r="13"/></g></g>
+
+        <g class="st-ladder"><path d="M872 600L838 384M900 600L866 384M866 572h28M861 540h28M856 508h28M851 476h28M846 444h28M841 412h28"/></g>
+        <g class="st-man"><g transform="translate(858 420)"><circle cx="0" cy="-34" r="7"/><path class="st-hat" d="M-7 -36c1-8 13-9 15 0z"/><path class="st-bd" d="M0 -27v18M0 -9l-6 12M0 -9l7 11M0 -22l-10 -6M0 -22l9 4"/></g></g>
+        <g class="st-birds"><path d="M300 120c5-5 10-5 13 0 3-5 8-5 13 0M340 100c4-4 8-4 10 0 2-4 6-4 10 0"/></g>
+        <g class="st-spark"><path d="M776 312l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>
+      </svg>
+      <ol class="st-steps" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
+    </div>
+    <div class="st-copy">
+      <h2 id="h-story">What one slipped slate does.</h2>
+      <ol class="st-caps">
+        <li class="st-cap is-on"><b>It starts with one slate.</b> A quiet evening. The roof has kept the rain out for years, but one nail has quietly rusted through.</li>
+        <li class="st-cap"><b>A storm lifts it.</b> Wind gets under the loose slate and it slides out. From the ground you might never notice.</li>
+        <li class="st-cap"><b>Water finds the gap.</b> Rain runs in, along the felt and the timbers, and shows up as a stain somewhere else.</li>
+        <li class="st-cap"><b>Left for a winter.</b> Wet battens rot, more slates slip, and a small repair becomes a bigger one.</li>
+        <li class="st-cap"><b>Caught early, it is a morning's work.</b> The slate goes back, the rest of the roof is checked, and the ceiling dries out. <a class="link st-go" href="?issue=slipped#contact">Tell us what you have spotted</a></li>
+      </ol>
+      <p class="st-hint" aria-hidden="true"><span class="st-hint-m"></span>Keep scrolling</p>
+    </div>
+  </div>
+</section>
