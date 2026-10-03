@@ -185,7 +185,8 @@
       var f = {
         host: host, layer: layer, cv: cv, ctx: cv.getContext('2d'), m: track(host),
         kinds: spec.kinds, count: spec.count, parts: [], w: 0, h: 0, on: false, dirty: false,
-        sticky: stickyOK(host)
+        sticky: stickyOK(host),
+        band: (host.getAttribute('data-fx-band') || '0.2 0.4').split(/\s+/).map(Number)
       };
       if (!f.sticky) layer.classList.add('fx-js');
       fields.push(f);
@@ -253,17 +254,19 @@
         p.slant = 0.24; /* dx per dy: light wind from the left */
         if (!initial) { p.y = -rnd(10, h * 0.6); p.x = rnd(-h * 0.25, w); }
       } else if (p.kind === 'dust') {
-        p.y = initial ? rnd(0, h) : (Math.random() < 0.5 ? -8 : h + 8);
+        p.y = rnd(0, h);
+        p.x = beamX(f, p.y) + (Math.random() + Math.random() + Math.random() - 1.5) * 0.09 * w;
+        p.fade = initial ? 1 : 0;
         p.r = rnd(1.6, 3.1) * [0.8, 1, 1.25][band];
         p.a = rnd(0.24, 0.42);
         p.ph = rnd(0, TAU); p.fr = rnd(0.25, 0.6);
         p.drift = rnd(-5, 5); p.rise = rnd(-4, 3);
       } else if (p.kind === 'birds') {
         p.dir = Math.random() < 0.7 ? 1 : -1;
-        p.s = rnd(20, 29) * [0.8, 1, 1.12][band];
+        p.s = rnd(24, 34) * [0.8, 1, 1.12][band];
         p.sp = rnd(26, 44) * [0.7, 1, 1.2][band];
         p.x = initial ? rnd(0, w) : (p.dir > 0 ? -40 - rnd(0, w * 0.5) : w + 40 + rnd(0, w * 0.5));
-        p.y = p.base = rnd(0.08, 0.42) * Math.min(h, vh);
+        p.y = p.base = rnd(f.band[0], f.band[1]) * Math.min(h, vh);
         p.bob = rnd(0, TAU); p.flap = 0; p.wing = 0; p.next = rnd(1, 5); p.a = rnd(0.32, 0.5);
         p.depth = 0.12;
       }
@@ -271,6 +274,9 @@
 
     /* most falling things keep to the outer gutters, where content is thinnest */
     function gutterX(w) { var u = Math.random(), e = Math.pow(Math.random(), 1.6) * 0.2 * w; return u < 0.5 ? e : w - e; }
+
+    /* x of the light shaft's centre line at height y (same geometry as the 112deg CSS gradient, centre at 49%) */
+    function beamX(f, y) { var gl = f.w * 0.927 + f.h * 0.375; return f.w / 2 - (0.01 * gl + (y - f.h / 2) * 0.375) / 0.927; }
 
     function stepField(f, dt, dScroll, ptr) {
       var w = f.w, h = f.h, parts = f.parts, i, p;
@@ -310,9 +316,9 @@
           p.ph += p.fr * dt;
           p.x += (p.drift + Math.sin(p.ph * 1.3) * 6 + p.vx) * dt;
           p.y += (p.rise + Math.cos(p.ph) * 4 + p.vy) * dt - dScroll * p.depth * 0.6;
-          if (p.y < -12) { p.y = h + 10; p.x = rnd(0, w); }
-          else if (p.y > h + 12) { p.y = -10; p.x = rnd(0, w); }
-          if (p.x < -12) p.x = w + 10; else if (p.x > w + 12) p.x = -10;
+          if (p.fade < 1) p.fade = Math.min(1, p.fade + dt * 0.6);
+          /* a mote that wanders out of the light (or off the canvas) fades back in somewhere inside it */
+          if (p.y < -12 || p.y > h + 12 || Math.abs(p.x - beamX(f, p.y)) > 0.2 * w) spawn(p, f, false);
           continue;
         }
         /* leaves, petals, tiles: tumble about the long axis; the sideways slip is driven by the same angle */
@@ -351,7 +357,7 @@
           var gl = f.w * 0.927 + f.h * 0.375;
           var bt = ((p.x - f.w / 2) * 0.927 + (p.y - f.h / 2) * 0.375) / (gl || 1) + 0.5 - 0.49;
           var beam = Math.exp(-(bt * bt) / 0.005);
-          var tw = 0.75 + 0.25 * Math.sin(p.ph * 2.1);
+          var tw = (0.75 + 0.25 * Math.sin(p.ph * 2.1)) * (p.fade == null ? 1 : p.fade);
           c.setTransform(DPR, 0, 0, DPR, 0, 0);
           c.globalAlpha = 1;
           /* outside the light: a faint warm speck; inside it: a lit cream core with a soft gold halo */
@@ -443,7 +449,7 @@
             var wt = at('where', 0.4), wb = anchors.where && anchors.where.h ? wt + anchors.where.h : wt + vh;
             keys = [
               { p: 0, m: 0.55, g: 0, d: 0, o: 0 },
-              { p: at('services', 0.2), m: 0.3, g: 0.1, d: 0, o: 0.1 },
+              { p: at('services', 0.2), m: 0.22, g: 0.08, d: 0, o: 0.06 },
               { p: wt - vh * 0.3, m: 0, g: 0.04, d: 0, o: 0.42 },
               { p: wt + vh * 0.3, m: 0, g: 0, d: 0, o: 0.62 },
               { p: wb, m: 0, g: 0.08, d: 0, o: 0.36 },
@@ -487,7 +493,7 @@
           if (sun) {
             /* the sun rises from the left, tops out mid-page, sets on the right into the dusk */
             var t = clamp(sy / Math.max(1, docH - vh), 0, 1);
-            var x = (0.08 + 0.84 * t) * vw, y = (0.06 - Math.sin(t * Math.PI) * 0.12) * vh + 40;
+            var x = (0.08 + 0.84 * t) * vw, y = (-0.22 - Math.sin(t * Math.PI) * 0.08) * vh;
             var o = (F.weather ? 1 - (s.o || 0) * 1.1 : 1) * (0.55 + 0.45 * Math.sin(t * Math.PI));
             o = clamp(o, 0, 1);
             if (Math.abs(x - sunV.x) > 0.3 || Math.abs(y - sunV.y) > 0.3) { sunV.x = x; sunV.y = y; sun.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)'; }

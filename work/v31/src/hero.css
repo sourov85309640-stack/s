@@ -14,7 +14,7 @@
   position:relative;overflow-x:clip;
   padding-top:clamp(2.25rem,5.5vw,5rem);padding-bottom:clamp(3.75rem,6vw,5.25rem);
   background:var(--paper)}
-.hero::before{content:"";position:absolute;inset:0;background:url(img/hero-texture-light.webp) 50% 30%/cover no-repeat;opacity:.42;pointer-events:none}
+.hero::before{content:"";position:absolute;inset:0;background:url(img/hero-texture-light.webp) 50% 30%/cover no-repeat;opacity:.3;pointer-events:none}
 .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(52% 46% at 86% 4%,rgba(221,167,131,.13),rgba(221,167,131,0) 72%);pointer-events:none}
 
 /* ---------- copy ---------- */
@@ -50,9 +50,9 @@
 .hero-vane path{fill:none;stroke:var(--hero-vane);stroke-width:2.2;stroke-linecap:round}
 .hero-vane .hero-vane-arrow{stroke-width:2.4}
 /* swallows: still positions (motion moves them with transform) */
-.hero-bird{position:absolute;width:26px;height:12px;fill:var(--ink);opacity:.5;left:63%;top:2%}
-.hero-bird:nth-of-type(2){width:19px;height:9px;left:67%;top:-6%;opacity:.4}
-.hero-bird:nth-of-type(3){width:15px;height:7px;left:12%;top:4%;opacity:.32}
+.hero-bird{position:absolute;width:24px;height:12px;fill:var(--ink);opacity:.5;left:63%;top:2%}
+.hero-bird:nth-of-type(2){width:18px;height:9px;left:67%;top:-6%;opacity:.4}
+.hero-bird:nth-of-type(3){width:14px;height:7px;left:12%;top:4%;opacity:.32}
 .hero.is-live .hero-bird{left:0;top:0;will-change:transform}
 
 .hero-frame{position:absolute;inset:0;z-index:1}

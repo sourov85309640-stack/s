@@ -105,8 +105,7 @@
       function moveVan(i) {
         var dot = RW.$('.are-dot', towns[i]), wr = wrap.getBoundingClientRect(), r = dot.getBoundingClientRect();
         var desk = window.innerWidth >= 900;
-        var x = r.left - wr.left + r.width / 2 - 17, y = r.top - wr.top + r.height / 2 - (desk ? 30 : 9);
-        if (!desk) x = r.left - wr.left - 40;
+        var x = r.left - wr.left + r.width / 2 - 17, y = r.top - wr.top + r.height / 2 - (desk ? 30 : 9 + 26);
         van.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)' + (desk ? '' : ' rotate(90deg)');
       }
       api.moveVan = moveVan;

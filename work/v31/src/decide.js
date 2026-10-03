@@ -105,7 +105,9 @@
         for (var k = 0; k < 3; k++) if (a <= c[k + 1]) return dwell(k + (a - c[k]) / (c[k + 1] - c[k]));
         return 3;
       }
-      var p = RW.clamp((sy + vh * 0.8 - geo.top) / (geo.h + vh * 0.35), 0, 1);
+      /* row layouts: sound when the cards are first fully on screen, past repair as they reach the header */
+      var bottom = geo.top + geo.h - sy;
+      var p = RW.clamp((vh - bottom) / Math.max(240, vh - RW.HDR - 24 - geo.h), 0, 1);
       return dwell(p * 3);
     }
     measure();

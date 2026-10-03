@@ -202,7 +202,7 @@ html.has-motion .form-ok:not([hidden])>p:nth-of-type(3){animation-delay:.16s}
 .ct.is-convo .form-grid{grid-template-columns:minmax(0,1fr)}
 @media (min-width:1000px){.ct.is-convo .ct-grid{align-items:center}.ct.is-convo .ct-formcol{margin-top:4rem}}
 .ct.is-convo [data-step]:not(.is-cur){display:none}
-.ct.is-convo .field.is-cur>label{font-family:var(--ui);font-size:var(--h3);line-height:1.25}
+.ct.is-convo .field.is-cur>label:not(.photo-add){font-family:var(--ui);font-size:var(--h3);line-height:1.25}
 .ct.is-convo .field.is-cur{animation:ct-step .26s var(--ct-ease) both}
 @keyframes ct-step{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .ct-prog{display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--muted)}
@@ -221,6 +221,7 @@ html.has-motion .form-ok:not([hidden])>p:nth-of-type(3){animation-delay:.16s}
    VARIANT 4: the evening house, a window lights for each part you complete
    ===================================================================== */
 .ct[data-v="4"] .ct-lamp{opacity:0}
+@media (min-width:1000px){.ct[data-v="4"] .ct-gable{aspect-ratio:650/880}}
 .ct[data-v="4"] .ct-lamp.is-on{opacity:1}
 .ct[data-v="4"].is-done .ct-glow{opacity:1}
 .ct[data-v="4"] .ct-glow{opacity:.35}

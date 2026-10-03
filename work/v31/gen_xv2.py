@@ -91,7 +91,7 @@ def ridge():
     for x in range(30, 520, 64):
         s.append('<path class="xv-ln2" d="M%d -4V16"/>' % x)
     s.append('</g>')
-    g = [''.join(t), ''.join(s), '<path class="xv-lead" d="M492 40V320"/>']
+    g = ['<rect class="xv-pl xv-pl-d" x=".5" y=".5" width="519" height="339"/>', ''.join(t), ''.join(s), '<path class="xv-lead" d="M492 40V320"/>']
     for y in range(60, 320, 38):
         g.append('<path class="xv-lead2" d="M470 %d H506"/>' % y)
     g.append('<path class="xv-lead" d="M0 330H520"/>')
@@ -136,13 +136,6 @@ def strip_y(y0, y1, x, t, cls):   # along y at x, hangs down (rotateY(90deg))
     return '<i class="xs xs-y %s" style="left:%dpx;top:%dpx;width:%dpx;height:%dpx"></i>' % (cls, x, y0, t, y1 - y0)
 
 
-CALL = [  # (layer, x, y, side) anchor on the plane and which side the label sits
-    (0, 470, 300, 'r'),
-    (1, 352, 286, 'r'),
-    (2, 300, 222, 'l'),
-    (3, 180, 120, 'l'),
-    (4, 150, 6, 'l'),
-]
 cut = []
 for i, art in enumerate(ART):
     cx, cy = CUT[i]
@@ -165,9 +158,6 @@ for i, art in enumerate(ART):
             wedge.append(strip_x(W - cx, W, H, t, STRIP[i]))
             wedge.append(strip_y(H - cy, H, W, t, STRIP[i]))
         parts.append('<div class="xv-wedge">%s</div>' % ''.join(wedge))
-    lay, ax, ay, side = CALL[i]
-    parts.append('<span class="xv-call xv-call-%s" style="left:%dpx;top:%dpx" aria-hidden="true"><span class="xv-cin"><i>0%d</i><b>%s</b></span></span>'
-                 % (side, ax, ay, 5 - i, name_html(i)))
     cut.append('<div class="xv-l xv-k" data-layer="%d" style="--i:%d">%s</div>' % (i, i, ''.join(parts)))
 open('src/svg/xv-cut.svg', 'w').write('\n'.join(cut) + '\n')
 

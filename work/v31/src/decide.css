@@ -151,6 +151,7 @@
 .dec-t[aria-pressed="true"]{text-decoration:underline;text-underline-offset:.3em;text-decoration-thickness:1.5px}
 .dec-t:active{scale:.97}
 .dec-sec[data-v="5"] .dec-body{display:grid}
+.dec-sec[data-v="5"] .dec-tabs{order:-1}
 .dec-sec[data-v="5"] .dec-roof svg{height:150px;width:auto;margin-inline:auto}
 .dec-sec[data-v="5"] .dec-roof-cap{display:none}
 .dec-sec[data-v="5"] .dec-cards{display:grid;margin-top:1rem}
@@ -160,7 +161,9 @@
 .dec-sec[data-v="5"] .dec-pick::before{display:none}
 @media (min-width:900px){
   .dec-sec[data-v="5"] .dec-body{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);column-gap:clamp(2rem,5vw,4rem);align-items:center}
-  .dec-sec[data-v="5"] .dec-tabs{grid-column:1/-1;max-width:640px}
+  .dec-sec[data-v="5"] .dec-tabs{grid-column:1/-1;grid-row:1;max-width:640px}
+  .dec-sec[data-v="5"] .dec-roof{grid-column:1;grid-row:2}
+  .dec-sec[data-v="5"] .dec-cards{grid-column:2;grid-row:2}
   .dec-sec[data-v="5"] .dec-roof svg{height:auto;width:100%}
   .dec-sec[data-v="5"] .dec-cards{margin-top:0}
 }
@@ -171,9 +174,9 @@
 .dec-sec[data-v="6"] .dec-slide{display:block;margin-bottom:1.75rem;padding:1.25rem 1.25rem 1rem;background:var(--warm);border-radius:8px}
 .dec-s-l{display:block;font-family:var(--ui);font-weight:600;font-size:var(--h4);margin-bottom:.4rem}
 .dec-s-row{position:relative;height:64px;padding-inline:18px}
-.dec-s-track{position:absolute;left:18px;right:18px;top:42px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--sky) 0 33.3%,var(--sand) 33.3% 66.6%,var(--copper-tint) 66.6% 100%)}
+.dec-s-track{container-type:inline-size;position:absolute;left:18px;right:18px;top:42px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--sky) 0 33.3%,var(--sand) 33.3% 66.6%,var(--copper-tint) 66.6% 100%)}
 .dec-s-fill{position:absolute;left:0;top:1px;width:100%;height:4px;border-radius:2px;background:var(--copper);transform-origin:0 50%;transform:scaleX(calc(var(--s) / 3))}
-.dec-s-thumb{position:absolute;left:0;bottom:-6px;width:33.333%;height:0;transform:translateX(calc(var(--s) * 100%));will-change:transform}
+.dec-s-thumb{position:absolute;left:0;bottom:-6px;width:0;height:0;transform:translateX(calc(var(--s) / 3 * 100cqw));will-change:transform}
 .dec-s-thumb svg{position:absolute;left:-17px;bottom:0;width:34px;height:38px;filter:drop-shadow(0 3px 3px rgba(31,43,48,.2));border-radius:4px}
 .dec-s-crack{opacity:calc(var(--s) / 3)}
 .dec-s-in{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:grab;touch-action:pan-y}

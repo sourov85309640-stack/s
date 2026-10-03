@@ -74,7 +74,10 @@
     var bar = RW.$('.bar'), wrap = RW.$('.ct .form-wrap');
     if (!bar || !wrap || !('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (es) {
-      bar.classList.toggle('is-away', es[0].isIntersecting);
+      var away = es[0].isIntersecting;
+      bar.classList.toggle('is-away', away);
+      /* a bar that has stepped off screen must not take keyboard focus either */
+      if ('inert' in bar) bar.inert = away; else bar.setAttribute('aria-hidden', away ? 'true' : 'false');
     }, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
     io.observe(wrap);
   });

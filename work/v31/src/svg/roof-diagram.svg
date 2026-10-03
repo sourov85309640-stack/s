@@ -1,7 +1,7 @@
 <svg class="dg" viewBox="-82.9 -481.2 769.4 571.0" role="img" aria-labelledby="dg-t" focusable="false">
 <title id="dg-t">Drawing of a house with a main roof and a front gable. Six numbered points mark the ridge, the chimney stack, the lead flashing, the valley where two roof slopes meet, the eaves and the gutter.</title>
 <g class="dg-root" id="dg-root">
-<ellipse class="dg-shadow" cx="297.3" cy="13.5" rx="441.6" ry="43.7"/>
+<ellipse class="dg-shadow" cx="297.3" cy="13.5" rx="340.4" ry="36.8"/>
 <path class="dg-ground" d="M-73.6 -0.0 L386.4 -0.0 L402.9 53.8 L568.5 53.8 M568.5 -0.0 L690.0 -0.0"/>
 <polygon class="dg-wall-side" points="0.0,-0.0 -29.1,-95.0 -29.1,-260.6 -14.5,-344.2 0.0,-165.6"/>
 <path class="dg-hatch" d="M-0.2,-42.2 L-28.8,-135.6M-0.2,-83.6 L-28.8,-177.0M-0.2,-125.0 L-28.8,-218.4"/>

@@ -6,10 +6,10 @@
    ===================================================================== */
 .whole{
   --xv-ease:cubic-bezier(.23,1,.32,1);
-  --xv-timber:#EADCC3; --xv-batten:#E2CCA8; --xv-membrane:#D3DEE2; --xv-lead:#8E9AA0;
+  --xv-timber:#E6D3B2; --xv-batten:#DDC29A; --xv-membrane:#C9D7DC; --xv-lead:#8E9AA0;
   --xv-clay1:#E9B995; --xv-clay2:#E3AC87; --xv-clay3:#EEC6A8; --xv-clay-ridge:#D89A73;
   --xv-slate1:#A9B6BC; --xv-slate2:#9AA9B0; --xv-slate3:#B7C2C7; --xv-slate-ridge:#87979E;
-  --xv-hair:rgba(31,43,48,.5);
+  --xv-hair:rgba(31,43,48,.58);
   /* beautiful-shadows: lg for the stage (feature surface), sm for pills and the switch thumb */
   --xv-shadow-lg:0 2.8px 2.2px rgba(0,0,0,.034),0 6.7px 5.3px rgba(0,0,0,.048),0 12.5px 10px rgba(0,0,0,.06),0 22.3px 17.9px rgba(0,0,0,.072),0 41.8px 33.4px rgba(0,0,0,.086),0 100px 80px rgba(0,0,0,.12);
   --xv-shadow-sm:0 2px 3px -1px rgba(0,0,0,.1),0 1px 0 0 rgba(25,28,33,.02),0 0 0 1px rgba(25,28,33,.08);
@@ -49,18 +49,19 @@
 @media (min-width:900px){.xv-stage{height:100%;min-height:30rem}.whole.xv-pinned .xv-stage{min-height:0}}
 
 .xv{position:absolute;inset:0;perspective:1800px;perspective-origin:50% 38%}
-.xv-floor{position:absolute;left:18%;right:18%;top:62%;height:22%;border-radius:50%;background:radial-gradient(closest-side,rgba(31,43,48,.13),rgba(31,43,48,0));pointer-events:none}
+.xv-floor{position:absolute;left:-12%;right:-12%;top:-16%;bottom:-16%;background:radial-gradient(closest-side,rgba(31,43,48,.16),rgba(31,43,48,.06) 60%,rgba(31,43,48,0));pointer-events:none;
+  transform:translateZ(calc(-2*(var(--base) + var(--gap)*var(--s)) - 40px - 60px*var(--s)))}
 .xv-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg))}
 .xv-model{--s:1;--gap:120px;--base:6px;--xs:.8;--xi:1.25;--rz:-34deg;--rx:60deg;position:absolute;left:50%;top:50%;width:520px;height:340px;margin:-170px 0 0 -260px;transform-style:preserve-3d;
   transform:translate(var(--ox,0px),var(--oy,0px)) scale(var(--xs)) rotateX(var(--rx)) rotateZ(var(--rz))}
 .xv-l{position:absolute;inset:0;transform-style:preserve-3d;transform:translateZ(calc((var(--i) - 2)*(var(--base) + var(--gap)*var(--s)) + var(--dz,0px)));translate:0 0 var(--lift,0px);transition:translate .3s var(--xv-ease)}
 .xv-l>svg{display:block;width:100%;height:100%;overflow:visible;transition:opacity .25s ease}
-.xv.is-peel .xv-l:not(.is-on)>svg{opacity:.3}
+.xv.is-peel .xv-l:not(.is-on)>svg{opacity:.42}
 .xv-l.is-on{--lift:22px}
 .xv-l.is-swap{--lift:16px}
 
 /* layer art (light: flat warm fills, ink and copper strokes) */
-.xv-pl{fill:rgba(250,249,246,.5);stroke:rgba(31,43,48,.26)}
+.xv-pl{fill:rgba(250,249,246,.55);stroke:rgba(31,43,48,.3)}
 .xv-t{fill:var(--xv-timber);stroke:var(--xv-hair)}
 .xv-sheet{fill:var(--xv-membrane);fill-opacity:.82;stroke:rgba(31,43,48,.32)}
 .xv-ln{stroke:rgba(31,43,48,.38);stroke-dasharray:7 6;fill:none}
@@ -117,7 +118,8 @@ html:not(.js) .xv-switch{display:none}
 .xv-list .n{font-family:var(--ui);font-weight:600;font-size:.875rem;color:var(--muted);padding-top:.15rem;transition:color .2s ease}
 .xv-list b{display:block;font-family:var(--ui);font-weight:600;font-size:var(--h5);color:var(--text);transition:color .2s ease}
 .xv-list .d{display:grid;grid-template-rows:1fr;font-size:.9375rem;line-height:1.45;transition:grid-template-rows .28s var(--xv-ease),opacity .2s ease}
-.xv-list .d>span{display:block;min-height:0;overflow:hidden;padding-top:.15rem}
+.xv-list .d>span{display:block;min-height:0;overflow:hidden}
+.xv-list .d{padding-top:.15rem}
 .xv-list button[aria-pressed="true"]{background:var(--copper-wash);color:var(--text)}
 .xv-list button[aria-pressed="true"]::before{transform:none}
 .xv-list button[aria-pressed="true"] .n,.xv-list button[aria-pressed="true"] b{color:var(--copper)}

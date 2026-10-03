@@ -147,12 +147,12 @@ html.js .are.is-live .are-ripple i{opacity:0}
 .are[data-v="4"] .are-town::before{content:"";position:absolute;inset:6px 6px 0;border-radius:0 0 40% 40%/0 0 16px 16px;background:var(--copper);opacity:.85;z-index:0}
 .are[data-v="4"] .are-chip{position:relative;z-index:1}
 .are[data-v="4"] .are-town:nth-child(odd):not(.is-home) .are-chip{background:linear-gradient(#EAE1D0,#DED1BA)}
-.are[data-v="4"] .is-home .are-chip{min-height:64px;flex-direction:row;align-items:center;gap:.6rem;border-radius:32px 32px 6px 6px;background:var(--copper-wash);box-shadow:inset 0 0 0 1.5px var(--copper),0 6px 8px -4px rgba(31,43,48,.2)}
+.are[data-v="4"] .is-home .are-chip{min-height:64px;flex-direction:row;align-items:center;justify-content:flex-start;gap:.6rem;padding-left:1.4rem;border-radius:32px 32px 6px 6px;background:var(--copper-wash);box-shadow:inset 0 0 0 1.5px var(--copper),0 6px 8px -4px rgba(31,43,48,.2)}
 .are[data-v="4"] .is-home .are-chip::after{order:-1}
 @media (hover:hover){.are[data-v="4"] .are-town:not(.is-home) .are-chip:hover{transform:rotateX(24deg);box-shadow:inset 0 0 0 1px rgba(152,86,50,.3),0 16px 14px -8px rgba(31,43,48,.35)}}
 .are[data-v="4"] .are-town:not(.is-home) .are-chip:focus-visible{transform:rotateX(24deg)}
 @media (min-width:900px){
-  .are[data-v="4"] .are-list{grid-template-columns:repeat(9,minmax(0,1fr))}
+  .are[data-v="4"] .are-list{grid-template-columns:repeat(8,minmax(0,1fr))}
   .are[data-v="4"] .are-town:not(.is-home){grid-column:span 2}
   .are[data-v="4"] .are-town:nth-child(6){grid-column:2/span 2}
   .are[data-v="4"] .are-wrap{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"head list" "note list";column-gap:4rem;align-items:start}
@@ -190,4 +190,13 @@ html.js .are[data-v="5"] .are-van{display:block;position:absolute;left:0;top:0;w
   .are[data-v="5"] .are-town:nth-child(even) .are-chip{transform:translateY(3.2rem)}
   .are[data-v="5"] .are-chip{padding:.4rem .75rem;font-size:.975rem}
   .are[data-v="5"] .are-dot{left:50%;top:50%;margin:-7px 0 0 -7px}
+  .are[data-v="5"] .are-town:nth-child(odd) .are-dot{transform:translateY(3.2rem)}
+  .are[data-v="5"] .are-town:nth-child(even) .are-dot{transform:translateY(-3.2rem)}
+  .are[data-v="5"] .are-town:nth-child(odd).is-hl .are-dot{transform:translateY(3.2rem) scale(1.25)}
+  .are[data-v="5"] .are-town:nth-child(even).is-hl .are-dot{transform:translateY(-3.2rem) scale(1.25)}
 }
+/* v5: the stop dots sit outside the chip, so the chip cannot clip; the wash fades instead of sliding */
+.are[data-v="5"] .are-chip{overflow:visible}
+.are[data-v="5"] .are-chip::before{transform:none;opacity:0;transition:opacity .2s ease}
+@media (hover:hover){.are[data-v="5"] .are-chip:hover::before{opacity:1}}
+.are[data-v="5"] .are-town.is-hl .are-chip::before{opacity:1}

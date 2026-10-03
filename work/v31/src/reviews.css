@@ -89,14 +89,14 @@ html.js .rv-text.is-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webki
 .rv-gw{font-weight:600;color:var(--rv-body)}
 
 /* controls */
-.rv-ctl{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;min-height:44px}
+.rv-ctl{display:none;align-items:center;justify-content:center;gap:8px;margin-top:8px;min-height:44px}
 .rv-arrow{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;background:#fff;border:1px solid var(--rv-off);color:var(--rv-body);cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.12);transition:background-color .15s ease,opacity .15s ease,transform .16s var(--rv-out)}
 .rv-arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .rv-arrow:active:not(:disabled){transform:scale(.96)}
 .rv-arrow:disabled{opacity:.38;cursor:default;box-shadow:none}
 @media (hover:hover){.rv-arrow:hover:not(:disabled){background:var(--rv-hover)}}
 .rv-dots{display:none;align-items:center;justify-content:center}
-.rv-dot{position:relative;width:32px;height:44px;padding:0;background:none;border:0;cursor:pointer}
+.rv-dot{position:relative;width:44px;height:44px;padding:0;background:none;border:0;cursor:pointer}
 .rv-dot::before{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--rv-off);transition:background-color .2s ease,transform .2s var(--rv-out)}
 .rv-dot[aria-current="true"]::before{background:var(--rv-blue);transform:scale(1.35)}
 @media (hover:hover){.rv-dot:hover:not([aria-current="true"])::before{background:#BDC1C6}}
@@ -131,8 +131,8 @@ html.js .rv-text.is-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webki
 }
 @media (min-width:960px){
   :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-arrow{position:absolute;top:calc((100% - 52px) / 2 - 22px);z-index:4}
-  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-prev{left:-22px}
-  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-next{right:-22px}
+  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-prev{left:-32px}
+  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-next{right:-32px}
   :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-arrow:disabled{opacity:0;pointer-events:none}
 }
 
@@ -213,3 +213,8 @@ html.has-motion [data-v="4"] .rv-note{display:flex;align-items:center;gap:10px;p
 .rv-vein{fill:none;stroke:var(--copper);stroke-width:1;stroke-opacity:.6}
 @media (max-width:899px){.rv-house,.rv-leaf,.rv-frag,.rv-pin-b{display:none}.rv-pin-a{left:auto;right:6%;top:2.25rem}.rv-bird{right:18%}.rv-bird-2{right:calc(18% + 40px)}}
 @media (max-width:599px){.rv-bird-2,.rv-pin-a{display:none}.rv-bird{top:1rem;right:10%}}
+/* deck: cards waiting in the pile show as blank paper, so only the front review reads */
+[data-v="2"] .rv-js .rv-card>*{transition:opacity .2s ease}
+[data-v="2"] .rv-js .rv-slide[inert] .rv-card>*{opacity:0}
+/* controls only exist once the engine runs (without JS the row is a native swipe strip) */
+.rv-js .rv-ctl{display:flex}

@@ -16,7 +16,8 @@
 
   /* ---- variant switch (prototype stage): ?v=1..6, default 1 ---- */
   var V = sec.getAttribute('data-v') || '1';
-  try { var m = /[?&]v=([1-6])\b/.exec(location.search); if (m) V = m[1]; } catch (e) {}
+  /* ?rv=N wins over the page-wide ?v=N, so the reviews variant can be judged next to any other section's variant */
+  try { var m = /[?&]rv=([1-6])\b/.exec(location.search) || /[?&]v=([1-6])\b/.exec(location.search); if (m) V = m[1]; } catch (e) {}
   sec.setAttribute('data-v', V);
   var MODE = { 1: 'rail', 2: 'deck', 3: 'rail', 4: 'spot', 5: 'rail', 6: 'flow' }[V];
 
@@ -377,7 +378,9 @@
         if (cta) tl.to(cta, { opacity: 1, duration: 0.4, ease: 'power2.out', clearProps: 'opacity' }, 0.75);
         if (dealing) {
           /* the deck is dealt from the back card to the front one */
-          tl.to(cards.slice().reverse(), { opacity: 1, y: 0, rotation: 0, duration: 0.6, ease: 'power3.out', stagger: 0.07, clearProps: 'transform,opacity' }, 0.35);
+          var rev = cards.slice().reverse();
+          tl.to(rev, { opacity: 1, duration: 0.18, ease: 'power1.out', stagger: 0.07 }, 0.35);
+          tl.to(rev, { y: 0, rotation: 0, duration: 0.6, ease: 'power3.out', stagger: 0.07, clearProps: 'transform,opacity' }, 0.35);
         } else if (V !== '4') {
           tl.to(first, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.07, clearProps: 'transform,opacity' }, 0.35);
         }

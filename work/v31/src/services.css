@@ -114,7 +114,9 @@
 }
 @media (min-width:1080px){
   .svc-sec[data-v="2"] .svc-list{overflow:visible;margin-inline:0;padding:1.5rem 0 1rem;gap:1.1rem}
+  .svc-sec[data-v="2"] .svc-list{align-items:flex-start}
   .svc-sec[data-v="2"] .svc{flex:1 1 0}
+  .svc-sec[data-v="2"] .svc-p{flex:none}
   /* courses rise to a ridge in the middle (multiples of the 32px batten gauge) */
   .svc-sec[data-v="2"] .svc:nth-child(1),.svc-sec[data-v="2"] .svc:nth-child(5){margin-top:64px}
   .svc-sec[data-v="2"] .svc:nth-child(2),.svc-sec[data-v="2"] .svc:nth-child(4){margin-top:32px}
@@ -241,7 +243,7 @@
 .svc-sec[data-v="6"] .svc::before{display:none}
 .svc-sec[data-v="6"] .svc:active{transform:none}
 .svc-sec[data-v="6"] .svc-ph{margin-bottom:1.1rem}
-.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:16/9}
+.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:16/9;max-height:400px}
 .svc-sec[data-v="6"] .svc-t{font-size:clamp(1.375rem,1.1rem + .9vw,1.875rem);line-height:1.18;margin-bottom:.5rem}
 .svc-sec[data-v="6"] .svc-p{font-size:var(--h4);margin-bottom:1rem}
 .svc-sec[data-v="6"] .svc-a{justify-self:start;min-height:48px;padding:.65rem 1.25rem;background:var(--copper);color:var(--paper);text-decoration:none;border:2px solid var(--copper)}

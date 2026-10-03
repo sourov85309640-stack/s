@@ -58,6 +58,7 @@
 .how-spec dd{min-width:0;font-size:.9375rem}
 .how-ev{display:flex;gap:.65rem;align-items:flex-start}
 .how-ev-img{flex:none;width:44px;height:44px;clip-path:polygon(0 30%,50% 0,100% 30%,100% 100%,0 100%)}
+.how-ev-img img{object-position:12% 18%;transform:scale(1.9);transform-origin:12% 18%}
 /* blank line shown while a row waits to be written (JS state only) */
 .how-spec>div::after{content:"";position:absolute;left:7.15rem;right:.5rem;top:calc(50% + .45rem);border-top:1px dashed var(--line);opacity:0;transition:opacity .3s}
 .how-spec>div.is-blank::after{opacity:1}
@@ -70,8 +71,8 @@
 .how-rail-fill{position:absolute;inset:0;background:var(--copper);transform-origin:50% 0}
 .how[data-v="1"] .how-st,.how[data-v="5"] .how-st{display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-areas:"n thumb" "n txt";gap:.75rem 1.1rem;padding-bottom:2.5rem}
 .how[data-v="1"] .how-st:last-child,.how[data-v="5"] .how-st:last-child{padding-bottom:0}
-.how[data-v="1"] .how-n{grid-area:n;width:44px;height:48px;background:var(--warm);clip-path:polygon(50% 0,100% 32%,100% 100%,0 100%,0 32%);box-shadow:inset 0 0 0 1.5px var(--copper-tint)}
-.how[data-v="1"] .how-n::after{clip-path:inherit}
+.how[data-v="1"] .how-n{grid-area:n;width:44px;height:48px;padding-top:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 48'%3E%3Cpath d='M22 1.2 42.8 15.6V46.8H1.2V15.6z' fill='%23F0ECE3' stroke='%23DDA783' stroke-width='1.6'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
+.how[data-v="1"] .how-n::after{clip-path:polygon(50% 0,100% 32.5%,100% 100%,0 100%,0 32.5%);padding-top:8px}
 .how[data-v="1"] .how-n,.how[data-v="5"] .how-n{align-self:start;z-index:1}
 .how[data-v="1"] .how-thumb,.how[data-v="5"] .how-thumb{grid-area:thumb;width:72px}
 .how[data-v="1"] .how-txt,.how[data-v="5"] .how-txt{grid-area:txt}
@@ -97,7 +98,7 @@
 .how-walker svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--ink);stroke-width:1.8;stroke-linecap:round}
 .how-walker circle{fill:var(--ink);stroke:none}
 .hw-leg{transform-box:view-box;transform-origin:12px 21px}
-.how[data-v="2"] .how-st{display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-areas:"n thumb" "n txt";gap:.6rem 1rem;padding-bottom:2rem}
+.how[data-v="2"] .how-st{display:grid;align-content:start;grid-template-columns:44px minmax(0,1fr);grid-template-areas:"n thumb" "n txt";gap:.6rem 1rem;padding-bottom:2rem}
 .how[data-v="2"] .how-n{grid-area:n;width:40px;height:40px;border-radius:50%;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--copper-tint);background:var(--warm)}
 .how[data-v="2"] .how-n::after{border-radius:50%}
 .how[data-v="2"] .how-thumb{grid-area:thumb;width:72px}
@@ -129,7 +130,7 @@
 .how[data-v="3"] .how-txt h3{font-size:clamp(1.25rem,1rem + 1vw,1.625rem)}
 .how[data-v="3"] .how-txt p{font-size:var(--h4)}
 .how[data-v="3"] .how-st{transition:opacity .35s var(--how-ease)}
-.how.is-live[data-v="3"] .how-st:not(.is-cur){opacity:.42}
+.how.is-live[data-v="3"] .how-st:not(.is-cur){opacity:.5}
 .how[data-v="3"] .how-sheet{margin-top:1rem}
 .ha-st{opacity:0;transition:opacity .5s var(--how-ease)}
 .how-art[data-s="1"] .ha-s1,.how-art[data-s="2"] .ha-s2,.how-art[data-s="3"] .ha-s3,.how-art[data-s="4"] .ha-s4{opacity:1}
@@ -203,8 +204,8 @@
 /* =====================================================================
    v5: ladder. Rails run from the eaves to the ground; rungs light up as reached.
    ===================================================================== */
-.how[data-v="5"] .how-eave{display:block;width:120px;height:40px;margin:0 0 -.25rem -6px}
-.he-roof{fill:none;stroke:var(--ink);stroke-width:2;opacity:.6}
+.how[data-v="5"] .how-eave{display:block;width:140px;height:56px;margin:0 0 .5rem -10px;overflow:visible}
+.he-roof{fill:var(--sand);stroke:rgba(31,43,48,.55);stroke-width:1.5;stroke-linejoin:round}
 .he-gutter{fill:var(--sand);stroke:var(--field);stroke-width:1.5}
 .how[data-v="5"] .how-ground{display:block;width:120px;height:24px;margin:.5rem 0 0 -8px}
 .hg-line{fill:none;stroke:var(--field);stroke-width:2}
@@ -228,7 +229,7 @@
 @media (hover:hover){.how-tab[aria-selected="false"]:hover::before{opacity:.7}}
 .how[data-v="6"] .how-st{display:grid;grid-template-columns:minmax(0,1fr);gap:1rem}
 .how[data-v="6"] .how-n{display:none}
-.how[data-v="6"] .how-thumb{width:100%;aspect-ratio:16/8;clip-path:polygon(0 22%,50% 0,100% 22%,100% 100%,0 100%)}
+.how[data-v="6"] .how-thumb{width:100%;max-width:23rem;aspect-ratio:2/1;clip-path:polygon(0 22%,50% 0,100% 22%,100% 100%,0 100%)}
 .how[data-v="6"] .how-txt h3{font-size:clamp(1.25rem,1rem + 1vw,1.625rem)}
 .how[data-v="6"] .how-txt p{font-size:var(--h4)}
 .how[data-v="6"] .how-next{display:inline-flex;align-items:center;gap:.6rem;min-height:44px;margin-top:1rem;padding:0;border:0;border-bottom:1px solid var(--copper);background:none;font-family:var(--ui);font-weight:600;color:var(--text);cursor:pointer}

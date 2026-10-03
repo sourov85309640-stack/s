@@ -1,1 +1,121 @@
-/* faq section styles */
+/* =====================================================================
+   FAQ (prototype, variants ?fv=1..4). Paper section, terrace edge, calm layered parallax.
+   v1 classic grid accordion   v2 questions left, sticky answer panel right   v3 chat-like Q/A
+   v4 open read: every answer visible, sticky index with scroll-spy
+   Closed state only exists when JS runs (html.js + .faq-a[hidden]); without JS everything is open.
+   Plus-to-minus and the panel opening stay under 300 ms. Hover only inside (hover:hover).
+   ===================================================================== */
+.faq{--faq-out:cubic-bezier(.23,1,.32,1);--faq-io:cubic-bezier(.77,0,.175,1)}
+
+/* layers (calm) */
+.faq-bk-grid{inset:-10% 0;background-image:linear-gradient(rgba(31,43,48,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(31,43,48,.045) 1px,transparent 1px);background-size:48px 48px;
+  -webkit-mask:linear-gradient(90deg,#000 0,transparent 45%);mask:linear-gradient(90deg,#000 0,transparent 45%)}
+.faq-bk-roofs{left:0;right:0;bottom:-3px;width:100%;height:clamp(44px,6vw,80px);fill:var(--warm);opacity:.8}
+.faq-fr{opacity:.7}
+.faq-fr-leaf{width:28px;height:17px;left:2.5%;top:30%;fill:#C9B98F}
+.faq-fr-ridge{width:46px;height:23px;right:3%;bottom:16%;fill:#D9B49A;stroke:#9C6E52;stroke-width:1.4}
+.faq-fr-ridge .v{fill:none}
+@media (max-width:767px){.faq-fr-ridge{display:none}.faq-fr-leaf{top:2rem;left:auto;right:6%}}
+
+/* layout */
+.faq-wrap{display:grid;gap:1.75rem;grid-template-columns:minmax(0,1fr)}
+.faq-head{max-width:30rem}
+.faq-head h2{margin-bottom:.6rem}
+.faq-call{color:var(--muted);font-size:var(--h4)}
+.faq-ill{display:none;width:150px;height:auto;margin-top:2rem;overflow:visible}
+.faq-ill path{fill:none;stroke:rgba(31,43,48,.55);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.faq-ill .i-rf{fill:#CDD6D9}
+.faq-ill .i-ch{fill:#E8CDBB}
+.faq-ill .i-smoke path{stroke:rgba(31,43,48,.3)}
+html.has-motion .faq-ill .i-smoke path{animation:faq-smoke 4.8s ease-in-out infinite}
+html.has-motion .faq-ill .i-smoke path:nth-child(2){animation-delay:-2.2s}
+@keyframes faq-smoke{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:.8;transform:translateY(-3px)}}
+.faq:not(.is-live) .faq-ill .i-smoke path{animation-play-state:paused}
+@media (min-width:960px){
+  .faq-wrap{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);column-gap:clamp(2.5rem,5vw,5rem);align-items:start}
+  .faq-head{position:sticky;top:6.5rem}
+  .faq-ill{display:block}
+}
+
+/* items (shared base = v1) */
+.faq-list{border-bottom:1px solid var(--line)}
+.faq-item{border-top:1px solid var(--line);scroll-margin-top:6rem}
+.faq-h{font-size:var(--h4)}
+.faq-btn{position:relative;isolation:isolate;display:flex;width:100%;align-items:center;justify-content:space-between;gap:1rem;min-height:60px;padding:1rem 0;background:none;border:0;text-align:left;font:inherit;font-family:var(--ui);font-weight:600;color:var(--text);cursor:pointer;transition:color .2s ease}
+.faq-btn::before{content:"";position:absolute;inset:0 -1rem;z-index:-1;background:var(--copper-wash);opacity:0;transition:opacity .2s ease}
+.faq-pm{position:relative;flex:none;width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--copper);transition:transform .22s var(--faq-out),background-color .2s ease}
+.faq-pm::before,.faq-pm::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.75px;margin:-.875px 0 0 -5px;background:var(--copper);border-radius:1px;transition:transform .22s var(--faq-out),background-color .2s ease}
+.faq-pm::after{transform:rotate(90deg)}
+.faq-btn[aria-expanded="true"] .faq-pm{transform:rotate(180deg);background:var(--copper)}
+.faq-btn[aria-expanded="true"] .faq-pm::after{transform:rotate(0deg)}
+.faq-btn[aria-expanded="true"] .faq-pm::before,.faq-btn[aria-expanded="true"] .faq-pm::after{background:var(--paper)}
+.faq-btn:active .faq-pm{scale:.94}
+@media (hover:hover){.faq-btn:hover{color:var(--copper)}.faq-btn:hover::before{opacity:.6}}
+/* panel: grid-rows collapse; hidden="until-found" stays searchable (overrides base [hidden]{display:none}) */
+.faq-a{display:grid;grid-template-rows:1fr;transition:grid-template-rows .26s var(--faq-out)}
+.faq-a[hidden="until-found"]{display:grid!important}
+.faq-a-in{min-height:0;overflow:hidden}
+.faq-a-in>p{padding:0 0 1.2rem;max-width:40rem;color:var(--muted)}
+html.js .faq-item:not(.is-open) .faq-a{grid-template-rows:0fr}
+.faq-a-in>p{transition:opacity .26s ease,transform .26s var(--faq-out)}
+html.js .faq-item:not(.is-open) .faq-a-in>p{opacity:0;transform:translateY(-4px)}
+
+/* ======================= v2: sticky answer panel ======================= */
+@media (min-width:960px){
+  .faq[data-v="2"] .faq-wrap{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr)}
+  html.js .faq[data-v="2"] .faq-list{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);column-gap:2.5rem;border:0}
+  html.js .faq[data-v="2"] .faq-item{display:contents}
+  html.js .faq[data-v="2"] .faq-h{grid-column:1;border-top:1px solid var(--line)}
+  html.js .faq[data-v="2"] .faq-item:last-child .faq-h{border-bottom:1px solid var(--line)}
+  html.js .faq[data-v="2"] .faq-btn{padding:.9rem 1rem .9rem 1.1rem}
+  html.js .faq[data-v="2"] .faq-btn::before{inset:0}
+  html.js .faq[data-v="2"] .faq-btn::after{content:"";position:absolute;left:0;top:.6rem;bottom:.6rem;width:3px;background:var(--copper);transform:scaleY(.4);opacity:0;transition:transform .22s var(--faq-out),opacity .2s ease}
+  html.js .faq[data-v="2"] .faq-btn[aria-expanded="true"]{color:var(--copper)}
+  html.js .faq[data-v="2"] .faq-btn[aria-expanded="true"]::after{transform:none;opacity:1}
+  html.js .faq[data-v="2"] .faq-btn[aria-expanded="true"]::before{opacity:.6}
+  html.js .faq[data-v="2"] .faq-pm{display:none}
+  html.js .faq[data-v="2"] .faq-a{grid-column:2;grid-row:1/span 6;align-self:start;position:sticky;top:6.5rem;display:block;transition:none}
+  html.js .faq[data-v="2"] .faq-a[hidden="until-found"]{display:block!important}
+  html.js .faq[data-v="2"] .faq-item.is-open .faq-a-in{padding:1.75rem 1.75rem 1.5rem;background:var(--card);box-shadow:var(--shadow-card);border-top:3px solid var(--copper)}
+  html.js .faq[data-v="2"] .faq-item.is-open .faq-a-in>p{padding:0;font-size:var(--h4);line-height:1.6;color:var(--text)}
+  html.js .faq[data-v="2"] .faq-item.is-open .faq-a-in::after{content:"Was this useful? If not, call and ask.";display:block;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line-soft);color:var(--muted);font-size:.9375rem}
+  html.js .faq[data-v="2"] .faq-item:not(.is-open) .faq-a-in{height:0}
+  html.js .faq[data-v="2"] .faq-item.is-open .faq-a-in{animation:faq-in .26s var(--faq-out)}
+}
+@keyframes faq-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ======================= v3: chat-like ======================= */
+.faq[data-v="3"] .faq-list{border:0;display:grid;gap:.85rem;padding:clamp(1rem,3vw,1.75rem);background:var(--card);box-shadow:var(--shadow-card);border-radius:22px}
+.faq[data-v="3"] .faq-item{border:0;display:grid;gap:.6rem}
+.faq[data-v="3"] .faq-h{justify-self:end;max-width:85%}
+.faq[data-v="3"] .faq-btn{min-height:48px;padding:.7rem 1rem;gap:.75rem;border-radius:18px 18px 4px 18px;background:var(--copper-wash);box-shadow:inset 0 0 0 1px rgba(152,86,50,.25)}
+.faq[data-v="3"] .faq-btn::before{inset:0;border-radius:inherit;background:#F0DDD0}
+html.js .faq[data-v="3"] .faq-btn[aria-expanded="false"]{background:var(--paper);box-shadow:inset 0 0 0 1.5px rgba(152,86,50,.35);color:var(--text)}
+.faq[data-v="3"] .faq-pm{width:20px;height:20px}
+.faq[data-v="3"] .faq-a{justify-self:start;max-width:88%}
+.faq[data-v="3"] .faq-a-in{position:relative;padding-left:46px}
+.faq[data-v="3"] .faq-a-in::before{content:"";position:absolute;left:0;bottom:2px;width:34px;height:34px;border-radius:50%;background:var(--warm) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M7 16L16 8l9 8M10 15v9h12v-9' fill='none' stroke='%23985632' stroke-width='2.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") center/22px no-repeat;box-shadow:inset 0 0 0 1px var(--line)}
+.faq[data-v="3"] .faq-a-in>p{padding:.8rem 1rem;background:var(--warm);border-radius:18px 18px 18px 4px;color:var(--text)}
+.faq-typing{display:none}
+.faq[data-v="3"] .faq-item.is-typing .faq-typing{display:inline-flex;gap:4px;position:absolute;left:46px;bottom:0;padding:.85rem 1rem;background:var(--warm);border-radius:18px 18px 18px 4px}
+.faq-typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);opacity:.4;animation:faq-dot .9s ease-in-out infinite}
+.faq-typing i:nth-child(2){animation-delay:.15s}.faq-typing i:nth-child(3){animation-delay:.3s}
+@keyframes faq-dot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:.9;transform:translateY(-2px)}}
+.faq[data-v="3"] .faq-item.is-typing .faq-a-in>p{opacity:0}
+.faq[data-v="3"] .faq-item.is-typing .faq-a-in{min-height:44px}
+
+/* ======================= v4: open read with sticky index ======================= */
+.faq-index{display:none}
+html.js .faq[data-v="4"] .faq-index{display:block;margin-top:1.75rem}
+.faq-index ol{position:relative;display:grid;gap:0;padding-left:1.1rem;--p:0}
+.faq-index ol::before,.faq-index ol::after{content:"";position:absolute;left:0;top:.5rem;bottom:.5rem;width:2px;background:var(--line)}
+.faq-index ol::after{background:var(--copper);transform-origin:50% 0;transform:scaleY(var(--p))}
+.faq-index a{display:flex;align-items:center;min-height:40px;padding:.3rem 0;font-family:var(--ui);font-weight:600;font-size:.9375rem;line-height:1.3;color:var(--muted);text-decoration:none;transition:color .2s ease}
+.faq-index a[aria-current="true"]{color:var(--copper)}
+@media (hover:hover){.faq-index a:hover{color:var(--text);text-decoration:underline;text-underline-offset:.2em}}
+.faq[data-v="4"] .faq-ill{display:none}
+@media (max-width:959px){html.js .faq[data-v="4"] .faq-index{display:none}}
+.faq[data-v="4"] .faq-item{padding-block:.4rem}
+.faq[data-v="4"] .faq-h{font-size:var(--h3)}
+.faq[data-v="4"] .faq-btn{min-height:56px}
+.faq[data-v="4"] .faq-a-in>p{font-size:1.0625rem;color:var(--text);padding-bottom:1.5rem}

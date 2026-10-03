@@ -113,7 +113,7 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
 .dia-sec.is-touring .pin:active{transform:scale(.97)}
 
 /* ---------- survey marker (tour only) ---------- */
-.marker{position:absolute;left:0;top:0;width:0;height:0;z-index:4;pointer-events:none;display:none;transform-origin:0 0}
+.marker{position:absolute;left:0;top:0;width:0;height:0;z-index:2;pointer-events:none;display:none;transform-origin:0 0}
 .dia-sec.is-touring .marker{display:block}
 .m-ring{position:absolute;left:-26px;top:-26px;width:52px;height:52px;border-radius:50%;border:1.5px dashed var(--copper);transition:transform .3s var(--dia-ease),background-color .25s;animation:dia-spin 16s linear infinite}
 .m-ring::before,.m-ring::after{content:"";position:absolute;background:var(--copper)}
@@ -123,7 +123,10 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
 .m-sh{position:absolute;left:-18px;top:22px;width:36px;height:9px;border-radius:50%;background:radial-gradient(closest-side,rgba(31,43,48,.22),transparent);transform:scale(var(--sh,1));opacity:.9}
 .m-tag{position:absolute;left:36px;top:-14px;padding:.25rem .6rem;background:var(--card);color:var(--text);font-family:var(--ui);font-weight:600;font-size:.8125rem;line-height:1.3;white-space:nowrap;border-radius:3px;box-shadow:var(--shadow-soft),0 0 0 1px rgba(31,43,48,.08);opacity:0;transform:translateX(-6px);transition:opacity .2s,transform .28s var(--dia-ease)}
 .marker.flip .m-tag{left:auto;right:36px;transform:translateX(6px)}
-.marker.is-lock .m-ring{transform:scale(.8);border-style:solid;background:rgba(221,167,131,.16)}
+.marker.is-lock .m-ring{transform:scale(.86);border-style:solid;background:rgba(221,167,131,.16)}
+.m-dot{transition:opacity .15s}
+.marker.is-lock .m-dot{opacity:0}
+.m-tag{z-index:5}
 .marker.is-lock .m-tag{opacity:1;transform:none}
 @keyframes dia-spin{to{rotate:360deg}}
 .m-drop,.m-splash{position:absolute;opacity:0;pointer-events:none}
@@ -134,7 +137,8 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
 .dia-list li{position:relative;display:grid;grid-template-columns:2.25rem minmax(0,1fr);column-gap:.75rem;align-items:start;padding:.55rem .75rem .55rem .5rem;border-radius:6px;color:var(--muted);font-size:.9375rem;line-height:1.45;transition:background-color .2s,box-shadow .2s}
 .dia-n{display:flex;align-items:center;justify-content:center;width:1.75rem;height:1.75rem;margin-top:-.05rem;border-radius:50%;background:var(--copper);color:var(--paper);font-family:var(--ui);font-weight:600;font-size:.875rem;position:relative;z-index:1;transition:background-color .2s,color .2s,box-shadow .2s}
 .dia-t b{display:block;font-family:var(--ui);font-weight:600;font-size:var(--h5);color:var(--text);margin-bottom:.05rem}
-.dia-row{all:unset;display:contents;cursor:pointer}
+.dia-row{appearance:none;-webkit-appearance:none;background:none;border:0;margin:0;font:inherit;color:inherit;text-align:left;width:100%;display:grid;grid-template-columns:2.25rem minmax(0,1fr);column-gap:.75rem;align-items:start;padding:.55rem .75rem .55rem .5rem;border-radius:6px;cursor:pointer;min-height:44px}
+.dia-list li:has(>.dia-row){display:block;padding:0}
 .dia-foot{margin-top:clamp(1rem,2.4vw,1.5rem);display:flex;flex-wrap:wrap;align-items:center;gap:0 .25rem}
 /* touring: rail behind the numbers, active row as a raised card */
 .dia-sec.is-touring .dia-list::before,.dia-sec.is-touring .dia-list::after{content:"";position:absolute;left:calc(.5rem + .875rem - .75px);top:1.4rem;bottom:1.4rem;width:1.5px;background:var(--slate-line);border-radius:1px}
@@ -145,8 +149,6 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
 .dia-sec.is-touring li.is-on .dia-n{background:var(--copper);color:var(--paper)}
 .dia-sec.is-touring li{cursor:pointer}
 @media (hover:hover){.dia-sec.is-touring li:not(.is-on):hover{background:rgba(255,255,255,.55)}}
-.dia-sec.is-touring li:has(.dia-row:focus-visible){outline:3px solid var(--copper);outline-offset:2px}
-.dia-row:focus-visible{outline:none}
 
 /* ---------- back layer: survey grid with crosses + distant rooflines; front: rain streaks and a leaf ---------- */
 .dia-back{z-index:0}
@@ -156,8 +158,8 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Cpath d='M48 42v12M42 48h12' stroke='%2378929C' stroke-opacity='.45' stroke-width='1'/%3E%3C/svg%3E");
   background-size:96px 96px,96px 96px,96px 96px;background-position:0 0,0 0,-48px -48px;
   -webkit-mask-image:linear-gradient(180deg,transparent,#000 18%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 18%,#000 70%,transparent)}
-.dia-roofs{left:0;right:0;bottom:-2px;width:100%;height:clamp(70px,11vw,150px);fill:#DCE5E8}
-.dia-roofs2{height:clamp(50px,8vw,110px);fill:#E2EAEC;bottom:-2px}
+.dia-roofs{left:0;right:0;bottom:-70px;width:100%;height:calc(clamp(70px,11vw,150px) + 70px);fill:#DCE5E8}
+.dia-roofs2{height:calc(clamp(50px,8vw,110px) + 70px);fill:#E2EAEC}
 .dia-front{z-index:3}
 .dia-streaks{width:44px;height:160px;fill:none;stroke:rgba(79,118,134,.28);stroke-width:1.2px;stroke-linecap:round}
 .dia-streaks-l{left:max(.25rem,calc((100% - var(--max))/2 - 3.25rem));top:18%}
@@ -172,7 +174,7 @@ html:not(.has-motion) .dia-front{display:none}
 .dia-sec.is-flow .dia-plate{position:sticky;top:calc(var(--hdr,4rem) + .5rem);z-index:5}
 .dia-sec.is-flow .dia-plate::before{box-shadow:0 0 0 .75rem var(--sky)}
 .dia-sec.is-flow .dia-plate{box-shadow:var(--shadow-soft),0 0 0 1px rgba(31,43,48,.06),0 -.6rem 0 .6rem var(--sky)}
-@media (max-width:999px){.dia-sec.is-flow .dia-list{gap:.6rem}.dia-sec.is-flow .dia-list li{padding-block:.75rem}}
+@media (max-width:999px){.dia-sec.is-flow .dia-list{gap:.6rem}.dia-sec.is-flow .dia-row{padding-block:.75rem}}
 @media (max-width:640px){.dia-sec.is-flow .m-tag{display:none}}
 
 /* ==================== variants ==================== */

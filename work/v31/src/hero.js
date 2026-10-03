@@ -117,14 +117,12 @@
     frame.appendChild(cv);
     var ctx = cv.getContext('2d'), dpr = 1, cw = 0, ch = 0;
     function sprite(r, g, b, a0) {
-      var c = d.createElement('canvas'); c.width = c.height = 64; var x = c.getContext('2d');
-      var gr = x.createRadialGradient(32, 32, 0, 32, 32, 32);
-      gr.addColorStop(0, 'rgba(' + r + ',' + g + ',' + b + ',' + a0 + ')');
-      gr.addColorStop(0.45, 'rgba(' + r + ',' + g + ',' + b + ',' + (a0 * 0.55) + ')');
-      gr.addColorStop(1, 'rgba(' + r + ',' + g + ',' + b + ',0)');
-      x.fillStyle = gr; x.fillRect(0, 0, 64, 64); return c;
+      var c = d.createElement('canvas'); c.width = c.height = 128; var x = c.getContext('2d');
+      var gr = x.createRadialGradient(64, 64, 0, 64, 64, 64), stops = [[0, 1], [0.2, 0.86], [0.4, 0.56], [0.6, 0.28], [0.8, 0.08], [1, 0]];
+      stops.forEach(function (s) { gr.addColorStop(s[0], 'rgba(' + r + ',' + g + ',' + b + ',' + (a0 * s[1]).toFixed(3) + ')'); });
+      x.fillStyle = gr; x.fillRect(0, 0, 128, 128); return c;
     }
-    var puffSpr = [sprite(240, 242, 243, 0.95), sprite(206, 212, 215, 0.9)];
+    var puffSpr = [sprite(242, 244, 245, 1), sprite(196, 203, 207, 1)];
     function leafSprite(fill, rib) {
       var c = d.createElement('canvas'); c.width = 48; c.height = 28; var x = c.getContext('2d');
       x.beginPath(); x.moveTo(2, 14); x.bezierCurveTo(12, 2, 32, 1, 46, 12); x.bezierCurveTo(34, 25, 14, 27, 2, 14); x.closePath();
@@ -144,7 +142,7 @@
       b.size = 0.9 + Math.random() * 0.2;
       b.speed = (24 + Math.random() * 20) * RW.clamp(W / 1440, 0.65, 1.15);
       b.x = initial ? W * (0.15 + Math.random() * 0.7) : (b.dir > 0 ? -60 - Math.random() * 400 : W + 60 + Math.random() * 400);
-      var bandTop = -Hh * 0.16, bandBot = Hh * S.eave - Hh * 0.05;
+      var bandTop = -Hh * 0.07, bandBot = Hh * S.eave - Hh * 0.05;
       b.y0 = bandTop + Math.random() * Math.max(10, bandBot - bandTop);
       b.amp = 4 + Math.random() * 9; b.f = 0.18 + Math.random() * 0.22; b.ph = Math.random() * 6.3;
       b.flap = 1 + Math.random() * 4; b.flapT = 0;
@@ -258,8 +256,8 @@
     /* ---------- smoke + leaves ---------- */
     function emit(u, ox, oy) {
       puffs.push({ x: ox + (Math.random() - 0.5) * 3 * u, y: oy, r: (4 + Math.random() * 3) * u, vr: (8 + Math.random() * 6) * u,
-        vy: -(20 + Math.random() * 10) * u, vx: (Math.random() - 0.5) * 6 * u, life: 4.4 + Math.random() * 2.2, age: 0,
-        a: 0.16 + Math.random() * 0.12, ph: Math.random() * 6.3, s: Math.random() < 0.55 ? 0 : 1 });
+        vy: -(30 + Math.random() * 12) * u, vx: (Math.random() - 0.5) * 6 * u, life: 5.2 + Math.random() * 2.2, age: 0,
+        a: 0.2 + Math.random() * 0.14, ph: Math.random() * 6.3, s: Math.random() < 0.5 ? 0 : 1 });
     }
     function spawnLeaf(l, initial) {
       l.x = Math.random() * cw; l.y = initial ? Math.random() * ch : -20 - Math.random() * 60;
@@ -274,13 +272,13 @@
       if (sm) {
         var u = sm.u, p = S.vis[sm.pane];
         var ox = sm.x + (p && p.dx || 0), oy = sm.y + top + st.py + (p && p.dy || 0);
-        emitAcc += dt * 6.5;
+        emitAcc += dt * 5.5;
         while (emitAcc > 1) { emitAcc -= 1; emit(u, ox, oy); }
         var wind = (V === 6 ? st.wind : 7 + Math.sin(t * 0.21) * 3) * u;
         for (var i = puffs.length - 1; i >= 0; i--) {
           var q = puffs[i]; q.age += dt; var k = q.age / q.life;
           if (k >= 1) { puffs.splice(i, 1); continue; }
-          q.vy *= 1 - 0.16 * dt;
+          q.vy *= 1 - 0.1 * dt;
           q.x += (q.vx + wind * (0.3 + k * 1.2)) * dt + Math.sin(q.age * 1.5 + q.ph) * 3 * u * dt;
           q.y += q.vy * dt; q.r += q.vr * dt;
           var a = q.a * Math.min(1, k / 0.12) * Math.pow(1 - k, 1.5) * RW.clamp(q.y / (ch * 0.16), 0, 1);
@@ -409,7 +407,7 @@
         B.x += (B.dir * B.speed + (V === 6 ? st.wind * 0.6 : 0)) * dt;
         if ((B.dir > 0 && B.x > S.vw + 80) || (B.dir < 0 && B.x < -80)) spawnBird(B, false);
         var ang = t * B.f * 6.283 + B.ph, by = B.y0 + Math.sin(ang) * B.amp - (V === 5 ? sstep(st.ep) * S.h * 0.25 : 0);
-        var bank = Math.cos(ang) * B.amp * 0.5;
+        var bank = Math.cos(ang) * B.amp * 0.35;
         B.flap -= dt; var sy = 1;
         if (B.flap < 0) { B.flapT += dt; sy = 0.6 + 0.4 * Math.abs(Math.cos(B.flapT * 13)); if (B.flapT > 0.75) { B.flap = 2.5 + Math.random() * 5; B.flapT = 0; } }
         var ox = V === 3 ? -st.nx * 8 : 0;

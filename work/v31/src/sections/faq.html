@@ -1,35 +1,49 @@
-<!-- ================= FAQ ================= -->
-<section class="sec e-terrace" id="faq" data-nav="faq" aria-labelledby="h-faq">
-  <div class="wrap faq-grid">
-    <div class="sec-head">
+<!-- ================= FAQ =================
+     Prototype: four variants behind ?fv=1..4 (faq.js sets data-v). Default 1.
+     Without JS every answer is open and every button says aria-expanded="true" (D9). Deep links #q1..#q6 and
+     #a1..#a6 open the item (D5). Closed answers use hidden="until-found" so find-in-page still reaches them (D4). -->
+<section class="sec faq e-terrace" id="faq" data-nav="faq" data-v="1" aria-labelledby="h-faq">
+  <div class="layers layers-back" aria-hidden="true">
+    <span class="faq-bk-grid" data-depth="-0.04"></span>
+    <svg class="faq-bk-roofs" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMax slice" data-depth="-0.07" focusable="false"><path d="M0 90V66l30-20 30 20h14V44h9v22h18l40-32 40 32h24l26-18 26 18h16V50h10v16h22l46-36 46 36h20l32-22 32 22h20V42h9v24h16l44-34 44 34h22l30-20 30 20h18V48h10v18h20l40-30 40 30h26l30-22 30 22h20V46h10v20h26l36-26 36 26H1200V90z"/></svg>
+  </div>
+
+  <div class="wrap faq-wrap">
+    <div class="faq-head">
       <h2 id="h-faq">Questions we get asked.</h2>
-      <p>Anything else? <a class="link" href="tel:+441632960482" data-sample="phone">Call 01632 960 482</a></p>
+      <p class="faq-call">Anything else? <a class="link" href="tel:+441632960482" data-sample="phone">Call 01632 960 482</a></p>
+      <svg class="faq-ill" viewBox="0 0 180 120" aria-hidden="true" focusable="false"><path class="i-ln" d="M10 112H170"/><path class="i-rf" d="M30 70L90 26L150 70Z"/><path class="i-ln" d="M40 70V112H140V70"/><path class="i-ch" d="M114 46V26H126V55"/><path class="i-ln" d="M80 112V88H100V112M52 80H70V96H52ZM110 80H128V96H110Z"/><g class="i-smoke"><path d="M120 20c-6-6 6-10 0-16"/><path d="M128 16c-5-5 5-8 0-13"/></g></svg>
     </div>
-    <div class="faq">
-      <div class="q" data-confirm="process">
-        <h3><button type="button" aria-expanded="false" aria-controls="a1" id="q1">What happens if more work is found?</button></h3>
-        <div class="a" id="a1" role="region" aria-labelledby="q1"><div class="a-in"><p>Roofs sometimes hide rotten battens or a failed valley once the tiles are off. The usual approach is to stop, show you photos, explain the options and agree the cost in writing before any extra work starts.</p></div></div>
+    <div class="faq-list">
+      <div class="faq-item" data-confirm="process">
+        <h3 class="faq-h"><button class="faq-btn" type="button" aria-expanded="true" aria-controls="a1" id="q1"><span class="faq-qt">What happens if more work is found?</span><span class="faq-pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="a1"><div class="faq-a-in"><p>Roofs sometimes hide rotten battens or a failed valley once the tiles are off. The usual approach is to stop, show you photos, explain the options and agree the cost in writing before any extra work starts.</p></div></div>
       </div>
-      <div class="q" data-confirm="timescale">
-        <h3><button type="button" aria-expanded="false" aria-controls="a2" id="q2">How long does a repair take?</button></h3>
-        <div class="a" id="a2" role="region" aria-labelledby="q2"><div class="a-in"><p>A few slates or a section of ridge is usually a few hours to a day. A full re-roof on an average house is more often one to two weeks, depending on size and weather.</p></div></div>
+      <div class="faq-item" data-confirm="timescale">
+        <h3 class="faq-h"><button class="faq-btn" type="button" aria-expanded="true" aria-controls="a2" id="q2"><span class="faq-qt">How long does a repair take?</span><span class="faq-pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="a2"><div class="faq-a-in"><p>A few slates or a section of ridge is usually a few hours to a day. A full re-roof on an average house is more often one to two weeks, depending on size and weather.</p></div></div>
       </div>
-      <div class="q" data-confirm="scaffold">
-        <h3><button type="button" aria-expanded="false" aria-controls="a3" id="q3">Do I need scaffolding?</button></h3>
-        <div class="a" id="a3" role="region" aria-labelledby="q3"><div class="a-in"><p>Beyond a small repair at low level, scaffolding is normally needed for safe access. It is often the largest single line on a roofing quote, so check whether it is listed separately.</p></div></div>
+      <div class="faq-item" data-confirm="scaffold">
+        <h3 class="faq-h"><button class="faq-btn" type="button" aria-expanded="true" aria-controls="a3" id="q3"><span class="faq-qt">Do I need scaffolding?</span><span class="faq-pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="a3"><div class="faq-a-in"><p>Beyond a small repair at low level, scaffolding is normally needed for safe access. It is often the largest single line on a roofing quote, so check whether it is listed separately.</p></div></div>
       </div>
-      <div class="q" data-confirm="weather">
-        <h3><button type="button" aria-expanded="false" aria-controls="a4" id="q4">Can you work in the rain?</button></h3>
-        <div class="a" id="a4" role="region" aria-labelledby="q4"><div class="a-in"><p>Roofing stops in heavy rain, high wind and frost, because wet slates are unsafe underfoot and some materials will not bond. Expect dates to move with the forecast.</p></div></div>
+      <div class="faq-item" data-confirm="weather">
+        <h3 class="faq-h"><button class="faq-btn" type="button" aria-expanded="true" aria-controls="a4" id="q4"><span class="faq-qt">Can you work in the rain?</span><span class="faq-pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="a4"><div class="faq-a-in"><p>Roofing stops in heavy rain, high wind and frost, because wet slates are unsafe underfoot and some materials will not bond. Expect dates to move with the forecast.</p></div></div>
       </div>
-      <div class="q" data-confirm="guarantee">
-        <h3><button type="button" aria-expanded="false" aria-controls="a5" id="q5">Is the work guaranteed?</button></h3>
-        <div class="a" id="a5" role="region" aria-labelledby="q5"><div class="a-in"><p>Ask for any guarantee in writing, with what it covers and for how long. New tiles and slates usually carry a manufacturer's guarantee. Cover for the workmanship varies from firm to firm.</p></div></div>
+      <div class="faq-item" data-confirm="guarantee">
+        <h3 class="faq-h"><button class="faq-btn" type="button" aria-expanded="true" aria-controls="a5" id="q5"><span class="faq-qt">Is the work guaranteed?</span><span class="faq-pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="a5"><div class="faq-a-in"><p>Ask for any guarantee in writing, with what it covers and for how long. New tiles and slates usually carry a manufacturer's guarantee. Cover for the workmanship varies from firm to firm.</p></div></div>
       </div>
-      <div class="q" data-confirm="process">
-        <h3><button type="button" aria-expanded="false" aria-controls="a6" id="q6">How do I get a price?</button></h3>
-        <div class="a" id="a6" role="region" aria-labelledby="q6"><div class="a-in"><p>Send photos and a few details through the form, or call. Most roofs need a visit before a firm price, because a photo cannot show the loft or the battens.</p></div></div>
+      <div class="faq-item" data-confirm="process">
+        <h3 class="faq-h"><button class="faq-btn" type="button" aria-expanded="true" aria-controls="a6" id="q6"><span class="faq-qt">How do I get a price?</span><span class="faq-pm" aria-hidden="true"></span></button></h3>
+        <div class="faq-a" id="a6"><div class="faq-a-in"><p>Send photos and a few details through the form, or call. Most roofs need a visit before a firm price, because a photo cannot show the loft or the battens.</p></div></div>
       </div>
     </div>
+  </div>
+
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="faq-fr faq-fr-leaf" viewBox="0 0 40 24" data-depth="0.14" data-rot="-8" data-px="6" focusable="false"><path d="M2 12C10 2 26 0 38 6 30 18 14 22 2 12z"/></svg>
+    <svg class="faq-fr faq-fr-ridge" viewBox="0 0 60 30" data-depth="0.18" data-rot="5" data-px="8" focusable="false"><path d="M3 26C6 10 18 4 30 4S54 10 57 26Z"/><path class="v" d="M10 26C12 14 20 9 30 9S48 14 50 26"/></svg>
   </div>
 </section>
