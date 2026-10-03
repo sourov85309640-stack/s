@@ -18,23 +18,23 @@
     });
 
     var wrap = d.createElement('div');
-    wrap.className = 'opt';
+    wrap.className = 'rwopt';
     wrap.setAttribute('data-owner-tool', 'design-options');
     var btn = d.createElement('button');
-    btn.type = 'button'; btn.className = 'opt-toggle';
-    btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'opt-panel');
+    btn.type = 'button'; btn.className = 'rwopt-toggle';
+    btn.setAttribute('aria-expanded', 'false'); btn.setAttribute('aria-controls', 'rwopt-panel');
     btn.innerHTML = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6h9M15 6h2M3 14h2M8 14h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="13.5" cy="6" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="14" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Design options</span>';
     var panel = d.createElement('div');
-    panel.className = 'opt-panel'; panel.id = 'opt-panel'; panel.hidden = true;
+    panel.className = 'rwopt-panel'; panel.id = 'rwopt-panel'; panel.hidden = true;
     panel.setAttribute('role', 'region'); panel.setAttribute('aria-label', 'Design options (owner tool)');
 
-    var html = '<p class="opt-h">Design options</p><p class="opt-note">Owner tool: compare the designs kept for each section. Delete it before sending to a client.</p>';
+    var html = '<p class="rwopt-h">Design options</p><p class="rwopt-note">Owner tool: compare the designs kept for each section. Delete it before sending to a client.</p>';
     html += row('Hero layout', 'hero', ['a', 'b', 'c'], ['A: headline left', 'B: gable plate', 'C: centred'], (root.getAttribute('data-hero') || 'a'));
     opts.forEach(function (o) { html += row(o.label || LABELS[o.id] || o.id, o.param, o.allowed, o.names, o.current); });
     panel.innerHTML = html;
 
     function row(label, param, vals, names, cur) {
-      var s = '<div class="opt-row" role="group" aria-label="' + label + '"><p class="opt-l">' + label + '</p><div class="opt-btns">';
+      var s = '<div class="rwopt-row" role="group" aria-label="' + label + '"><p class="rwopt-l">' + label + '</p><div class="rwopt-btns">';
       vals.forEach(function (v, i) {
         s += '<button type="button" data-p="' + param + '" data-val="' + v + '" aria-pressed="' + (String(cur) === String(v)) + '">' + (i === 0 ? names[i] + ' <small>(default)</small>' : names[i]) + '</button>';
       });

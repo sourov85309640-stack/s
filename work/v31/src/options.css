@@ -1,22 +1,22 @@
 /* OWNER TOOL: Design options panel (options.js). DELETE BEFORE SENDING TO A CLIENT. */
-.opt{position:fixed;left:12px;bottom:calc(var(--bar) + 12px + env(safe-area-inset-bottom));z-index:75;display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-family:var(--ui);max-width:calc(100vw - 24px)}
-@media (min-width:768px){.opt{left:16px;bottom:16px}}
-.opt-toggle{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1rem 0 .85rem;border:1px solid var(--line);border-radius:22px;background:rgba(250,249,246,.96);box-shadow:var(--shadow-soft);color:var(--text);font-weight:600;font-size:.875rem;cursor:pointer;transition:transform .15s var(--ease)}
-.opt-toggle svg{width:18px;height:18px;color:var(--copper)}
-.opt-toggle:active{transform:scale(.97)}
-.opt-toggle[aria-expanded="true"]{background:var(--copper);border-color:var(--copper);color:var(--paper)}
-.opt-toggle[aria-expanded="true"] svg{color:var(--paper)}
-.opt-panel{width:min(26rem,calc(100vw - 24px));max-height:min(70vh,640px);overflow:auto;overscroll-behavior:contain;padding:1rem 1rem .5rem;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lift)}
-.opt-h{font-weight:600;font-size:1rem;color:var(--text)}
-.opt-note{font-size:.8125rem;color:var(--muted);margin:.2rem 0 .75rem}
-.opt-row{padding:.6rem 0;border-top:1px solid var(--line-soft)}
-.opt-l{font-weight:600;font-size:.8125rem;color:var(--muted);margin-bottom:.35rem}
-.opt-btns{display:flex;flex-wrap:wrap;gap:.35rem}
-.opt-btns button{min-height:44px;padding:.4rem .75rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-weight:600;font-size:.8125rem;line-height:1.2;text-align:left;cursor:pointer;transition:background-color .15s,border-color .15s,transform .12s var(--ease)}
-.opt-btns button small{font-weight:400;color:var(--muted)}
-.opt-btns button[aria-pressed="true"]{background:var(--copper);border-color:var(--copper);color:var(--paper)}
-.opt-btns button[aria-pressed="true"] small{color:var(--paper)}
-@media (hover:hover){.opt-btns button[aria-pressed="false"]:hover{border-color:var(--copper)}}
-.opt-btns button:active{transform:scale(.97)}
-@media print{.opt{display:none}}
-@media (max-width:599px){.opt-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.opt-toggle{width:44px;padding:0;justify-content:center}}
+.rwopt{position:fixed;left:12px;bottom:calc(var(--bar) + 12px + env(safe-area-inset-bottom));z-index:75;display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-family:var(--ui);max-width:calc(100vw - 24px)}
+@media (min-width:768px){.rwopt{left:16px;bottom:16px}}
+.rwopt-toggle{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:0 1rem 0 .85rem;border:1px solid var(--line);border-radius:22px;background:rgba(250,249,246,.96);box-shadow:var(--shadow-soft);color:var(--text);font-weight:600;font-size:.875rem;cursor:pointer;transition:transform .15s var(--ease)}
+.rwopt-toggle svg{width:18px;height:18px;color:var(--copper)}
+.rwopt-toggle:active{transform:scale(.97)}
+.rwopt-toggle[aria-expanded="true"]{background:var(--copper);border-color:var(--copper);color:var(--paper)}
+.rwopt-toggle[aria-expanded="true"] svg{color:var(--paper)}
+.rwopt-panel{width:min(26rem,calc(100vw - 24px));max-height:min(70vh,640px);overflow:auto;overscroll-behavior:contain;padding:1rem 1rem .5rem;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lift)}
+.rwopt-h{font-weight:600;font-size:1rem;color:var(--text)}
+.rwopt-note{font-size:.8125rem;color:var(--muted);margin:.2rem 0 .75rem}
+.rwopt-row{padding:.6rem 0;border-top:1px solid var(--line-soft)}
+.rwopt-l{font-weight:600;font-size:.8125rem;color:var(--muted);margin-bottom:.35rem}
+.rwopt-btns{display:flex;flex-wrap:wrap;gap:.35rem}
+.rwopt-btns button{min-height:44px;padding:.4rem .75rem;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-weight:600;font-size:.8125rem;line-height:1.2;text-align:left;cursor:pointer;transition:background-color .15s,border-color .15s,transform .12s var(--ease)}
+.rwopt-btns button small{font-weight:400;color:var(--muted)}
+.rwopt-btns button[aria-pressed="true"]{background:var(--copper);border-color:var(--copper);color:var(--paper)}
+.rwopt-btns button[aria-pressed="true"] small{color:var(--paper)}
+@media (hover:hover){.rwopt-btns button[aria-pressed="false"]:hover{border-color:var(--copper)}}
+.rwopt-btns button:active{transform:scale(.97)}
+@media print{.rwopt{display:none}}
+@media (max-width:599px){.rwopt-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.rwopt-toggle{width:44px;padding:0;justify-content:center}}
