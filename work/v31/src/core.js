@@ -174,6 +174,17 @@
       var refresh = function () { ST.refresh(); };
       if (d.fonts && d.fonts.ready) d.fonts.ready.then(refresh);
       window.addEventListener('load', function () { setTimeout(refresh, 60); });
+      /* reload part way down: pinned scenes change the page height after load, so the browser's own restore lands in
+         the wrong place. Keep the position ourselves and go back to it once the pins are measured. */
+      try {
+        var KEY = 'rw-y:' + location.pathname, nav = (performance.getEntriesByType && performance.getEntriesByType('navigation')[0]) || {};
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+        window.addEventListener('pagehide', function () { try { sessionStorage.setItem(KEY, String(Math.round(window.pageYOffset))); } catch (x) {} });
+        var saved = +sessionStorage.getItem(KEY) || 0;
+        if (nav.type === 'reload' && saved > 0 && !location.hash) {
+          window.addEventListener('load', function () { setTimeout(function () { ST.refresh(); RW.scrollTo(saved, { immediate: true }); }, 140); });
+        }
+      } catch (x) {}
     }
     /* hooks for tests and for tearing the page down in a single-page app */
     window.rwMotion = { lenis: RW.lenis, ST: ST, gsap: gsap };

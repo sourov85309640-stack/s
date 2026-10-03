@@ -1,27 +1,26 @@
-# OPEN ITEMS: roofing master v3.1 (homepage)
+# OPEN ITEMS: roofing master v3.1 (homepage), after round 8
 
-Things that still need the owner, the client, or a real device. Nothing here is a known blocker, high or medium bug.
+Things that still need the owner, the client, or a real device. There are no known bugs left from the round 8 QA.
 
 ## Needs the owner or the client
-1. **Photos.** Unsplash, Pexels, Wikimedia and similar sites were blocked by this build environment's network policy (proxy 403), so no new stock photos could be downloaded. The page uses the photos already in the package (stock images of unknown licence from earlier rounds), recropped. Confirm their licence or replace them with the client's own photos, or fetch fresh Unsplash photos when the network allows (slugs listed in docs/01_HANDOVER_A-Z.md section 9). The old hero photo (a North American crew with a phone number and a street sign) and the asphalt-shingle gable were removed.
-2. **Hero photo.** There is no single wide UK photo, so the hero gable shows three portrait photos side by side. One wide client photo works as well (delete two panes, see SWAP-MAP).
-3. **Repeated photos.** With only about ten source photos, some appear twice in different crops: the chimney gable (hero and checks), the stone cottage (hero and project), clay tiles and tiling work (services and how it works). Client photos fix this.
-4. **Reviews are invented samples.** Replace them with real Google reviews, the real rating and count, and the real review link, or delete the section.
-5. **Form endpoint.** `REPLACE-ENDPOINT` must be set. Until then the form only shows its success message.
-6. **data-confirm items:** process wording (how it works, FAQ), timescales, scaffold, weather, guarantee, reply time.
-7. **Design options panel.** Pick the designs per section, set them as defaults (data-v in each section partial, data-hero on html) and delete the owner panel before a site goes live (SWAP-MAP explains).
+1. **Photos.** The page uses stock photos already in the package (licence not confirmed). Confirm the licence or swap in the client's own photos (SWAP-MAP lists every photo slot). Captions say "Photo for illustration only"; stock photos are never described as the client's work.
+2. **Reviews are samples.** Replace with real Google reviews, the real rating, count and review link, or delete the section.
+3. **Form endpoint.** `REPLACE-ENDPOINT` in the contact section must be set. Until then the form only shows its success message.
+4. **Owner facts** marked `data-sample` (name, phone, address, hours, stats, towns, project details) and `data-confirm` (accreditations, guarantee wording, monthly payments line, yearly roof check, landlord, business and insurance work, timescales) must be checked with the client. Delete any line the client does not offer.
+5. **Accreditation badges** are neutral placeholders. Real logos only once the client supplies them and is a member.
+6. **Team section** is hidden (`?team=on` shows it) and needs real photos before use; it is meant for a separate team page.
+7. **Versions.** Pick the version per section in the owner build (Versions button, or `roofing-options.html` side by side), set it as `data-v` on that section, then publish the client build: `python3 build.py deliver/roofing-v3.1-client.html --client` (no Versions tool).
 
 ## Not verified (honest limits)
-8. Only **headless Chromium** (Playwright) was used. Not tested on Safari, Firefox, a real iPhone or Android phone, or with a screen reader (VoiceOver, NVDA). Touch was emulated in Chromium only.
-9. **Frame times** were measured in headless software rendering (swiftshader), while other processes ran. Full-page scroll at 1440: p50 16.7 ms, p95 33 ms; at 390: p50 16.7 ms, p95 16.8 ms. Real GPUs should do better; slow phones were not tested.
-10. **No conversion data.** Nothing here is proven to raise calls or enquiries; it follows the skills' conversion advice only.
-11. **CSS 3D** (the exploded roof) relies on preserve-3d, which Safari renders slightly differently. It was not checked in Safari.
+8. Tested in headless Chromium only (Playwright), with touch emulated. Not tested on Safari, Firefox, a real iPhone or Android phone, or with a screen reader.
+9. Frame times were measured with software rendering; real GPUs should do better. Slow phones were not tested.
+10. The exploded 3D roof uses CSS preserve-3d, which Safari draws slightly differently.
+11. No conversion data. The layout follows the skills' conversion advice; nothing here is proven to raise calls.
 
 ## Low items left on purpose
-12. Some state changes animate colour, background colour or a box shadow over 150 to 250 ms on small elements (hover, active list row). They are not layout animations; the strict "transform and opacity only" rule is kept for every scroll, reveal and ambient animation.
-13. Physical motions (a falling drop, a marker hop) use an ease-in on their downward phase, because that is how gravity looks. No UI control uses ease-in.
-14. Closed FAQ answers use `hidden="until-found"` so find-in-page still reaches them (Chromium and Firefox; Safari falls back to plain hidden-on-close).
-15. On screens narrower than 1440 px the foreground parallax pieces step out (no gutter space to keep them off the text). Background layers and the particle canvas stay at every width.
-16. The "Design options" owner button sits bottom-left over content on phones. It is an owner tool and is deleted before sending.
-17. The alternative designs kept in the Design options panel were checked for console errors, overflow and hidden text at 1440 and 390, but they received less visual polish than the defaults.
-18. File size is about 1.7 MB (images are about two thirds of it). Lazy loading does not apply inside a single file; the hero photos load first.
+12. A few hover and active states animate colour or shadow over 150 to 250 ms on small elements; every scroll, reveal and ambient animation uses transform and opacity only.
+13. Falling things (a drip, a slate) ease in on the way down because that is how gravity looks. No UI control uses ease-in.
+14. Closed FAQ answers use `hidden="until-found"`, so find-in-page still reaches them (Safari falls back to plain hidden).
+15. Under 1440 px wide the big foreground pieces step out to keep them off the text; small safe corner pieces stay.
+16. The other versions in the Versions tool were checked for errors, overflow and interactions, but got less visual polish than the defaults.
+17. File size is about 2 MB as a single file (images are most of it).
