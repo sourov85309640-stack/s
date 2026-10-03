@@ -1,29 +1,7 @@
 =====================================================================
-SWAP MAP  -  Ridgewell Roofing master v3.1 (interactive homepage)
-Every sample item carries data-sample="..." in the markup.
-Search the file for  data-sample  to find them all.
+SWAP MAP  -  Roofing master v3.1 (light, interactive homepage). Sample firm: Ridgewell Roofing, Cirencester.
+Every sample item carries data-sample="..." in the markup. Search the built file for  data-sample  to find them all.
 Items that need the owner's OK carry data-confirm="...".
+Source: src/ (build with  python3 build.py roofing-master-v3.1.html ). Each section is its own file in src/sections/.
 =====================================================================
-ITEM                SELECTOR                       REPLACE WITH
-company name        [data-sample="company"]        Client trading name (also <title>, meta, JSON-LD, footer, form text)
-town                [data-sample="town"]           Client main town (H1, title, meta, JSON-LD, footer)
-phone               [data-sample="phone"]          Client number, written 01xxx xxx xxx; tel: links need +44 format, no spaces
-email               [data-sample="email"]          Client email (footer, JSON-LD)
-address             [data-sample="address"]        Client address line (footer, JSON-LD)
-service areas       [data-sample="areas"]          Up to 8 real towns (areas section, footer list, JSON-LD)
-hero photo          [data-sample="hero-photo"]     Wide band photo, 1440x552 or larger, roofline kept clear of the top 20 percent (the peak is cut in CSS). Currently a PLACEHOLDER of another firm's crew (phone number on a jacket, street sign): replace before any send. Do not describe stock photos as client work
-hero tile           [data-sample="hero-tile"]      Detail photo for the offset frame, or delete the figure
-reviews section     #reviews [data-sample="reviews"]   Real Google or Trustpilot quotes (15 to 60 words each), real rating and count, real profile link. No real reviews: delete the whole <section id="reviews">
-rating chip         [data-sample="rating"]         Real rating and count, or delete. The Google logo badge is not included: paste Google's official badge into the empty .g-slot spans once the reviews are the client's real ones
-review profile link [data-sample="review-link"]    Client's real review profile URL
-project section     #projects [data-sample="project"]  One real project with photo, or delete the section
-quote sheet         [data-sample="quote-sheet"]    Client's own quote layout, or keep the example layout
-service photos      [data-sample="service-photo"]  Service cards, the dark "whole roof" section (asphalt-shingle sample, swap for a UK slate or tile gable), the contact photo and the checks photo: keep generic or swap for client photos
-areas (footer)      [data-sample="areas"]          Same list as above
-legal text          [data-sample="legal"]          #privacy and #terms: client's real privacy notice and terms
-form endpoint       form#enquiry action            MUST replace REPLACE-ENDPOINT with the form service URL. Until then the form only fakes success
-JSON-LD             script[type="application/ld+json"]  Update every field. It deliberately carries no rating
-
-CONFIRM WITH OWNER  data-confirm="..."             Process, timescale, scaffold, weather, guarantee and reply-time wording
-OPTIONAL MODULES    search "OPTIONAL MODULE"       Commented blocks: proof strip, specialism band, team note, areas list, before and after
-=====================================================================
+(draft: sections are filled in at the end of the build)

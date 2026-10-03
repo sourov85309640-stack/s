@@ -252,3 +252,16 @@ html.lenis{scroll-behavior:auto!important}
 }
 html[data-motion="off"]{scroll-behavior:auto}
 html[data-motion="off"] *,html[data-motion="off"] *::before,html[data-motion="off"] *::after{animation:none!important;transition:none!important}
+
+/* ---------------- depth layers (depth.js moves [data-depth] etc. with `translate`/`rotate`) ----------------
+   .layers is an absolutely positioned stage inside a section: .layers-back sits under the content, .layers-front above it.
+   Both never take clicks. Put small SVG pieces inside with their own position and data-depth / data-px. */
+.layers{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.layers-front{z-index:3}
+.layers>*{position:absolute}
+html.has-motion [data-depth],html.has-motion [data-px],html.has-motion [data-drift]{will-change:translate}
+.ftr{overflow:hidden}
+.ftr-roofs{left:0;right:0;bottom:-6px;width:100%;height:clamp(70px,9vw,140px);fill:var(--warm);opacity:.85}
+.ftr-bird{width:26px;height:11px;fill:var(--muted);opacity:.35;right:18%;top:2.75rem}
+.ftr-bird2{width:18px;height:8px;right:calc(18% + 46px);top:3.6rem;opacity:.28}
+@media (max-width:767px){.ftr-bird{display:none}}
