@@ -1,0 +1,84 @@
+<svg class="sx-svg" viewBox="0 0 240 170" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="sx-hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V6" stroke="rgba(31,43,48,.28)" stroke-width="1"/></pattern>
+    <pattern id="sx-bricks" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 .5H24M12 .5V6M0 6.5H24M0 6.5V12M24 6.5V12" fill="none" stroke="rgba(31,43,48,.22)" stroke-width="1"/></pattern>
+    <marker id="sx-arr" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="#4F7686"/></marker>
+  </defs>
+
+  <!-- 1 ridge: ridge tile on a mortar bed over two slopes -->
+  <g class="sx" data-s="1">
+    <path class="sx-timber" d="M18 158L120 70L222 158"/>
+    <path class="sx-tiles" d="M10 146L120 52L230 146"/>
+    <path class="sx-mortar" d="M90 64Q104 50 120 48Q136 50 150 64L140 72Q120 58 100 72Z"/>
+    <path class="sx-ridge" d="M84 66Q120 22 156 66"/>
+    <path class="sx-crack" d="M98 60l5-4-2 6 6-5"/>
+    <path class="sx-water" d="M58 14L94 52" marker-end="url(#sx-arr)"/>
+    <path class="sx-water sx-hidden" d="M104 64L112 104L112 128" marker-end="url(#sx-arr)"/>
+  </g>
+
+  <!-- 2 chimney stack: pointing and the mortar cap on top -->
+  <g class="sx" data-s="2">
+    <path class="sx-tiles" d="M0 150L82 98M158 98L240 150"/>
+    <rect class="sx-brick" x="82" y="44" width="76" height="126"/>
+    <rect x="82" y="44" width="76" height="126" fill="url(#sx-bricks)"/>
+    <rect class="sx-ln" x="82" y="44" width="76" height="126"/>
+    <rect class="sx-pot" x="106" y="10" width="28" height="26" rx="2"/>
+    <path class="sx-mortar" d="M76 46L106 32H134L164 46Z"/>
+    <path class="sx-crack" d="M92 42l6-3-2 4 6-3M144 39l5 2-3 1 5 2"/>
+    <path class="sx-crack" d="M82 92h12M146 116h12"/>
+    <path class="sx-water" d="M66 8L88 36" marker-end="url(#sx-arr)"/>
+    <path class="sx-water sx-hidden" d="M96 48V132" marker-end="url(#sx-arr)"/>
+  </g>
+
+  <!-- 3 flashing: lead apron and upstand where the roof meets a wall -->
+  <g class="sx" data-s="3">
+    <rect class="sx-brick" x="150" y="0" width="90" height="170"/>
+    <rect x="150" y="0" width="90" height="170" fill="url(#sx-bricks)"/>
+    <path class="sx-ln" d="M150 0V170"/>
+    <path class="sx-timber" d="M0 170L150 108"/>
+    <path class="sx-tiles" d="M0 156L150 94"/>
+    <path class="sx-lead" d="M92 118L148 95L134 52"/>
+    <path class="sx-crack" d="M150 58L136 52"/>
+    <path class="sx-water" d="M150 10V48L142 62" marker-end="url(#sx-arr)"/>
+    <path class="sx-water sx-hidden" d="M146 70V108L120 130" marker-end="url(#sx-arr)"/>
+  </g>
+
+  <!-- 4 valley: two slopes run into a lined channel -->
+  <g class="sx" data-s="4">
+    <path class="sx-timber" d="M0 76L108 136H132L240 76"/>
+    <path class="sx-tiles" d="M0 62L100 116M240 62L140 116"/>
+    <path class="sx-lead" d="M88 112L106 128H134L152 112"/>
+    <path class="sx-debris" d="M104 126Q110 112 120 118Q128 108 136 126Z"/>
+    <path class="sx-water" d="M20 46L94 104M220 46L146 104" marker-end="url(#sx-arr)"/>
+    <path class="sx-water sx-hidden" d="M100 112L76 104L58 118" marker-end="url(#sx-arr)"/>
+  </g>
+
+  <!-- 5 eaves: underlay should run into the gutter; here it stops short -->
+  <g class="sx" data-s="5">
+    <rect class="sx-wall" x="140" y="112" width="56" height="58"/>
+    <rect x="140" y="112" width="56" height="58" fill="url(#sx-hatch)"/>
+    <rect class="sx-plate" x="140" y="102" width="56" height="10"/>
+    <path class="sx-timber" d="M0 18L214 118"/>
+    <path class="sx-tiles" d="M0 4L222 106"/>
+    <path class="sx-felt" d="M0 12L162 86"/>
+    <path class="sx-crack" d="M162 86l4 6-6-2 4 6"/>
+    <rect class="sx-fascia" x="208" y="114" width="9" height="32"/>
+    <path class="sx-gutter" d="M218 130A12 11 0 0 0 240 130"/>
+    <path class="sx-water" d="M60 30L156 76" marker-end="url(#sx-arr)"/>
+    <path class="sx-water sx-hidden" d="M166 92L176 100" marker-end="url(#sx-arr)"/>
+  </g>
+
+  <!-- 6 gutter: blocked, so it spills over the back onto the wall -->
+  <g class="sx" data-s="6">
+    <rect class="sx-wall" x="10" y="96" width="62" height="74"/>
+    <rect x="10" y="96" width="62" height="74" fill="url(#sx-hatch)"/>
+    <path class="sx-timber" d="M0 30L76 64"/>
+    <path class="sx-tiles" d="M0 16L98 58"/>
+    <rect class="sx-fascia" x="72" y="52" width="10" height="40"/>
+    <path class="sx-bracket" d="M82 70H90V96A30 26 0 0 0 150 96V70"/>
+    <path class="sx-gutter" d="M88 70A32 28 0 0 0 152 70"/>
+    <path class="sx-debris" d="M94 82Q108 66 120 76Q134 64 146 80Q132 98 118 98Q102 96 94 82Z"/>
+    <path class="sx-water" d="M40 8L92 62" marker-end="url(#sx-arr)"/>
+    <path class="sx-water" d="M86 76V160" marker-end="url(#sx-arr)"/>
+  </g>
+</svg>

@@ -190,17 +190,19 @@
   function splitText(el) {
     var out = [], walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), nodes = [], n;
     while ((n = walker.nextNode())) nodes.push(n);
-    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    /* one untouched readable copy for assistive tech; the split copy is aria-hidden */
+    var copy = document.createElement('span'); copy.className = 'vh'; copy.textContent = el.textContent.replace(/\s+/g, ' ').trim();
     nodes.forEach(function (t) {
-      var frag = document.createDocumentFragment();
+      var frag = document.createElement('span'); frag.setAttribute('aria-hidden', 'true');
       t.nodeValue.split(/(\s+)/).forEach(function (part) {
         if (!part) return;
         if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-        var s = document.createElement('span'); s.className = 'pw'; s.setAttribute('aria-hidden', 'true'); s.textContent = part;
+        var s = document.createElement('span'); s.className = 'pw'; s.textContent = part;
         frag.appendChild(s); out.push(s);
       });
       t.parentNode.replaceChild(frag, t);
     });
+    el.insertBefore(copy, el.firstChild);
     return out;
   }
 }());

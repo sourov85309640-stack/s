@@ -9,12 +9,12 @@
   --prj-slate:#8C989E; --prj-slate-d:#6E7B82; --prj-water:#6F93A8;
   --prj-ease:cubic-bezier(.23,1,.32,1);
 }
-.prj-defs{position:absolute;width:0;height:0;overflow:hidden}
 
 /* ---------- back layer: faint stone coursing ---------- */
-.prj-coursing{right:-6%;top:6%;width:52%;height:78%;color:var(--line);opacity:.7;
+.prj{--prj-course:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='168' height='66'%3E%3Cpath d='M0 .5H168M0 22.5H168M0 44.5H168M34 0V22M76 0V22M121 0V22M151 0V22M16 23V44M58 23V44M95 23V44M140 23V44M40 45V66M81 45V66M112 45V66M160 45V66' fill='none' stroke='%23D7D1C5' stroke-width='1'/%3E%3C/svg%3E")}
+.prj-coursing{right:-4%;top:4%;width:44%;height:70%;background:var(--prj-course) 0 0/168px 66px;opacity:.75;
   -webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent);mask-image:radial-gradient(closest-side,#000 25%,transparent)}
-.prj-coursing-2{right:auto;left:-14%;top:auto;bottom:-10%;width:40%;height:56%;opacity:.45}
+.prj-coursing-2{right:auto;left:-12%;top:auto;bottom:-8%;width:38%;height:52%;opacity:.5}
 
 /* ---------- layout ---------- */
 .prj-grid{display:grid;gap:clamp(2rem,6vw,3rem);align-items:center}
@@ -51,7 +51,8 @@
 
 /* ---------- front layer: stone slate fragments, a nail, a leaf (gutters only) ---------- */
 .prj-stone{fill:var(--prj-stone);stroke:var(--prj-stone-d);stroke-width:1.2;stroke-linejoin:round}
-.prj-stone-edge{fill:none;stroke:rgba(31,43,48,.28);stroke-width:1.2}
+.prj-stone-top{fill:#DED7C8}
+.prj-lichen{fill:#B7B48C;opacity:.7}
 .prj-hole{fill:var(--paper);stroke:var(--prj-stone-d);stroke-width:1}
 .prj-frag-a{left:1.5%;bottom:12%;width:84px;opacity:.9}
 .prj-frag-b{right:2.5%;top:16%;width:54px;opacity:.85}
@@ -105,8 +106,8 @@ html:not(.js) .prj-cond-tg{display:none}
    the six days become a course of six slates laid as you read.
    ===================================================================== */
 .prj[data-v="3"] .prj-days{display:none}
-.prj[data-v="3"] .prj-course{display:block;width:min(228px,100%);height:auto;flex-basis:100%}
-.prj-course-batten{fill:none;stroke:var(--copper-tint);stroke-width:1.5}
+.prj[data-v="3"] .prj-course{display:block;flex:0 0 auto;width:min(190px,100%);height:auto}
+.prj-course-batten{fill:none;stroke:var(--copper-tint);stroke-width:1}
 .prj-course-slates path{fill:var(--prj-slate);stroke:var(--paper);stroke-width:1.5}
 .prj-words .pw{display:inline}
 
@@ -117,10 +118,9 @@ html:not(.js) .prj-cond-tg{display:none}
    ===================================================================== */
 .prj[data-v="4"] .prj-media{perspective:1100px}
 .prj[data-v="4"] .prj-stack{transform-style:preserve-3d}
-.prj[data-v="4"] .prj-plate{display:block;position:absolute;left:-1.25rem;right:1.75rem;top:12%;bottom:2.75rem;background:var(--sand);transform:translateZ(-40px);overflow:hidden}
-.prj-plate svg{width:100%;height:100%;color:rgba(122,67,38,.22)}
+.prj[data-v="4"] .prj-plate{display:block;position:absolute;left:-2rem;right:2.25rem;top:24%;bottom:-.75rem;background:var(--prj-course) 0 0/168px 66px,var(--sand);transform:translateZ(-40px)}
 .prj[data-v="4"] .prj-peak{transform:translateZ(0)}
-.prj[data-v="4"] .prj-frag-near{display:block;position:absolute;left:-1.75rem;bottom:2rem;width:88px;transform:translateZ(60px) rotate(-12deg);filter:drop-shadow(0 8px 10px rgba(31,43,48,.18))}
+.prj[data-v="4"] .prj-frag-near{display:block;position:absolute;left:-2.5rem;bottom:4.5rem;width:88px;transform:translateZ(60px) rotate(-12deg);filter:drop-shadow(0 8px 10px rgba(31,43,48,.18))}
 .prj[data-v="4"] .prj-tag{display:block;position:absolute;right:-1rem;top:17%;width:7.5rem;transform:translateZ(36px);transform-origin:50% 0;pointer-events:none}
 .prj-tag-string{display:block;width:40px;height:56px;margin-left:calc(50% - 20px);color:var(--muted);fill:var(--ink)}
 .prj-tag-card{display:grid;gap:.35rem;margin-top:-4px;padding:.55rem .6rem .6rem;background:var(--card);box-shadow:var(--shadow-card);clip-path:polygon(18% 0,82% 0,100% 16%,100% 100%,0 100%,0 16%);font-family:var(--ui);font-weight:600;font-size:.8125rem;line-height:1.2;color:var(--text);text-align:center}

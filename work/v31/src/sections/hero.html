@@ -1,27 +1,94 @@
-<!-- ================= HERO ================= -->
-<section class="hero" id="top" aria-labelledby="h-hero">
+<!-- ================= HERO =================
+     Layout: <html data-hero="a|b|c"> (a = headline left, photo band below; b = big gable photo with a text card; c = centred text with a rating chip).
+     Prototype only: data-v="1".."6" picks the immersive motion concept (?v=N in the URL). The judge keeps one; the rest is removed. -->
+<section class="hero" id="top" data-v="1" aria-labelledby="h-hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="kicker"><span class="rule" aria-hidden="true"></span>Roofing for homes</p>
+      <p class="kicker hero-kicker"><span class="rule" aria-hidden="true"></span>Roofing for homes</p>
       <h1 id="h-hero" data-sample="town">Roof repairs and re-roofing in Cirencester</h1>
     </div>
     <div class="hero-right">
-      <p class="lead">Slipped slates, a leaking valley or a chimney that needs relaying. We look at the roof first, then tell you what it needs.</p>
-      <div class="actions">
+      <p class="lead hero-lead">Slipped slates, a leaking valley or a chimney that needs relaying. We look at the roof first, then tell you what it needs.</p>
+      <div class="actions hero-actions">
         <a class="btn btn-fill" href="tel:+441632960482" data-sample="phone"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call 01632 960 482</a>
         <a class="btn-text" href="#contact">Tell us about your roof<svg aria-hidden="true" viewBox="0 0 28 10"><path d="M0 5h26M21 1l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a>
       </div>
+      <!-- Rating chip (shown in layout C). Sample figures: put the client's real Google rating and review count here, or delete the chip. -->
+      <a class="hero-rating" href="#reviews" data-sample="rating" aria-label="Rated 4.8 out of 5 on Google from 63 reviews. Read the reviews">
+        <svg class="hero-rating-g" aria-hidden="true" data-sample="rating"><use href="#i-g"/></svg>
+        <span class="hero-rating-n" aria-hidden="true" data-sample="rating">4.8</span>
+        <span class="hero-stars" aria-hidden="true" data-sample="rating" style="--fill:96%">
+          <span class="hero-stars-base"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+          <span class="hero-stars-fill"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+        </span>
+        <span class="hero-rating-c" aria-hidden="true" data-sample="rating">63 reviews</span>
+      </a>
     </div>
   </div>
+
   <div class="hero-stage">
-    <!-- HERO PHOTO SLOT: replace img/hero-p1.webp with the client's wide roof photo (about 1440x552 or larger, any aspect works,
-         it is cropped to fit). Keep the top fifth quiet: the gable peak and the roofline are cut there in CSS. Update the alt text. -->
-    <div class="hero-plate" data-sample="hero-photo">
-      <div class="hero-plate-in"><img src="img/hero-p1.webp" width="1440" height="552" fetchpriority="high" alt="Two roofers on a bare timber roof deck among bundles of roofing material, with a third on a ladder at the eaves."></div>
+    <!-- back layer: distant rooftops standing on the photo's eave line, swallows in the sky band -->
+    <div class="hero-back" aria-hidden="true">
+      <svg class="hero-roofs hero-roofs-far" viewBox="0 0 1440 100" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" data-px="6" focusable="false">
+        <path d="M-20 100V74L32 48L85 74V88H112V84L133 71H167L188 84V88H200V82L260 65L281 71V55h2v-4h3v4h3v-4h3v4h2V75L319 82V88L455 85V74L524 48L593 74V88H610V80L679 71V88H693L730 79H789L826 88V80L848 64H864V52h10V64H881L903 80V88H915L953 81H983V69h10V81H1013L1051 88V82L1080 68H1103V56h10V68H1126L1155 82V88H1170L1197 80H1238L1265 88V84L1299 73H1326V61h10V73H1352L1386 84V77L1428 54L1471 77V100Z"/>
+      </svg>
+      <svg class="hero-roofs hero-roofs-near" viewBox="0 0 1440 100" preserveAspectRatio="xMidYMax slice" data-depth="-0.02" data-px="12" focusable="false">
+        <path d="M-20 100V68L101 45V69L222 48V88H248V80L310 59L332 66V49h2v-4h3v4h3v-4h3v4h2V71L372 80V88H402V72L471 55V80L511 64H573L613 80V88H624V78L649 59H687L712 78V79L751 62H812L851 79V82L925 65L952 71V55h2v-4h3v4h3v-4h3v4h2V74L999 82V77L1036 54L1049 62V44h2v-4h3v4h3v-4h3v4h2V70L1073 77V88H1085V82L1153 64L1221 82V85L1254 70L1287 85V88H1309V72L1366 44L1423 72V74L1472 49V100Z"/>
+        <g class="hero-vane"><path class="hero-vane-pole" d="M1153 65V36M1147 46h12"/><path class="hero-vane-arrow" d="M1141 38H1166M1166 38l-5-3.5v7zM1141 38l-3-3M1141 38l-3 3"/></g>
+      </svg>
+      <svg class="hero-bird" viewBox="0 0 40 18" focusable="false"><path d="M20 8.6C16.5 6.4 10 4.6 1 6.8c7.6.4 13 2.4 16.6 5L16.4 17l2.6-3.6L20 15l1-1.6 2.6 3.6-1.2-5.2c3.6-2.6 9-4.6 16.6-5-9-2.2-15.5-.4-19 1.8z"/></svg>
+      <svg class="hero-bird" viewBox="0 0 40 18" focusable="false"><path d="M20 8.6C16.5 6.4 10 4.6 1 6.8c7.6.4 13 2.4 16.6 5L16.4 17l2.6-3.6L20 15l1-1.6 2.6 3.6-1.2-5.2c3.6-2.6 9-4.6 16.6-5-9-2.2-15.5-.4-19 1.8z"/></svg>
+      <svg class="hero-bird" viewBox="0 0 40 18" focusable="false"><path d="M20 8.6C16.5 6.4 10 4.6 1 6.8c7.6.4 13 2.4 16.6 5L16.4 17l2.6-3.6L20 15l1-1.6 2.6 3.6-1.2-5.2c3.6-2.6 9-4.6 16.6-5-9-2.2-15.5-.4-19 1.8z"/></svg>
     </div>
-    <svg class="hero-outline" viewBox="0 0 1440 552" preserveAspectRatio="none" aria-hidden="true"><path d="M0 107H313L517 9L719 107H1440" vector-effect="non-scaling-stroke"/></svg>
+
+    <div class="hero-frame">
+      <!-- HERO PHOTO SLOT (data-sample="hero-photo"). Today: three portrait photos side by side (a triptych).
+           To use ONE wide client photo instead: delete two of the three <div class="hero-pane"> blocks and put the client's
+           photo in the one that is left (about 1600x700 or larger works best). A single pane fills the whole gable by itself.
+           Keep the top fifth of the photo quiet: the gable peak is cut there. Update the alt text.
+           data-smoke="x y" marks the chimney top (fractions of the image) for the drifting smoke; delete that attribute if the
+           new photo has no chimney. -->
+      <div class="hero-plate" data-sample="hero-photo">
+        <div class="hero-plate-in">
+          <div class="hero-panes">
+            <div class="hero-pane"><img src="img/hero-p1.webp" width="720" height="900" fetchpriority="high" alt="Red sandstone lodge with a steep slate roof, green bargeboards and a tall chimney stack."></div>
+            <div class="hero-pane"><img src="img/hero-p2.webp" width="720" height="900" data-smoke="0.47 0.375" alt="Brick chimney with smoke rising above a white painted gable."></div>
+            <div class="hero-pane"><img src="img/hero-p3.webp" width="720" height="900" alt="Stone cottage with a stone tile roof, three dormer gables and a cottage garden."></div>
+          </div>
+        </div>
+        <div class="hero-sweep" aria-hidden="true"></div>
+      </div>
+      <svg class="hero-outline" viewBox="0 0 1440 552" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path class="ho-a" d="M0 107H313L517 9L719 107H1440" vector-effect="non-scaling-stroke"/>
+        <path class="ho-b" d="M0 188L720 4L1440 188" vector-effect="non-scaling-stroke"/>
+        <path class="ho-c" d="M0 121H533L720 8L907 121H1440" vector-effect="non-scaling-stroke"/>
+      </svg>
+    </div>
+
     <figure class="hero-detail" data-sample="hero-tile">
-      <img src="img/hero-tile.webp" width="530" height="320" alt="Slate roof and brick chimney stack on a red-brick lodge.">
+      <span class="hero-detail-sh" aria-hidden="true"></span>
+      <img src="img/hero-tile.webp" width="530" height="320" alt="Close view of the slate roof and brick chimney stack on the lodge.">
     </figure>
+
+    <!-- front layer: small roof pieces at the edges, never over text or buttons -->
+    <div class="hero-front" aria-hidden="true">
+      <svg class="hf hf-slate" viewBox="0 0 60 46" data-depth="0.16" data-rot="7" data-px="16" focusable="false"><path d="M4 31L21 6l33 5-7 27-30 4z" fill="#AEB8BC" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 30l26-14" fill="none" stroke="#1F2B30" stroke-opacity=".25" stroke-width="1.2"/><circle cx="30" cy="14" r="2.2" fill="#1F2B30" fill-opacity=".45"/></svg>
+      <svg class="hf hf-tile" viewBox="0 0 64 34" data-depth="0.22" data-rot="-5" data-px="20" focusable="false"><path d="M4 30C10 10 54 10 60 30h-7C48 17 16 17 11 30z" fill="#DDA783" stroke="#985632" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <svg class="hf hf-leaf" viewBox="0 0 40 24" data-depth="0.3" data-drift="-26" data-rot="24" data-px="22" focusable="false"><path d="M2 12C10 2 26 1 38 10 28 20 12 22 2 12z" fill="#DDA783" fill-opacity=".9" stroke="#985632" stroke-width="1.3"/><path d="M5 12h28" fill="none" stroke="#985632" stroke-width="1"/></svg>
+      <svg class="hf hf-nail" viewBox="0 0 30 12" data-depth="0.12" data-rot="10" data-px="10" focusable="false"><path d="M6 6h22" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/><path d="M5 1.5v9" stroke="#1F2B30" stroke-opacity=".6" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </div>
+  </div>
+
+  <!-- OWNER TOOL, DELETE BEFORE SENDING TO A CLIENT: this pill lets you compare the three hero layouts (it writes ?hero= into the address).
+       Remove this whole <div data-owner-tool> and the "hero-picker" blocks in hero.css and hero.js, then set data-hero on <html> in index.html. -->
+  <div class="hero-pick" data-owner-tool="hero-picker" role="group" aria-label="Hero style" hidden>
+    <span class="hero-pick-l" aria-hidden="true">Hero style</span>
+    <button type="button" data-hero-set="a" aria-pressed="false" aria-label="Hero style A, headline left and photo band below">A</button>
+    <button type="button" data-hero-set="b" aria-pressed="false" aria-label="Hero style B, gable photo with a text card">B</button>
+    <button type="button" data-hero-set="c" aria-pressed="false" aria-label="Hero style C, centred text with a rating chip">C</button>
+    <span class="hero-pick-v" data-proto hidden>
+      <span class="hero-pick-l" aria-hidden="true">Motion</span>
+      <button type="button" data-v-set="1" aria-pressed="false" aria-label="Motion concept 1">1</button><button type="button" data-v-set="2" aria-pressed="false" aria-label="Motion concept 2">2</button><button type="button" data-v-set="3" aria-pressed="false" aria-label="Motion concept 3">3</button><button type="button" data-v-set="4" aria-pressed="false" aria-label="Motion concept 4">4</button><button type="button" data-v-set="5" aria-pressed="false" aria-label="Motion concept 5">5</button><button type="button" data-v-set="6" aria-pressed="false" aria-label="Motion concept 6">6</button>
+    </span>
   </div>
 </section>

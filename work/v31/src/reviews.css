@@ -1,1 +1,215 @@
-/* reviews section styles */
+/* =====================================================================
+   REVIEWS (owner: reviews team). An embedded-looking Google reviews widget on the light page.
+   Without JS / reduced motion / data-motion="off": the widget is complete and the review row is a native
+   horizontal scroll-snap strip. reviews.js adds .rv-js to the carousel and drives it with transforms.
+   Variants (prototype stage): section[data-v="1".."6"], chosen with ?v=N in the URL.
+     1 drag rail   2 deck   3 scroll drift   4 spotlight + notification   5 timed with pause   6 cover flow
+   Google UI tones are allowed INSIDE the widget only (#1A5FC8 link blue, #FBBC04 stars, Google greys).
+   ===================================================================== */
+.rv{
+  --rv-text:#202124; --rv-body:#3C4043; --rv-sub:#5F6368; --rv-line:#E3E3E3; --rv-off:#DADCE0; --rv-track:#E8EAED;
+  --rv-hover:#F1F3F4; --rv-blue:#1A5FC8; --rv-blue-d:#174EA6;
+  --rv-out:cubic-bezier(0.23,1,0.32,1);
+  --rv-gap:16px;
+  position:relative;padding-block:var(--pad);background:var(--warm)
+}
+.rv .layers-back{z-index:0}
+.rv-in{z-index:1}
+
+/* ---------- heading row + gable photo ---------- */
+.rv-top{display:grid;gap:1.25rem;margin-bottom:clamp(1.5rem,3vw,2.25rem)}
+.rv-copy h2{max-width:20ch;margin-bottom:.65rem}
+.rv-lead{color:var(--muted);font-size:var(--h4);line-height:1.5;max-width:34rem}
+.rv-photo{display:none}
+@media (min-width:900px){
+  .rv-top{grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:3rem;margin-bottom:0}
+  .rv-copy{padding-bottom:clamp(2rem,3vw,2.5rem)}
+  .rv-photo{display:block;position:relative;width:clamp(180px,16vw,230px);margin-right:clamp(1rem,4vw,4rem);margin-bottom:-84px;z-index:0}
+  .rv-cw{aspect-ratio:600/740;clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%);background:var(--sand)}
+  .rv-cw img{height:130%;margin-top:-15%;object-position:50% 30%}
+}
+.rv-stage{position:relative;z-index:1}
+
+/* ---------- widget shell ---------- */
+.rv-w{position:relative;background:#fff;border-radius:20px;box-shadow:var(--shadow-card);padding:clamp(16px,2.4vw,28px);color:var(--rv-text);font-family:var(--ui)}
+.rv-wh{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;row-gap:2px;align-items:center;padding-bottom:clamp(14px,2vw,20px);margin-bottom:clamp(14px,2vw,20px);border-bottom:1px solid var(--rv-line)}
+.rv-brand{display:contents}
+.rv-glogo{grid-row:1/3;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:#fff;box-shadow:0 0 0 1px var(--rv-line)}
+.rv-glogo svg{width:26px;height:26px;display:block}
+.rv-gname{font-weight:600;font-size:1.0625rem;line-height:1.25;color:var(--rv-text)}
+.rv-score{display:flex;align-items:center;gap:10px;position:relative;min-width:0}
+.rv-num{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,1.4rem + 1vw,2.25rem);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--rv-text)}
+.rv-score-r{display:flex;flex-direction:column;gap:3px;min-width:0}
+.rv-hstars{display:flex;gap:2px;line-height:0}
+.rv-hs{position:relative;display:inline-block;width:20px;height:20px}
+.rv-hs svg{position:absolute;inset:0;width:100%;height:100%}
+.rv-hs-b{fill:var(--rv-off)}
+.rv-hs-f{fill:var(--star);clip-path:inset(0 calc((1 - var(--f,1)) * 100%) 0 0)}
+.rv-based{font-size:.875rem;line-height:1.3;color:var(--rv-sub)}
+.rv-ring{display:none}
+.rv-cta{grid-column:1/-1;margin-top:12px;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:44px;padding:0 1.25rem;border-radius:999px;background:var(--rv-blue);color:#fff;font-weight:600;font-size:.9375rem;text-decoration:none;transition:background-color .15s ease,transform .16s var(--rv-out)}
+.rv-cta:active{transform:scale(.97)}
+@media (hover:hover){.rv-cta:hover{background:var(--rv-blue-d)}}
+.rv-cta:focus-visible{outline:3px solid var(--copper);outline-offset:3px}
+@media (min-width:640px){
+  .rv-wh{grid-template-columns:auto minmax(0,1fr) auto}
+  .rv-cta{grid-column:3;grid-row:1/3;margin-top:0}
+}
+
+/* ---------- carousel ---------- */
+.rv-car{position:relative;container-type:inline-size;border-radius:16px}
+.rv-car:focus-visible{outline:3px solid var(--copper);outline-offset:6px}
+.rv-vp{--cw:86%;position:relative;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;margin:-8px -8px -14px;padding:8px 8px 28px;scrollbar-width:thin}
+@container (min-width:620px){.rv-vp{--cw:calc((100% - var(--rv-gap)) / 2)}}
+@container (min-width:940px){.rv-vp{--cw:calc((100% - 2 * var(--rv-gap)) / 3)}}
+.rv-track{display:flex;gap:var(--rv-gap);align-items:flex-start;position:relative}
+.rv-slide{flex:0 0 var(--cw);min-width:0;scroll-snap-align:start}
+.rv-card{position:relative;display:flex;flex-direction:column;min-height:16.75rem;padding:20px;background:#fff;border:1px solid var(--rv-line);border-radius:14px;transition:translate .25s var(--rv-out)}
+.rv-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;box-shadow:0 1px 2px rgba(60,64,67,.10),0 6px 14px -4px rgba(60,64,67,.16);opacity:0;transition:opacity .25s ease;pointer-events:none}
+@media (hover:hover) and (pointer:fine){
+  .rv-card:hover{translate:0 -4px}
+  .rv-card:hover::after{opacity:1}
+}
+.rv-ch{display:flex;align-items:center;gap:12px}
+.rv-av{position:relative;flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--av,#1967D2);color:#fff;font-weight:600;font-size:1.125rem;line-height:1}
+.rv-avg{position:absolute;right:-4px;bottom:-4px;width:19px;height:19px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 1px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.12)}
+.rv-avg svg{width:11px;height:11px;display:block}
+.rv-who{min-width:0}
+.rv-name{font-weight:600;font-size:1rem;line-height:1.25;color:var(--rv-text)}
+.rv-date{font-size:.875rem;line-height:1.3;color:var(--rv-sub)}
+.rv-stars{display:flex;gap:2px;margin:12px 0 8px;line-height:0}
+.rv-s svg{width:17px;height:17px;fill:var(--star);display:block}
+.rv-s-off svg{fill:var(--rv-off)}
+.rv-text{font-size:.96875rem;line-height:1.55;color:var(--rv-body)}
+html.js .rv-text.is-clamp{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.rv-more{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;margin:-6px 0 -10px;padding:0;background:none;border:0;cursor:pointer;color:var(--rv-blue);font-weight:600;font-size:.9375rem;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;transition:text-decoration-color .15s ease}
+@media (hover:hover){.rv-more:hover{text-decoration-color:currentColor}}
+.rv-posted{margin-top:auto;padding-top:14px;display:flex;align-items:center;gap:6px;font-size:.8125rem;line-height:1.3;color:var(--rv-sub)}
+.rv-posted svg{width:14px;height:14px;flex:none}
+.rv-gw{font-weight:600;color:var(--rv-body)}
+
+/* controls */
+.rv-ctl{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;min-height:44px}
+.rv-arrow{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;background:#fff;border:1px solid var(--rv-off);color:var(--rv-body);cursor:pointer;box-shadow:0 1px 2px rgba(60,64,67,.12);transition:background-color .15s ease,opacity .15s ease,transform .16s var(--rv-out)}
+.rv-arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rv-arrow:active:not(:disabled){transform:scale(.96)}
+.rv-arrow:disabled{opacity:.38;cursor:default;box-shadow:none}
+@media (hover:hover){.rv-arrow:hover:not(:disabled){background:var(--rv-hover)}}
+.rv-dots{display:none;align-items:center;justify-content:center}
+.rv-dot{position:relative;width:32px;height:44px;padding:0;background:none;border:0;cursor:pointer}
+.rv-dot::before{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--rv-off);transition:background-color .2s ease,transform .2s var(--rv-out)}
+.rv-dot[aria-current="true"]::before{background:var(--rv-blue);transform:scale(1.35)}
+@media (hover:hover){.rv-dot:hover:not([aria-current="true"])::before{background:#BDC1C6}}
+.rv-prog{flex:1;max-width:220px;height:3px;border-radius:3px;background:var(--rv-track);overflow:hidden}
+.rv-prog-f{display:block;height:100%;background:var(--rv-blue);transform-origin:0 50%;transform:scaleX(var(--p,.2));transition:transform .3s var(--rv-out)}
+.rv-count{min-width:3.25rem;text-align:center;font-size:.875rem;color:var(--rv-sub);font-variant-numeric:tabular-nums}
+.rv-count:empty,.rv-prog{display:none}
+.rv-js .rv-prog{display:block}
+@container (min-width:600px){
+  .rv-js .rv-dots{display:flex}
+  .rv-js .rv-prog,.rv-js .rv-count{display:none}
+}
+.rv-play{display:inline-flex;align-items:center;gap:6px;min-height:44px;min-width:44px;padding:0 14px 0 10px;border-radius:999px;background:#fff;border:1px solid var(--rv-off);color:var(--rv-body);font:600 .875rem/1 var(--ui);cursor:pointer;transition:background-color .15s ease,transform .16s var(--rv-out)}
+.rv-play svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.rv-play .rv-i-play{fill:currentColor;stroke-width:1.6;display:none}
+.rv-play.is-paused .rv-i-play{display:block}
+.rv-play.is-paused .rv-i-pause{display:none}
+.rv-play:active{transform:scale(.97)}
+@media (hover:hover){.rv-play:hover{background:var(--rv-hover)}}
+
+/* JS mode: the viewport clips, the engine moves things with transforms */
+.rv-js .rv-vp{overflow:hidden;scroll-snap-type:none;touch-action:pan-y;cursor:grab}
+.rv-js.is-drag .rv-vp{cursor:grabbing}
+.rv-js.is-drag .rv-card{user-select:none;-webkit-user-select:none}
+.rv-js .rv-track{will-change:transform}
+.rv-js.is-pinned .rv-vp{cursor:auto}
+.rv-note{display:none}
+
+/* ---------- rail variants (1, 3, 5): arrows sit on the card edges on wide widgets ---------- */
+@container (min-width:900px){
+  .rv-js .rv-ctl{min-height:44px}
+}
+@media (min-width:960px){
+  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-arrow{position:absolute;top:calc((100% - 52px) / 2 - 22px);z-index:4}
+  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-prev{left:-22px}
+  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-next{right:-22px}
+  :is([data-v="1"],[data-v="3"],[data-v="5"]) .rv-js .rv-arrow:disabled{opacity:0;pointer-events:none}
+}
+
+/* ---------- V2 deck: one review on top of a fanned pile ---------- */
+[data-v="2"] .rv-js .rv-track{display:grid;justify-items:center;padding:6px 44px 34px 0;will-change:auto}
+[data-v="2"] .rv-js .rv-slide{grid-area:1/1;align-self:stretch;display:flex;width:min(100%,38rem);transform-origin:50% 90%;will-change:transform,opacity}
+[data-v="2"] .rv-js .rv-card{flex:1;min-height:15.5rem;box-shadow:var(--shadow-soft)}
+[data-v="2"] .rv-js .rv-text{font-size:1.0625rem}
+[data-v="2"] .rv-js .rv-vp{padding-inline:12px}
+@media (min-width:900px){
+  [data-v="2"] .rv-js .rv-card{padding:26px 28px}
+}
+
+/* ---------- V4 spotlight: one featured review, reviewer avatars as the picker, rating ring ---------- */
+[data-v="4"] .rv-ring{display:block;position:absolute;left:0;top:50%;width:76px;height:76px;margin-top:-38px;pointer-events:none}
+[data-v="4"] .rv-ring svg{position:absolute;inset:0;width:100%;height:100%}
+[data-v="4"] .rv-ring-t rect{fill:var(--rv-track)}
+[data-v="4"] .rv-ring-f rect{fill:var(--star)}
+[data-v="4"] .rv-ring-f rect:nth-child(20){opacity:.2}
+[data-v="4"] .rv-num{width:76px;height:76px;display:grid;place-items:center;font-size:1.625rem}
+[data-v="4"] .rv-js .rv-track{display:grid;will-change:auto}
+[data-v="4"] .rv-js .rv-slide{grid-area:1/1;width:100%;align-self:stretch;display:flex;will-change:transform,opacity}
+[data-v="4"] .rv-js .rv-card{flex:1;min-height:0;padding:clamp(20px,3vw,32px);border-color:transparent;background:#F8F9FA}
+[data-v="4"] .rv-js .rv-text{font-size:clamp(1.0625rem,1rem + .35vw,1.25rem);line-height:1.55;color:var(--rv-text);max-width:46rem}
+[data-v="4"] .rv-js .rv-text.is-clamp{-webkit-line-clamp:5}
+[data-v="4"] .rv-js .rv-card::before{content:"";position:absolute;right:clamp(16px,3vw,32px);top:clamp(16px,3vw,28px);width:46px;height:34px;background:var(--rv-off);opacity:.55;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 34'%3E%3Cpath d='M0 34V20C0 9 6 2 18 0l2 5c-7 2-10 6-10 12h9v17zm26 0V20C26 9 32 2 44 0l2 5c-7 2-10 6-10 12h9v17z'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 46 34'%3E%3Cpath d='M0 34V20C0 9 6 2 18 0l2 5c-7 2-10 6-10 12h9v17zm26 0V20C26 9 32 2 44 0l2 5c-7 2-10 6-10 12h9v17z'/%3E%3C/svg%3E") center/contain no-repeat}
+@media (hover:hover) and (pointer:fine){[data-v="4"] .rv-js .rv-card:hover{translate:none}[data-v="4"] .rv-js .rv-card:hover::after{opacity:0}}
+[data-v="4"] .rv-js .rv-dots{display:flex;flex-wrap:wrap;gap:4px}
+@container (max-width:420px){[data-v="4"] .rv-js .rv-dots{gap:0}}
+[data-v="4"] .rv-js .rv-prog,[data-v="4"] .rv-js .rv-count{display:none}
+[data-v="4"] .rv-js .rv-ctl{flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:16px}
+[data-v="4"] .rv-dot{width:44px;height:44px;border-radius:50%}
+[data-v="4"] .rv-dot::before{display:none}
+[data-v="4"] .rv-dot .rv-av{width:40px;height:40px;margin:2px;font-size:1rem;opacity:.5;transition:opacity .2s ease,transform .2s var(--rv-out)}
+[data-v="4"] .rv-dot[aria-current="true"] .rv-av{opacity:1;box-shadow:0 0 0 2px #fff,0 0 0 4px var(--rv-blue)}
+@media (hover:hover){[data-v="4"] .rv-dot:hover .rv-av{opacity:.85}}
+[data-v="4"] .rv-dots{order:1;flex:1 1 auto;justify-content:flex-start}
+[data-v="4"] .rv-prev{order:2}[data-v="4"] .rv-next{order:3}
+html.has-motion [data-v="4"] .rv-note{display:flex;align-items:center;gap:10px;position:absolute;right:0;top:-6px;z-index:5;max-width:calc(100% - 24px);padding:10px 14px 10px 10px;border-radius:14px;background:#fff;box-shadow:var(--shadow-lift);font-size:.875rem;color:var(--rv-body);opacity:0;visibility:hidden;pointer-events:none}
+.rv-note-t b{font-weight:600;color:var(--rv-text)}
+.rv-note-s{display:flex;gap:1px;line-height:0}
+.rv-note-s svg{width:12px;height:12px;fill:var(--star)}
+
+/* ---------- V5 timed: story-style segments double as the position picker ---------- */
+[data-v="5"] .rv-js .rv-dots{display:flex;flex:1;gap:4px;max-width:420px}
+[data-v="5"] .rv-js .rv-prog,[data-v="5"] .rv-js .rv-count{display:none}
+[data-v="5"] .rv-play{order:-1}
+[data-v="5"] .rv-dot{flex:1;width:auto;min-width:24px}
+[data-v="5"] .rv-dot::before{left:0;right:0;width:auto;height:3px;margin:-1.5px 0 0;border-radius:3px;background:var(--rv-track);transform:none}
+[data-v="5"] .rv-dot[aria-current="true"]::before{background:var(--rv-track);transform:none}
+.rv-seg{position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;border-radius:3px;background:var(--rv-blue);transform-origin:0 50%;transform:scaleX(0)}
+.rv-seg.is-done{transform:scaleX(1)}
+@media (max-width:599px){[data-v="5"] .rv-play-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}[data-v="5"] .rv-play{padding:0;justify-content:center;width:44px}}
+
+/* ---------- V6 cover flow: the current review faces you, its neighbours turn away ---------- */
+[data-v="6"] .rv-js .rv-track{display:grid;justify-items:center;perspective:1100px;perspective-origin:50% 45%;will-change:auto;padding-block:6px 10px}
+[data-v="6"] .rv-js .rv-slide{grid-area:1/1;align-self:stretch;display:flex;width:min(80%,25.5rem);backface-visibility:hidden;will-change:transform,opacity}
+[data-v="6"] .rv-js .rv-card{flex:1;box-shadow:var(--shadow-soft)}
+[data-v="6"] .rv-js .rv-slide[inert] .rv-card{cursor:pointer}
+
+/* ---------- decorative layers (depth.js moves them; static without motion) ---------- */
+.rv-roofs{left:0;right:0;bottom:-4px;width:100%;height:clamp(80px,10vw,160px);fill:var(--sand);opacity:.6}
+.rv-house{fill:none;stroke:var(--ink);stroke-opacity:.13;stroke-width:1.5;stroke-linejoin:round}
+.rv-house .rv-win{stroke-opacity:.09}
+.rv-house-a{width:110px;height:83px;left:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 - 55px);top:38%}
+.rv-house-b{width:150px;height:75px;right:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 - 60px);top:64%}
+.rv-pin{fill:none;stroke:var(--copper);stroke-opacity:.4;stroke-width:1.5}
+.rv-pin-a{width:18px;height:24px;left:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 - 9px);top:14%}
+.rv-pin-b{width:14px;height:19px;right:14%;top:22%;stroke-opacity:.3}
+.rv-grid-bg{left:0;right:0;top:0;height:75%;background-image:radial-gradient(circle,rgba(31,43,48,.10) 1px,transparent 1.3px);background-size:28px 28px;
+  -webkit-mask:linear-gradient(180deg,transparent,#000 30%,#000 60%,transparent);mask:linear-gradient(180deg,transparent,#000 30%,#000 60%,transparent)}
+.rv-bird{width:30px;height:12px;fill:var(--muted);opacity:.42;right:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 - 15px);top:1.25rem}
+.rv-bird-2{width:20px;height:8px;opacity:.32;right:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 + 30px);top:2.4rem}
+.rv-leaf{width:34px;height:20px;left:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 - 17px);bottom:22%;fill:var(--copper-tint);opacity:.85}
+.rv-frag{width:26px;height:19px;right:calc((100% - min(100% - 2 * var(--gut), var(--max))) / 4 - 13px);top:36%;fill:#C9B9A3;opacity:.8}
+.rv-vein{fill:none;stroke:var(--copper);stroke-width:1;stroke-opacity:.6}
+@media (max-width:899px){.rv-house,.rv-leaf,.rv-frag,.rv-pin-b{display:none}.rv-pin-a{left:auto;right:6%;top:2.25rem}.rv-bird{right:18%}.rv-bird-2{right:calc(18% + 40px)}}
+@media (max-width:599px){.rv-bird-2,.rv-pin-a{display:none}.rv-bird{top:1rem;right:10%}}

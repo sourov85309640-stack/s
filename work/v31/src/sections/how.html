@@ -1,36 +1,132 @@
 <!-- ================= HOW IT WORKS ================= -->
-<section class="sec sec-warm e-saw" id="how" data-nav="how" aria-labelledby="h-how">
-  <div class="wrap how-grid">
-    <h2 id="h-how">From first look to handover.</h2>
-    <p class="how-intro">Four steps, in this order, with a written summary at the end of the first two.</p>
-    <ol class="stages">
-      <li data-confirm="process">
-        <img src="img/chimney.webp" width="590" height="740" alt="Brick chimney stack and tiled gable seen from below.">
-        <div><h3>Inspect</h3><p>A look at the roof from a ladder or scaffold, then into the loft. Slates, ridge, valleys, flashings and gutters are checked and photographed.</p></div>
-      </li>
-      <li data-confirm="process">
-        <img src="img/lead-valley.webp" width="328" height="180" alt="Lead-lined valley between two slate roof slopes.">
-        <div><h3>Quote</h3><p>A written quote that names the fault, the fix and the materials, and lists what is left out so nothing arrives as a surprise.</p></div>
-      </li>
-      <li data-confirm="process">
-        <img src="img/tiling-work.webp" width="383" height="210" alt="Clay-tiled roof slope behind scaffold netting.">
-        <div><h3>Work</h3><p>Old tiles come off, new battens, underlay and tiles go on. The roof is planned so it is not left open overnight.</p><p class="rule">If something new is uncovered, explain it before any extra work is added.</p></div>
-      </li>
-      <li data-confirm="process">
-        <img src="img/clay-tiles.webp" width="410" height="180" alt="Clay-tiled roof and brick chimney stacks under a clear sky.">
-        <div><h3>Handover</h3><p>Gutters and drive are cleared and you walk round the roof from the ground. Photos of the finished work follow.</p></div>
-      </li>
-    </ol>
-    <aside class="sheet" data-sample="quote-sheet" aria-label="Example quote layout">
-      <p class="sheet-h">What your written quote covers.</p>
-      <dl class="spec spec-sheet">
-        <div><dt>Finding</dt><dd>Cracked slates above the rear bedroom</dd></div>
-        <div><dt>Evidence</dt><dd>Photos 1 to 3, damp stain on the loft rafter</dd></div>
-        <div><dt>Options</dt><dd>A: replace six slates. B: re-slate the slope</dd></div>
-        <div><dt>Work</dt><dd>Strip and replace six slates, re-bed the ridge end</dd></div>
-        <div><dt>Cost</dt><dd>Fixed price in writing, VAT shown</dd></div>
-        <div><dt>Left out</dt><dd>Scaffold, gutter repairs, hidden rot</dd></div>
-      </dl>
-    </aside>
+<!-- Prototype variants (stage 1): ?hv=1..6. The four stages are the template's default process: the owner confirms
+     them with the client (data-confirm="process"). The quote sheet is an example layout (data-sample="quote-sheet"). -->
+<section class="sec sec-warm e-saw how" id="how" data-nav="how" data-v="1" aria-labelledby="h-how">
+  <div class="layers layers-back" aria-hidden="true">
+    <div class="how-grid-bg" data-depth="-0.1"></div>
+    <svg class="how-roofs" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" data-drift="-18" focusable="false"><path d="M0 120V88l34-26 34 26h22V58h12v30h26l58-48 58 48h16l40-30 40 30h30V64h14v24h18l64-52 64 52h28l44-34 44 34h22V60h12v28h24l52-42 52 42h30l40-30 40 30h28V62h14v26h26l56-44 56 44h12V120z"/></svg>
+  </div>
+
+  <div class="wrap how-wrap">
+    <div class="how-head">
+      <h2 id="h-how">From first look to handover.</h2>
+      <p class="how-intro">Four steps, always in this order, so you know what happens next.</p>
+    </div>
+
+    <div class="how-body">
+      <!-- v2: roofline with four peaks, a small figure walks the ridge as you scroll -->
+      <div class="how-ridge" aria-hidden="true">
+        <svg class="how-ridge-svg" viewBox="0 0 1000 120" preserveAspectRatio="none" focusable="false">
+          <defs><clipPath id="how-ridge-clip"><rect class="how-ridge-cr" x="0" y="0" width="1000" height="120"/></clipPath></defs>
+          <path class="how-ridge-base" d="M0 100H60L125 24 190 100H310L375 24 440 100H560L625 24 690 100H810L875 24 940 100H1000" vector-effect="non-scaling-stroke"/>
+          <path class="how-ridge-fill" clip-path="url(#how-ridge-clip)" d="M0 100H60L125 24 190 100H310L375 24 440 100H560L625 24 690 100H810L875 24 940 100H1000" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <span class="how-walker">
+          <svg viewBox="0 0 24 34" focusable="false"><circle cx="12" cy="5" r="3.6"/><path class="hw-body" d="M12 9v12M12 12l-5 5M12 12l5 4"/><path class="hw-leg hw-leg-a" d="M12 21l-3 11"/><path class="hw-leg hw-leg-b" d="M12 21l3 11"/></svg>
+        </span>
+      </div>
+
+      <!-- v3: one sticky picture that changes with each stage -->
+      <div class="how-art" data-s="1" aria-hidden="true">
+        <svg class="how-art-svg" viewBox="0 0 480 380" focusable="false">
+          <path class="ha-sky" d="M0 0h480v380H0z"/>
+          <g class="ha-st ha-s4"><circle class="ha-sun" cx="398" cy="70" r="26"/></g>
+          <path class="ha-ground" d="M0 336h480v44H0z"/>
+          <path class="ha-chim" d="M300 70h34v70h-34z"/>
+          <path class="ha-wall" d="M96 196h288v140H96z"/>
+          <path class="ha-door" d="M222 270h36v66h-36z"/>
+          <path class="ha-win" d="M126 228h56v44h-56zM298 228h56v44h-56z"/>
+          <path class="ha-win-l" d="M154 228v44M126 250h56M326 228v44M298 250h56"/>
+          <!-- roof: old covering with a gap (stages 1 and 2) -->
+          <g class="ha-st ha-s1 ha-s2">
+            <path class="ha-roof" d="M70 200 240 92l170 108z"/>
+            <path class="ha-courses" d="M120 168h240M146 152h188M172 135h136M198 119h84M96 184h288"/>
+            <path class="ha-gap" d="M262 140l22 0 6 12-22 0z"/>
+            <path class="ha-gutter-old" d="M64 202h352"/>
+          </g>
+          <!-- stage 1: ladder at the eaves and a survey circle on the fault -->
+          <g class="ha-st ha-s1">
+            <path class="ha-ladder" d="M58 336 92 196M82 336 116 196M63 316h24M68 294h24M73 272h24M78 250h24M83 228h24M88 208h22"/>
+            <circle class="ha-ring" cx="276" cy="146" r="22"/><circle class="ha-ring ha-ring-2" cx="276" cy="146" r="34"/>
+          </g>
+          <!-- stage 2: dimension line along the slope and a written sheet -->
+          <g class="ha-st ha-s2">
+            <path class="ha-dim" d="M78 178 232 80M78 178l-2-10M78 178l10 2M232 80l-10-2M232 80l2 10"/>
+            <g class="ha-paper"><path d="M354 214h96v118h-96z"/><path class="ha-paper-l" d="M366 234h56M366 250h72M366 266h64M366 282h72M366 298h40"/><path class="ha-paper-t" d="M424 310l8 8 14-16"/></g>
+          </g>
+          <!-- stage 3: scaffold, battens showing on half the slope, a stack of new tiles -->
+          <g class="ha-st ha-s3">
+            <path class="ha-roof ha-roof-half" d="M240 92l170 108H240z"/>
+            <path class="ha-courses" d="M240 168h120M240 152h94M240 135h68M240 119h42M240 184h144"/>
+            <path class="ha-felt" d="M70 200 240 92v108z"/>
+            <path class="ha-batten" d="M96 184h144M121 168h119M146 152h94M172 135h68M198 119h42"/>
+            <path class="ha-scaf" d="M60 336V188M196 336V188M330 336V188M424 336V188M50 206h384M50 270h384M60 270 196 206M330 270l94-64"/>
+            <path class="ha-stack" d="M410 318h44v18h-44zM414 304h36v14h-36z"/>
+          </g>
+          <!-- stage 4: finished roof, clean gutter -->
+          <g class="ha-st ha-s4">
+            <path class="ha-roof ha-roof-new" d="M70 200 240 92l170 108z"/>
+            <path class="ha-courses ha-courses-new" d="M120 168h240M146 152h188M172 135h136M198 119h84M96 184h288"/>
+            <path class="ha-ridge" d="M70 200 240 92l170 108"/>
+            <path class="ha-gutter" d="M64 202h352"/>
+            <g class="ha-tick"><circle cx="420" cy="296" r="22"/><path d="M409 296l8 8 15-16"/></g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="how-steps">
+        <span class="how-rail" aria-hidden="true"><span class="how-rail-fill"></span></span>
+        <svg class="how-eave" viewBox="0 0 120 40" aria-hidden="true" focusable="false"><path d="M0 22 120 4" class="he-roof"/><path d="M6 24h40v8a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6z" class="he-gutter"/></svg>
+        <ol class="how-list">
+          <li class="how-st" data-st="1" data-confirm="process">
+            <span class="how-n" data-n="01" aria-hidden="true">01</span>
+            <span class="cw how-thumb"><img src="img/chimney-gable.webp" width="640" height="374" alt="Gable end of a brick house with a chimney stack, seen from the ground."></span>
+            <div class="how-txt"><h3>Inspect</h3><p>A look at the roof from a ladder or scaffold, then into the loft. Slates, ridge, valleys, flashings and gutters are checked and photographed.</p></div>
+          </li>
+          <li class="how-st" data-st="2" data-confirm="process">
+            <span class="how-n" data-n="02" aria-hidden="true">02</span>
+            <span class="cw how-thumb"><img src="img/lead-valley.webp" width="328" height="180" alt="Lead-lined valley between two slate roof slopes."></span>
+            <div class="how-txt"><h3>Quote</h3><p>A written quote that names the fault, the fix and the materials, and lists what is left out so nothing arrives as a surprise.</p></div>
+          </li>
+          <li class="how-st" data-st="3" data-confirm="process">
+            <span class="how-n" data-n="03" aria-hidden="true">03</span>
+            <span class="cw how-thumb"><img src="img/tiling-work.webp" width="383" height="210" alt="Roofer laying clay tiles behind scaffold netting."></span>
+            <div class="how-txt"><h3>Work</h3><p>Old tiles come off, new battens, underlay and tiles go on. The roof is planned so it is not left open overnight.</p><p class="how-rule">If something new is uncovered, it is explained before any extra work is added.</p></div>
+          </li>
+          <li class="how-st" data-st="4" data-confirm="process">
+            <span class="how-n" data-n="04" aria-hidden="true">04</span>
+            <span class="cw how-thumb"><img src="img/clay-tiles.webp" width="410" height="180" alt="Finished clay-tiled roof and brick chimney stacks under a clear sky."></span>
+            <div class="how-txt"><h3>Handover</h3><p>Gutters and drive are cleared and you walk round the roof from the ground. Photos of the finished work follow.</p></div>
+          </li>
+        </ol>
+        <svg class="how-ground" viewBox="0 0 120 24" aria-hidden="true" focusable="false"><path d="M0 18h120" class="hg-line"/><path d="M14 18l3-8 2 8M22 18l2-6 2 6M90 18l3-9 2 9M98 18l2-6 2 6" class="hg-grass"/></svg>
+      </div>
+
+      <aside class="how-sheet" data-sample="quote-sheet" aria-labelledby="how-sheet-h">
+        <p class="how-sheet-tag">Example</p>
+        <p class="how-sheet-h" id="how-sheet-h">What your written quote covers.</p>
+        <dl class="how-spec">
+          <div data-st="1"><dt>Finding</dt><dd>Cracked slates above the rear bedroom</dd></div>
+          <div data-st="1"><dt>Evidence</dt><dd class="how-ev"><span class="cw how-ev-img"><img src="img/stage-slate.webp" width="400" height="400" alt="Example photo: slipped and missing slates on a roof slope."></span><span>Photos 1 to 3, damp stain on the loft rafter</span></dd></div>
+          <div data-st="2"><dt>Options</dt><dd>A: replace six slates. B: re-slate the slope</dd></div>
+          <div data-st="2"><dt>Work</dt><dd>Strip and replace six slates, re-bed the ridge end</dd></div>
+          <div data-st="2"><dt>Cost</dt><dd>Fixed price in writing, VAT shown</dd></div>
+          <div data-st="2"><dt>Left out</dt><dd>Scaffold, gutter repairs, hidden rot</dd></div>
+        </dl>
+        <!-- v4: four boxes along the foot of the sheet tick as the stages pass, then the handover mark -->
+        <div class="how-sheet-foot" aria-hidden="true">
+          <span data-st="1"><i></i>Inspect</span><span data-st="2"><i></i>Quote</span><span data-st="3"><i></i>Work</span><span data-st="4"><i></i>Handover</span>
+        </div>
+        <svg class="how-stamp" viewBox="0 0 80 80" aria-hidden="true" focusable="false"><circle cx="40" cy="40" r="34"/><circle cx="40" cy="40" r="28" class="hs-in"/><path d="M26 41l10 10 19-21"/></svg>
+      </aside>
+    </div>
+    <p class="how-cta"><a class="btn-text" href="#contact">Tell us about your roof<svg aria-hidden="true" viewBox="0 0 28 10"><path d="M0 5h26M21 1l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></a></p>
+  </div>
+
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="how-tape" viewBox="0 0 120 40" data-depth="0.24" data-drift="16" data-px="12" focusable="false"><path class="ht-blade" d="M0 12h96v16H0z"/><path class="ht-ticks" d="M8 12v6M16 12v4M24 12v6M32 12v4M40 12v8M48 12v4M56 12v6M64 12v4M72 12v6M80 12v8M88 12v4"/><path class="ht-hook" d="M96 8h8v24h-8z"/></svg>
+    <svg class="how-pencil" viewBox="0 0 120 20" data-depth="0.32" data-rot="8" data-px="16" focusable="false"><path class="hp-body" d="M10 4h86v12H10z"/><path class="hp-tip" d="M96 4l20 6-20 6z"/><path class="hp-lead" d="M110 8.2l6 1.8-6 1.8z"/><path class="hp-end" d="M4 4h6v12H4z"/></svg>
+    <svg class="how-nail how-nail-a" viewBox="0 0 12 44" data-depth="0.4" data-rot="18" data-px="10" focusable="false"><path d="M1 3h10M6 3v38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <svg class="how-nail how-nail-b" viewBox="0 0 12 44" data-depth="0.18" data-rot="-24" data-px="6" focusable="false"><path d="M1 3h10M6 3v38" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
   </div>
 </section>

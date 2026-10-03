@@ -1,11 +1,56 @@
-<!-- ================= AREAS ================= -->
-<section class="sec sec-warm areas-sec e-zig" id="areas" aria-labelledby="h-areas">
-  <div class="wrap">
-    <p class="kicker"><span class="rule" aria-hidden="true"></span>Areas we cover</p>
-    <h2 id="h-areas" class="vh-h">Where we work</h2>
-    <ul class="areas-big" data-sample="areas">
-      <li>Cirencester</li><li>Tetbury</li><li>Fairford</li><li>Malmesbury</li><li>Stroud</li><li>Cheltenham</li><li>Swindon</li><li>Lechlade</li>
+<!-- ================= AREAS =================
+     Prototype: five variants behind ?av=1..5 (areas.js sets data-v). Default 1.
+     Each town is a link to the form with the town recorded: ?town=NAME#contact (app.js reads ?town=).
+     data-pos="x,y" (percent of the map box) places a town on the abstract map / rings; leave it out and the
+     towns are spread evenly round the base. The first town with class is-home is the firm's base. -->
+<section class="sec sec-warm are e-zig" id="areas" data-v="1" aria-labelledby="h-areas">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="are-bk-contour" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" data-depth="-0.06" focusable="false"><path d="M-40 520C120 470 220 540 380 500S640 380 820 420 1080 520 1240 470"/><path d="M-40 560C140 520 260 590 420 548S660 440 840 470 1100 560 1240 520"/><path d="M-40 90C90 130 200 60 330 100S560 190 700 150 980 40 1240 80"/><path d="M-40 40C110 80 230 10 360 50S580 130 720 100 990 0 1240 30"/></svg>
+    <svg class="are-bk-hills" viewBox="0 0 1200 120" preserveAspectRatio="none" data-depth="-0.12" focusable="false"><path d="M0 120V70C120 40 240 40 360 62S600 96 720 70 960 30 1080 52 1200 70 1200 70V120Z"/></svg>
+  </div>
+
+  <div class="wrap are-wrap">
+    <div class="are-head">
+      <h2 id="h-areas">Areas we cover</h2>
+      <p class="are-lead">Based in <span data-sample="town">Cirencester</span>. Pick your town to start an enquiry.</p>
+    </div>
+
+    <div class="are-stage" aria-hidden="true">
+      <svg class="are-map" viewBox="0 0 100 62.5" preserveAspectRatio="none" focusable="false">
+        <g class="m-contour"><path d="M8 20C14 8 30 6 36 14S40 30 28 32 4 32 8 20Z"/><path d="M12 20C16 12 28 11 32 16S34 27 26 28 9 28 12 20Z"/><path d="M17 20C19 15 26 15 28 18S28 24 24 24 15 25 17 20Z"/><path d="M60 50C66 40 84 40 90 47S90 60 78 60 56 60 60 50Z"/><path d="M65 50C69 44 81 44 85 48S84 57 77 57 62 57 65 50Z"/><path d="M-2 44C6 40 12 46 10 52S0 62-4 58"/></g>
+        <path class="m-river" d="M-2 40C10 42 18 37 28 40S42 50 52 47 66 34 76 36 90 30 102 32"/>
+        <g class="m-roads"></g>
+      </svg>
+      <svg class="are-rings" viewBox="-50 -50 100 100" focusable="false" data-rot="10"><circle r="14"/><circle r="26"/><circle r="38"/><circle class="r-out" r="49"/><path class="r-ticks" d="M0-49v3M0 46v3M-49 0h3M46 0h3"/><text class="r-n" x="0" y="-43">N</text></svg>
+      <span class="are-ripple"><i></i><i></i><i></i></span>
+      <span class="are-spoke"></span>
+      <svg class="are-route" viewBox="0 0 1000 40" preserveAspectRatio="none" focusable="false"><path d="M0 20H1000"/></svg>
+      <svg class="are-van" viewBox="0 0 44 24" focusable="false"><path class="v-body" d="M2 6H28V19H2ZM28 10H36L42 15V19H28Z"/><circle cx="10" cy="20" r="3.2"/><circle cx="34" cy="20" r="3.2"/><path class="v-win" d="M30 11.5H35L39 15H30Z"/></svg>
+    </div>
+
+    <form class="are-find" role="search" action="#contact" onsubmit="return false" hidden>
+      <label for="are-q">Type your town or village</label>
+      <div class="are-find-row"><input id="are-q" type="text" autocomplete="address-level2" spellcheck="false" placeholder="For example, Tetbury"></div>
+      <p class="are-result" role="status"></p>
+    </form>
+
+    <ul class="are-list" data-sample="areas">
+      <li class="are-town is-home" data-pos="46,52"><a class="are-chip" href="?town=Cirencester#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M10 30H50V58H10Z"/><path class="h-door" d="M26 58V44H34V58"/><path class="h-win" d="M15 36H23V43H15ZM37 36H45V43H37Z"/><g class="h-roof"><path class="h-rf" d="M4 32L30 8L56 32Z"/><path class="h-ch" d="M40 18V8H46V23"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Cirencester</span><span class="are-base">Our base</span></a></li>
+      <li class="are-town" data-pos="17,74"><a class="are-chip" href="?town=Tetbury#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M6 28H54V58H6Z"/><path class="h-door" d="M14 58V46H21V58M39 58V46H46V58"/><path class="h-win" d="M26 34H34V42H26ZM10 34H18V41H10ZM42 34H50V41H42Z"/><g class="h-roof"><path class="h-rf" d="M2 30L12 14H48L58 30Z"/><path class="h-ch" d="M28 14V6H33V14"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Tetbury</span></a></li>
+      <li class="are-town" data-pos="70,46"><a class="are-chip" href="?town=Fairford#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M8 30H52V58H8Z"/><path class="h-door" d="M26 58V45H34V58"/><path class="h-win" d="M13 36H21V44H13ZM39 36H47V44H39Z"/><g class="h-roof"><path class="h-rf" d="M2 32L18 14H42L58 32Z"/><path class="h-ch" d="M44 22V10H50V28"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Fairford</span></a></li>
+      <li class="are-town" data-pos="30,90"><a class="are-chip" href="?town=Malmesbury#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M14 26H46V58H14Z"/><path class="h-door" d="M26 58V46H34V58"/><path class="h-win" d="M19 32H27V40H19ZM33 32H41V40H33Z"/><g class="h-roof"><path class="h-rf" d="M9 28L30 2L51 28Z"/><path class="h-ch" d="M16 18V8H21V12"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Malmesbury</span></a></li>
+      <li class="are-town" data-pos="12,34"><a class="are-chip" href="?town=Stroud#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M10 30H50V58H10Z"/><path class="h-door" d="M26 58V44H34V58"/><path class="h-win" d="M15 36H23V43H15ZM37 36H45V43H37Z"/><g class="h-roof"><path class="h-rf" d="M4 32L30 8L56 32Z"/><path class="h-ch" d="M40 18V8H46V23"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Stroud</span></a></li>
+      <li class="are-town" data-pos="34,12"><a class="are-chip" href="?town=Cheltenham#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M6 28H54V58H6Z"/><path class="h-door" d="M14 58V46H21V58M39 58V46H46V58"/><path class="h-win" d="M26 34H34V42H26ZM10 34H18V41H10ZM42 34H50V41H42Z"/><g class="h-roof"><path class="h-rf" d="M2 30L12 14H48L58 30Z"/><path class="h-ch" d="M28 14V6H33V14"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Cheltenham</span></a></li>
+      <li class="are-town" data-pos="82,86"><a class="are-chip" href="?town=Swindon#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M8 30H52V58H8Z"/><path class="h-door" d="M26 58V45H34V58"/><path class="h-win" d="M13 36H21V44H13ZM39 36H47V44H39Z"/><g class="h-roof"><path class="h-rf" d="M2 32L18 14H42L58 32Z"/><path class="h-ch" d="M44 22V10H50V28"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Swindon</span></a></li>
+      <li class="are-town" data-pos="90,38"><a class="are-chip" href="?town=Lechlade#contact"><svg class="are-house" viewBox="0 -6 60 66" aria-hidden="true" focusable="false"><path class="h-glow" d="M0 58H60"/><path class="h-wall" d="M14 26H46V58H14Z"/><path class="h-door" d="M26 58V46H34V58"/><path class="h-win" d="M19 32H27V40H19ZM33 32H41V40H33Z"/><g class="h-roof"><path class="h-rf" d="M9 28L30 2L51 28Z"/><path class="h-ch" d="M16 18V8H21V12"/></g></svg><span class="are-dot" aria-hidden="true"></span><span class="are-name">Lechlade</span></a></li>
     </ul>
-    <p class="areas-note">Not on the list? <a class="link" href="tel:+441632960482" data-sample="phone">Call 01632 960 482</a> and ask.</p>
+    <p class="are-note">Not on the list? <a class="link" href="tel:+441632960482" data-sample="phone">Call 01632 960 482</a> and ask.</p>
+  </div>
+
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="are-fr are-fr-bird" viewBox="0 0 40 16" data-drift="-70" data-depth="0.1" data-px="6" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>
+    <svg class="are-fr are-fr-bird2" viewBox="0 0 40 16" data-drift="-46" data-depth="0.16" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>
+    <svg class="are-fr are-fr-leaf" viewBox="0 0 40 24" data-depth="0.26" data-rot="-16" data-px="10" focusable="false"><path d="M2 12C10 2 26 0 38 6 30 18 14 22 2 12z"/></svg>
+    <svg class="are-fr are-fr-tile" viewBox="0 0 40 30" data-depth="0.34" data-rot="12" data-px="12" focusable="false"><path d="M3 4H37V22C37 26 32 28 20 28S3 26 3 22Z"/><path class="v" d="M12 4V12"/></svg>
   </div>
 </section>

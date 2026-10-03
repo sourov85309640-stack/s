@@ -1,1 +1,266 @@
-/* services section styles */
+/* =====================================================================
+   SERVICES ("Start with the problem.")  owner: section team svc/dec
+   Shared parts first (card, roof-shaped photo cuts, link, wash, drips, stamp, layers),
+   then one block per prototype variant, scoped by .svc-sec[data-v="N"].
+   Final state (no JS, reduced motion, data-motion=off) = variant 1 with everything visible.
+   ===================================================================== */
+.svc-sec{
+  --svc-out:cubic-bezier(.23,1,.32,1);
+  --svc-wash:#FBF7F1;
+  --svc-ring:rgba(152,86,50,.22);
+  --svc-water:#7FA3B0;   /* illustration only: a drop of water (slate tint, deeper) */
+}
+.svc-sec .head2{margin-bottom:clamp(1.75rem,3.5vw,3rem)}
+
+/* roof shapes for the photo cut-outs (clip on the .cw wrapper, transform on the img) */
+.svc[data-issue="leak"]{--clip:polygon(0 22%,50% 0,100% 22%,100% 100%,0 100%)}
+.svc[data-issue="slipped"]{--clip:polygon(0 30%,100% 0,100% 100%,0 100%)}
+.svc[data-issue="chimney"]{--clip:polygon(0 36%,46% 8%,66% 21.3%,66% 2%,80% 2%,80% 30.7%,100% 44%,100% 100%,0 100%)}
+.svc[data-issue="patching"]{--clip:polygon(0 100%,0 30%,22% 0,78% 0,100% 30%,100% 100%)}
+.svc[data-issue="notsure"]{--clip:polygon(0 18%,30% 0,100% 46%,100% 100%,0 100%)}
+
+/* ---------- the card (shared) ---------- */
+.svc{position:relative;isolation:isolate;min-width:0}
+.svc-ph{position:relative;display:block}
+.svc-ph .cw{clip-path:var(--clip);background:var(--sand)}
+.svc-ph img{width:100%;height:100%;object-fit:cover;transition:scale .6s var(--svc-out)}
+.svc-t{font-size:var(--h4);line-height:1.3;margin-bottom:.35rem}
+.svc-p{color:var(--muted);max-width:34rem}
+.svc-a{position:static;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;margin-top:.15rem;font-family:var(--ui);font-weight:600;color:var(--copper);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.28em;text-decoration-color:rgba(152,86,50,.45);transition:text-decoration-color .2s}
+/* the whole card is the target (Fitts): one link, stretched */
+.svc-a::after{content:"";position:absolute;inset:0;z-index:4}
+.svc-a:focus-visible{outline:none}
+.svc:has(.svc-a:focus-visible){outline:3px solid var(--copper);outline-offset:6px}
+/* hover wash: a lighter sheet with a copper hairline behind the card (opacity only) */
+.svc::before{content:"";position:absolute;inset:-.75rem;z-index:-1;background:var(--svc-wash);box-shadow:inset 0 0 0 1px var(--svc-ring);opacity:0;transition:opacity .18s ease;pointer-events:none}
+@media (hover:hover) and (pointer:fine){
+  .svc:hover::before{opacity:1}
+  .svc:hover .svc-ph img{scale:1.06}
+  .svc:hover .svc-a{text-decoration-color:var(--copper)}
+}
+.svc-sec:is([data-v="1"],[data-v="3"],[data-v="4"]) .svc:active{transform:scale(.985);transition:transform .14s var(--svc-out)}
+
+/* tiny drips under the leak photo, hover only, never on touch */
+.svc-drip{position:absolute;left:30%;top:100%;width:40%;height:30px;pointer-events:none;z-index:1}
+.svc-drip i{position:absolute;top:0;width:5px;height:7px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:var(--svc-water);opacity:0}
+.svc-drip i:nth-child(1){left:12%}.svc-drip i:nth-child(2){left:52%}.svc-drip i:nth-child(3){left:84%}
+@keyframes svc-drip{0%{transform:translateY(-4px) scale(.7);opacity:0}18%{opacity:.85}78%{transform:translateY(20px) scale(1);opacity:.75}100%{transform:translateY(24px) scale(1);opacity:0}}
+@media (hover:hover) and (pointer:fine){
+  .svc[data-issue="leak"]:hover .svc-drip i{animation:svc-drip 1.25s cubic-bezier(.3,.6,.5,1) infinite}
+  .svc[data-issue="leak"]:hover .svc-drip i:nth-child(2){animation-delay:.42s}
+  .svc[data-issue="leak"]:hover .svc-drip i:nth-child(3){animation-delay:.8s}
+}
+
+/* "On your form" stamp: the chosen card is marked when its link is used (services.js adds .is-picked) */
+.svc-stamp{position:absolute;right:.6rem;bottom:.7rem;z-index:3;padding:.2rem .55rem;border:1.5px solid var(--copper);border-radius:3px;background:rgba(250,249,246,.94);color:var(--copper);font-family:var(--ui);font-weight:600;font-size:.8125rem;line-height:1.3;white-space:nowrap;rotate:-6deg;opacity:0;transform:scale(1.12);pointer-events:none;transition:opacity .2s ease,transform .26s var(--svc-out)}
+.svc.is-picked .svc-stamp{opacity:1;transform:none}
+
+/* ---------- layered parallax pieces ---------- */
+.svc-course{right:-4%;top:-2%;width:min(46vw,620px);height:72%;-webkit-mask:radial-gradient(closest-side,#000 25%,transparent);mask:radial-gradient(closest-side,#000 25%,transparent)}
+.svc-course .tex{background:var(--copper-tint);opacity:.38}
+.svc-roofs{left:0;right:0;bottom:-4px;width:100%;height:clamp(54px,7vw,104px);fill:var(--sand);opacity:.55}
+.svc-slate{width:56px;height:41px;left:max(10px,calc(50% - 668px));top:22%}
+.svc-leaf{width:44px;height:28px;right:max(8px,calc(50% - 676px));top:60%}
+.svc-nail{width:11px;height:36px;left:max(14px,calc(50% - 640px));bottom:16%}
+@media (max-width:1279px){.svc-slate{top:auto;bottom:6%;left:3%}.svc-nail{display:none}}
+@media (max-width:767px){.svc-slate{display:none}.svc-leaf{right:-8px;top:auto;bottom:28px;width:36px}.svc-course{width:80vw;height:40%}}
+
+.svc-map{display:none}
+
+/* =====================================================================
+   V1  lead card + ruled list (the current model, made alive)
+   ===================================================================== */
+.svc-sec[data-v="1"] .svc-list{display:grid;gap:0}
+.svc-sec[data-v="1"] .svc:first-child .svc-ph .cw{aspect-ratio:5/4}
+.svc-sec[data-v="1"] .svc:first-child .svc-ph{margin-bottom:1.25rem}
+.svc-sec[data-v="1"] .svc:first-child .svc-t{font-size:clamp(1.5rem,1.2rem + 1vw,2rem);line-height:1.15;margin-bottom:.6rem}
+.svc-sec[data-v="1"] .svc:first-child{padding-bottom:2rem}
+.svc-sec[data-v="1"] .svc:not(:first-child){display:grid;grid-template-columns:5.5rem minmax(0,1fr);grid-template-areas:"ph t" "ph p" "ph a";column-gap:1.1rem;align-items:start;align-content:start;padding-block:1.35rem;border-top:1px solid var(--line)}
+.svc-sec[data-v="1"] .svc:not(:first-child) .svc-ph{grid-area:ph}
+.svc-sec[data-v="1"] .svc:not(:first-child) .svc-ph .cw{width:100%;aspect-ratio:1}
+.svc-sec[data-v="1"] .svc:not(:first-child) .svc-t{grid-area:t}
+.svc-sec[data-v="1"] .svc:not(:first-child) .svc-p{grid-area:p}
+.svc-sec[data-v="1"] .svc:not(:first-child) .svc-a{grid-area:a;justify-self:start}
+.svc-sec[data-v="1"] .svc:not(:first-child) .svc-stamp{right:auto;left:-.35rem;bottom:-.6rem;font-size:.75rem}
+@media (min-width:900px){
+  .svc-sec[data-v="1"] .svc-list{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:clamp(2.5rem,6vw,6rem);align-items:start}
+  .svc-sec[data-v="1"] .svc:first-child{grid-row:1/span 4;padding-bottom:0}
+  .svc-sec[data-v="1"] .svc:nth-child(2){border-top:0;padding-top:0}
+  .svc-sec[data-v="1"] .svc:not(:first-child){grid-template-columns:7rem minmax(0,1fr);column-gap:1.4rem}
+  .svc-sec[data-v="1"] .svc:last-child{padding-bottom:0}
+}
+
+/* =====================================================================
+   V2  roof slope: five tiles hung on battens; they swing down into place
+   ===================================================================== */
+.svc-sec[data-v="2"] .svc-stage{position:relative}
+.svc-sec[data-v="2"] .svc-list{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);padding:1.25rem var(--gut) 2.25rem;margin-inline:calc(-1 * var(--gut));scrollbar-width:none;perspective:1100px;
+  background:repeating-linear-gradient(180deg,transparent 0 31px,rgba(152,86,50,.16) 31px 32px) 0 .9rem/100% 100% no-repeat}
+.svc-sec[data-v="2"] .svc-list::-webkit-scrollbar{display:none}
+.svc-sec[data-v="2"] .svc{flex:0 0 min(76vw,290px);scroll-snap-align:start;display:flex;flex-direction:column;background:var(--paper);padding:.7rem .7rem 2.1rem;border-radius:3px 3px 46% 46%/3px 3px 11% 11%;box-shadow:var(--shadow-card);transform-origin:50% 0;transition:transform .26s var(--svc-out),box-shadow .26s ease}
+/* the nib that hooks the tile on its batten */
+.svc-sec[data-v="2"] .svc::after{content:"";position:absolute;left:50%;top:-7px;width:22px;height:8px;margin-left:-11px;background:var(--paper);border-radius:2px 2px 0 0;box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+.svc-sec[data-v="2"] .svc::before{inset:0;border-radius:inherit}
+.svc-sec[data-v="2"] .svc-ph .cw{aspect-ratio:4/3}
+.svc-sec[data-v="2"] .svc-ph{margin-bottom:.9rem}
+.svc-sec[data-v="2"] .svc-t,.svc-sec[data-v="2"] .svc-p,.svc-sec[data-v="2"] .svc-a{padding-inline:.35rem}
+.svc-sec[data-v="2"] .svc-p{font-size:.96875rem;flex:1}
+.svc-sec[data-v="2"] .svc-a{align-self:center;margin-top:.6rem}
+.svc-sec[data-v="2"] .svc-stamp{right:.4rem;bottom:.5rem}
+.svc-sec[data-v="2"] .svc:has(.svc-a:focus-visible){outline-offset:3px}
+@media (hover:hover) and (pointer:fine){
+  /* lifting a tile by its tail: it hinges at the nib */
+  .svc-sec[data-v="2"] .svc:hover{transform:rotateX(9deg) translateY(-3px);box-shadow:var(--shadow-lift)}
+}
+@media (min-width:1080px){
+  .svc-sec[data-v="2"] .svc-list{overflow:visible;margin-inline:0;padding:1.5rem 0 1rem;gap:1.1rem}
+  .svc-sec[data-v="2"] .svc{flex:1 1 0}
+  /* courses rise to a ridge in the middle (multiples of the 32px batten gauge) */
+  .svc-sec[data-v="2"] .svc:nth-child(1),.svc-sec[data-v="2"] .svc:nth-child(5){margin-top:64px}
+  .svc-sec[data-v="2"] .svc:nth-child(2),.svc-sec[data-v="2"] .svc:nth-child(4){margin-top:32px}
+}
+
+/* =====================================================================
+   V3  the roof map: point at a part of the roof, the matching problem lights up (and back)
+   ===================================================================== */
+.svc-sec[data-v="3"] .svc-stage{display:grid;gap:2rem}
+.svc-sec[data-v="3"] .svc-map{display:block;position:relative}
+.svc-sec[data-v="3"] .svc-map svg{display:block;width:100%;height:auto;overflow:visible}
+.svc-sec[data-v="3"] .svc-hits circle{cursor:pointer;pointer-events:all}
+.svc-sec[data-v="3"] .svc-ring{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.9);transition:opacity .2s ease,transform .26s var(--svc-out)}
+.svc-sec[data-v="3"] .svc-ring.is-hot{opacity:1;transform:none}
+.svc-sec[data-v="3"] .svc-z-art{transition:opacity .2s ease}
+.svc-sec[data-v="3"].has-hot .svc-z-art:not(.is-hot){opacity:.55}
+.svc-sec[data-v="3"] .svc-map-drop{transform-box:fill-box;transform-origin:50% 0}
+.svc-sec[data-v="3"] .svc-z-art[data-z="leak"].is-hot .svc-map-drop{animation:svc-mapdrop 1.1s cubic-bezier(.3,.6,.5,1) infinite}
+@keyframes svc-mapdrop{0%{transform:translateY(-6px);opacity:0}25%{opacity:1}85%{transform:translateY(14px);opacity:.9}100%{transform:translateY(16px);opacity:0}}
+.svc-map-tip{display:flex;align-items:center;gap:.6rem;margin-top:.75rem;color:var(--muted);font-size:.9375rem;min-height:1.5rem}
+.svc-map-dot{width:9px;height:9px;flex:none;border:1.5px solid var(--copper);border-radius:50%}
+.svc-sec[data-v="3"].has-hot .svc-map-dot{background:var(--copper)}
+.svc-sec[data-v="3"] .svc-list{display:grid}
+.svc-sec[data-v="3"] .svc{display:grid;grid-template-columns:4.5rem minmax(0,1fr);grid-template-areas:"ph t" "ph p" "ph a";column-gap:1.1rem;padding:1rem 0;border-top:1px solid var(--line)}
+.svc-sec[data-v="3"] .svc:first-child{border-top:0}
+.svc-sec[data-v="3"] .svc-ph{grid-area:ph}
+.svc-sec[data-v="3"] .svc-ph .cw{aspect-ratio:1}
+.svc-sec[data-v="3"] .svc-t{grid-area:t}
+.svc-sec[data-v="3"] .svc-p{grid-area:p;font-size:.96875rem}
+.svc-sec[data-v="3"] .svc-a{grid-area:a;justify-self:start}
+.svc-sec[data-v="3"] .svc-stamp{right:auto;left:-.3rem;bottom:-.5rem;font-size:.75rem}
+.svc-sec[data-v="3"] .svc-drip{display:none}
+/* hot row: the wash stays and a copper rule marks it (not colour alone: the ring on the map moves too) */
+.svc-sec[data-v="3"] .svc.is-hot::before{opacity:1}
+.svc-sec[data-v="3"] .svc::after{content:"";position:absolute;left:-.75rem;top:-1px;bottom:-1px;width:3px;background:var(--copper);transform:scaleY(.3);opacity:0;transition:opacity .18s ease,transform .26s var(--svc-out)}
+.svc-sec[data-v="3"] .svc.is-hot::after{opacity:1;transform:none}
+@media (min-width:960px){
+  .svc-sec[data-v="3"] .svc-stage{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .svc-sec[data-v="3"] .svc-map{position:sticky;top:6rem}
+}
+
+/* =====================================================================
+   V4  ruled rows; a roof-cut photo follows the pointer and floods into colour (reveal-hover-effect)
+   ===================================================================== */
+.svc-sec[data-v="4"] .svc-stage{position:relative}
+.svc-sec[data-v="4"] .svc-list{display:grid;border-bottom:1px solid var(--line)}
+.svc-sec[data-v="4"] .svc{display:grid;grid-template-columns:4.75rem minmax(0,1fr);grid-template-areas:"ph t" "ph p" "ph a";column-gap:1.1rem;padding:1.4rem 0;border-top:1px solid var(--line)}
+.svc-sec[data-v="4"] .svc::before{inset:0 -1rem}
+.svc-sec[data-v="4"] .svc-ph{grid-area:ph}
+.svc-sec[data-v="4"] .svc-ph .cw{aspect-ratio:1}
+.svc-sec[data-v="4"] .svc-t{grid-area:t;font-size:clamp(1.2rem,1rem + .8vw,1.625rem);line-height:1.2;transition:transform .26s var(--svc-out)}
+.svc-sec[data-v="4"] .svc-p{grid-area:p}
+.svc-sec[data-v="4"] .svc-a{grid-area:a;justify-self:start}
+.svc-sec[data-v="4"] .svc-stamp{right:auto;left:-.3rem;bottom:-.5rem;font-size:.75rem}
+@media (min-width:900px){
+  .svc-sec[data-v="4"] .svc{grid-template-columns:minmax(0,1.05fr) minmax(0,1.25fr) auto;grid-template-areas:"t p a";column-gap:2.5rem;align-items:center;padding:1.75rem 0}
+  .svc-sec[data-v="4"] .svc-ph{display:none}
+  .svc-sec[data-v="4"] .svc-a{justify-self:end}
+  .svc-sec[data-v="4"] .svc-stamp{display:none}
+  /* without the floating photo (touch laptops), keep a thumbnail column */
+  .svc-sec[data-v="4"]:not(.svc-float-on) .svc{grid-template-columns:5rem minmax(0,1.05fr) minmax(0,1.25fr) auto;grid-template-areas:"ph t p a"}
+  .svc-sec[data-v="4"]:not(.svc-float-on) .svc-ph{display:block}
+}
+@media (hover:hover) and (pointer:fine){
+  .svc-sec[data-v="4"] .svc:hover .svc-t{transform:translateX(.5rem)}
+}
+.svc-float{position:absolute;left:0;top:0;z-index:5;width:clamp(220px,22vw,300px);aspect-ratio:5/4;pointer-events:none;opacity:0;scale:.94;transition:opacity .22s ease,scale .26s var(--svc-out);will-change:transform}
+.svc-float.is-on{opacity:1;scale:1}
+.svc-float .cw{position:absolute;inset:0;clip-path:var(--clip,polygon(0 22%,50% 0,100% 22%,100% 100%,0 100%));background:var(--sand);filter:drop-shadow(0 0 0 transparent)}
+.svc-float img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .22s ease}
+.svc-float img.is-on{opacity:1}
+.svc-float .svc-fl-base img{filter:grayscale(1) sepia(.28) contrast(.92) brightness(1.06)}
+.svc-float .svc-fl-col{-webkit-mask-image:radial-gradient(circle var(--rr,0px) at var(--rx,50%) var(--ry,50%),#000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);mask-image:radial-gradient(circle var(--rr,0px) at var(--rx,50%) var(--ry,50%),#000 0%,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.svc-float-shadow{position:absolute;inset:8% 4% -6%;background:rgba(31,43,48,.16);filter:blur(18px);clip-path:none;border-radius:40%;z-index:-1}
+
+/* =====================================================================
+   V5  a pile of slates that fans out as the section scrolls in (scroll-linked, not pinned)
+   ===================================================================== */
+.svc-sec[data-v="5"] .svc-list{display:grid;gap:1.25rem}
+.svc-sec[data-v="5"] .svc{--f:1;--dx:0px;--dy:0px;--r0:0deg;--r1:0deg;--ay:0px;background:var(--paper);padding:.75rem .75rem 1.1rem;border-radius:4px;box-shadow:var(--shadow-card);
+  transform:translate(calc(var(--dx) * (1 - var(--f))),calc(var(--dy) * (1 - var(--f)) + var(--ay) * var(--f))) rotate(calc(var(--r0) * (1 - var(--f)) + var(--r1) * var(--f)))}
+.svc-sec[data-v="5"] .svc::before{inset:0;border-radius:inherit}
+.svc-sec[data-v="5"] .svc-ph{margin-bottom:.85rem}
+.svc-sec[data-v="5"] .svc-ph .cw{aspect-ratio:16/10}
+.svc-sec[data-v="5"] .svc-t,.svc-sec[data-v="5"] .svc-p,.svc-sec[data-v="5"] .svc-a{padding-inline:.25rem}
+.svc-sec[data-v="5"] .svc-p{font-size:.96875rem}
+.svc-sec[data-v="5"] .svc:nth-child(1){--r0:-7deg}
+.svc-sec[data-v="5"] .svc:nth-child(2){--r0:5deg}
+.svc-sec[data-v="5"] .svc:nth-child(3){--r0:-2deg}
+.svc-sec[data-v="5"] .svc:nth-child(4){--r0:8deg}
+.svc-sec[data-v="5"] .svc:nth-child(5){--r0:-4deg}
+@media (hover:hover) and (pointer:fine){
+  .svc-sec[data-v="5"] .svc{transition:box-shadow .2s ease,translate .26s var(--svc-out)}
+  .svc-sec[data-v="5"] .svc:hover{translate:0 -8px;box-shadow:var(--shadow-lift);z-index:6}
+}
+@media (min-width:1000px){
+  .svc-sec[data-v="5"] .svc-list{grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;padding-block:.5rem 1.5rem}
+  /* the fanned arc: outer slates sit a little lower and lean out */
+  .svc-sec[data-v="5"] .svc:nth-child(1){--r1:-2.5deg;--ay:22px}
+  .svc-sec[data-v="5"] .svc:nth-child(2){--r1:-1.2deg;--ay:7px}
+  .svc-sec[data-v="5"] .svc:nth-child(4){--r1:1.2deg;--ay:7px}
+  .svc-sec[data-v="5"] .svc:nth-child(5){--r1:2.5deg;--ay:22px}
+  .svc-sec[data-v="5"] .svc:nth-child(1){z-index:1}.svc-sec[data-v="5"] .svc:nth-child(2){z-index:2}.svc-sec[data-v="5"] .svc:nth-child(3){z-index:5}.svc-sec[data-v="5"] .svc:nth-child(4){z-index:2}.svc-sec[data-v="5"] .svc:nth-child(5){z-index:1}
+}
+@media (min-width:640px) and (max-width:999px){
+  .svc-sec[data-v="5"] .svc-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .svc-sec[data-v="5"] .svc:first-child{grid-column:1/-1}
+}
+
+/* =====================================================================
+   V6  chooser: five plain tabs, one big roof-cut stage with the answer and the button
+   ===================================================================== */
+.svc-sec[data-v="6"] .svc-tabs{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) .25rem;scroll-padding-inline:var(--gut)}
+.svc-sec[data-v="6"] .svc-tabs::-webkit-scrollbar{display:none}
+.svc-tab{position:relative;display:flex;align-items:center;gap:.75rem;flex:none;min-height:56px;padding:.4rem .9rem .4rem .45rem;border:1px solid var(--line);border-radius:6px;background:var(--paper);font-family:var(--ui);font-weight:600;font-size:1rem;line-height:1.25;color:var(--text);text-align:left;cursor:pointer;transition:border-color .18s ease,background-color .18s ease,transform .14s var(--svc-out)}
+.svc-tab .cw{width:44px;height:44px;flex:none;clip-path:var(--clip);background:var(--sand)}
+.svc-tab .cw img{width:100%;height:100%;object-fit:cover}
+.svc-tab[aria-selected="true"]{border-color:var(--copper);background:var(--svc-wash);box-shadow:inset 3px 0 0 var(--copper)}
+.svc-tab:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.svc-tab:hover{border-color:var(--copper-tint)}}
+.svc-sec[data-v="6"] .svc-list{display:grid;margin-top:1.25rem}
+.svc-sec[data-v="6"] .svc{grid-area:1/1;display:grid;gap:0;align-content:start;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s ease,transform .3s var(--svc-out),visibility 0s linear .25s}
+.svc-sec[data-v="6"] .svc.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .25s ease,transform .3s var(--svc-out),visibility 0s}
+.svc-sec[data-v="6"] .svc::before{display:none}
+.svc-sec[data-v="6"] .svc:active{transform:none}
+.svc-sec[data-v="6"] .svc-ph{margin-bottom:1.1rem}
+.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:16/9}
+.svc-sec[data-v="6"] .svc-t{font-size:clamp(1.375rem,1.1rem + .9vw,1.875rem);line-height:1.18;margin-bottom:.5rem}
+.svc-sec[data-v="6"] .svc-p{font-size:var(--h4);margin-bottom:1rem}
+.svc-sec[data-v="6"] .svc-a{justify-self:start;min-height:48px;padding:.65rem 1.25rem;background:var(--copper);color:var(--paper);text-decoration:none;border:2px solid var(--copper)}
+.svc-sec[data-v="6"] .svc-a::after{display:none}
+.svc-sec[data-v="6"] .svc-a:focus-visible{outline:3px solid var(--copper);outline-offset:3px}
+.svc-sec[data-v="6"] .svc:has(.svc-a:focus-visible){outline:none}
+@media (hover:hover) and (pointer:fine){.svc-sec[data-v="6"] .svc-a:hover{background:var(--copper-deep);border-color:var(--copper-deep)}}
+@media (min-width:960px){
+  .svc-sec[data-v="6"] .svc-stage{display:grid;grid-template-columns:minmax(0,21rem) minmax(0,1fr);gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .svc-sec[data-v="6"] .svc-tabs{flex-direction:column;overflow:visible;margin:0;padding:0;gap:.6rem}
+  .svc-sec[data-v="6"] .svc-tab{width:100%;min-height:64px}
+  .svc-sec[data-v="6"] .svc-tab .cw{width:52px;height:52px}
+  .svc-sec[data-v="6"] .svc-list{margin-top:0}
+  .svc-sec[data-v="6"] .svc{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-areas:"ph ph" "t t" "p a";column-gap:2rem;align-items:end}
+  .svc-sec[data-v="6"] .svc-ph{grid-area:ph}
+  .svc-sec[data-v="6"] .svc-t{grid-area:t}
+  .svc-sec[data-v="6"] .svc-p{grid-area:p;margin-bottom:0}
+  .svc-sec[data-v="6"] .svc-a{grid-area:a;justify-self:end}
+}
+
+/* variant switch for the judge (prototype only) */
+.svc-vpick{display:none}

@@ -1,1 +1,190 @@
-/* decide section styles */
+/* =====================================================================
+   DECIDE ("Repair, maintain, investigate or replace.")  owner: section team svc/dec
+   A four-stop roof-condition scale. decide.js writes one variable, --s (0..3, continuous), on .dec-body;
+   every meter reads it for transform/opacity only. Cards get .is-on (current stop) and aria-pressed (user choice).
+   Variants scoped by .dec-sec[data-v="N"]. Final state without JS = variant 1, no stop chosen, all text visible.
+   ===================================================================== */
+.dec-sec{--dec-out:cubic-bezier(.23,1,.32,1);--dec-gap:1rem;--dec-tile:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='24'%3E%3Cpath d='M0 .5H36M18 .5V12M0 12.5H36M0 12.5V24M36 12.5V24' fill='none' stroke='%23000'/%3E%3C/svg%3E")}
+.dec-sec .head2 h2{max-width:22ch}
+.dec-keep{font-family:var(--ui);font-weight:600;font-size:var(--h4)!important;line-height:1.4;color:var(--text)!important}
+.dec-body{--s:0;position:relative}
+.dec-m{display:none}
+
+/* ---------- cards (shared) ---------- */
+.dec-cards{display:grid;gap:var(--dec-gap)}
+.dec-card{position:relative;isolation:isolate;display:flex;flex-direction:column;padding:1.15rem 1.25rem .85rem;background:var(--card);border-radius:6px;box-shadow:var(--shadow-card);cursor:pointer;transition:translate .26s var(--dec-out)}
+/* tile pattern, in copper tint, fades in on the current stop */
+.dec-card::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--copper-tint);opacity:0;transition:opacity .25s ease;
+  -webkit-mask:var(--dec-tile) 0 0/36px 24px repeat,linear-gradient(160deg,#000 0%,transparent 70%);-webkit-mask-composite:source-in;
+  mask:var(--dec-tile) 0 0/36px 24px repeat,linear-gradient(160deg,#000 0%,transparent 70%);mask-composite:intersect}
+/* copper edge: a hairline all round plus a thicker ridge on top */
+.dec-card::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1.5px var(--copper),inset 0 4px 0 var(--copper);opacity:0;transition:opacity .2s ease;pointer-events:none}
+.dec-card.is-on::before{opacity:.42}
+.dec-card.is-on::after{opacity:1}
+.dec-card.is-on{translate:0 -4px}
+.dec-card h3{font-size:var(--h3);margin-bottom:.4rem}
+.dec-pick{display:flex;align-items:center;gap:.6rem;width:100%;min-height:44px;margin:-.35rem 0 0;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer}
+/* the pressed state is not colour alone: an empty ring becomes a filled ring with a tick */
+.dec-pick::before{content:"";flex:none;width:18px;height:18px;border:1.5px solid var(--copper);border-radius:50%;background:var(--card) center/12px 12px no-repeat;transition:background-color .15s ease}
+.dec-pick[aria-pressed="true"]::before{background-color:var(--copper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6l4.6-5' fill='none' stroke='%23FAF9F6' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.dec-pick:focus-visible{outline:none}
+.dec-card:has(.dec-pick:focus-visible){outline:3px solid var(--copper);outline-offset:3px}
+.dec-card p{color:var(--muted);flex:1}
+.dec-a{align-self:flex-start;display:inline-flex;align-items:center;min-height:44px;margin-top:.35rem;font-family:var(--ui);font-weight:600;color:var(--copper);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.28em;text-decoration-color:rgba(152,86,50,.45);position:relative;z-index:2}
+@media (hover:hover) and (pointer:fine){.dec-a:hover{text-decoration-color:var(--copper)}}
+.dec-card:active{scale:.985;transition:scale .14s var(--dec-out),translate .26s var(--dec-out)}
+.dec-rail-dot{display:none}
+
+/* ---------- layered parallax ---------- */
+.dec-grid{left:-2%;right:-2%;top:-4%;height:70%;opacity:.5;background-image:linear-gradient(rgba(31,43,48,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(31,43,48,.06) 1px,transparent 1px);background-size:48px 48px;-webkit-mask:radial-gradient(ellipse 60% 70% at 18% 20%,#000 20%,transparent 75%);mask:radial-gradient(ellipse 60% 70% at 18% 20%,#000 20%,transparent 75%)}
+.dec-hills{left:0;right:0;bottom:-2px;width:100%;height:clamp(40px,6vw,86px);fill:var(--warm);opacity:.8}
+.dec-tape{width:64px;height:31px;right:max(10px,calc(50% - 676px));top:16%}
+.dec-ridge{width:56px;height:26px;left:max(10px,calc(50% - 668px));top:58%}
+.dec-moss{width:34px;height:19px;right:max(18px,calc(50% - 650px));bottom:12%}
+@media (max-width:1279px){.dec-tape{top:2.5rem;right:2%}.dec-ridge{top:auto;bottom:5%;left:2%}.dec-moss{display:none}}
+@media (max-width:767px){.dec-tape{width:44px;right:-6px;top:1.25rem}.dec-ridge{display:none}}
+
+/* =====================================================================
+   V1  horizontal gauge above four cards (sticky under the header on phones)
+   ===================================================================== */
+.dec-sec[data-v="1"] .dec-gauge{display:block}
+.dec-gauge{--g:0px;position:relative;margin-bottom:1.5rem;padding-top:42px}
+.dec-g-track{position:relative;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--sky) 0 25%,var(--sand) 25% 50%,#E9D3C1 50% 75%,var(--copper-tint) 75% 100%)}
+.dec-g-fill{position:absolute;left:12.5%;width:75%;top:1px;height:4px;background:var(--copper);border-radius:2px;transform-origin:0 50%;transform:scaleX(calc(var(--s) / 3))}
+.dec-g-stop{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--paper);border:1.5px solid var(--copper)}
+.dec-g-stop:nth-child(2){left:12.5%}.dec-g-stop:nth-child(3){left:37.5%}.dec-g-stop:nth-child(4){left:62.5%}.dec-g-stop:nth-child(5){left:87.5%}
+.dec-g-mark{position:absolute;left:0;top:0;width:25%;display:flex;justify-content:center;transform:translateX(calc(var(--s) * 100%));will-change:transform}
+.dec-g-mark svg{width:28px;height:32px;filter:drop-shadow(0 3px 3px rgba(31,43,48,.18))}
+.dec-g-labels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:.6rem;font-size:.875rem;line-height:1.25;color:var(--muted);text-align:center}
+.dec-g-labels li{transition:color .2s ease}
+.dec-g-labels li.is-on{color:var(--copper);font-weight:600}
+@media (max-width:999px){
+  .dec-sec[data-v="1"] .dec-gauge{position:sticky;top:4rem;z-index:5;margin-inline:calc(-1 * var(--gut));padding:2.4rem var(--gut) .7rem;background:var(--paper);box-shadow:0 10px 18px -16px rgba(31,43,48,.5)}
+}
+@media (min-width:600px){.dec-sec[data-v="1"] .dec-cards,.dec-sec[data-v="6"] .dec-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){
+  .dec-sec[data-v="1"] .dec-cards,.dec-sec[data-v="4"] .dec-cards,.dec-sec[data-v="6"] .dec-cards{grid-template-columns:repeat(4,minmax(0,1fr))}
+  /* the gauge's four stops sit over the four card centres */
+  .dec-gauge{--g:var(--dec-gap)}
+  .dec-g-track{margin-inline:calc((100% - 3 * var(--g)) / 8)}
+  .dec-g-fill{left:0;width:100%}
+  .dec-g-stop:nth-child(2){left:0}.dec-g-stop:nth-child(3){left:33.333%}.dec-g-stop:nth-child(4){left:66.667%}.dec-g-stop:nth-child(5){left:100%}
+  .dec-g-mark{left:calc(var(--g) / -2);width:calc((100% + var(--g)) / 4)}
+  .dec-g-labels{gap:var(--g)}
+}
+
+/* =====================================================================
+   V2  one roof, four conditions: it weathers as you go (sticky beside the cards)
+   ===================================================================== */
+.dec-sec[data-v="2"] .dec-roof,.dec-sec[data-v="5"] .dec-roof{display:block}
+.dec-roof{position:relative}
+.dec-roof svg{display:block;width:100%;height:auto;max-height:340px}
+.dec-roof [data-lc]{opacity:0}
+.dec-roof-cap{margin-top:.5rem;text-align:center;font-family:var(--ui);font-weight:600;color:var(--copper);min-height:1.5em}
+.dec-sec[data-v="2"] .dec-body{display:grid;gap:1.5rem}
+.dec-sec[data-v="2"] .dec-roof{position:sticky;top:4rem;z-index:5;margin-inline:calc(-1 * var(--gut));padding:.5rem var(--gut) .4rem;background:var(--paper);box-shadow:0 10px 18px -16px rgba(31,43,48,.45)}
+.dec-sec[data-v="2"] .dec-roof svg{height:132px;width:auto;margin-inline:auto}
+.dec-sec[data-v="2"] .dec-roof-cap{margin-top:.15rem}
+@media (min-width:960px){
+  .dec-sec[data-v="2"] .dec-body{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+  .dec-sec[data-v="2"] .dec-roof{top:6rem;margin:0;padding:1.5rem 1.5rem 1rem;background:var(--warm);border-radius:8px;box-shadow:none}
+  .dec-sec[data-v="2"] .dec-roof svg{height:auto;width:100%}
+  .dec-sec[data-v="2"] .dec-cards{gap:1.25rem}
+}
+
+/* =====================================================================
+   V3  vertical scroll-progress timeline; the meter waits in a sticky side column
+   ===================================================================== */
+.dec-sec[data-v="3"] .dec-body{display:grid;gap:2rem}
+.dec-sec[data-v="3"] .dec-cards{position:relative;gap:1.5rem;padding-left:2.25rem}
+.dec-sec[data-v="3"] .dec-cards::before,.dec-sec[data-v="3"] .dec-cards::after{content:"";position:absolute;left:.55rem;top:1.6rem;bottom:2.4rem;width:2px;background:var(--line);border-radius:1px}
+.dec-sec[data-v="3"] .dec-cards::after{background:var(--copper);transform-origin:50% 0;transform:scaleY(calc(var(--s) / 3))}
+.dec-sec[data-v="3"] .dec-rail-dot{display:block;position:absolute;left:calc(-2.25rem + .55rem + 1px);top:1.6rem;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--paper);border:2px solid var(--line);z-index:1;transition:border-color .2s ease,background-color .2s ease}
+.dec-sec[data-v="3"] .dec-card.is-reached .dec-rail-dot{border-color:var(--copper);background:var(--copper)}
+.dec-sec[data-v="3"] .dec-card.is-on .dec-rail-dot{background:var(--paper)}
+@media (min-width:960px){
+  .dec-sec[data-v="3"] .dec-body{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(2.5rem,6vw,6rem);align-items:start}
+  .dec-sec[data-v="3"] .dec-thermo{display:flex;grid-column:2;grid-row:1;position:sticky;top:7rem;gap:2rem;align-items:center;padding:1.75rem 2rem;background:var(--sky);border-radius:8px}
+  .dec-sec[data-v="3"] .dec-cards{grid-column:1;grid-row:1}
+}
+.dec-th-col{position:relative;display:flex;gap:1rem;height:240px}
+.dec-th-track{position:relative;width:8px;height:100%;border-radius:4px;background:linear-gradient(180deg,#fff 0 25%,var(--sand) 25% 50%,#E9D3C1 50% 75%,var(--copper-tint) 75% 100%);box-shadow:inset 0 0 0 1px var(--slate-line)}
+.dec-th-fill{position:absolute;left:2px;right:2px;top:0;height:100%;border-radius:2px;background:var(--copper);transform-origin:50% 0;transform:scaleY(calc(var(--s) / 3))}
+.dec-th-mark{position:absolute;left:50%;top:0;width:0;height:33.333%;transform:translateY(calc(var(--s) * 100%));will-change:transform}
+.dec-th-mark::before{content:"";position:absolute;left:-10px;top:-10px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2.5px solid var(--copper);box-shadow:0 2px 6px rgba(31,43,48,.2)}
+.dec-th-labels{display:flex;flex-direction:column;justify-content:space-between;height:100%;font-size:.9375rem;color:var(--muted)}
+.dec-th-labels li{line-height:1;transition:color .2s ease}
+.dec-th-labels li.is-on{color:var(--copper);font-weight:600}
+.dec-th-now{display:grid;gap:.35rem}
+.dec-th-k{font-size:.9375rem;color:var(--muted)}
+.dec-th-v{font-family:var(--display);font-size:var(--h2);line-height:1.1;color:var(--text)}
+
+/* =====================================================================
+   V4  a dial and needle; on phones the cards swipe sideways and the swipe turns the needle
+   ===================================================================== */
+.dec-sec[data-v="4"] .dec-dial{display:block}
+.dec-dial{position:relative;width:min(420px,100%);margin:0 auto 1.75rem}
+.dec-dial svg{display:block;width:100%;height:auto;overflow:visible}
+.dec-needle{transform-box:view-box;transform-origin:160px 160px;transform:rotate(calc(-67.5deg + var(--s) * 45deg));will-change:transform}
+.dec-d-labels{position:absolute;inset:0;font-size:.875rem;line-height:1.2;color:var(--muted)}
+.dec-d-labels li{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;transition:color .2s ease}
+.dec-d-labels li:nth-child(1){left:3%;top:58%;transform:translate(-100%,-50%)}
+.dec-d-labels li:nth-child(2){left:25%;top:6%;transform:translate(-75%,-100%)}
+.dec-d-labels li:nth-child(3){left:75%;top:6%;transform:translate(-25%,-100%)}
+.dec-d-labels li:nth-child(4){left:97%;top:58%;transform:translate(0,-50%)}
+.dec-d-labels li.is-on{color:var(--copper);font-weight:600}
+@media (max-width:767px){
+  .dec-dial{width:min(270px,70%);margin-top:1.5rem}
+  .dec-sec[data-v="4"] .dec-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.85rem;margin-inline:calc(-1 * var(--gut));padding:.6rem var(--gut) 1.25rem;scroll-padding-inline:var(--gut);scrollbar-width:none}
+  .dec-sec[data-v="4"] .dec-cards::-webkit-scrollbar{display:none}
+  .dec-sec[data-v="4"] .dec-card{flex:0 0 82%;scroll-snap-align:start}
+}
+@media (min-width:768px) and (max-width:999px){.dec-sec[data-v="4"] .dec-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* =====================================================================
+   V5  segmented tabs with a sliding indicator; one answer at a time beside the roof
+   ===================================================================== */
+.dec-sec[data-v="5"] .dec-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:relative;padding:4px;margin-bottom:1.5rem;border:1px solid var(--line);border-radius:10px;background:var(--warm)}
+.dec-t-ind{position:absolute;left:4px;top:4px;bottom:4px;width:calc((100% - 8px) / 4);border-radius:7px;background:var(--copper);box-shadow:0 2px 6px -2px rgba(31,43,48,.35);transform:translateX(calc(var(--s) * 100%));will-change:transform}
+.dec-t{position:relative;z-index:1;min-height:48px;padding:.35rem .4rem;border:0;border-radius:7px;background:none;font-family:var(--ui);font-weight:600;font-size:.9375rem;line-height:1.15;color:var(--text);cursor:pointer;transition:color .18s ease}
+.dec-t.is-on{color:var(--paper)}
+.dec-t[aria-pressed="true"]{text-decoration:underline;text-underline-offset:.3em;text-decoration-thickness:1.5px}
+.dec-t:active{scale:.97}
+.dec-sec[data-v="5"] .dec-body{display:grid}
+.dec-sec[data-v="5"] .dec-roof svg{height:150px;width:auto;margin-inline:auto}
+.dec-sec[data-v="5"] .dec-roof-cap{display:none}
+.dec-sec[data-v="5"] .dec-cards{display:grid;margin-top:1rem}
+.dec-sec[data-v="5"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .22s ease,transform .26s var(--dec-out),visibility 0s linear .22s;padding:1.5rem 1.6rem 1.1rem}
+.dec-sec[data-v="5"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;translate:0 0;transition:opacity .22s ease,transform .26s var(--dec-out),visibility 0s}
+.dec-sec[data-v="5"] .dec-card p{font-size:var(--h4)}
+.dec-sec[data-v="5"] .dec-pick::before{display:none}
+@media (min-width:900px){
+  .dec-sec[data-v="5"] .dec-body{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);column-gap:clamp(2rem,5vw,4rem);align-items:center}
+  .dec-sec[data-v="5"] .dec-tabs{grid-column:1/-1;max-width:640px}
+  .dec-sec[data-v="5"] .dec-roof svg{height:auto;width:100%}
+  .dec-sec[data-v="5"] .dec-cards{margin-top:0}
+}
+
+/* =====================================================================
+   V6  self-check: drag the slider to match your roof (a real range input); cards follow
+   ===================================================================== */
+.dec-sec[data-v="6"] .dec-slide{display:block;margin-bottom:1.75rem;padding:1.25rem 1.25rem 1rem;background:var(--warm);border-radius:8px}
+.dec-s-l{display:block;font-family:var(--ui);font-weight:600;font-size:var(--h4);margin-bottom:.4rem}
+.dec-s-row{position:relative;height:64px;padding-inline:18px}
+.dec-s-track{position:absolute;left:18px;right:18px;top:42px;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--sky) 0 33.3%,var(--sand) 33.3% 66.6%,var(--copper-tint) 66.6% 100%)}
+.dec-s-fill{position:absolute;left:0;top:1px;width:100%;height:4px;border-radius:2px;background:var(--copper);transform-origin:0 50%;transform:scaleX(calc(var(--s) / 3))}
+.dec-s-thumb{position:absolute;left:0;bottom:-6px;width:33.333%;height:0;transform:translateX(calc(var(--s) * 100%));will-change:transform}
+.dec-s-thumb svg{position:absolute;left:-17px;bottom:0;width:34px;height:38px;filter:drop-shadow(0 3px 3px rgba(31,43,48,.2));border-radius:4px}
+.dec-s-crack{opacity:calc(var(--s) / 3)}
+.dec-s-in{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:grab;touch-action:pan-y}
+.dec-s-in:active{cursor:grabbing}
+.dec-s-in::-webkit-slider-thumb{width:36px;height:64px;-webkit-appearance:none;appearance:none}
+.dec-s-in::-moz-range-thumb{width:36px;height:64px}
+.dec-s-row:has(.dec-s-in:focus-visible) .dec-s-thumb svg{outline:3px solid var(--copper);outline-offset:3px}
+.dec-s-labels{position:relative;height:1.4em;margin:.5rem 18px 0;font-size:.875rem;color:var(--muted)}
+.dec-s-labels li{position:absolute;top:0;white-space:nowrap;transform:translateX(-50%);transition:color .2s ease}
+.dec-s-labels li:nth-child(1){left:0;transform:translateX(-18px)}
+.dec-s-labels li:nth-child(2){left:33.333%}
+.dec-s-labels li:nth-child(3){left:66.667%}
+.dec-s-labels li:nth-child(4){left:100%;transform:translateX(calc(-100% + 18px))}
+.dec-s-labels li.is-on{color:var(--copper);font-weight:600}

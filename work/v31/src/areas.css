@@ -1,1 +1,193 @@
-/* areas section styles */
+/* =====================================================================
+   AREAS: "Areas we cover" (prototype, variants ?av=1..5)
+   Shared: warm section, layered parallax, town links (?town=NAME#contact) with a hover wash, no separators (D6),
+   no auto marquee. v1 abstract contour map with ripple from the base, v2 rooftops skyline, v3 distance rings with
+   orbit-placed chips, v4 roof-tile grid, v5 route line with "do you cover me?" search.
+   No-JS / reduced motion: chips in a wrapped list (v1..v4 keep their static layout), ripples still.
+   ===================================================================== */
+.are{--are-out:cubic-bezier(.23,1,.32,1);--are-io:cubic-bezier(.77,0,.175,1);--are-pencil:rgba(31,43,48,.55);overflow-x:clip}
+
+/* ---------- layers ---------- */
+.are-bk-contour{inset:0;width:100%;height:100%;fill:none;stroke:rgba(152,86,50,.13);stroke-width:1.2}
+.are-bk-hills{left:0;right:0;bottom:-2px;width:100%;height:clamp(50px,7vw,96px);fill:var(--sand);opacity:.55}
+.are-fr{fill:var(--muted);opacity:.32}
+.are-fr-bird{width:26px;height:11px;right:12%;top:3.5rem}
+.are-fr-bird2{width:18px;height:8px;right:calc(12% + 40px);top:4.4rem;opacity:.26}
+.are-fr-leaf{width:30px;height:18px;left:3%;bottom:18%;fill:#C9B98F;opacity:.75}
+.are-fr-tile{width:30px;height:23px;right:3.5%;bottom:14%;fill:#D9B49A;stroke:#9C6E52;stroke-width:1.4;opacity:.7}
+.are-fr-tile .v{fill:none}
+@media (max-width:767px){.are-fr-bird2,.are-fr-tile{display:none}}
+
+/* ---------- layout ---------- */
+.are-wrap{display:grid;gap:clamp(1.25rem,3vw,2rem);grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "stage" "find" "list" "note"}
+.are-head{grid-area:head;max-width:32rem}
+.are-head h2{margin-bottom:.6rem}
+.are-lead{color:var(--muted);font-size:var(--h4)}
+html:not(.js) .are-lead{font-size:var(--h4)}
+.are-stage{grid-area:stage;position:relative;min-width:0}
+.are-find{grid-area:find}
+.are-list{grid-area:list;display:flex;flex-wrap:wrap;gap:.6rem;align-content:flex-start}
+.are-note{grid-area:note;color:var(--muted)}
+.are-note .link{display:inline-flex}
+
+/* ---------- chips (shared) ---------- */
+.are-chip{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:.45rem 1rem;background:var(--paper);border:1px solid var(--line);text-decoration:none;font-family:var(--ui);font-weight:600;font-size:1.0625rem;color:var(--text);white-space:nowrap;transition:border-color .2s ease,color .2s ease,scale .16s var(--are-out)}
+.are-chip::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--copper-wash);transform:translateX(-101%);transition:transform .28s var(--are-out)}
+.are-chip:active{scale:.97}
+.are-house,.are-dot{display:none}
+.are-base{font-weight:400;font-size:.875rem;color:var(--copper)}
+.is-home .are-chip{border-color:var(--copper)}
+.is-home .are-chip::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--copper);order:-1}
+@media (hover:hover){
+  .are-chip:hover{border-color:var(--copper)}
+  .are-chip:hover::before{transform:none}
+}
+.are-town.is-hl .are-chip{border-color:var(--copper)}
+.are-town.is-hl .are-chip::before{transform:none}
+
+/* stage pieces default hidden; each variant turns its own on */
+.are-map,.are-rings,.are-ripple,.are-spoke,.are-route,.are-van,.are-pins{display:none}
+.are-pins{position:absolute;inset:0;pointer-events:none}
+.are-pin{position:absolute;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--paper);border:2px solid var(--copper);transition:transform .25s var(--are-out),background-color .2s ease}
+.are-pin.is-home{width:14px;height:14px;margin:-7px 0 0 -7px;background:var(--copper)}
+.are-pin.is-hl{transform:scale(1.5);background:var(--copper)}
+.are-ripple{position:absolute;width:0;height:0}
+.are-ripple i{position:absolute;left:-60px;top:-60px;width:120px;height:120px;border-radius:50%;border:1.5px solid rgba(152,86,50,.5);opacity:0;transform:scale(.3)}
+html.js .are.is-live .are-ripple i{animation:are-ripple 5.4s cubic-bezier(.23,1,.32,1) infinite}
+.are-ripple i:nth-child(2){animation-delay:1.8s!important}
+.are-ripple i:nth-child(3){animation-delay:3.6s!important}
+@keyframes are-ripple{0%{opacity:.7;transform:scale(.3)}100%{opacity:0;transform:scale(2.6)}}
+/* still frame for reduced motion / no JS: three quiet rings */
+.are-ripple i{opacity:.35}
+.are-ripple i:nth-child(1){transform:scale(.6)}.are-ripple i:nth-child(2){transform:scale(1.2);opacity:.22}.are-ripple i:nth-child(3){transform:scale(1.9);opacity:.12}
+html.js .are.is-live .are-ripple i{opacity:0}
+
+/* ======================= v1: abstract contour map ======================= */
+.are[data-v="1"] .are-stage{aspect-ratio:16/10;background:var(--paper);border:1px solid var(--line-soft);box-shadow:var(--shadow-soft);overflow:hidden}
+.are[data-v="1"] .are-map,.are[data-v="1"] .are-pins,.are[data-v="1"] .are-ripple{display:block}
+.are-map{position:absolute;inset:0;width:100%;height:100%}
+.m-contour path{fill:none;stroke:rgba(152,86,50,.22);stroke-width:.25;vector-effect:non-scaling-stroke}
+.m-river{fill:none;stroke:#9DB4BC;stroke-width:5;stroke-linecap:round;opacity:.55}
+.are-map .m-river{stroke-width:.9}
+.m-roads line{stroke:var(--are-pencil);stroke-width:1;stroke-dasharray:3 4;vector-effect:non-scaling-stroke;opacity:.45;transition:opacity .2s ease,stroke .2s ease}
+.m-roads line.is-hl{stroke:var(--copper);opacity:1}
+@media (min-width:900px){
+  .are[data-v="1"] .are-wrap{grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr);grid-template-areas:"head map" "note map";column-gap:clamp(2rem,4vw,4rem);align-items:start}
+  .are[data-v="1"] .are-stage,.are[data-v="1"] .are-list{grid-area:map}
+  .are[data-v="1"] .are-note{align-self:end}
+  html.js .are[data-v="1"] .are-list{position:relative;aspect-ratio:16/10;display:block;z-index:2}
+  html.js .are[data-v="1"] .are-town{position:absolute;transform:translate(-50%,calc(-100% - 12px))}
+  html.js .are[data-v="1"] .are-chip{padding:.35rem .8rem;min-height:40px;font-size:1rem;box-shadow:var(--shadow-soft)}
+}
+
+/* ======================= v2: rooftops skyline ======================= */
+.are[data-v="2"] .are-stage{display:none}
+.are[data-v="2"] .are-list{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.75rem .5rem;padding-bottom:.25rem}
+.are[data-v="2"] .are-town{position:relative;display:flex;align-items:flex-end;border-bottom:2px solid rgba(31,43,48,.45)}
+.are[data-v="2"] .are-chip{flex-direction:column;align-items:center;gap:.35rem;width:100%;padding:0 0 .55rem;background:none;border:0;overflow:visible;font-size:.9375rem}
+.are[data-v="2"] .are-chip::before{display:none}
+.are[data-v="2"] .is-home .are-chip::after{display:none}
+.are[data-v="2"] .are-house{display:block;width:72%;max-width:120px;height:auto;overflow:visible}
+.are[data-v="2"] .are-town:nth-child(4n+2) .are-house{width:80%}
+.are[data-v="2"] .are-town:nth-child(3n) .are-house{width:64%}
+.are-house path{fill:none;stroke:rgba(31,43,48,.62);stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.are-house .h-wall{fill:var(--paper)}
+.are-house .h-rf{fill:#CDD6D9}
+.are-house .h-ch{fill:#E8CDBB}
+.are-house .h-win{fill:#F3EEE4;transition:fill .25s ease}
+.are-house .h-door{fill:var(--sand)}
+.are-house .h-glow{stroke:none}
+.are-house .h-roof{transition:transform .28s var(--are-out);transform-box:fill-box;transform-origin:15% 100%}
+.are[data-v="2"] .is-home .h-rf{fill:#E3B596;stroke:var(--copper)}
+.are[data-v="2"] .are-name{display:block;text-align:center;white-space:normal;line-height:1.2}
+.are[data-v="2"] .are-base{font-size:.8125rem}
+.are[data-v="2"] .are-chip:focus-visible{outline-offset:2px}
+@media (hover:hover){
+  .are[data-v="2"] .are-chip:hover .h-roof{transform:translateY(-6px) rotate(-5deg)}
+  .are[data-v="2"] .are-chip:hover .h-win{fill:#F2C9A4}
+  .are[data-v="2"] .are-chip:hover .are-name{color:var(--copper)}
+}
+.are[data-v="2"] .are-chip:focus-visible .h-roof{transform:translateY(-6px) rotate(-5deg)}
+.are[data-v="2"] .are-chip:focus-visible .h-win{fill:#F2C9A4}
+@media (min-width:900px){
+  .are[data-v="2"] .are-list{grid-template-columns:repeat(8,minmax(0,1fr));gap:0;border-bottom:2px solid rgba(31,43,48,.45)}
+  .are[data-v="2"] .are-town{border:0}
+  .are[data-v="2"] .are-chip{font-size:1rem}
+  .are[data-v="2"] .are-wrap{grid-template-areas:"head" "list" "note"}
+}
+
+/* ======================= v3: distance rings, chips in orbit ======================= */
+.are[data-v="3"] .are-stage{aspect-ratio:1/1;max-width:560px;width:100%;justify-self:center}
+.are[data-v="3"] .are-rings,.are[data-v="3"] .are-ripple,.are[data-v="3"] .are-pins,.are[data-v="3"] .are-spoke{display:block}
+.are-rings{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.are-rings circle{fill:none;stroke:rgba(152,86,50,.28);stroke-width:.3;stroke-dasharray:1 1.4}
+.are-rings .r-out{stroke-dasharray:none;stroke:rgba(31,43,48,.18)}
+.are-rings .r-ticks{stroke:rgba(31,43,48,.4);stroke-width:.4}
+.are-rings .r-n{font:600 3.2px var(--ui);fill:var(--muted);text-anchor:middle}
+.are-spoke{position:absolute;left:50%;top:50%;width:100px;height:1.5px;background:var(--copper);transform-origin:0 50%;transform:scaleX(.01);opacity:0;transition:opacity .2s ease}
+.are-spoke.is-on{opacity:1}
+@media (min-width:900px){
+  .are[data-v="3"] .are-wrap{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-areas:"head orbit" "note orbit";column-gap:4rem;align-items:center}
+  .are[data-v="3"] .are-stage,.are[data-v="3"] .are-list{grid-area:orbit}
+  html.js .are[data-v="3"] .are-list{position:relative;display:block;aspect-ratio:1/1;max-width:560px;width:100%;justify-self:center;z-index:2}
+  html.js .are[data-v="3"] .are-town{position:absolute;transform:translate(-50%,-50%)}
+  html.js .are[data-v="3"] .are-chip{min-height:40px;padding:.35rem .8rem;font-size:1rem;box-shadow:var(--shadow-soft)}
+  .are[data-v="3"] .are-note{align-self:start}
+  .are[data-v="3"] .are-pins{display:none}
+}
+@media (max-width:899px){.are[data-v="3"] .are-stage{max-width:300px}}
+
+/* ======================= v4: roof-tile grid ======================= */
+.are[data-v="4"] .are-stage{display:none}
+.are[data-v="4"] .are-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;perspective:900px;padding:0 0 1rem}
+.are[data-v="4"] .are-town{position:relative;margin-top:-10px}
+.are[data-v="4"] .are-town.is-home{grid-column:1/-1;margin:0 0 4px}
+.are[data-v="4"] .are-chip{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;width:100%;min-height:96px;padding:.9rem 1rem 1.15rem;border:0;border-radius:0 0 46% 46%/0 0 18px 18px;background:linear-gradient(#EDE5D6,#E2D6C1);box-shadow:inset 0 0 0 1px rgba(152,86,50,.18),0 6px 8px -4px rgba(31,43,48,.25);transform-origin:50% 0;transition:transform .28s var(--are-out),box-shadow .28s ease,scale .16s var(--are-out);white-space:normal}
+.are[data-v="4"] .are-chip::before{display:none}
+.are[data-v="4"] .are-town::before{content:"";position:absolute;inset:6px 6px 0;border-radius:0 0 40% 40%/0 0 16px 16px;background:var(--copper);opacity:.85;z-index:0}
+.are[data-v="4"] .are-chip{position:relative;z-index:1}
+.are[data-v="4"] .are-town:nth-child(odd):not(.is-home) .are-chip{background:linear-gradient(#EAE1D0,#DED1BA)}
+.are[data-v="4"] .is-home .are-chip{min-height:64px;flex-direction:row;align-items:center;gap:.6rem;border-radius:32px 32px 6px 6px;background:var(--copper-wash);box-shadow:inset 0 0 0 1.5px var(--copper),0 6px 8px -4px rgba(31,43,48,.2)}
+.are[data-v="4"] .is-home .are-chip::after{order:-1}
+@media (hover:hover){.are[data-v="4"] .are-town:not(.is-home) .are-chip:hover{transform:rotateX(24deg);box-shadow:inset 0 0 0 1px rgba(152,86,50,.3),0 16px 14px -8px rgba(31,43,48,.35)}}
+.are[data-v="4"] .are-town:not(.is-home) .are-chip:focus-visible{transform:rotateX(24deg)}
+@media (min-width:900px){
+  .are[data-v="4"] .are-list{grid-template-columns:repeat(9,minmax(0,1fr))}
+  .are[data-v="4"] .are-town:not(.is-home){grid-column:span 2}
+  .are[data-v="4"] .are-town:nth-child(6){grid-column:2/span 2}
+  .are[data-v="4"] .are-wrap{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"head list" "note list";column-gap:4rem;align-items:start}
+}
+@media (max-width:899px){.are[data-v="4"] .are-list{grid-template-columns:repeat(2,minmax(0,1fr))}.are[data-v="4"] .are-chip{min-height:76px}}
+
+/* ======================= v5: route line + search ======================= */
+html.js .are[data-v="5"] .are-find{display:block!important}
+.are-find label{display:block;margin-bottom:.4rem;font-family:var(--ui);font-weight:600;color:var(--text)}
+.are-find-row{display:flex;max-width:26rem}
+.are-find input{flex:1;min-width:0;min-height:48px;padding:.6rem .85rem;background:var(--paper);border:1px solid var(--field);border-radius:0;font:inherit;font-size:1rem;color:var(--text)}
+.are-find input::placeholder{color:var(--muted);opacity:1}
+.are-find input:focus{border-color:var(--copper);outline:2px solid var(--copper);outline-offset:-1px}
+.are-result{min-height:1.6em;margin-top:.55rem;color:var(--text)}
+.are-result a{color:var(--copper);font-weight:600;text-underline-offset:.2em}
+.are[data-v="5"] .are-stage{display:none}
+.are[data-v="5"] .are-list{position:relative;display:grid;grid-template-columns:minmax(0,1fr);gap:.35rem;padding-left:2.25rem}
+.are[data-v="5"] .are-list::before{content:"";position:absolute;left:.7rem;top:1.2rem;bottom:1.2rem;width:3px;background:var(--copper);opacity:.35;border-radius:2px}
+.are[data-v="5"] .are-town{position:relative}
+.are[data-v="5"] .are-dot{display:block;position:absolute;left:-1.9rem;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--paper);border:2.5px solid var(--copper);transition:transform .2s var(--are-out),background-color .2s ease}
+.are[data-v="5"] .is-home .are-dot{background:var(--copper)}
+.are[data-v="5"] .is-home .are-chip::after{display:none}
+.are[data-v="5"] .are-town.is-hl .are-dot{transform:scale(1.25);background:var(--copper)}
+.are[data-v="5"] .are-town.is-dim .are-chip{color:var(--muted);border-color:var(--line-soft);background:transparent}
+html.js .are[data-v="5"] .are-van{display:block;position:absolute;left:0;top:0;width:34px;height:19px;z-index:3;transition:transform .9s var(--are-io)}
+.are-van .v-body{fill:var(--paper);stroke:var(--ink);stroke-width:1.4;stroke-linejoin:round}
+.are-van circle{fill:var(--ink)}
+.are-van .v-win{fill:#BFD0D6}
+@media (min-width:900px){
+  .are[data-v="5"] .are-wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"head find" "list list" "note note";column-gap:4rem;align-items:end}
+  .are[data-v="5"] .are-list{grid-template-columns:repeat(8,minmax(0,1fr));padding:4.5rem 0;gap:0}
+  .are[data-v="5"] .are-list::before{left:3%;right:3%;top:50%;bottom:auto;width:auto;height:3px;margin-top:-1.5px}
+  .are[data-v="5"] .are-town{display:flex;justify-content:center;height:2.75rem}
+  .are[data-v="5"] .are-town:nth-child(odd) .are-chip{transform:translateY(-3.2rem)}
+  .are[data-v="5"] .are-town:nth-child(even) .are-chip{transform:translateY(3.2rem)}
+  .are[data-v="5"] .are-chip{padding:.4rem .75rem;font-size:.975rem}
+  .are[data-v="5"] .are-dot{left:50%;top:50%;margin:-7px 0 0 -7px}
+}

@@ -14,6 +14,7 @@
     <div class="chk-head">
       <h2 id="h-checks">Three things you can check from the ground.</h2>
       <p class="lead">Stand in the garden or the street. Please do not climb up.</p>
+      <p class="chk-hint" id="chk-hint">Tick each one off as you look.</p>
     </div>
 
     <div class="chk-visual">
@@ -36,7 +37,7 @@
         </defs>
         <g class="d-sky"><path d="M300 34c6-5 12-5 18 1 6-6 12-6 18-1" /><path d="M326 22c4-3 8-3 12 1 4-4 8-4 12-1"/></g>
         <g class="d-house">
-          <rect class="d-fill-roof" x="222" y="112" width="276" height="94"/>
+          <path class="d-fill-roof" d="M222 206L236 112H484L498 206Z"/>
           <path class="d-roof-pat" d="M222 206L236 112H484L498 206Z" fill="url(#chk-slate)"/>
           <path class="d-ln d-roof" pathLength="1" d="M222 206L236 112H484L498 206Z"/>
           <path class="d-ln d-ridge" pathLength="1" d="M234 112H486"/>
@@ -71,26 +72,34 @@
 
     <ol class="chk-list">
       <li class="chk-item" data-zone="0">
+        <div class="chk-card"><div class="chk-front">
         <span class="chk-ico" aria-hidden="true"><svg viewBox="0 0 64 48" focusable="false"><path d="M4 40L14 8H50L60 40Z"/><path d="M10 22H54M7 31H57M22 8L19 22M36 8V22M50 8l2 14M14 22l-2 9M28 22l-1 9M44 22l1 9"/><path class="ico-hl" d="M30 31l8 3-1 6-9-2z"/></svg></span>
         <div class="chk-txt"><h3 id="chk-h1">Slates and tiles</h3><p>Look along the roof for gaps, slipped or cracked pieces and green patches of moss.</p></div>
+        </div>
         <div class="chk-back" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="21"/><path pathLength="1" d="M14 25l7 7 13-15"/></svg><span>Slates and tiles looked at</span></div>
+        </div>
       </li>
       <li class="chk-item" data-zone="1">
+        <div class="chk-card"><div class="chk-front">
         <span class="chk-ico" aria-hidden="true"><svg viewBox="0 0 64 48" focusable="false"><path d="M4 44L32 22L60 44"/><path d="M24 30V6H40V30"/><path d="M27 6V2H31V6M33 6V3H37V6"/><path class="ico-hl" d="M20 33L24 30H40L44 33"/><path d="M24 14H40M24 22H40M32 6V14M28 14V22M36 14V22"/></svg></span>
         <div class="chk-txt"><h3 id="chk-h2">Chimney and lead</h3><p>Check the pointing, the pots and the grey lead strip where the stack meets the roof.</p></div>
+        </div>
         <div class="chk-back" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="21"/><path pathLength="1" d="M14 25l7 7 13-15"/></svg><span>Chimney and lead looked at</span></div>
+        </div>
       </li>
       <li class="chk-item" data-zone="2">
+        <div class="chk-card"><div class="chk-front">
         <span class="chk-ico" aria-hidden="true"><svg viewBox="0 0 64 48" focusable="false"><path d="M2 10H52a4 4 0 0 0 4-4"/><path d="M2 16H50a6 6 0 0 0 6-6V6"/><path d="M50 16V46M56 10V46"/><path d="M6 20V46M6 26H44M6 34H44M6 42H44M18 26V34M32 26V34M24 34V42M38 34V42"/><path class="ico-hl" d="M26 17c0 5 2 9 1 13"/></svg></span>
         <div class="chk-txt"><h3 id="chk-h3">Gutters and walls</h3><p>Look for stains below the gutter and plants growing from the joints.</p></div>
+        </div>
         <div class="chk-back" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="21"/><path pathLength="1" d="M14 25l7 7 13-15"/></svg><span>Gutters and walls looked at</span></div>
+        </div>
       </li>
     </ol>
 
     <div class="chk-cta">
-      <p class="chk-hint" id="chk-hint">Tick each one off as you look.</p>
       <p class="chk-status" role="status"></p>
-      <span class="chk-lift"><a class="btn btn-line chk-btn" href="#contact">Tell us about your roof<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></span>
+      <span class="chk-lift"><a class="btn btn-line chk-btn" href="#contact">Tell us about your roof</a></span>
     </div>
   </div>
 

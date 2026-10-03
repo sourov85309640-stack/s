@@ -1,15 +1,129 @@
-<!-- ================= REPAIR OR REPLACE ================= -->
-<section class="sec decide" id="decide" aria-labelledby="h-decide">
+<!-- ================= REPAIR, MAINTAIN, INVESTIGATE OR REPLACE ================= -->
+<!-- A four-stop roof-condition scale. Prototype variants data-v="1".."6" (set by ?v=N or ?dv=N in decide.js).
+     The four cards are the content and the accessible controls (buttons with aria-pressed). Each meter below is one variant's picture of the same state. -->
+<section class="sec decide dec-sec" id="decide" data-v="1" aria-labelledby="h-decide">
+  <div class="layers layers-back dec-back" aria-hidden="true">
+    <div class="dec-grid" data-depth="-0.06"></div>
+    <svg class="dec-hills" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMax slice" data-depth="-0.04" focusable="false"><path d="M0 90V70c90-22 170-30 260-18s170 20 260 4 190-34 300-22 220 30 380 26V90z"/></svg>
+  </div>
+  <div class="layers layers-front dec-front" aria-hidden="true">
+    <svg class="dec-tape" viewBox="0 0 70 34" data-depth="0.2" data-rot="6" data-px="10" focusable="false"><path d="M2 6h50v22H2z" fill="#E6DFD0" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/><path d="M10 6v7M18 6v4M26 6v7M34 6v4M42 6v7" stroke="#1F2B30" stroke-opacity=".5" stroke-width="1.2"/><path d="M52 4h8v26h-8z" fill="#985632"/><path d="M60 10h6v14h-6" fill="none" stroke="#985632" stroke-width="1.5"/></svg>
+    <svg class="dec-ridge" viewBox="0 0 64 30" data-depth="0.3" data-rot="-8" data-px="12" focusable="false"><path d="M3 26C6 12 18 4 32 4s26 8 29 22z" fill="#E9D3C1" stroke="#985632" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 22c3-8 11-13 20-13s17 5 20 13" fill="none" stroke="#985632" stroke-opacity=".45" stroke-width="1.2"/></svg>
+    <svg class="dec-moss" viewBox="0 0 40 22" data-depth="0.12" data-drift="-18" data-px="6" focusable="false"><path d="M3 19c2-7 7-9 10-6 1-6 8-9 12-4 3-3 9-1 10 5 2 0 3 2 2 4z" fill="#B7B98F" fill-opacity=".8" stroke="#1F2B30" stroke-opacity=".4" stroke-width="1.2" stroke-linejoin="round"/></svg>
+  </div>
   <div class="wrap">
     <div class="head2">
       <div><h2 id="h-decide">Repair, maintain, investigate or replace.</h2></div>
-      <p class="keep">The right recommendation should follow the condition of the roof, not the size of the job.</p>
+      <p class="dec-keep">The right recommendation should follow the condition of the roof, not the size of the job.</p>
     </div>
-    <ol class="steps4">
-      <li><h3>Repair</h3><p>A few slipped slates or a split flashing on an otherwise sound roof. Fix the fault and leave the rest alone.</p></li>
-      <li><h3>Maintain</h3><p>Moss in the valleys, blocked gutters, tired pointing. Clear and re-point before they turn into leaks.</p></li>
-      <li><h3>Investigate</h3><p>Stains with no clear source, or a roof you cannot see. Survey the loft and the roof before anyone quotes.</p></li>
-      <li><h3>Replace</h3><p>Battens rotting, slates delaminating, nails sliding. Past that point patching costs more than a new roof.</p></li>
-    </ol>
+
+    <div class="dec-body">
+      <!-- V1 horizontal gauge -->
+      <div class="dec-m dec-gauge" aria-hidden="true">
+        <div class="dec-g-track"><span class="dec-g-fill"></span><span class="dec-g-stop"></span><span class="dec-g-stop"></span><span class="dec-g-stop"></span><span class="dec-g-stop"></span></div>
+        <div class="dec-g-mark"><svg viewBox="0 0 30 34" focusable="false"><path d="M3 16 15 4l12 12v16H3z" fill="#FAF9F6" stroke="#985632" stroke-width="2" stroke-linejoin="round"/><path d="M11 32v-8h8v8" fill="none" stroke="#985632" stroke-width="1.6"/></svg></div>
+        <ol class="dec-g-labels"><li>Sound</li><li>Tired</li><li>Unclear</li><li>Past repair</li></ol>
+      </div>
+
+      <!-- V2 and V5: one roof drawn in four conditions (layers fade by the scale position) -->
+      <div class="dec-m dec-roof" aria-hidden="true">
+        <svg viewBox="0 0 420 260" focusable="false">
+          <defs>
+            <pattern id="dec-tl" width="24" height="16" patternUnits="userSpaceOnUse"><rect width="24" height="16" fill="#E9D3C1"/><path d="M0 15.5H24M12 0V8M0 8H24M0 8v8M24 8v8" stroke="#985632" stroke-opacity=".38" stroke-width="1"/></pattern>
+            <clipPath id="dec-rc"><path d="M100 58H320L392 186H28Z"/></clipPath>
+          </defs>
+          <path d="M0 250H420" stroke="#1F2B30" stroke-opacity=".25" stroke-width="1.5"/>
+          <path d="M56 186H364V250H56Z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/>
+          <path d="M92 204h40v30H92zM288 204h40v30h-40zM190 210h40v40h-40z" fill="#EAF0F2" stroke="#1F2B30" stroke-opacity=".45" stroke-width="1.3"/>
+          <!-- chimney -->
+          <path d="M276 22h30v46h-30z" fill="#E6DFD0" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/>
+          <path d="M272 16h38v7h-38z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.4"/>
+          <!-- straight roof (sound to unclear) -->
+          <g data-lx="3"><path d="M100 58H320L392 186H28Z" fill="url(#dec-tl)" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/><path d="M96 58H324" stroke="#985632" stroke-width="3.5" stroke-linecap="round"/></g>
+          <!-- sagging roof (past repair) -->
+          <g data-lc="3"><path d="M100 58Q210 74 320 58L392 186H28Z" fill="url(#dec-tl)" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/><path d="M96 58Q210 75 324 58" fill="none" stroke="#985632" stroke-width="3.5" stroke-linecap="round"/></g>
+          <g clip-path="url(#dec-rc)">
+            <!-- tired: moss in the courses and along the eaves -->
+            <g data-lc="1" fill="#A9AE7E" fill-opacity=".85"><path d="M64 178c4-6 10-7 13-3 3-5 10-6 13 0 4-3 9-1 9 5H64z"/><path d="M150 132c3-4 8-5 10-2 3-4 8-4 10 1 3-2 7 0 7 4h-27z"/><path d="M262 160c3-5 9-5 11-1 3-4 9-4 11 1 3-2 7 0 7 4h-29z"/><path d="M318 182c3-5 9-6 12-2 3-4 9-4 11 1 3-2 7 0 7 5h-30z"/><path d="M212 98c3-4 7-4 9-1 2-3 7-3 9 1 2-1 5 0 5 3h-23z"/></g>
+            <!-- unclear: a dark stain spreading under the courses, a lifted flashing -->
+            <g data-lc="2"><path d="M168 96c14-6 30 2 32 16s-6 30-4 44c-10 6-22 2-26-10s4-22-2-50z" fill="#1F2B30" fill-opacity=".16"/><path d="M270 66h42v8h-42z" fill="#B9C5C9" stroke="#1F2B30" stroke-opacity=".5" stroke-width="1.2" transform="rotate(-8 291 70)"/></g>
+            <!-- past repair: gaps, slipped and broken tiles -->
+            <g data-lc="3"><path d="M118 120h24v16h-24zM238 152h24v16h-24zM300 104h24v16h-24z" fill="#1F2B30" fill-opacity=".62"/><path d="M120 138l24 4-3 15-24-4z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/><path d="M240 170l22 7-4 13-22-7z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/></g>
+          </g>
+        </svg>
+        <p class="dec-roof-cap"><span class="dec-cap-t">Sound</span></p>
+      </div>
+
+      <!-- V3 sticky side meter (the rail itself is drawn on the cards list) -->
+      <div class="dec-m dec-thermo" aria-hidden="true">
+        <div class="dec-th-col">
+          <div class="dec-th-track"><span class="dec-th-fill"></span><span class="dec-th-mark"></span></div>
+          <ol class="dec-th-labels"><li>Sound</li><li>Tired</li><li>Unclear</li><li>Past repair</li></ol>
+        </div>
+        <p class="dec-th-now"><span class="dec-th-k">Roof health</span><b class="dec-th-v">Sound</b></p>
+      </div>
+
+      <!-- V4 dial and needle -->
+      <div class="dec-m dec-dial" aria-hidden="true">
+        <svg viewBox="0 0 320 180" focusable="false">
+          <g fill="none" stroke-width="14">
+            <path d="M30 160A130 130 0 0 1 68.1 68.1" stroke="#EAF0F2"/>
+            <path d="M70.9 65.3A130 130 0 0 1 158 30" stroke="#E6DFD0"/>
+            <path d="M162 30A130 130 0 0 1 249.1 65.3" stroke="#E9D3C1"/>
+            <path d="M251.9 68.1A130 130 0 0 1 290 160" stroke="#DDA783"/>
+          </g>
+          <g stroke="#1F2B30" stroke-opacity=".45" stroke-width="1.5"><path d="M40.3 110.4l12 5M100.3 49.4l6 11.2M219.7 49.4l-6 11.2M279.7 110.4l-12 5"/></g>
+          <g class="dec-d-ticks" stroke="#1F2B30" stroke-opacity=".2" stroke-width="1"><path d="M160 44v8M78 78l6 6M242 78l-6 6M46 160h8M266 160h8"/></g>
+          <g class="dec-needle"><path d="M157 160 160 52l3 108z" fill="#985632"/><circle cx="160" cy="160" r="9" fill="#FAF9F6" stroke="#985632" stroke-width="2.5"/></g>
+        </svg>
+        <ol class="dec-d-labels"><li>Sound</li><li>Tired</li><li>Unclear</li><li>Past repair</li></ol>
+      </div>
+
+      <!-- V6 self-check slider: a real range input drives the same state (decide.js wires it) -->
+      <div class="dec-m dec-slide">
+        <label class="dec-s-l" for="dec-range">How does your roof look from the ground?</label>
+        <div class="dec-s-row">
+          <div class="dec-s-track" aria-hidden="true"><span class="dec-s-fill"></span><span class="dec-s-thumb"><svg viewBox="0 0 30 34" focusable="false"><path d="M3 16 15 4l12 12v16H3z" fill="#FAF9F6" stroke="#985632" stroke-width="2" stroke-linejoin="round"/><path class="dec-s-crack" d="M12 13l3 4-2 3 3 4" fill="none" stroke="#985632" stroke-width="1.4"/></svg></span></div>
+          <input id="dec-range" class="dec-s-in" type="range" min="0" max="3" step="1" value="0" aria-valuetext="Sound with one fault: repair">
+        </div>
+        <ol class="dec-s-labels" aria-hidden="true"><li>Sound</li><li>Tired</li><li>Unclear</li><li>Past repair</li></ol>
+      </div>
+
+      <!-- V5 segmented control with a sliding indicator (real buttons; decide.js wires them) -->
+      <div class="dec-m dec-tabs" role="group" aria-label="Roof condition">
+        <span class="dec-t-ind" aria-hidden="true"></span>
+        <button type="button" class="dec-t" aria-pressed="false" aria-controls="dec-c0">Sound</button>
+        <button type="button" class="dec-t" aria-pressed="false" aria-controls="dec-c1">Tired</button>
+        <button type="button" class="dec-t" aria-pressed="false" aria-controls="dec-c2">Unclear</button>
+        <button type="button" class="dec-t" aria-pressed="false" aria-controls="dec-c3">Past repair</button>
+      </div>
+
+      <ol class="dec-cards">
+        <li class="dec-card" id="dec-c0" data-stop="0">
+          <span class="dec-rail-dot" aria-hidden="true"></span>
+          <h3><button type="button" class="dec-pick" aria-pressed="false">Repair</button></h3>
+          <p>A few slipped slates or a split flashing on an otherwise sound roof. Fix the fault and leave the rest alone.</p>
+          <a class="dec-a" href="?issue=leak#contact">Ask about a repair</a>
+        </li>
+        <li class="dec-card" id="dec-c1" data-stop="1">
+          <span class="dec-rail-dot" aria-hidden="true"></span>
+          <h3><button type="button" class="dec-pick" aria-pressed="false">Maintain</button></h3>
+          <p>Moss in the valleys, blocked gutters, tired pointing. Clear and re-point before they turn into leaks.</p>
+          <a class="dec-a" href="?issue=notsure&amp;from=maintain#contact">Ask about maintenance</a>
+        </li>
+        <li class="dec-card" id="dec-c2" data-stop="2">
+          <span class="dec-rail-dot" aria-hidden="true"></span>
+          <h3><button type="button" class="dec-pick" aria-pressed="false">Investigate</button></h3>
+          <p>Stains with no clear source, or a roof you cannot see. Survey the loft and the roof before anyone quotes.</p>
+          <a class="dec-a" href="?issue=notsure&amp;from=investigate#contact">Ask us to take a look</a>
+        </li>
+        <li class="dec-card" id="dec-c3" data-stop="3">
+          <span class="dec-rail-dot" aria-hidden="true"></span>
+          <h3><button type="button" class="dec-pick" aria-pressed="false">Replace</button></h3>
+          <p>Battens rotting, slates delaminating, nails sliding. Past that point patching costs more than a new roof.</p>
+          <a class="dec-a" href="?issue=patching#contact">Ask about a new roof</a>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>

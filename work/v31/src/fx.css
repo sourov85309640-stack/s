@@ -1,1 +1,54 @@
-/* fx section styles */
+/* fx (owner: global FX team): ambient canvas layers, sky tint, weather, roof-edge build, survey-ring cursor.
+   Every rule that changes how the page looks applies only under html.has-motion, so without JS, under
+   prefers-reduced-motion and with data-motion="off" the page is exactly the base design (edges fully drawn,
+   no overlay, no canvas). */
+
+/* ---------- 1. ambient layer: one per section, first child, under the content ---------- */
+/* zero specificity: a section that sets its own position (sticky, a pinned scene) keeps it */
+:where([data-fx-on]){position:relative}
+.fx-layer{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:clip}
+/* the canvas is one viewport tall and rides along with the reader inside its section (position:sticky
+   is handled by the compositor, so it never lags the scroll); a short section gets a canvas its own height */
+.fx-cv{position:sticky;top:0;display:block;width:100%;height:min(100%,100vh)}
+.fx-js>.fx-cv{position:absolute;left:0;top:0}
+/* dust motes drift through one soft shaft of light (a static gradient: costs nothing per frame) */
+.fx-beam{background:linear-gradient(112deg,transparent 34%,rgba(246,217,168,.20) 45%,rgba(246,217,168,.12) 53%,transparent 64%)}
+html:not(.has-motion) .fx-layer,html:not(.has-motion) .fx-sky,html:not(.has-motion) .fx-weather,html:not(.has-motion) .fx-ring{display:none}
+
+/* ---------- 2. sky tint: stacked multiply layers, only their opacity changes ----------
+   Max opacities were measured: every text/background pair in the palette that passes 4.5:1 without the tint
+   still passes with it (binding pair: copper on warm). See docs/proto_fx.md. */
+.fx-sky{position:fixed;inset:0;z-index:59;pointer-events:none;mix-blend-mode:multiply;contain:strict}
+.fx-sky>i{position:absolute;inset:0;opacity:0;will-change:opacity}
+.fx-sky-m{background:linear-gradient(180deg,#FFF0D2 0%,#FFF6E6 55%,#FFFAF2 100%)}          /* morning cream */
+.fx-sky-g{background:linear-gradient(180deg,#F3D3A0 0%,#F6DDB4 50%,#F8E6C8 100%)}          /* afternoon gold */
+.fx-sky-d{background:linear-gradient(180deg,#E6CDCB 0%,#F0D4C6 55%,#F5DFCB 100%)}          /* soft dusk: rose above, peach low down */
+.fx-sky-o{background:linear-gradient(180deg,#CFD9E0 0%,#DCE3E8 60%,#E6EBEE 100%)}          /* overcast, weather story only */
+/* the sun: a faint warm disc low in contrast, with a soft halo, arcing across the top edge */
+.fx-sky>.fx-sun{inset:auto;left:0;top:0;width:clamp(260px,34vw,520px);aspect-ratio:1;margin:calc(clamp(260px,34vw,520px) / -2) 0 0 calc(clamp(260px,34vw,520px) / -2);
+  border-radius:50%;background:radial-gradient(circle,#F4D3A2 0%,#F6DCB4 12%,rgba(248,228,198,.6) 32%,rgba(250,238,220,0) 68%);will-change:transform,opacity}
+
+/* ---------- 2b. weather (fxv=3): page-wide light rain over the leaks section ---------- */
+.fx-weather{position:fixed;inset:0;width:100%;height:100%;z-index:58;pointer-events:none}
+
+/* ---------- 3. roof edges rise from the section's top line as it arrives ----------
+   Non-inherited custom property: setting it on a section restyles that section and its edge only. */
+@property --fx-edge{syntax:"<number>";inherits:false;initial-value:1}
+html.has-motion[data-fx-edges] :is(.e-wave,.e-step,.e-rake,.e-hip,.e-saw,.e-arc,.e-zig,.e-terrace,.e-chim)::before{
+  --fx-edge:inherit;transform:scaleY(var(--fx-edge,1));transform-origin:50% 100%}
+
+/* ---------- 5a. survey-ring cursor (prototype, fine pointers only; the system cursor stays) ---------- */
+.fx-ring{position:fixed;left:0;top:0;z-index:90;width:0;height:0;pointer-events:none;opacity:0;transition:opacity .2s}
+.fx-ring.is-on{opacity:1}
+.fx-ring.is-text{opacity:0}
+.fx-ring-in{position:absolute;left:-15px;top:-15px;width:30px;height:30px;border:1.5px solid rgba(152,86,50,.6);border-radius:50%;
+  transition:transform .22s cubic-bezier(.23,1,.32,1),border-color .2s}
+.fx-ring-in>i{position:absolute;background:rgba(152,86,50,.75)}
+.fx-ring-in>i:nth-child(1),.fx-ring-in>i:nth-child(2){left:50%;width:1.5px;height:6px;margin-left:-.75px}
+.fx-ring-in>i:nth-child(1){top:-4px}.fx-ring-in>i:nth-child(2){bottom:-4px}
+.fx-ring-in>i:nth-child(3),.fx-ring-in>i:nth-child(4){top:50%;height:1.5px;width:6px;margin-top:-.75px}
+.fx-ring-in>i:nth-child(3){left:-4px}.fx-ring-in>i:nth-child(4){right:-4px}
+.fx-ring.is-hot .fx-ring-in{transform:scale(1.55) rotate(45deg);border-color:rgba(152,86,50,.85)}
+.fx-ring.is-down .fx-ring-in{transform:scale(.86)}
+.fx-ring.is-hot.is-down .fx-ring-in{transform:scale(1.4) rotate(45deg)}
+@media (hover:none),(pointer:coarse){.fx-ring{display:none}}

@@ -1,1 +1,161 @@
-/* hero section styles */
+/* =====================================================================
+   HERO (owner: hero team). Three layouts on <html data-hero="a|b|c">, default a.
+   Layers, back to front: paper texture, distant rooftops + swallows (.hero-back), the gable photo plate
+   (.hero-frame: clip on .hero-plate, parallax transform on .hero-plate-in = the .cw pattern), smoke canvas,
+   the detail tile, small roof pieces at the edges (.hero-front). Text always sits above all of it.
+   Without JS, under reduced motion and with data-motion="off" this file alone gives the finished hero.
+   ===================================================================== */
+.hero{
+  --hero-far:#DCE4E6;          /* distant rooftops: a cooler, paler tint of the sky surface (air between us and them) */
+  --hero-vane:#CBC1AD;         /* weathervane line on the sand rooftops */
+  --eave:19.38%;               /* where the photo's flat top edge sits (matches the clip and the outline path) */
+  --stage-h:clamp(260px,38vw,560px);
+  --gap:6px;                   /* paper gap between the three photos */
+  position:relative;overflow-x:clip;
+  padding-top:clamp(2.25rem,5.5vw,5rem);padding-bottom:clamp(3.75rem,6vw,5.25rem);
+  background:var(--paper)}
+.hero::before{content:"";position:absolute;inset:0;background:url(img/hero-texture-light.webp) 50% 30%/cover no-repeat;opacity:.42;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(52% 46% at 86% 4%,rgba(221,167,131,.13),rgba(221,167,131,0) 72%);pointer-events:none}
+
+/* ---------- copy ---------- */
+.hero-grid{z-index:2;display:grid;gap:1.25rem clamp(2rem,5vw,5rem);align-items:end;padding-bottom:clamp(2rem,4.5vw,3.75rem)}
+.hero-kicker{margin-bottom:1rem}
+.hero-copy h1{max-width:16ch}
+.hero-lead{margin-bottom:1.5rem;text-wrap:pretty}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+@media (max-width:519px){.hero-actions .btn{flex:1 1 100%}}
+@media (min-width:900px){.hero-grid{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}}
+
+/* Google rating chip (layout C) */
+.hero-rating{display:none;align-items:center;gap:.5rem;min-height:44px;margin-top:1.25rem;padding:.3rem .95rem .3rem .65rem;
+  background:var(--card);border:1px solid var(--line-soft);border-radius:999px;box-shadow:0 2px 3px -1px rgba(0,0,0,.1),0 1px 0 rgba(25,28,33,.02),0 0 0 1px rgba(25,28,33,.06);
+  text-decoration:none;color:var(--text);font-family:var(--ui);font-weight:600;font-size:.9375rem;line-height:1;white-space:nowrap;transition:border-color .2s ease,transform .16s var(--ease)}
+.hero-rating-g{width:18px;height:18px;flex:none}
+.hero-rating-n{font-size:1rem;font-variant-numeric:tabular-nums}
+.hero-stars{position:relative;display:inline-flex}
+.hero-stars svg{width:15px;height:15px;flex:none}
+.hero-stars-base,.hero-stars-fill{display:flex;gap:1px}
+.hero-stars-base{fill:var(--line)}
+.hero-stars-fill{position:absolute;left:0;top:0;bottom:0;width:var(--fill,100%);overflow:hidden;fill:var(--star)}
+.hero-rating-c{color:var(--muted);font-weight:400}
+@media (hover:hover){.hero-rating:hover{border-color:var(--line)}}
+.hero-rating:active{transform:scale(.97)}
+
+/* ---------- stage ---------- */
+.hero-stage{position:relative;z-index:1;height:var(--stage-h)}
+.hero-back{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-roofs{position:absolute;left:0;width:100%;bottom:calc(100% - var(--eave) - 1px)}
+.hero-roofs-far{height:21%;fill:var(--hero-far)}
+.hero-roofs-near{height:13%;fill:var(--sand)}
+.hero-vane path{fill:none;stroke:var(--hero-vane);stroke-width:2.2;stroke-linecap:round}
+.hero-vane .hero-vane-arrow{stroke-width:2.4}
+/* swallows: still positions (motion moves them with transform) */
+.hero-bird{position:absolute;width:26px;height:12px;fill:var(--ink);opacity:.5;left:63%;top:2%}
+.hero-bird:nth-of-type(2){width:19px;height:9px;left:67%;top:-6%;opacity:.4}
+.hero-bird:nth-of-type(3){width:15px;height:7px;left:12%;top:4%;opacity:.32}
+.hero.is-live .hero-bird{left:0;top:0;will-change:transform}
+
+.hero-frame{position:absolute;inset:0;z-index:1}
+.hero-plate{position:absolute;inset:0;overflow:hidden;background:var(--warm);
+  clip-path:polygon(0 19.38%,21.74% 19.38%,35.9% 1.63%,49.93% 19.38%,100% 19.38%,100% 100%,0 100%)}
+.hero-plate-in{position:absolute;left:0;right:0;top:-7%;bottom:-7%}
+.hero-panes{position:absolute;inset:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:var(--gap);background:var(--paper)}
+.hero-pane{position:relative;overflow:hidden;min-width:0;background:var(--warm)}
+.hero-pane img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.hero-pane:nth-child(2) img{object-position:50% 34%}
+.hero-pane:nth-child(3) img{object-position:50% 40%}
+.hero-pane:only-child img{object-position:50% 50%}
+/* phones: two photos read better than three slivers (only when there are three) */
+@media (max-width:639px){.hero-panes>.hero-pane:first-child:nth-last-child(3){display:none}}
+.hero-sweep{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(104deg,rgba(255,226,190,0) 36%,rgba(255,226,190,.6) 50%,rgba(255,226,190,0) 64%);mix-blend-mode:soft-light}
+
+.hero-outline{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--copper);stroke-width:2px;pointer-events:none}
+.hero-outline path{display:none}
+.hero-outline .ho-a{display:inline}
+
+/* detail tile (layout A) */
+.hero-detail{position:absolute;z-index:2;right:var(--gut);bottom:-2.5rem;width:clamp(8.5rem,24vw,18rem);margin:0}
+.hero-detail::after{content:"";position:absolute;inset:0;transform:translate(.7rem,.7rem);border:1px solid var(--copper);z-index:-2}
+.hero-detail img{position:relative;width:100%;aspect-ratio:530/320;object-fit:cover}
+.hero-detail-sh{position:absolute;inset:6% 4% -2%;z-index:-1;background:rgba(31,43,48,.42);filter:blur(14px);transform:translate(4px,10px);opacity:.55}
+@media (min-width:1280px){.hero-detail{right:calc((100% - var(--max))/2)}}
+
+/* front pieces */
+.hero-front{position:absolute;inset:0;pointer-events:none;z-index:3}
+.hf{position:absolute;overflow:visible}
+.hf-slate{width:clamp(34px,4vw,56px);left:clamp(-12px,-.6vw,-4px);bottom:13%}
+.hf-nail{width:22px;left:clamp(34px,4.6vw,72px);bottom:5%}
+.hf-tile{width:clamp(36px,4.2vw,60px);right:clamp(10px,3vw,48px);top:calc(var(--eave) - 13%)}
+.hf-leaf{width:clamp(20px,2vw,28px);left:7%;top:-7%}
+@media (max-width:639px){.hf-nail,.hf-tile{display:none}}
+
+/* ---------- layout B: big gable plate, paper card overlapping its foot ---------- */
+html[data-hero="b"] .hero{--stage-h:clamp(300px,46vw,660px);--eave:34.06%;display:flex;flex-direction:column;padding-top:clamp(1rem,2.5vw,2rem)}
+html[data-hero="b"] .hero-stage{order:-1}
+html[data-hero="b"] .hero-frame{left:max(0px,(100% - 1440px)/2);right:max(0px,(100% - 1440px)/2)}
+html[data-hero="b"] .hero-plate{clip-path:polygon(0 34.06%,50% .72%,100% 34.06%,100% 100%,0 100%)}
+html[data-hero="b"] .hero-outline .ho-a{display:none}
+html[data-hero="b"] .hero-outline .ho-b{display:inline}
+html[data-hero="b"] .hero-grid{width:min(100% - 2*var(--gut),1100px);margin-top:calc(-1*clamp(3.5rem,8.5vw,8.5rem));padding:clamp(1.25rem,3.6vw,2.75rem);background:var(--paper);
+  box-shadow:0 2.8px 2.2px rgba(0,0,0,.034),0 6.7px 5.3px rgba(0,0,0,.048),0 12.5px 10px rgba(0,0,0,.06),0 22.3px 17.9px rgba(0,0,0,.072),0 41.8px 33.4px rgba(0,0,0,.086),0 100px 80px rgba(0,0,0,.12)}
+html[data-hero="b"] .hero-copy h1{font-size:clamp(2rem,1rem + 3vw,3.4rem);max-width:15ch}
+html[data-hero="b"] .hero-detail{display:none}
+html[data-hero="b"] .hf-leaf{top:auto;bottom:30%;left:auto;right:6%}
+@media (min-width:900px){html[data-hero="b"] .hero-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:end}}
+
+/* ---------- layout C: centred copy, symmetric gable cut, Google rating chip ---------- */
+html[data-hero="c"] .hero{--stage-h:clamp(260px,36vw,540px);--eave:21.92%}
+html[data-hero="c"] .hero-grid{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;width:min(100% - 2*var(--gut),52rem)}
+html[data-hero="c"] .hero-copy h1{max-width:22ch;margin-inline:auto}
+html[data-hero="c"] .hero-kicker{justify-content:center}
+html[data-hero="c"] .hero-kicker::after{content:"";display:block;flex:none;width:1.75rem;height:1px;background:currentColor}
+html[data-hero="c"] .hero-lead{margin-inline:auto}
+html[data-hero="c"] .hero-actions{justify-content:center}
+html[data-hero="c"] .hero-rating{display:inline-flex}
+html[data-hero="c"] .hero-plate{clip-path:polygon(0 21.92%,37.01% 21.92%,50% 1.45%,62.99% 21.92%,100% 21.92%,100% 100%,0 100%)}
+html[data-hero="c"] .hero-outline .ho-a{display:none}
+html[data-hero="c"] .hero-outline .ho-c{display:inline}
+html[data-hero="c"] .hero-detail{display:none}
+html[data-hero="c"] .hf-leaf{left:auto;right:9%}
+
+/* ---------- motion-only pieces (created by hero.js, so they never exist without motion) ---------- */
+.hero-air{position:absolute;left:0;top:-30%;width:100%;height:130%;pointer-events:none;z-index:2}
+.hero-outline-dash{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--copper);stroke-width:1.5px;stroke-dasharray:6 7;pointer-events:none}
+.hero-outline-dash path{display:none}
+html:not([data-hero="b"]):not([data-hero="c"]) .hero-outline-dash .ho-a,html[data-hero="b"] .hero-outline-dash .ho-b,html[data-hero="c"] .hero-outline-dash .ho-c{display:inline}
+/* v3: photos sit a little larger than their windows so they can shift with the pointer */
+.hero[data-v="3"] .hero-stage{perspective:1800px}
+.hero[data-v="3"] .hero-frame{transform-origin:50% 60%}
+.hero[data-v="3"].is-live .hero-pane img{left:-4%;top:-4%;width:108%;height:108%}
+/* v4: the sunlit copy of the photos, revealed through a soft round mask that follows the light */
+.hero-panes-lit{z-index:1;filter:brightness(1.09) saturate(1.2) sepia(.12);
+  -webkit-mask-image:radial-gradient(circle var(--lr,0px) at var(--lx,80%) var(--ly,20%),#000 0,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);
+          mask-image:radial-gradient(circle var(--lr,0px) at var(--lx,80%) var(--ly,20%),#000 0,#000 40%,rgba(0,0,0,.75) 60%,rgba(0,0,0,.4) 75%,rgba(0,0,0,.12) 88%,transparent 100%);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+.hero-glow{position:absolute;left:0;top:0;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;pointer-events:none;z-index:2;
+  background:radial-gradient(closest-side,rgba(255,214,160,.55),rgba(255,214,160,.18) 55%,rgba(255,214,160,0));mix-blend-mode:soft-light;will-change:transform}
+.hero-sun{position:absolute;left:0;top:0;width:900px;height:700px;margin:-350px 0 0 -450px;pointer-events:none;z-index:0;
+  background:radial-gradient(closest-side,rgba(221,167,131,.16),rgba(221,167,131,0));will-change:transform}
+.hero[data-v="4"]::after{opacity:0}
+/* v5: rooftops in front of the photo that rise as you scroll and become the start of the next section */
+.hero[data-v="5"]{overflow:clip}
+.hero-horizon{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:4;will-change:transform}
+.hero-horizon svg{display:block;width:100%;height:var(--hz-roof,120px)}
+.hero-horizon i{display:block;height:var(--hz-fill,200px);background:var(--hz-bg,var(--paper));margin-top:-1px}
+.hero-horizon-mid{z-index:4}
+.hero-horizon-front{z-index:5}
+
+/* ---------- hero-picker (OWNER TOOL: delete this block with the picker markup before sending to a client) ---------- */
+.hero-pick{position:fixed;left:10px;bottom:calc(var(--bar) + 10px + env(safe-area-inset-bottom));z-index:75;display:flex;flex-wrap:wrap;align-items:center;gap:2px;max-width:calc(100vw - 20px);
+  padding:3px 3px 3px 12px;background:rgba(250,249,246,.96);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-soft);
+  font-family:var(--ui);font-size:.8125rem;font-weight:600;line-height:1;color:var(--muted)}
+.hero-pick-l{margin-right:4px;white-space:nowrap}
+.hero-pick button{width:44px;height:44px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--text);font-family:var(--ui);font-weight:600;font-size:.9375rem;cursor:pointer;transition:background-color .15s ease,color .15s ease,transform .12s var(--ease)}
+.hero-pick button[aria-pressed="true"]{background:var(--copper);color:var(--paper)}
+@media (hover:hover){.hero-pick button[aria-pressed="false"]:hover{background:var(--warm)}}
+.hero-pick button:active{transform:scale(.96)}
+.hero-pick-v{display:flex;align-items:center;gap:2px;padding-left:10px;margin-left:4px;border-left:1px solid var(--line)}
+.hero-pick-v[hidden]{display:none}
+@media (max-width:599px){.hero-pick-v{flex-basis:100%;margin-left:0;padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+@media (min-width:768px){.hero-pick{left:16px;bottom:16px}}

@@ -1,1 +1,224 @@
-/* whole section styles */
+/* =====================================================================
+   #whole: "A roof works as a whole" (owner: whole team). Light CSS 3D exploded roof.
+   Final state (no JS, reduced motion, data-motion="off"): layers apart, all text visible, nothing pinned,
+   decorative back/front layers absent. Prototype variants are scoped by [data-v="1".."6"] on the section.
+   CSS 3D rule: never put opacity < 1 or filter on a preserve-3d element (it flattens its children); dim the svg.
+   ===================================================================== */
+.whole{
+  --xv-ease:cubic-bezier(.23,1,.32,1);
+  --xv-timber:#EADCC3; --xv-batten:#E2CCA8; --xv-membrane:#D3DEE2; --xv-lead:#8E9AA0;
+  --xv-clay1:#E9B995; --xv-clay2:#E3AC87; --xv-clay3:#EEC6A8; --xv-clay-ridge:#D89A73;
+  --xv-slate1:#A9B6BC; --xv-slate2:#9AA9B0; --xv-slate3:#B7C2C7; --xv-slate-ridge:#87979E;
+  --xv-hair:rgba(31,43,48,.5);
+  /* beautiful-shadows: lg for the stage (feature surface), sm for pills and the switch thumb */
+  --xv-shadow-lg:0 2.8px 2.2px rgba(0,0,0,.034),0 6.7px 5.3px rgba(0,0,0,.048),0 12.5px 10px rgba(0,0,0,.06),0 22.3px 17.9px rgba(0,0,0,.072),0 41.8px 33.4px rgba(0,0,0,.086),0 100px 80px rgba(0,0,0,.12);
+  --xv-shadow-sm:0 2px 3px -1px rgba(0,0,0,.1),0 1px 0 0 rgba(25,28,33,.02),0 0 0 1px rgba(25,28,33,.08);
+  overflow-x:clip;
+}
+
+/* ---------- layout ---------- */
+.whole-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:0}
+.whole-copy h2{margin-bottom:1rem;max-width:16ch}
+.whole-copy .lead{margin-bottom:1.5rem}
+.whole-explore{position:relative}
+.whole-media{position:relative;margin:.5rem 0 1.5rem}
+.whole-cta{margin-top:1.75rem}
+
+@media (min-width:900px){
+  .whole-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);grid-template-areas:"copy media" "ctl media" "cta media";grid-template-rows:auto auto 1fr;column-gap:clamp(2rem,4.5vw,4.5rem);align-items:start}
+  .whole-explore{display:contents}
+  .whole-copy{grid-area:copy}
+  .whole-ctl{grid-area:ctl}
+  .whole-cta{grid-area:cta;margin-top:1.5rem}
+  .whole-media{grid-area:media;margin:0;align-self:stretch;min-height:32rem}
+  /* pinned: the whole grid is one viewport tall and the copy column never moves (QC-4) */
+  .whole.xv-pinned .whole-grid{height:min(52rem,calc(100vh - 5.5rem))}
+  .whole.xv-pinned .whole-copy .lead{font-size:var(--h4);line-height:1.5;margin-bottom:1.25rem}
+  .whole.xv-pinned .whole-copy h2{margin-bottom:.75rem}
+  .whole.xv-pinned .whole-cta{margin-top:1.25rem}
+  .whole.xv-pinned .whole-media{min-height:0}
+}
+@media (min-width:1280px){.whole-grid{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)}}
+
+/* ---------- the stage: a soft paper panel ---------- */
+.xv-stage{position:relative;z-index:1;height:clamp(19rem,86vw,27rem);border-radius:18px;background-color:var(--paper);
+  background-image:linear-gradient(rgba(31,43,48,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(31,43,48,.045) 1px,transparent 1px);
+  background-size:28px 28px;background-position:center;box-shadow:var(--xv-shadow-lg);overflow:hidden;isolation:isolate}
+.xv-stage::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(31,43,48,.06);
+  background:radial-gradient(120% 90% at 50% 40%,rgba(250,249,246,0) 55%,rgba(240,236,227,.65))}
+@media (min-width:900px){.xv-stage{height:100%;min-height:30rem}.whole.xv-pinned .xv-stage{min-height:0}}
+
+.xv{position:absolute;inset:0;perspective:1800px;perspective-origin:50% 38%}
+.xv-floor{position:absolute;left:18%;right:18%;top:62%;height:22%;border-radius:50%;background:radial-gradient(closest-side,rgba(31,43,48,.13),rgba(31,43,48,0));pointer-events:none}
+.xv-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg))}
+.xv-model{--s:1;--gap:120px;--base:6px;--xs:.8;--xi:1.25;--rz:-34deg;--rx:60deg;position:absolute;left:50%;top:50%;width:520px;height:340px;margin:-170px 0 0 -260px;transform-style:preserve-3d;
+  transform:translate(var(--ox,0px),var(--oy,0px)) scale(var(--xs)) rotateX(var(--rx)) rotateZ(var(--rz))}
+.xv-l{position:absolute;inset:0;transform-style:preserve-3d;transform:translateZ(calc((var(--i) - 2)*(var(--base) + var(--gap)*var(--s)) + var(--dz,0px)));translate:0 0 var(--lift,0px);transition:translate .3s var(--xv-ease)}
+.xv-l>svg{display:block;width:100%;height:100%;overflow:visible;transition:opacity .25s ease}
+.xv.is-peel .xv-l:not(.is-on)>svg{opacity:.3}
+.xv-l.is-on{--lift:22px}
+.xv-l.is-swap{--lift:16px}
+
+/* layer art (light: flat warm fills, ink and copper strokes) */
+.xv-pl{fill:rgba(250,249,246,.5);stroke:rgba(31,43,48,.26)}
+.xv-t{fill:var(--xv-timber);stroke:var(--xv-hair)}
+.xv-sheet{fill:var(--xv-membrane);fill-opacity:.82;stroke:rgba(31,43,48,.32)}
+.xv-ln{stroke:rgba(31,43,48,.38);stroke-dasharray:7 6;fill:none}
+.xv-dot{fill:rgba(31,43,48,.42)}
+.xv-b{fill:var(--xv-batten);stroke:var(--xv-hair)}
+.xv-tile{stroke:var(--copper);stroke-opacity:.72}
+.t1{fill:var(--xv-clay1)}.t2{fill:var(--xv-clay2)}.t3{fill:var(--xv-clay3)}
+.xv-slate{stroke:rgba(31,43,48,.55)}
+.s1{fill:var(--xv-slate1)}.s2{fill:var(--xv-slate2)}.s3{fill:var(--xv-slate3)}
+.xv-c-tiles .xv-slip{fill:var(--xv-clay2);stroke-width:1.5}
+.xv-c-slates .xv-slip{fill:var(--xv-slate2);stroke-width:1.5}
+.xv-gap{fill:rgba(31,43,48,.05);stroke:rgba(31,43,48,.45);stroke-dasharray:3 3}
+.xv-ridge{fill:var(--xv-clay-ridge);stroke:var(--copper)}
+.xv-ridge-s{fill:var(--xv-slate-ridge);stroke:rgba(31,43,48,.6)}
+.xv-ln2{stroke:rgba(31,43,48,.45);fill:none}
+.xv-ln3{stroke:rgba(31,43,48,.32);fill:none}
+.xv-lead{fill:none;stroke:var(--xv-lead);stroke-width:5;stroke-linecap:round}
+.xv-lead2{fill:none;stroke:var(--xv-lead);stroke-width:2.5;stroke-opacity:.85}
+.whole[data-cover="tiles"] .xv-c-slates,.whole[data-cover="slates"] .xv-c-tiles{display:none}
+
+/* billboard tags: always face the viewer, constant size (QC-7: inactive text is --muted on paper, 7:1) */
+.xv-tag{position:absolute;left:100%;top:50%;margin-left:16px;transform-origin:0 50%;
+  transform:rotateZ(calc(-1*var(--rz))) rotateX(calc(-1*var(--rx))) scale(var(--xi,1));
+  display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .6rem .3rem .45rem;border-radius:999px;background:rgba(250,249,246,.94);box-shadow:var(--xv-shadow-sm);
+  white-space:nowrap;font-family:var(--ui);font-weight:600;font-size:.8125rem;line-height:1.1;color:var(--muted);
+  opacity:clamp(0,calc((var(--s) - .55)*2.5),1);transition:color .2s ease,background-color .2s ease}
+.xv-tag i{font-style:normal;color:var(--copper)}
+.xv-tag b{font-weight:600}
+.xv-l.is-on .xv-tag{color:var(--copper-deep);background:var(--copper-wash)}
+@media (max-width:699px){
+  /* small screens: the tags shrink to numbered badges matching the list, the active one keeps its name (QC-6) */
+  .xv-tag{padding:.25rem .45rem;margin-left:10px}
+  .xv-tag b{display:none}
+  .xv-l.is-on .xv-tag b{display:inline}
+}
+
+/* ---------- switch: Tiles | Slates (radiogroup) ---------- */
+.xv-switch{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem .9rem;margin:0 0 1rem}
+.xv-sw-l{font-family:var(--ui);font-weight:600;font-size:.9375rem;color:var(--text)}
+.xv-sw-track{position:relative;display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;padding:3px;border-radius:999px;background:var(--sand);box-shadow:inset 0 0 0 1px rgba(31,43,48,.07)}
+.xv-sw-thumb{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;background:var(--card);box-shadow:var(--xv-shadow-sm);transform:translateX(calc(var(--k,0)*100%));transition:transform .24s var(--xv-ease)}
+.xv-switch button{position:relative;z-index:1;min-height:44px;min-width:5.5rem;padding:0 1.1rem;border:0;border-radius:999px;background:none;cursor:pointer;
+  font-family:var(--ui);font-weight:600;font-size:var(--h5);color:var(--muted);transition:color .2s ease,transform .16s var(--xv-ease)}
+.xv-switch button[aria-checked="true"]{color:var(--text)}
+.xv-switch button:active{transform:scale(.97)}
+@media (hover:hover){.xv-switch button[aria-checked="false"]:hover{color:var(--copper)}}
+html:not(.js) .xv-switch{display:none}
+
+/* ---------- layer list ---------- */
+.xv-list{border-top:1px solid var(--line)}
+.xv-list li{border-bottom:1px solid var(--line)}
+.xv-list button{position:relative;display:grid;grid-template-columns:2.1rem minmax(0,1fr);gap:.5rem;align-items:start;width:100%;min-height:48px;padding:.75rem .5rem .75rem .35rem;border:0;background:none;text-align:left;font:inherit;color:var(--muted);cursor:pointer;transition:background-color .2s ease,color .2s ease}
+.xv-list button::before{content:"";position:absolute;left:0;top:-1px;bottom:-1px;width:2px;background:var(--copper);transform:scaleY(0);transform-origin:50% 0;transition:transform .25s var(--xv-ease)}
+.xv-list .n{font-family:var(--ui);font-weight:600;font-size:.875rem;color:var(--muted);padding-top:.15rem;transition:color .2s ease}
+.xv-list b{display:block;font-family:var(--ui);font-weight:600;font-size:var(--h5);color:var(--text);transition:color .2s ease}
+.xv-list .d{display:grid;grid-template-rows:1fr;font-size:.9375rem;line-height:1.45;transition:grid-template-rows .28s var(--xv-ease),opacity .2s ease}
+.xv-list .d>span{display:block;min-height:0;overflow:hidden;padding-top:.15rem}
+.xv-list button[aria-pressed="true"]{background:var(--copper-wash);color:var(--text)}
+.xv-list button[aria-pressed="true"]::before{transform:none}
+.xv-list button[aria-pressed="true"] .n,.xv-list button[aria-pressed="true"] b{color:var(--copper)}
+.xv-list button:active{background:var(--sand)}
+@media (hover:hover){.xv-list button:hover b{color:var(--copper)}}
+/* pinned: only the active row opens; the list reserves room for the tallest row so nothing below it moves */
+.xv-list.xv-measure .d{transition:none}
+.xv-list.is-peel .d{grid-template-rows:0fr;opacity:0}
+.xv-list.is-peel button[aria-pressed="true"] .d{grid-template-rows:1fr;opacity:1}
+.whole.xv-pinned .xv-list button{padding-top:.6rem;padding-bottom:.6rem;min-height:44px}
+
+/* ---------- back and front layers (decorative, motion only) ---------- */
+.xv-back,.xv-front{position:absolute;inset:0;pointer-events:none;translate:var(--px,0px) var(--py,0px)}
+.xv-back{z-index:0}
+.xv-front{z-index:3}
+.xv-back>*,.xv-front>*{position:absolute;display:block}
+.xv-truss{right:-16%;top:-12%;width:78%;fill:none;stroke:var(--slate-line);stroke-width:1.2}
+.xv-truss .xv-truss-d{stroke:var(--copper-tint);stroke-width:1}
+.xv-truss .xv-truss-g{stroke:var(--line);stroke-dasharray:4 6}
+.xv-frag{left:-34px;bottom:9%;width:68px;fill:var(--xv-clay1);stroke:var(--copper);stroke-width:1.5;stroke-linejoin:round}
+.xv-frag .xv-frag-l{fill:none;stroke-opacity:.5;stroke-width:1}
+.xv-nail{right:-12px;top:11%;width:18px;fill:#C9D0D3;stroke:rgba(31,43,48,.62);stroke-width:1.3;stroke-linejoin:round;rotate:28deg}
+.xv-nail .xv-nail-l{fill:none;stroke-width:1}
+html:not(.has-motion) .xv-back,html:not(.has-motion) .xv-front{display:none}
+@media (max-width:899px){.xv-truss{right:-30%;top:-14%;width:96%}.xv-frag{left:-14px;width:52px;bottom:4%}.xv-nail{right:-4px;width:15px}}
+
+/* ---------- flow mode on small screens: the stage stays in view while the list scrolls under it (QC-6) ---------- */
+@media (max-width:899px){
+  html.has-motion .whole .whole-media{position:sticky;top:calc(4rem + .5rem);z-index:4}
+  html.has-motion .whole .whole-media::before{content:"";position:absolute;z-index:-1;left:calc(-1*var(--gut));right:calc(-1*var(--gut));top:-.5rem;bottom:-1rem;background:linear-gradient(var(--warm) 88%,rgba(240,236,227,0))}
+  .whole .xv-front{z-index:5}
+}
+
+/* ---------- variant extras (hidden unless the variant uses them) ---------- */
+.xv-plate,.xv-drop,.xv-ripple,.xv-read,.xv-note,.xv-lift,.xv-model-cut{display:none}
+
+/* v2 build the roof: the tags of layers still in the air are hidden by whole.js */
+
+/* v3 turntable: a measured plate under the stack and a small readout */
+.whole[data-v="3"] .xv-plate{display:block;position:absolute;left:50%;top:50%;width:620px;height:620px;margin:-310px 0 0 -310px;transform:translateZ(calc(-2*(var(--base) + var(--gap)*var(--s)) - 46px))}
+.xv-plate-svg{display:block;width:100%;height:100%}
+.xv-pl-c{fill:rgba(230,223,208,.55);stroke:rgba(31,43,48,.2)}
+.xv-pl-r{fill:none;stroke:var(--copper-tint);stroke-dasharray:2 7}
+.xv-pl-t path{stroke:rgba(31,43,48,.38);stroke-width:1.5}
+html.has-motion .whole[data-v="3"] .xv-read{display:block}
+.xv-read{position:absolute;left:1rem;bottom:.85rem;z-index:2;font-family:var(--ui);font-weight:600;font-size:.875rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.xv-read b{color:var(--copper);font-weight:600}
+
+/* v4 cut-away corner */
+.whole[data-v="4"] #xv-model{display:none}
+.whole[data-v="4"] .xv-model-cut{display:block}
+.xv-model-cut{--cg:22px}
+.xv-k{transform:translateZ(calc(var(--zb,0px) + var(--i)*var(--cg)*var(--s)))}
+.xv-k[data-layer="1"]{--zb:4px}.xv-k[data-layer="2"]{--zb:16px}.xv-k[data-layer="3"]{--zb:34px}.xv-k[data-layer="4"]{--zb:50px}
+.xv-main,.xv-wsvg{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:visible;transition:opacity .25s ease}
+.xv.is-peel .xv-k:not(.is-on) .xv-main{opacity:.45}
+.xs{position:absolute;display:block;transform-origin:0 0;box-shadow:inset 0 0 0 .75px rgba(31,43,48,.42)}
+.xs-x{transform:rotateX(-90deg)}
+.xs-y{transform:rotateY(90deg)}
+.xs-raf{background:var(--xv-timber);background-image:repeating-linear-gradient(90deg,rgba(31,43,48,.18) 0 1px,transparent 1px 46px)}
+.xs-y.xs-raf{background-image:repeating-linear-gradient(180deg,rgba(31,43,48,.12) 0 1px,transparent 1px 18px)}
+.xs-und{background:#B9C9CF}
+.xs-bat{background:transparent;box-shadow:none;background-image:repeating-linear-gradient(90deg,var(--xv-batten) 0 9px,transparent 9px 34px)}
+.xs-x.xs-bat{background:var(--xv-batten);box-shadow:inset 0 0 0 .75px rgba(31,43,48,.42)}
+.xs-cov{background:var(--xv-clay2);background-image:repeating-linear-gradient(90deg,rgba(152,86,50,.55) 0 1px,transparent 1px 29px)}
+.whole[data-cover="slates"] .xs-cov{background-color:var(--xv-slate2);background-image:repeating-linear-gradient(90deg,rgba(31,43,48,.45) 0 1px,transparent 1px 22px)}
+.xs-in{filter:none;background-blend-mode:multiply}
+.xs-in::after{content:"";position:absolute;inset:0;background:rgba(31,43,48,.13)}
+.xv-wedge{display:none;position:absolute;inset:0;transform-style:preserve-3d;
+  transform:translate3d(calc(var(--w,0)*84px),calc(var(--w,0)*112px),calc(var(--w,0)*(70px + var(--i)*38px)))}
+.xv-wedge>*{opacity:calc(1 - var(--w,0))}
+html.has-motion .whole[data-v="4"] .xv-wedge{display:block}
+.xv-call{position:absolute;width:0;height:0;transform-origin:0 0;transform:rotateZ(calc(-1*var(--rz))) rotateX(calc(-1*var(--rx))) scale(var(--xi,1))}
+.xv-call::before{content:"";position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--copper);box-shadow:0 0 0 3px rgba(250,249,246,.95)}
+.xv-call::after{content:"";position:absolute;left:0;bottom:4px;width:1px;height:34px;background:var(--copper)}
+.xv-cin{position:absolute;bottom:38px;display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .6rem .3rem .45rem;border-radius:999px;background:rgba(250,249,246,.96);box-shadow:var(--xv-shadow-sm);
+  white-space:nowrap;font-family:var(--ui);font-weight:600;font-size:.8125rem;line-height:1.1;color:var(--muted);transition:color .2s ease,background-color .2s ease}
+.xv-call-l .xv-cin{right:-14px}
+.xv-call-r .xv-cin{left:-14px}
+.xv-cin i{font-style:normal;color:var(--copper)}
+.xv-cin b{font-weight:600}
+.xv-k.is-on .xv-cin{color:var(--copper-deep);background:var(--copper-wash)}
+html.has-motion .whole[data-v="4"] .xv-call{transition:opacity .3s ease}
+html.has-motion .whole[data-v="4"] .xv-call:not(.is-shown){opacity:0}
+@media (max-width:699px){.xv-cin b{display:none}.xv-k.is-on .xv-cin b{display:inline}}
+
+/* v5 raindrop: a billboard drop and a ripple that lies flat on the layer it lands on */
+html.has-motion .whole[data-v="5"] .xv-drop,html.has-motion .whole[data-v="5"] .xv-ripple{display:block}
+.xv-drop{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d}
+.xv-drop-b{position:absolute;left:0;top:0;width:22px;height:30px;transform-origin:0 0;transform:rotateZ(calc(-1*var(--rz))) rotateX(calc(-1*var(--rx))) scale(var(--xi,1)) translate(-50%,-100%);opacity:0}
+.xv-drop-b svg{display:block;width:100%;height:100%;fill:#CFE1EA;stroke:#3F6274;stroke-width:1.5}
+.xv-drop-b .xv-drop-hi{fill:none;stroke:#FAF9F6;stroke-width:1.6;stroke-linecap:round}
+.xv-ripple{position:absolute;left:-30px;top:-30px;width:60px;height:60px;border-radius:50%;border:2px solid #3F6274;opacity:0}
+html.has-motion .whole[data-v="5"] .xv-note{display:block}
+.xv-note{position:absolute;left:1rem;right:1rem;bottom:.9rem;z-index:2;max-width:26rem;margin:0;padding:.55rem .8rem;border-radius:12px;background:rgba(250,249,246,.95);box-shadow:var(--xv-shadow-sm);font-size:.9375rem;line-height:1.4;color:var(--text)}
+
+/* v6 hands-on: a slider (and drag on the stage) lifts the layers; no pin */
+.whole[data-v="6"] .xv-lift{display:flex}
+.xv-lift{position:absolute;left:1rem;right:1rem;bottom:1rem;z-index:2;align-items:center;gap:.9rem;padding:.2rem 1rem;border-radius:999px;background:rgba(250,249,246,.95);box-shadow:var(--xv-shadow-sm)}
+.xv-lift label{flex:none;font-family:var(--ui);font-weight:600;font-size:.9375rem;color:var(--text)}
+.xv-lift input{flex:1;min-width:0;height:44px;margin:0;accent-color:var(--copper);cursor:pointer}
+html.has-motion .whole[data-v="6"] .xv{cursor:grab;touch-action:pan-y}
+html.has-motion .whole[data-v="6"] .xv.is-drag{cursor:grabbing}
+@media (max-width:420px){.xv-lift label{font-size:.875rem}}
