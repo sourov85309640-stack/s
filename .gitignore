@@ -1,0 +1,13 @@
+work/src_x/
+work/*.zip
+work/*.docx
+work/*.html
+work/contact.jpg
+work/tools/node_modules/
+work/tools/package*.json
+work/v31/reference/
+work/v31/out/
+work/v31/shots/
+work/v31/_old/
+work/v31/v31_source.zip
+__pycache__/

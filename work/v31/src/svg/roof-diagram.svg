@@ -1,0 +1,62 @@
+<svg class="dg" viewBox="50 0 900 540" role="img" aria-label="Front view of a hipped slate roof with a chimney stack, a dormer, eaves, gutter and downpipe. Six numbered points mark where roofs commonly fail." focusable="false">
+  <defs>
+    <pattern id="dg-slate" width="44" height="24" patternUnits="userSpaceOnUse"><path class="dg-ln" d="M0 .5H44M22 .5V12M0 12.5H44M0 12.5V24M44 12.5V24"/></pattern>
+    <pattern id="dg-brick" width="24" height="12" patternUnits="userSpaceOnUse"><path class="dg-ln" d="M0 .5H24M12 .5V6M0 6.5H24M0 6.5V12M24 6.5V12"/></pattern>
+    <pattern id="dg-stone" width="72" height="32" patternUnits="userSpaceOnUse"><path class="dg-ln" d="M0 .5H72M30 .5V16M0 16.5H72M52 16.5V32M10 16.5V32"/></pattern>
+    <clipPath id="dg-roofclip"><polygon points="150,100 850,100 900,312 100,312"/></clipPath>
+  </defs>
+
+  <!-- ground and wall -->
+  <path class="dg-ln dg-strong" d="M60 520.5H940"/>
+  <rect class="dg-fill" x="140" y="318" width="720" height="202"/>
+  <rect x="140" y="318" width="720" height="202" fill="url(#dg-stone)"/>
+  <rect class="dg-ln dg-strong dg-nofill" x="140" y="318" width="720" height="202"/>
+  <g class="dg-ln dg-strong dg-nofill">
+    <rect x="220" y="384" width="74" height="96"/><path d="M257 384V480M220 432H294"/>
+    <rect x="706" y="384" width="74" height="96"/><path d="M743 384V480M706 432H780"/>
+  </g>
+
+  <!-- roof plane, hips, slate coursing -->
+  <polygon class="dg-fill dg-fill2" points="150,100 850,100 900,312 100,312"/>
+  <rect x="100" y="100" width="800" height="212" fill="url(#dg-slate)" clip-path="url(#dg-roofclip)"/>
+  <polygon class="dg-ln dg-strong dg-nofill" points="150,100 850,100 900,312 100,312"/>
+  <path class="dg-ln dg-strong" d="M150 100L100 312M850 100L900 312"/>
+
+  <!-- ridge capping -->
+  <g data-part="1">
+  <rect class="dg-cap" x="138" y="86" width="724" height="16" rx="8"/>
+  <path class="dg-cap-j" d="M186 86V102M234 86V102M282 86V102M330 86V102M378 86V102M426 86V102M474 86V102M522 86V102M570 86V102M618 86V102M666 86V102M714 86V102M762 86V102M810 86V102"/>
+  </g>
+
+  <!-- dormer -->
+  <rect class="dg-solid" x="224" y="214" width="112" height="76"/>
+  <rect x="224" y="214" width="112" height="76" fill="url(#dg-stone)"/>
+  <rect class="dg-ln dg-strong dg-nofill" x="246" y="232" width="68" height="40"/><path class="dg-ln dg-strong" d="M280 232V272"/>
+  <polygon class="dg-solid" points="208,216 280,158 352,216"/>
+  <g data-part="4">
+  <polygon class="dg-valley" points="208,216 280,158 352,216"/>
+  <path class="dg-valley" d="M224 216V292M336 216V292"/>
+  </g>
+
+  <!-- chimney stack -->
+  <g data-part="2">
+  <rect class="dg-solid" x="600" y="30" width="84" height="190"/>
+  <rect x="600" y="30" width="84" height="190" fill="url(#dg-brick)"/>
+  <rect class="dg-ln dg-strong dg-nofill" x="600" y="30" width="84" height="190"/>
+  <rect class="dg-solid dg-ln dg-strong" x="592" y="22" width="100" height="10"/>
+  <rect class="dg-ln dg-strong dg-nofill" x="610" y="6" width="24" height="16" rx="3"/>
+  <rect class="dg-ln dg-strong dg-nofill" x="650" y="6" width="24" height="16" rx="3"/>
+  </g>
+
+  <!-- lead flashing around the stack -->
+  <g data-part="3"><path class="dg-lead" d="M588 168V224H696V168M580 228H704"/></g>
+
+  <!-- eaves, fascia, gutter, downpipe -->
+  <g data-part="5"><rect class="dg-fill dg-fill2 dg-ln dg-strong" x="96" y="308" width="808" height="10"/></g>
+  <g data-part="6">
+  <rect class="dg-fill dg-ln dg-strong" x="92" y="322" width="816" height="16" rx="8"/>
+  <path class="dg-ln" d="M180 338V350M340 338V350M500 338V350M660 338V350M820 338V350"/>
+  <rect class="dg-fill dg-ln dg-strong" x="872" y="338" width="16" height="182"/>
+  <path class="dg-ln dg-strong" d="M866 400H894M866 470H894"/>
+  </g>
+</svg>

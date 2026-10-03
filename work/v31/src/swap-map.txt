@@ -1,0 +1,7 @@
+=====================================================================
+SWAP MAP  -  Roofing master v3.1 (light, interactive homepage). Sample firm: Ridgewell Roofing, Cirencester.
+Every sample item carries data-sample="..." in the markup. Search the built file for  data-sample  to find them all.
+Items that need the owner's OK carry data-confirm="...".
+Source: src/ (build with  python3 build.py roofing-master-v3.1.html ). Each section is its own file in src/sections/.
+=====================================================================
+(draft: sections are filled in at the end of the build)

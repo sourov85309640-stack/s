@@ -1,0 +1,45 @@
+# BRIEF (shared by every agent). Read fully before you start.
+
+Project folder: /home/user/s/work/v31   (call it ROOT). Everything below is relative to ROOT.
+Job: finish the HOMEPAGE of a reusable single-file roofing website template, "version 3.1", for the owner Asiful (sells it to UK roofers). It must feel like a $20,000 website: very immersive, scroll-driven, smooth, best UX and spacing, and it must convert visitors into calls and enquiries. It is a TEMPLATE: nothing may depend on one roofing company's specifics.
+
+Read these first (in this order, skim what is long):
+1. docs/00_START_HERE_PROMPT.md and docs/01_HANDOVER_A-Z.md  (the owner's instructions and the design system; sections 4, 6, 7, 8, 9 matter most)
+2. The user's skills are in /home/user/s/work/02_SKILLS_REFERENCE.md (10k lines; each skill starts with "# SKILL: name"; `grep -n '^# SKILL:'` gives the index). The owner insists they are followed. Read the ones relevant to your task in full, not only the heading.
+3. The old interim build is in src/ (index.html, styles.css, motion.js, app.js, svg/). It is DARK and its sections are being rebuilt in a new modular layout (see ARCHITECTURE). Old docs: docs/SPEC_v31_polish.md, docs/ideas_roofing.md, docs/ideas_uav.md, docs/qa_c.md, docs/qa_qa_d.md (known bugs QC-1..9, D1..D10). Old backups are in _old/ (ignore).
+
+## Hard facts about the environment
+- Only headless Chromium (Playwright python, executable /opt/pw-browsers/chromium) is available. No Safari, Firefox, real phone, screen reader. Never claim otherwise.
+- NO outbound access to Unsplash, Pexels, Pixabay, Wikimedia, jsDelivr, unpkg (policy 403). npm/pip work. So no new stock photos can be downloaded: use the images already in src/img (and images derived from them) and SVG art. Avatars are initials in coloured circles (that is also what real Google reviews show when a reviewer has no photo).
+- axe-core is at /home/user/s/work/tools/node_modules/axe-core/axe.min.js
+- Python3 with Pillow and playwright installed. Node 22 available.
+
+## Owner's binding direction (newest wins)
+1. Theme LIGHT everywhere. No dark sections, no dark panels. Surfaces: paper #FAF9F6, warm #F0ECE3, sand #E6DFD0, pale sky/slate tint #EAF0F2. One accent: copper #985632 (text), copper tint #DDA783 (decoration only, never for small text on light). Ink #1F2B30 is a TEXT/line colour only, never a section background.
+2. KEEP the pinned full-view scroll scenes and the CSS 3D exploded roof, but company-neutral: Tiles / Slates segmented switch on the roof, neutral copy, generic layers (Ridge and lead, Covering, Battens, Underlay, Rafters). Problem-spots diagram shows only parts every roof has (ridge, chimney stack, flashing, valley, eaves, gutter). Both converted to light.
+3. Many small, natural, roof-themed interactions and floating details in EVERY section, not too much, nothing forced, nothing loud. Several sections were dead (decide, areas, checks, how it works): make them alive. New sections/layouts allowed.
+4. Keep the hero he likes: gable-shaped cutout, text on top, photo at the bottom. Offer 3 hero variants behind data-hero="a|b|c" (default a = current layout).
+5. Second section = a genuine imported-looking Google reviews widget (real Google G colours, rating header, review cards with avatar + G badge, carousel arrows, "Review us on Google" button). Reviews are invented samples: keep data-sample.
+6. Typography plain: Arial 700 headings (h1/h2), Source Sans 3 for everything else. NO fancy display fonts, NO tracked all-caps eyebrows, NO giant outline text, nothing that looks AI-made (see skills no-ai-design-slop, audit-ai-design-slop).
+7. Copy: plain UK English, no em dashes anywhere (also no en dashes used as dashes), no scarcity language, no invented claims. Anything the owner must confirm carries data-confirm="...". Stock/placeholder photos are never described as the client's work.
+
+## Motion rules (binding, from the owner's animate / animation-systems / emil skills)
+transform and opacity only (CSS variables on a single element that feed transform/opacity are fine; clip-path reveals only for one-off intro masks); no `transition: all`; no ease-in on UI; no scale(0) (start from .94+ or use opacity); UI motion under 300 ms; reveals 0.75 to 1.1 s; stagger 30 to 80 ms; hover only inside `@media (hover:hover)`; press scale .96 to .97; reveals happen once; 44 px targets; visible focus rings not hidden by the sticky header or the mobile bar; no scroll-jacking on touch; ONE smooth scroll engine (Lenis driven by the GSAP ticker, already in core.js); page readable without JS, under `prefers-reduced-motion`, and with `<html data-motion="off">` (the FINAL state must show: all text visible, 3D roof apart, nothing pinned, ambient layers absent). CSS 3D only, no WebGL. Ambient canvas rules (falling-leaves and ambient-section-particles skills): one rAF loop total, IntersectionObserver pause when offscreen, pause on hidden tab, DPR cap 2, dt clamp 1/30, element budget 6 to 12 per section, aria-hidden, pointer-events none.
+Headings may be split into words with masks (masked-reveal skill) but must keep an aria-label and not clip descenders (see RW.splitWords).
+
+## ARCHITECTURE (modular, so parallel agents never edit the same file)
+The page is assembled by `python3 build.py out.html` from src/. build.py inlines: `<!-- @include path -->` (any file under src/, nested allowed; used for sections/*.html and svg/*.svg), every `<link rel="stylesheet" href="x.css">`, every `<script src="x.js"></script>`, and every `src="img/..."` / `url(img/...)` / `url(fonts/...)` as base64.
+- src/index.html : skeleton (head, header, main with one @include per section, footer, mobile bar, link tags, script tags).
+- src/sections/NAME.html : one partial per section: hero, reviews, services, where, decide, whole, projects, how, checks, areas, faq, contact.
+- CSS in load order: base.css, then hero.css, reviews.css, services.css, where.css, decide.css, whole.css, projects.css, how.css, checks.css, areas.css, faq.css, contact.css, fx.css.  Each section CSS only styles its own section (prefix classes with the section name, e.g. .rv-, .svc-, .dia-, .dec-, .xv-, .prj-, .how-, .chk-, .are-, .faq-, .ct-). base.css (owner: lead) holds tokens, reset, type, layout, buttons, header/nav, footer, mobile bar, section edges (.e-*), utilities, focus, the sky tint overlay. Do not edit base.css, core.js, boot.js, index.html, build.py: if you need a change there, write it into your report under "REQUEST TO LEAD" and work around it in your own files.
+- JS: core.js (lead) defines window.RW; then app.js (menu, nav, form: owned by contact agent), hero.js, reviews.js, services.js, where.js, decide.js, whole.js, projects.js, how.js, checks.js, areas.js, faq.js, contact.js, fx.js (ambient engine, weathervane, sky tint, header extras), boot.js (lead, runs everything). Each file is an IIFE that registers features: `RW.add('name', fn, {motion:true})`. Motion features run only when RW.motionOK; others (`{motion:false}`) always run (carousel, FAQ, form, copy chip).
+- window.RW API (read src/core.js for the truth): RW.$ RW.$$ RW.clamp RW.safe RW.gsap RW.ST RW.lenis RW.fine RW.motionOK RW.reduced RW.HDR (sticky header height, 64) RW.splitWords(el) RW.reveal(sel, opts) RW.scrollTo(target, {offset,duration,immediate}) RW.onView(el, {enter, leave, once, margin}) RW.add(name, fn, {motion}) RW.mm (a gsap.matchMedia). Pinned scenes must be created in DOM order (RW.add order = script order = DOM order).
+- Ambient layer is declarative: put `data-fx="leaves"` (or "dust", "rain", "birds", "petals", "tiles"; space separated for several) and optionally `data-fx-count="8"` on a section; fx.js mounts one canvas inside it. Sections must have `position:relative` and content above the canvas (canvas z-index 0, content .wrap z-index 1).
+- Photos: src/img/*.webp only (each under 140 KB). Names in use are listed by `ls src/img`.
+- All sample content carries data-sample="...", owner-confirm items data-confirm="...". Keep SWAP-MAP notes for what you add in your report.
+
+## Design language (light)
+Warm paper surfaces, thin copper hairlines, roof-shaped cut edges (.e-wave .e-step .e-rake .e-hip .e-saw .e-arc .e-zig .e-terrace .e-chim), gable/peak photo cutouts (clip-path on a `.cw` wrapper, transform on the child), soft layered shadows from the beautiful-shadows skill (use the --shadow-* tokens), generous spacing (--pad), one focal point per viewport. Illustration style for small SVG details: 1.5px strokes in --ink at 55 to 70% or copper, flat warm fills, no gradients-for-the-sake-of-it. Number details like 01/02 only if they carry order.
+
+## Agent hygiene
+Several agents work at the same time in ROOT. Only edit files you own. Build to your OWN output path: `mkdir -p out && python3 build.py out/<tag>.html`. Test only your own out file. Screenshots to shots/<tag>_*.png and LOOK at them (Read tool shows images). Never run rm -rf. Do not git commit. Report back concisely (under 400 words): what you did, files, evidence, anything you could not do, REQUEST TO LEAD items.
