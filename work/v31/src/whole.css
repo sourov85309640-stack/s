@@ -62,6 +62,7 @@
 
 /* layer art (light: flat warm fills, ink and copper strokes) */
 .xv-pl{fill:rgba(250,249,246,.55);stroke:rgba(31,43,48,.3)}
+.xv-pl-d{fill:none;stroke-dasharray:4 6}
 .xv-t{fill:var(--xv-timber);stroke:var(--xv-hair)}
 .xv-sheet{fill:var(--xv-membrane);fill-opacity:.82;stroke:rgba(31,43,48,.32)}
 .xv-ln{stroke:rgba(31,43,48,.38);stroke-dasharray:7 6;fill:none}

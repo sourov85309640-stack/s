@@ -145,7 +145,7 @@
       st.x += (st.tx - st.x) * ease; st.y += (st.ty - st.y) * ease; st.r += (st.tr - st.r) * rease;
       fl.style.transform = 'translate3d(' + st.x.toFixed(1) + 'px,' + st.y.toFixed(1) + 'px,0)';
       /* mask centre = the pointer, in the photo's own coordinates (it sits to the left, so colour floods from the row side) */
-      fl.style.setProperty('--rx', (st.mx - st.x).toFixed(1) + 'px');
+      fl.style.setProperty('--rx', Math.max(-40, st.mx - st.x).toFixed(1) + 'px');
       fl.style.setProperty('--ry', (st.my - st.y).toFixed(1) + 'px');
       fl.style.setProperty('--rr', st.r.toFixed(1) + 'px');
       if (Math.abs(st.tx - st.x) > 0.2 || Math.abs(st.ty - st.y) > 0.2 || Math.abs(st.tr - st.r) > 0.3) schedule();

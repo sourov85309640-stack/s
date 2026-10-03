@@ -313,6 +313,7 @@
     /* ---- layout changes ---- */
     function relayout() {
       var keep = idx;
+      if (vp.scrollLeft) vp.scrollLeft = 0;
       measure();
       var L = snaps.length;
       if (dots.length !== L) buildDots();
@@ -326,6 +327,7 @@
       new ResizeObserver(function () { var w = vp.clientWidth; if (Math.abs(w - lastW) > 1) { lastW = w; relayout(); } }).observe(vp);
     } else window.addEventListener('resize', relayout);
 
+    vp.scrollLeft = 0; /* the no-JS scroll-snap may have left it at the padding offset */
     measure(); buildDots(); setIndex(0, false); render();
 
     api = {

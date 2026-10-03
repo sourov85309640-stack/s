@@ -57,7 +57,7 @@
         tags[i].style.opacity = (op * ts).toFixed(3);
       }
     } else if (V === 3 && readB) {
-      var deg = Math.round(o.rz + 38);
+      var deg = Math.round(o.rz + 56);
       if (deg !== lastRead) { lastRead = deg; readB.textContent = deg; }
     } else if (V === 5) { rain(); }
   }
@@ -108,9 +108,9 @@
       },
       poses: [{ s: 1, rz: -40 }, { s: 1, rz: -30 }] },
     3: { len: 2.3, wins: W5(0.2, 0.16), spy: true,
-      init: function () { o.s = 0; o.rz = -38; },
-      build: function (tl) { tl.to(o, { s: 1, duration: 0.3, ease: 'power2.inOut' }, 0).to(o, { rz: 2, duration: 1 }, 0); },
-      poses: [{ s: 1, rz: -38 }, { s: 1, rz: -18 }, { s: 1, rz: 2 }] },
+      init: function () { o.s = 0; o.rz = -56; },
+      build: function (tl) { tl.to(o, { s: 1, duration: 0.3, ease: 'power2.inOut' }, 0).to(o, { rz: -16, duration: 1 }, 0); },
+      poses: [{ s: 1, rz: -56 }, { s: 1, rz: -36 }, { s: 1, rz: -16 }] },
     4: { len: 2.2, wins: W5(0.3, 0.13), spy: true,
       init: function () { o.w = 0; o.s = 0; o.rz = -40; o.rx = 56; },
       build: function (tl) {

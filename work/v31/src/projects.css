@@ -127,7 +127,7 @@ html:not(.js) .prj-cond-tg{display:none}
 .prj-days-tag{justify-content:center;gap:3px}
 .prj-days-tag i{width:12px;height:8px}
 .prj[data-v="4"] .prj-frag-a{display:none}
-@media (max-width:799px){.prj[data-v="4"] .prj-tag{right:-.25rem;width:6.5rem}.prj[data-v="4"] .prj-frag-near{left:-.5rem;width:64px}.prj[data-v="4"] .prj-plate{left:-.5rem}}
+@media (max-width:799px){.prj[data-v="4"] .prj-tag{right:.75rem;width:6rem}.prj[data-v="4"] .prj-frag-near{left:-.5rem;width:64px}.prj[data-v="4"] .prj-plate{left:-.5rem}}
 
 /* =====================================================================
    v5: pinned project scene (desktop): the photo closes in on the roof while
