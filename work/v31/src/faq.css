@@ -26,6 +26,7 @@
 .faq-ill path{fill:none;stroke:rgba(31,43,48,.55);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .faq-ill .i-rf{fill:#CDD6D9}
 .faq-ill .i-ch{fill:#E8CDBB}
+.faq-ill path.i-win{fill:#F6C979;stroke:none;opacity:var(--near,0)}
 .faq-ill .i-smoke path{stroke:rgba(31,43,48,.3)}
 html.has-motion .faq-ill .i-smoke path{animation:faq-smoke 4.8s ease-in-out infinite}
 html.has-motion .faq-ill .i-smoke path:nth-child(2){animation-delay:-2.2s}

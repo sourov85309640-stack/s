@@ -1,0 +1,42 @@
+/* REACT (react.js): entry washes, living field canvases and the small characters' extra parts.
+   Everything here is decorative, never takes clicks, and only exists on fine pointers with motion allowed (made by JS). */
+.rx-cv,.rx-wash{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.rx-wash{overflow:hidden}
+.rx-wash i{position:absolute;left:var(--wx);top:var(--wy);width:0;height:0}
+.rx-wash i::before,.rx-wash i::after{content:"";position:absolute;pointer-events:none}
+/* ring: one thin circle opens out from where you came in */
+.rx-ring::before{left:-700px;top:-700px;width:1400px;height:1400px;border-radius:50%;border:2px solid rgba(152,86,50,.32);animation:rx-open 1.3s cubic-bezier(.2,.7,.2,1) forwards}
+/* ripple: two smaller rings, like a drop on water */
+.rx-ripple::before,.rx-ripple::after{left:-350px;top:-350px;width:700px;height:700px;border-radius:50%;border:1.5px solid rgba(74,104,122,.35);animation:rx-open 1.1s cubic-bezier(.2,.7,.2,1) forwards}
+.rx-ripple::after{animation-delay:.18s;opacity:0}
+/* gable: a roof outline grows from the entry point */
+.rx-gable::before{left:-450px;top:-330px;width:900px;height:420px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 420'%3E%3Cpath d='M10 410L450 12L890 410' fill='none' stroke='%23985632' stroke-opacity='.35' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;transform-origin:50% 78%;animation:rx-open 1.2s cubic-bezier(.2,.7,.2,1) forwards}
+/* glow: a warm soft light blooms and fades */
+.rx-glow::before{left:-450px;top:-450px;width:900px;height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(246,201,121,.32),rgba(246,201,121,0));animation:rx-bloom 1.5s ease-out forwards}
+/* dots: a patch of survey dots spreads out and fades */
+.rx-dots::before{left:-400px;top:-400px;width:800px;height:800px;background:radial-gradient(circle,rgba(152,86,50,.4) 1.3px,transparent 1.8px) 0 0/20px 20px;-webkit-mask:radial-gradient(closest-side,#000 40%,transparent);mask:radial-gradient(closest-side,#000 40%,transparent);animation:rx-open 1.3s cubic-bezier(.2,.7,.2,1) forwards}
+/* sweep: a band of light passes over the section in the direction you scrolled */
+.rx-sweep::before{left:-200vw;width:400vw;top:-90px;height:180px;background:linear-gradient(transparent,rgba(152,86,50,.07),transparent);animation:rx-sweep-d 1.4s cubic-bezier(.2,.7,.2,1) forwards}
+.rx-sweep.is-up::before{animation-name:rx-sweep-u}
+@keyframes rx-open{0%{transform:scale(.03);opacity:0}12%{opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes rx-bloom{0%{transform:scale(.2);opacity:0}35%{opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes rx-sweep-d{0%{transform:translateY(-40px);opacity:0}20%{opacity:1}100%{transform:translateY(560px);opacity:0}}
+@keyframes rx-sweep-u{0%{transform:translateY(40px);opacity:0}20%{opacity:1}100%{transform:translateY(-560px);opacity:0}}
+/* sections that need a positioning context for the washes and fields */
+.tr,.hero,.ftr{position:relative}
+/* contact: the lamp */
+.rx-lamp{position:absolute;left:-340px;top:-340px;width:680px;height:680px;border-radius:50%;pointer-events:none;z-index:0;opacity:0;background:radial-gradient(closest-side,rgba(255,214,150,.42),rgba(255,214,150,.12) 55%,rgba(255,214,150,0));will-change:transform,opacity}
+/* where: the umbrella that keeps the rain off the pointer */
+.rx-umb{position:fixed;left:0;top:0;z-index:94;width:0;height:0;pointer-events:none;opacity:0}
+.rx-umb svg{position:absolute;left:-51px;top:-48px;width:102px;height:88px;max-width:none;overflow:visible}
+.rx-umb-c{fill:rgba(152,86,50,.22);stroke:var(--copper);stroke-width:2.2;stroke-linejoin:round}
+.rx-umb-r{fill:none;stroke:var(--copper);stroke-width:2;stroke-linecap:round}
+/* gallery: the glint that slides across a tilted photo */
+.wk-it{perspective:900px}
+.wk-btn{transform-style:preserve-3d;will-change:transform}
+.rx-glint{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);opacity:0;transition:opacity .25s}
+/* about: the roofer's eye */
+.ab .ab-eye{fill:#1F2B30;opacity:0}
+.ab .ab-head,.ab .ab-cap,.ab .ab-eye{transform-box:view-box}
+@media (hover:none),(pointer:coarse){.rx-umb,.rx-cv,.rx-wash,.rx-lamp,.rx-glint{display:none}}
+@media print{.rx-cv,.rx-wash,.rx-lamp,.rx-glint{display:none}}
