@@ -82,3 +82,19 @@ data-motion=off show the final state, 44 px targets, visible focus, Lenis only, 
 - Check the quiz end to end (fills #f-notes and the issue tag), the before/after range with keyboard, types and care tabs with arrows.
 - Check the canvas fields stay smooth (one active at a time); lower counts in react.js if a section drops frames.
 - Design options panel has no rows for the nine new sections yet; add variants later if wanted.
+
+## Round 4 (owner feedback) done by Opus
+- Cursor trail: default is now a soft short line with the odd themed piece on quick flicks (?cur=soft). Busier trails kept as ?cur=full.
+- Pointer fields dim to 30% while the pointer is over text; "How it works" chalk lines calmer (4 lines max, smaller radius).
+- Leak tour (#where): stop counter, and for each stop "You might notice", "Usual fix" and a "Sounds like mine" link.
+- Plain sections upgraded: FAQ drawing board (scene per question, hover previews), problem photo loupe and hand-drawn notes,
+  project "day by day" drawing with six day buttons.
+- Roofer companion (companion.js, ?pal=on|off): leans in at sections with a prop and a tip; eyes follow the pointer; Hide button.
+- Team section hidden by default (?team=on shows it); intended for a separate team page later.
+- Two or three versions for every new section; Versions tool rewritten (current section, A/B/C, open in new tab);
+  deliver/roofing-options.html = pictures of every version (rebuild with: python3 tools/gallery.py deliver/roofing-master-v3.1.html deliver/roofing-options.html).
+- Hero smoke parts around the pointer; footer windows light up for the evening.
+## Round 4 checks for Sonnet
+- Companion must never cover the form, the mobile bar or the Versions button; check at 1024 to 1920.
+- FAQ board scenes at 960 to 1100 wide (sticky column), the loupe at the edges of photos, day-by-day buttons on phones.
+- Where tour: the expanded current row shifts the rows below while pinned; check it reads well at 1000 to 1440.

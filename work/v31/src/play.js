@@ -92,3 +92,33 @@
     });
   }, { motion: true });
 }());
+
+/* EVENING (owner: lead): at the very bottom the little town in the footer settles in for the evening. Windows light up one
+   by one as the footer arrives, and the ones nearest the pointer glow brighter as it passes over the roofs. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('evening', function () {
+    var svg = RW.$('.ftr-roofs'); if (!svg) return;
+    var NS = 'http://www.w3.org/2000/svg', g = document.createElementNS(NS, 'g'), wins = [];
+    g.setAttribute('class', 'ftr-wins');
+    for (var x = 24, i = 0; x < 1180; x += 46 + (i * 37) % 30, i++) {
+      if (i % 4 === 3) continue;
+      var r = document.createElementNS(NS, 'rect');
+      r.setAttribute('x', x); r.setAttribute('y', i % 3 === 0 ? 108 : 116); r.setAttribute('width', 9); r.setAttribute('height', 8); r.setAttribute('rx', 1);
+      g.appendChild(r); wins.push({ el: r, x: x + 4.5 });
+    }
+    svg.appendChild(g);
+    var foot = svg.closest('footer');
+    RW.onView(foot, { once: true, margin: '0px 0px -10% 0px', enter: function () {
+      wins.slice().sort(function () { return Math.random() - 0.5; }).forEach(function (w, k) { setTimeout(function () { w.el.classList.add('is-lit'); }, 300 + k * 140); });
+    } });
+    if (!RW.fine) return;
+    foot.addEventListener('pointermove', function (e) {
+      var m = svg.getScreenCTM(); if (!m) return;
+      var sx = (e.clientX - m.e) / m.a;
+      wins.forEach(function (w) { w.el.classList.toggle('is-near', Math.abs(w.x - sx) < 70); });
+    }, { passive: true });
+    foot.addEventListener('pointerleave', function () { wins.forEach(function (w) { w.el.classList.remove('is-near'); }); });
+  }, { motion: true });
+}());

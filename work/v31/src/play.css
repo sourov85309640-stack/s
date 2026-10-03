@@ -28,3 +28,7 @@ h2[data-split] .w{display:inline-block;transform-origin:50% 80%}
 .rx-loupe span{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);padding:.2rem .55rem;border-radius:999px;background:var(--copper);color:#fff;font:600 .75rem/1.2 var(--ui);white-space:nowrap}
 html.is-loupe .cur{opacity:0}
 @media (hover:none),(pointer:coarse){.rx-loupe{display:none}}
+/* footer windows (play.js 'evening') */
+.ftr-wins rect{fill:#F6C979;opacity:0;transition:opacity .8s ease,fill .3s}
+.ftr-wins rect.is-lit{opacity:.55}
+.ftr-wins rect.is-near{opacity:1;fill:#FFD98A}

@@ -4313,6 +4313,10 @@ h2[data-split] .w{display:inline-block;transform-origin:50% 80%}
 .rx-loupe span{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);padding:.2rem .55rem;border-radius:999px;background:var(--copper);color:#fff;font:600 .75rem/1.2 var(--ui);white-space:nowrap}
 html.is-loupe .cur{opacity:0}
 @media (hover:none),(pointer:coarse){.rx-loupe{display:none}}
+/* footer windows (play.js 'evening') */
+.ftr-wins rect{fill:#F6C979;opacity:0;transition:opacity .8s ease,fill .3s}
+.ftr-wins rect.is-lit{opacity:.55}
+.ftr-wins rect.is-near{opacity:1;fill:#FFD98A}
 </style>
 <style>
 /* COMPANION (companion.js): the roofer who leans in from the left edge. Desktop, fine pointer, motion only (made by JS). */
@@ -7557,6 +7561,16 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       window.addEventListener('blur', function () { st.ptr = false; });
     }
     var lastSY = pageYOffset;
+    /* the pointer stirs the smoke: puffs near it are pushed aside and carried along with the hand (fine pointers) */
+    var hp = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
+    if (RW.fine) {
+      sec.addEventListener('pointermove', function (e) {
+        var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, now = performance.now(), dtm = Math.max(8, now - hp.t);
+        if (hp.x > -1e3) { hp.vx = (x - hp.x) / dtm * 1000; hp.vy = (y - hp.y) / dtm * 1000; }
+        hp.x = x; hp.y = y; hp.t = now;
+      }, { passive: true });
+      sec.addEventListener('pointerleave', function () { hp.x = hp.y = -1e4; });
+    }
 
     /* ---------- smoke + leaves ---------- */
     function emit(u, ox, oy) {
@@ -7584,6 +7598,11 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
           var q = puffs[i]; q.age += dt; var k = q.age / q.life;
           if (k >= 1) { puffs.splice(i, 1); continue; }
           q.vy *= 1 - 0.1 * dt;
+          if (hp.x > -1e3) {
+            var hx = q.x - hp.x, hy = q.y - hp.y, hd = Math.sqrt(hx * hx + hy * hy) || 1, rad = 110 * u + q.r;
+            if (hd < rad) { var f = 1 - hd / rad; q.vx += (hx / hd * 160 * f + hp.vx * 0.5 * f) * dt; q.vy += (hy / hd * 90 * f + hp.vy * 0.3 * f) * dt; }
+          }
+          q.vx *= 1 - 0.6 * dt;
           q.x += (q.vx + wind * (0.3 + k * 1.2)) * dt + Math.sin(q.age * 1.5 + q.ph) * 3 * u * dt;
           q.y += q.vy * dt; q.r += q.vr * dt;
           var a = q.a * Math.min(1, k / 0.12) * Math.pow(1 - k, 1.5) * RW.clamp(q.y / (ch * 0.16), 0, 1);
@@ -12996,6 +13015,36 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       });
       card.addEventListener('pointerleave', off);
     });
+  }, { motion: true });
+}());
+
+/* EVENING (owner: lead): at the very bottom the little town in the footer settles in for the evening. Windows light up one
+   by one as the footer arrives, and the ones nearest the pointer glow brighter as it passes over the roofs. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('evening', function () {
+    var svg = RW.$('.ftr-roofs'); if (!svg) return;
+    var NS = 'http://www.w3.org/2000/svg', g = document.createElementNS(NS, 'g'), wins = [];
+    g.setAttribute('class', 'ftr-wins');
+    for (var x = 24, i = 0; x < 1180; x += 46 + (i * 37) % 30, i++) {
+      if (i % 4 === 3) continue;
+      var r = document.createElementNS(NS, 'rect');
+      r.setAttribute('x', x); r.setAttribute('y', i % 3 === 0 ? 108 : 116); r.setAttribute('width', 9); r.setAttribute('height', 8); r.setAttribute('rx', 1);
+      g.appendChild(r); wins.push({ el: r, x: x + 4.5 });
+    }
+    svg.appendChild(g);
+    var foot = svg.closest('footer');
+    RW.onView(foot, { once: true, margin: '0px 0px -10% 0px', enter: function () {
+      wins.slice().sort(function () { return Math.random() - 0.5; }).forEach(function (w, k) { setTimeout(function () { w.el.classList.add('is-lit'); }, 300 + k * 140); });
+    } });
+    if (!RW.fine) return;
+    foot.addEventListener('pointermove', function (e) {
+      var m = svg.getScreenCTM(); if (!m) return;
+      var sx = (e.clientX - m.e) / m.a;
+      wins.forEach(function (w) { w.el.classList.toggle('is-near', Math.abs(w.x - sx) < 70); });
+    }, { passive: true });
+    foot.addEventListener('pointerleave', function () { wins.forEach(function (w) { w.el.classList.remove('is-near'); }); });
   }, { motion: true });
 }());
 </script>

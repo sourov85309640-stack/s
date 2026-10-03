@@ -214,6 +214,16 @@
       window.addEventListener('blur', function () { st.ptr = false; });
     }
     var lastSY = pageYOffset;
+    /* the pointer stirs the smoke: puffs near it are pushed aside and carried along with the hand (fine pointers) */
+    var hp = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
+    if (RW.fine) {
+      sec.addEventListener('pointermove', function (e) {
+        var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, now = performance.now(), dtm = Math.max(8, now - hp.t);
+        if (hp.x > -1e3) { hp.vx = (x - hp.x) / dtm * 1000; hp.vy = (y - hp.y) / dtm * 1000; }
+        hp.x = x; hp.y = y; hp.t = now;
+      }, { passive: true });
+      sec.addEventListener('pointerleave', function () { hp.x = hp.y = -1e4; });
+    }
 
     /* ---------- smoke + leaves ---------- */
     function emit(u, ox, oy) {
@@ -241,6 +251,11 @@
           var q = puffs[i]; q.age += dt; var k = q.age / q.life;
           if (k >= 1) { puffs.splice(i, 1); continue; }
           q.vy *= 1 - 0.1 * dt;
+          if (hp.x > -1e3) {
+            var hx = q.x - hp.x, hy = q.y - hp.y, hd = Math.sqrt(hx * hx + hy * hy) || 1, rad = 110 * u + q.r;
+            if (hd < rad) { var f = 1 - hd / rad; q.vx += (hx / hd * 160 * f + hp.vx * 0.5 * f) * dt; q.vy += (hy / hd * 90 * f + hp.vy * 0.3 * f) * dt; }
+          }
+          q.vx *= 1 - 0.6 * dt;
           q.x += (q.vx + wind * (0.3 + k * 1.2)) * dt + Math.sin(q.age * 1.5 + q.ph) * 3 * u * dt;
           q.y += q.vy * dt; q.r += q.vr * dt;
           var a = q.a * Math.min(1, k / 0.12) * Math.pow(1 - k, 1.5) * RW.clamp(q.y / (ch * 0.16), 0, 1);
