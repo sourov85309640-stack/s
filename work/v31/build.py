@@ -15,7 +15,9 @@ import base64, mimetypes, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, 'src')
-OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'roofing-master-v3.1.html')
+CLIENT = '--client' in sys.argv   # client build: the owner Versions tool is left out
+ARGS = [a for a in sys.argv[1:] if not a.startswith('--')]
+OUT = ARGS[0] if ARGS else os.path.join(HERE, 'roofing-master-v3.1.html')
 
 mimetypes.add_type('font/woff2', '.woff2')
 mimetypes.add_type('image/webp', '.webp')
@@ -52,6 +54,9 @@ def assets(code):
 errors, warns = [], []
 
 html = read('index.html')
+if CLIENT:
+    html = re.sub(r'<!-- OWNER TOOL:.*?-->\s*<link rel="stylesheet" href="options.css">\s*', '', html, flags=re.S)
+    html = html.replace('<script src="options.js"></script>', '')
 # 1. includes (nested)
 for _ in range(6):
     new = re.sub(r'<!--\s*@include\s+(\S+)\s*-->', lambda m: read(m.group(1)).strip() if exists(m.group(1)) else (errors.append('missing include ' + m.group(1)) or ''), html)

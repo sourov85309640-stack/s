@@ -288,3 +288,8 @@ html:not(.has-motion) .dia-front{display:none}
 @keyframes dia-more-in{0%{opacity:0;transform:translateY(-4px)}100%{opacity:1;transform:none}}
 html.has-motion .dia-sec.is-touring .dia-list li.is-on .dia-more{animation:dia-more-in .35s var(--ease)}
 .dia-list li:has(>.dia-row) .dia-more{padding:0 .9rem .8rem 3.6rem;margin-top:-.2rem}
+/* flow mode (phones, tablets, short screens): every row keeps its details open so the list never shifts while you
+   scroll; rows that are not current are dimmed */
+.dia-sec.is-flow.is-touring .dia-list li:not(.is-on) .dia-more{display:grid;opacity:.6}
+html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animation:none}
+.dia-sec.is-flow .dia-list li .dia-more{transition:opacity .25s ease}

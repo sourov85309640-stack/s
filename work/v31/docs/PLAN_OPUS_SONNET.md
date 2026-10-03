@@ -125,3 +125,23 @@ data-motion=off show the final state, 44 px targets, visible focus, Lenis only, 
 ## Round 7 checks for Sonnet
 - Header at 1024 to 1239 (sheet mode) and 1240 to 1440 (nav fits?); mega card position; menu sheet focus order and Escape.
 - Decide v7 pin with Lenis on desktop and on phones; cards hidden when not current must still be reachable by keyboard.
+
+## Round 8 (owner feedback + full QA) done by Opus
+- "What we do": brick-reveal pointer field restored (removing it in round 7 was a misread of "remove blocks"; the static
+  square grids and textures stay removed).
+- Header: full-width bar, transparent over the hero, frosted once you scroll; hero top padding follows the header height.
+- More to discover: trust items flip for detail, hero chimney puffs on a click, areas windows light in a wave from
+  Cirencester and every chimney puffs on hover or tap.
+- QA, desktop (1440, 1280, 1920), tablet (820, 1024x768, 768) and phone (390, 360), each section captured, scroll scenes
+  checked frame by frame, every option and interaction scripted. Fixed:
+  - phone menu: tapping a link (Services, About...) closed the sheet but did not scroll (Lenis was still stopped);
+    the sheet now starts under the header so long lists never slide under the logo
+  - leak tour on phones and tablets: the current stop is the row just under the drawing, so its heading is always
+    readable and the marker matches it
+  - repair or replace (Roof through the years): the rain layer took up space under the house (empty half card);
+    on wide screens the heading now rides in the pinned stage; no radio circle on the shown card
+  - 3D roof on short laptop screens (1024x768): stage is one screen tall and sticky instead of stretching
+  - about drawing aligned with the text on tablets; contact photo smaller on phones; footer two columns on phones;
+    phone intro text one step smaller so headings lead
+  - accessibility: tab roles, aria-hidden on focusable content, focus ring on decide picks, menu toggle target size
+- Client build: `python3 build.py deliver/roofing-v3.1-client.html --client` leaves the Versions tool out.
