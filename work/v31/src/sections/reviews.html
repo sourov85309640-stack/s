@@ -1,67 +1,157 @@
-<!-- ================= REVIEWS (SAMPLE MODULE) ================= -->
-<!-- SAMPLE reviews. Replace with real Google or Trustpilot quotes and the real rating, or delete this whole section. -->
-<section class="reviews" id="reviews" data-nav="reviews" data-sample="reviews" aria-labelledby="h-reviews">
-  <div class="wrap rv-grid">
-  <div class="rv-plane">
-    <img src="img/hero-lodge.webp" width="600" height="740" alt="Red-brick lodge house with a slate roof and a tall chimney, seen across a flower garden.">
-    <div class="rv-plane-text">
-      <p class="rv-plane-q">Every roof, in the owner&rsquo;s own words.</p>
+<!-- ================= REVIEWS (SAMPLE MODULE): an embedded-looking Google reviews widget =================
+     SAMPLE reviews. Every name, date, star count, review text, the 4.8 rating and the "63 reviews" count are INVENTED placeholders.
+     Paste the client's real Google reviews and real rating (or connect their real review widget), or delete this whole section.
+     The "Review us on Google" link must point to the client's own Google review link (data-sample="review-link").
+     Variant switch for the judge: add ?v=1 .. ?v=6 to the page URL (reviews.js). -->
+<section class="reviews rv sec-warm e-saw" id="reviews" data-nav="reviews" data-sample="reviews" data-v="1" aria-labelledby="h-reviews">
+  <div class="layers layers-back rv-back" aria-hidden="true">
+    <svg class="rv-roofs" viewBox="0 0 1440 160" preserveAspectRatio="xMidYMax slice" data-depth="-0.07" focusable="false"><path d="M0 160V118l52-38 52 38h20V86h14v32h26l70-56 70 56h34l46-34 46 34h22V92h16v26h38l78-62 78 62h28l56-42 56 42h30V80h14v38h24l72-58 72 58h36l50-36 50 36h26V88h16v30h32l66-52 66 52h40V160z"/></svg>
+    <svg class="rv-house rv-house-a" viewBox="0 0 120 90" data-depth="-0.12" data-px="8" focusable="false"><path d="M8 88V44L60 6l52 38v44zM78 22V6h12v24"/><path class="rv-win" d="M26 56h14v14H26zM80 56h14v14H80zM53 60h14v28H53z"/></svg>
+    <svg class="rv-house rv-house-b" viewBox="0 0 160 80" data-depth="-0.09" data-px="5" focusable="false"><path d="M4 78V40L40 12l36 28h8V34L118 8l38 32v38z"/><path class="rv-win" d="M22 52h12v12H22zM100 50h12v12h-12zM126 50h12v12h-12z"/></svg>
+    <svg class="rv-pin rv-pin-a" viewBox="0 0 24 32" data-depth="-0.05" data-px="4" focusable="false"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="3.6"/></svg>
+    <svg class="rv-pin rv-pin-b" viewBox="0 0 24 32" data-depth="-0.1" data-px="6" focusable="false"><path d="M12 31s10-11.2 10-18.5A10 10 0 0 0 2 12.5C2 19.8 12 31 12 31z"/><circle cx="12" cy="12.5" r="3.6"/></svg>
+    <div class="rv-grid-bg" data-depth="-0.04"></div>
+  </div>
+
+  <div class="wrap rv-in">
+    <div class="rv-top">
+      <div class="rv-copy">
+        <h2 id="h-reviews">What homeowners say on Google</h2>
+        <p class="rv-lead">Reviews from people whose roofs we have looked at, repaired or replaced. Read them here or leave your own on Google.</p>
+      </div>
+      <div class="rv-photo" aria-hidden="true">
+        <div class="cw rv-cw"><img src="img/hero-lodge.webp" width="600" height="740" alt="" loading="lazy" data-depth="0.06"></div>
+      </div>
+    </div>
+
+    <div class="rv-stage">
+    <div class="rv-w" data-sample="review-widget">
+      <div class="rv-wh">
+        <div class="rv-brand">
+          <span class="rv-glogo"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span>
+          <p class="rv-gname">Google Reviews</p>
+        </div>
+        <div class="rv-score" data-sample="rating">
+          <span class="rv-ring" aria-hidden="true"><svg class="rv-ring-t" viewBox="0 0 80 80" focusable="false"><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(0 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(18 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(36 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(54 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(72 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(90 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(108 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(126 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(144 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(162 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(180 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(198 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(216 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(234 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(252 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(270 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(288 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(306 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(324 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(342 40 40)"/></svg><svg class="rv-ring-f" viewBox="0 0 80 80" focusable="false"><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(0 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(18 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(36 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(54 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(72 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(90 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(108 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(126 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(144 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(162 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(180 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(198 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(216 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(234 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(252 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(270 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(288 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(306 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(324 40 40)"/><rect x="38.6" y="3" width="2.8" height="9" rx="1.4" transform="rotate(342 40 40)"/></svg></span>
+          <span class="rv-num" aria-hidden="true">4.8</span>
+          <span class="rv-score-r">
+            <span class="rv-hstars" role="img" aria-label="Rated 4.8 out of 5"><span class="rv-hs" style="--f:1"><svg viewBox="0 0 20 20" class="rv-hs-b" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" class="rv-hs-f" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-hs" style="--f:1"><svg viewBox="0 0 20 20" class="rv-hs-b" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" class="rv-hs-f" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-hs" style="--f:1"><svg viewBox="0 0 20 20" class="rv-hs-b" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" class="rv-hs-f" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-hs" style="--f:1"><svg viewBox="0 0 20 20" class="rv-hs-b" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" class="rv-hs-f" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-hs" style="--f:0.8"><svg viewBox="0 0 20 20" class="rv-hs-b" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" class="rv-hs-f" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></span>
+            <span class="rv-based">Based on 63 reviews</span>
+          </span>
+        </div>
+        <a class="rv-cta" href="https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID" data-sample="review-link" data-confirm="client's Google review link" target="_blank" rel="noopener">Review us on Google<span class="vh"> (opens in a new tab)</span></a>
+      </div>
+
+      <div class="rv-car" role="region" aria-roledescription="carousel" aria-label="Google reviews. Use the left and right arrow keys to move between reviews." tabindex="0">
+        <div class="rv-note" aria-hidden="true"><span class="rv-av" style="--av:#1967D2">S<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span><span class="rv-note-t"><b>Sarah M.</b> left a review on Google</span><span class="rv-note-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></div>
+        <div class="rv-vp">
+          <div class="rv-drift">
+            <div class="rv-track">
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 1 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#1967D2" aria-hidden="true">S<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">Sarah M.</p><p class="rv-date">2 weeks ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 5 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t1">A few slates slipped after the storm and water was getting into the back bedroom. They came out the next morning, showed me photos of the damage from the ladder and replaced the broken ones that week. Clean, polite, and the price was exactly what the written quote said.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t1" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
           </div>
+        </article>
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 2 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#188038" aria-hidden="true">D<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">David K.</p><p class="rv-date">1 month ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 5 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t2">Honest advice. I was expecting to be told I needed a new roof, but they said it had years left and only the flashing round the chimney needed redoing. That is all we paid for.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t2" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
+          </div>
+        </article>
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 3 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#8430CE" aria-hidden="true">P<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">Priya S.</p><p class="rv-date">1 month ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 5 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t3">Gutters cleared and two cracked tiles swapped in under an hour. Sent a photo when it was done. Would use again.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t3" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
+          </div>
+        </article>
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 4 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#C5221F" aria-hidden="true">T<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">Tom H.</p><p class="rv-date">2 months ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 4 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s rv-s-off"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t4">Good job on the re-roof and the crew kept the garden tidy. The start date moved back a few days because of the weather, which was a nuisance, but they rang ahead to explain and kept me updated all the way through. Very happy with the finished roof.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t4" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
+          </div>
+        </article>
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 5 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#B06000" aria-hidden="true">E<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">Emma L.</p><p class="rv-date">3 months ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 5 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t5">Our valley had leaked for two winters and two other people had just sealed over it. They cut out the old lead, fitted new and talked me through what had gone wrong in plain words. Dry ever since, even in the heavy rain last month. I would recommend them to anyone with a leak nobody else can find.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t5" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
+          </div>
+        </article>
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 6 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#007B83" aria-hidden="true">G<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">Gareth P.</p><p class="rv-date">4 months ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 5 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t6">Came to look at a damp patch on the ceiling, found a cracked ridge tile and fixed it the same day. Fair price.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t6" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
+          </div>
+        </article>
+        <article class="rv-slide" aria-roledescription="slide" aria-label="Review 7 of 7">
+          <div class="rv-card">
+            <div class="rv-ch">
+              <span class="rv-av" style="--av:#5F6368" aria-hidden="true">L<span class="rv-avg"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg></span></span>
+              <div class="rv-who"><p class="rv-name">Linda W.</p><p class="rv-date">6 months ago</p></div>
+            </div>
+            <p class="rv-stars" role="img" aria-label="Rated 5 out of 5"><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span><span class="rv-s"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><use href="#i-star"/></svg></span></p>
+            <p class="rv-text" id="rv-t7">Very clear written quote with the work broken down line by line, so I knew what I was paying for. The chimney repointing looks really neat and they took all the old mortar away with them.</p>
+            <button class="rv-more" type="button" aria-expanded="false" aria-controls="rv-t7" hidden>Read more</button>
+            <p class="rv-posted"><svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><use href="#i-g"/></svg><span>Posted on <span class="rv-gw">Google</span></span></p>
+          </div>
+        </article>
+            </div>
+          </div>
+        </div>
+        <div class="rv-ctl">
+          <button class="rv-arrow rv-prev" type="button" aria-label="Previous review"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.5 6l-6 6 6 6"/></svg></button>
+          <div class="rv-dots"></div>
+          <div class="rv-prog" aria-hidden="true"><span class="rv-prog-f"></span></div>
+          <p class="rv-count" aria-hidden="true"></p>
+          <button class="rv-play" type="button" hidden><svg class="rv-i-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5v13M16 5.5v13"/></svg><svg class="rv-i-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5l11 6.5-11 6.5z"/></svg><span class="rv-play-t">Pause</span></button>
+          <button class="rv-arrow rv-next" type="button" aria-label="Next review"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9.5 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="vh rv-live" aria-live="polite" aria-atomic="true"></p>
+      </div>
+    </div>
+    </div>
   </div>
-  <div class="rv-main">
-    <div class="rv-head">
-      <div>
-        <p class="kicker"><span class="rule" aria-hidden="true"></span>Google reviews</p>
-        <h2 id="h-reviews">Read what homeowners say on Google.</h2>
-        <p class="intro">For the latest comments, open the reviews directly on Google.</p>
-      </div>
-      <div class="score" data-sample="rating">
-        <p class="score-l"><span class="g-slot" aria-hidden="true"></span>Google rating</p>
-        <p class="score-n">4.8</p>
-        <p class="stars" role="img" aria-label="4.8 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></p>
-        <p class="score-c">Based on 63 Google reviews</p>
-      </div>
-    </div>
-    <div class="feed" id="feed" role="region" aria-label="Customer reviews, scroll sideways" tabindex="0">
-      <div class="feed-track">
-        <article class="rcard">
-          <div class="top"><span class="avatar" aria-hidden="true">M</span><div><p class="name">Mark T.</p><p class="date">Tetbury · 3 weeks ago</p></div></div>
-          <div class="rating"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span class="num">5.0</span></div>
-          <p class="quote">Three slates slipped in the storm and water was coming through the bedroom ceiling. They found the cracked ones, replaced them and re-bedded the ridge end while they were up there. Tidied the drive afterwards too.</p>
-          <div class="foot"><span class="g-slot" aria-hidden="true"></span><span class="txt">Google review</span><a class="more" data-sample="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ridgewell+Roofing+Cirencester">Read more<span class="vh"> reviews on Google</span></a></div>
-        </article>
-        <article class="rcard">
-          <div class="top"><span class="avatar" aria-hidden="true">J</span><div><p class="name">Joanne R.</p><p class="date">Fairford · 2 months ago</p></div></div>
-          <div class="rating"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span class="num">5.0</span></div>
-          <p class="quote">Lead valley by the chimney had leaked for two winters. Two other roofers just sealed it. These lads cut it out and fitted new lead. Dry since.</p>
-          <div class="foot"><span class="g-slot" aria-hidden="true"></span><span class="txt">Google review</span><a class="more" data-sample="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ridgewell+Roofing+Cirencester">Read more<span class="vh"> reviews on Google</span></a></div>
-        </article>
-        <article class="rcard">
-          <div class="top"><span class="avatar" aria-hidden="true">C</span><div><p class="name">Colin P.</p><p class="date">Stroud · 4 months ago</p></div></div>
-          <div class="rating"><span class="stars" role="img" aria-label="4 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg class="off"><use href="#i-star-o"/></svg></span><span class="num">4.0</span></div>
-          <p class="quote">Good job on our re-roof. Scaffold up on the Monday and down in under two weeks. Lost a star because the start date slipped a few days, but they rang to tell me.</p>
-          <div class="foot"><span class="g-slot" aria-hidden="true"></span><span class="txt">Google review</span><a class="more" data-sample="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ridgewell+Roofing+Cirencester">Read more<span class="vh"> reviews on Google</span></a></div>
-        </article>
-        <article class="rcard">
-          <div class="top"><span class="avatar" aria-hidden="true">H</span><div><p class="name">Helen W.</p><p class="date">Cirencester · 5 months ago</p></div></div>
-          <div class="rating"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span class="num">5.0</span></div>
-          <p class="quote">Honest. Said the roof had years left and only the chimney pointing needed doing, so that is all we paid for.</p>
-          <div class="foot"><span class="g-slot" aria-hidden="true"></span><span class="txt">Google review</span><a class="more" data-sample="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ridgewell+Roofing+Cirencester">Read more<span class="vh"> reviews on Google</span></a></div>
-        </article>
-        <article class="rcard">
-          <div class="top"><span class="avatar" aria-hidden="true">I</span><div><p class="name">Ian B.</p><p class="date">Malmesbury · 8 months ago</p></div></div>
-          <div class="rating"><span class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span><span class="num">5.0</span></div>
-          <p class="quote">Fixed the gutter and replaced a few loose clay tiles on the porch. Fair price, no fuss, and they sent photos of what they had done.</p>
-          <div class="foot"><span class="g-slot" aria-hidden="true"></span><span class="txt">Google review</span><a class="more" data-sample="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ridgewell+Roofing+Cirencester">Read more<span class="vh"> reviews on Google</span></a></div>
-        </article>
-      </div>
-    </div>
-    <div class="feed-ctl">
-      <div class="feed-bar" aria-hidden="true"><span id="feed-thumb"></span></div>
-      <button class="feed-btn" id="feed-prev" type="button" aria-label="Previous reviews"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M16 10H4M9 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-      <button class="feed-btn feed-btn-on" id="feed-next" type="button" aria-label="Next reviews"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h12M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
-    </div>
-    <p class="rv-link"><a class="link" data-sample="review-link" href="https://www.google.com/maps/search/?api=1&amp;query=Ridgewell+Roofing+Cirencester">See all reviews on Google</a></p>
-  </div>
+
+  <div class="layers layers-front rv-front" aria-hidden="true">
+    <svg class="rv-bird" viewBox="0 0 40 16" data-drift="-70" data-depth="0.18" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>
+    <svg class="rv-bird rv-bird-2" viewBox="0 0 40 16" data-drift="-45" data-depth="0.24" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>
+    <svg class="rv-leaf" viewBox="0 0 40 24" data-depth="0.32" data-rot="28" data-drift="24" data-px="12" focusable="false"><path d="M2 12C10 2 28 0 38 6 30 18 12 22 2 12z"/><path class="rv-vein" d="M2 12C14 10 26 8 38 6"/></svg>
+    <svg class="rv-frag" viewBox="0 0 30 22" data-depth="0.22" data-rot="-14" data-px="9" focusable="false"><path d="M2 4l24-2 2 16-22 2z"/><path class="rv-vein" d="M6 9h16"/></svg>
   </div>
 </section>

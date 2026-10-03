@@ -1,19 +1,103 @@
-<!-- ================= THREE CHECKS FROM THE GROUND ================= -->
-<section class="sec e-arc" id="checks" aria-labelledby="h-checks">
-  <div class="wrap checks-grid">
-    <figure class="checks-media">
-      <span class="cw"><img data-sample="service-photo" src="img/chimney.webp" width="590" height="740" alt="Brick chimney stack above a tiled gable against a pale sky."></span>
-    </figure>
-    <div class="checks-body">
-      
+<!-- ================= THREE CHECKS FROM THE GROUND =================
+     Prototype: five variants behind ?cv=1..5 (checks.js sets data-v). Default 1.
+     Photo zones (percent of the photo, x,y) live in data-zones on .chk-photo: slates; chimney; gutter.
+     If the photo is swapped, update data-zones so the binocular / viewfinder lands on the right spots. -->
+<section class="sec chk e-arc" id="checks" data-v="1" aria-labelledby="h-checks">
+  <div class="layers layers-back" aria-hidden="true">
+    <span class="chk-grid-bg" data-depth="-0.05"></span>
+    <svg class="chk-bk-roofs" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.1" focusable="false"><path d="M0 120V84l34-24 34 24h16V56h10v28h20l46-38 46 38h26l30-22 30 22h18V62h12v22h26l54-44 54 44h22l38-28 38 28h22V52h10v32h18l50-40 50 40h26l34-24 34 24h20V60h12v24h24l46-36 46 36h30l34-26 34 26h24V58h12v26h30l40-30 40 30H1200V120z"/></svg>
+    <svg class="chk-bk-cloud" viewBox="0 0 160 44" data-drift="34" data-depth="-0.04" focusable="false"><path d="M18 40h120a14 14 0 0 0 0-28 22 22 0 0 0-41-6 17 17 0 0 0-29 9 13 13 0 0 0-50 25z"/></svg>
+    <svg class="chk-bk-cloud chk-bk-cloud2" viewBox="0 0 160 44" data-drift="22" data-depth="-0.03" focusable="false"><path d="M18 40h120a14 14 0 0 0 0-28 22 22 0 0 0-41-6 17 17 0 0 0-29 9 13 13 0 0 0-50 25z"/></svg>
+  </div>
+
+  <div class="wrap chk-wrap">
+    <div class="chk-head">
       <h2 id="h-checks">Three things you can check from the ground.</h2>
       <p class="lead">Stand in the garden or the street. Please do not climb up.</p>
-      <ol class="checks">
-        <li><div><h3>Slates and tiles</h3><p>Look along the roof for gaps, slipped or cracked pieces and green patches of moss.</p></div></li>
-        <li><div><h3>Chimney and lead</h3><p>Check the pointing, the pots and the grey lead strip where the stack meets the roof.</p></div></li>
-        <li><div><h3>Gutters and walls</h3><p>Look for stains below the gutter and plants growing from the joints.</p></div></li>
-      </ol>
-      <p class="sec-cta"><a class="link" href="#contact">Tell us about your roof</a></p>
     </div>
+
+    <div class="chk-visual">
+      <figure class="chk-photo" data-zones="12,33;48,14;72,68">
+        <span class="cw chk-cw"><img class="chk-img" data-sample="checks-photo" src="img/chimney-gable.webp" width="640" height="374" alt="Brick chimney stack beside a white-painted gable, with a tiled roof slope and a gutter running down the right."></span>
+        <!-- v4: binocular reveal (sharp copy of the photo seen through two lenses) -->
+        <span class="chk-scope" aria-hidden="true"><span class="chk-scope-img"></span></span>
+        <svg class="chk-scope-ring" viewBox="0 0 200 120" aria-hidden="true" focusable="false"><circle cx="62" cy="60" r="54"/><circle cx="138" cy="60" r="54"/><path d="M94 28h12M94 92h12"/></svg>
+        <span class="chk-scope-tag" aria-hidden="true"></span>
+        <!-- v5: phone camera viewfinder -->
+        <span class="chk-vf" aria-hidden="true"><span class="chk-vf-box"><i></i><i></i><i></i><i></i></span><span class="chk-vf-flash"></span><span class="chk-vf-ui"><b></b></span></span>
+      </figure>
+
+      <!-- v1 and v3: the "from the ground" diagram (decorative; the list says the same in words) -->
+      <svg class="chk-dia" viewBox="0 0 520 340" aria-hidden="true" focusable="false">
+        <defs>
+          <pattern id="chk-slate" width="22" height="12" patternUnits="userSpaceOnUse"><path d="M0 .5H22M11 .5V6.5M0 6.5H22M0 6.5V12M22 6.5V12"/></pattern>
+          <pattern id="chk-brick" width="20" height="10" patternUnits="userSpaceOnUse"><path d="M0 .5H20M10 .5V5.5M0 5.5H20M0 5.5V10M20 5.5V10"/></pattern>
+          <linearGradient id="chk-cone-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#DDA783" stop-opacity=".55"/><stop offset="1" stop-color="#DDA783" stop-opacity="0"/></linearGradient>
+        </defs>
+        <g class="d-sky"><path d="M300 34c6-5 12-5 18 1 6-6 12-6 18-1" /><path d="M326 22c4-3 8-3 12 1 4-4 8-4 12-1"/></g>
+        <g class="d-house">
+          <rect class="d-fill-roof" x="222" y="112" width="276" height="94"/>
+          <path class="d-roof-pat" d="M222 206L236 112H484L498 206Z" fill="url(#chk-slate)"/>
+          <path class="d-ln d-roof" pathLength="1" d="M222 206L236 112H484L498 206Z"/>
+          <path class="d-ln d-ridge" pathLength="1" d="M234 112H486"/>
+          <path class="d-chim-fill" d="M418 112V58H448V112Z"/>
+          <path class="d-ln d-chim" pathLength="1" d="M418 112V58H448V112"/>
+          <path class="d-ln d-pots" pathLength="1" d="M422 58V47H430V58M436 58V49H444V58"/>
+          <path class="d-lead" pathLength="1" d="M412 116L418 110H448L454 116"/>
+          <rect class="d-wall-pat" x="232" y="210" width="256" height="110" fill="url(#chk-brick)"/>
+          <path class="d-ln d-wall" pathLength="1" d="M232 210V320M488 210V320"/>
+          <path class="d-ln d-win" pathLength="1" d="M262 232H306V270H262ZM284 232V270M414 232H458V270H414ZM436 232V270M344 320V260H376V320"/>
+          <path class="d-gut" pathLength="1" d="M216 208H504M496 210V318M492 318H502"/>
+          <path class="d-stain" d="M300 212c0 10 3 18 2 26M452 212c1 8-1 14 0 20"/>
+          <path class="d-moss" d="M300 160h10M352 182h8M266 136h7"/>
+        </g>
+        <g class="d-ground"><path class="d-ln" pathLength="1" d="M8 320H512"/><path class="d-grass" d="M24 320l3-8 2 8M118 320l3-7 3 7M150 320l2-6 3 6M196 320l3-8 2 8M506 320l-3-7-2 7"/><path class="d-fence" d="M130 320V292M150 320V292M170 320V292M190 320V292M124 300H198M124 312H198"/></g>
+        <g class="d-cone"><path d="M80 246L520 222V270Z" fill="url(#chk-cone-g)"/><path class="d-sight" d="M80 246H500"/></g>
+        <g class="d-scan"><circle r="22"/><circle class="d-scan-in" r="3"/></g>
+        <g class="d-person">
+          <g class="d-head"><circle cx="70" cy="246" r="9"/><path d="M76 244l7-2"/></g>
+          <path d="M70 255V290M70 290L61 320M70 290L79 320M70 266L60 284M70 266L80 254L78 246"/>
+        </g>
+        <g class="d-marks">
+          <g class="d-mark d-mark1" transform="translate(300 152)"><circle r="11"/><path pathLength="1" d="M-5 0l3.5 3.5L5-4"/></g>
+          <g class="d-mark d-mark2" transform="translate(470 66)"><circle r="11"/><path pathLength="1" d="M-5 0l3.5 3.5L5-4"/></g>
+          <g class="d-mark d-mark3" transform="translate(506 238)"><circle r="11"/><path pathLength="1" d="M-5 0l3.5 3.5L5-4"/></g>
+        </g>
+      </svg>
+
+      <!-- v5: the photos you "took" collect here -->
+      <ol class="chk-strip" aria-hidden="true"><li></li><li></li><li></li></ol>
+    </div>
+
+    <ol class="chk-list">
+      <li class="chk-item" data-zone="0">
+        <span class="chk-ico" aria-hidden="true"><svg viewBox="0 0 64 48" focusable="false"><path d="M4 40L14 8H50L60 40Z"/><path d="M10 22H54M7 31H57M22 8L19 22M36 8V22M50 8l2 14M14 22l-2 9M28 22l-1 9M44 22l1 9"/><path class="ico-hl" d="M30 31l8 3-1 6-9-2z"/></svg></span>
+        <div class="chk-txt"><h3 id="chk-h1">Slates and tiles</h3><p>Look along the roof for gaps, slipped or cracked pieces and green patches of moss.</p></div>
+        <div class="chk-back" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="21"/><path pathLength="1" d="M14 25l7 7 13-15"/></svg><span>Slates and tiles looked at</span></div>
+      </li>
+      <li class="chk-item" data-zone="1">
+        <span class="chk-ico" aria-hidden="true"><svg viewBox="0 0 64 48" focusable="false"><path d="M4 44L32 22L60 44"/><path d="M24 30V6H40V30"/><path d="M27 6V2H31V6M33 6V3H37V6"/><path class="ico-hl" d="M20 33L24 30H40L44 33"/><path d="M24 14H40M24 22H40M32 6V14M28 14V22M36 14V22"/></svg></span>
+        <div class="chk-txt"><h3 id="chk-h2">Chimney and lead</h3><p>Check the pointing, the pots and the grey lead strip where the stack meets the roof.</p></div>
+        <div class="chk-back" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="21"/><path pathLength="1" d="M14 25l7 7 13-15"/></svg><span>Chimney and lead looked at</span></div>
+      </li>
+      <li class="chk-item" data-zone="2">
+        <span class="chk-ico" aria-hidden="true"><svg viewBox="0 0 64 48" focusable="false"><path d="M2 10H52a4 4 0 0 0 4-4"/><path d="M2 16H50a6 6 0 0 0 6-6V6"/><path d="M50 16V46M56 10V46"/><path d="M6 20V46M6 26H44M6 34H44M6 42H44M18 26V34M32 26V34M24 34V42M38 34V42"/><path class="ico-hl" d="M26 17c0 5 2 9 1 13"/></svg></span>
+        <div class="chk-txt"><h3 id="chk-h3">Gutters and walls</h3><p>Look for stains below the gutter and plants growing from the joints.</p></div>
+        <div class="chk-back" aria-hidden="true"><svg viewBox="0 0 48 48" focusable="false"><circle cx="24" cy="24" r="21"/><path pathLength="1" d="M14 25l7 7 13-15"/></svg><span>Gutters and walls looked at</span></div>
+      </li>
+    </ol>
+
+    <div class="chk-cta">
+      <p class="chk-hint" id="chk-hint">Tick each one off as you look.</p>
+      <p class="chk-status" role="status"></p>
+      <span class="chk-lift"><a class="btn btn-line chk-btn" href="#contact">Tell us about your roof<svg aria-hidden="true"><use href="#i-arrow"/></svg></a></span>
+    </div>
+  </div>
+
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="chk-fr chk-fr-leaf" viewBox="0 0 40 24" data-depth="0.22" data-rot="14" data-px="10" focusable="false"><path d="M2 12C10 2 26 0 38 6 30 18 14 22 2 12z"/><path class="v" d="M4 12C14 10 24 8 36 6"/></svg>
+    <svg class="chk-fr chk-fr-slate" viewBox="0 0 36 28" data-depth="0.32" data-rot="-10" data-px="14" focusable="false"><path d="M3 6L31 2L34 22L6 26Z"/><circle class="v" cx="12" cy="8" r="1.4"/></svg>
+    <svg class="chk-fr chk-fr-nail" viewBox="0 0 10 40" data-depth="0.4" data-rot="20" data-px="8" focusable="false"><path d="M1 3H9M5 3V37"/></svg>
+    <svg class="chk-fr chk-fr-bird" viewBox="0 0 40 16" data-drift="-50" data-depth="0.12" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>
   </div>
 </section>

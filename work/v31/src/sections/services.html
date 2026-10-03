@@ -1,54 +1,108 @@
 <!-- ================= SERVICES ================= -->
-<section class="sec sec-warm e-wave" id="services" data-nav="services" aria-labelledby="h-services">
+<!-- Prototype variants: data-v="1".."6" (set by ?v=N or ?sv=N in services.js). Content is shared; each variant only changes layout and interaction.
+     Keep 3 to 6 problems. Each <li> is: photo (.cw, cut to a roof shape by data-issue), title, short copy, link that pre-fills the form (?issue=KEY#contact). -->
+<section class="sec sec-warm e-wave svc-sec" id="services" data-nav="services" data-v="1" aria-labelledby="h-services">
+  <div class="layers layers-back svc-back" aria-hidden="true">
+    <div class="svc-course" data-depth="-0.08"><div class="tex"></div></div>
+    <svg class="svc-roofs" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" focusable="false"><path d="M0 120V92l46-30 46 30h20V64h12v28h26l60-44 60 44h24l40-26 40 26h22V70h12v22h30l70-52 70 52h26l46-32 46 32h24V60h12v32h20l58-42 58 42h30l40-26 40 26h28V120z"/></svg>
+  </div>
+  <div class="layers layers-front svc-front" aria-hidden="true">
+    <svg class="svc-slate" viewBox="0 0 60 44" data-depth="0.22" data-rot="10" data-px="10" focusable="false"><path d="M4 9 47 2l9 31-41 9z" fill="#B9C5C9" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5" stroke-linejoin="round"/><path d="M15 14l26-4M18 24l9-1.5" stroke="#1F2B30" stroke-opacity=".3" stroke-width="1.2" stroke-linecap="round"/><circle cx="40" cy="9" r="1.6" fill="#1F2B30" fill-opacity=".5"/></svg>
+    <svg class="svc-leaf" viewBox="0 0 48 30" data-depth="0.34" data-rot="-16" data-drift="26" data-px="14" focusable="false"><path d="M3 22C10 6 30 1 45 5 39 20 22 29 3 22z" fill="#DDA783" stroke="#985632" stroke-width="1.4" stroke-linejoin="round"/><path d="M3 22C16 17 28 11 40 7M17 17l3-6M27 12l1-5" fill="none" stroke="#985632" stroke-width="1.1" stroke-linecap="round"/></svg>
+    <svg class="svc-nail" viewBox="0 0 12 40" data-depth="0.14" data-rot="20" data-px="6" focusable="false"><path d="M2 3h8M6 3v30l-1.5 5" fill="none" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </div>
   <div class="wrap">
     <div class="head2">
       <div><h2 id="h-services">Start with the problem.</h2></div>
       <p>Pick what fits. The form opens with it filled in.</p>
     </div>
-    <!-- Keep 3 to 6 items. The first is the large one on the left, the rest stack on the right. Each picture is cut to a different roof shape (see .svc-list .svc:nth-child in the CSS). -->
-    <div class="svc-grid">
-      <article class="svc svc-lead">
-        <span class="cw"><img data-sample="service-photo" src="img/broken-slate.webp" width="570" height="441" alt="Old slate roof with several slipped and broken slates."></span>
-        <div class="svc-body">
-          <h3>Water coming in or damp</h3>
-          <p>A ceiling stain usually traces back to a slipped slate, cracked tile or lifted lead. We find it from the roof, not the ceiling.</p>
-          <a class="link svc-link" href="?issue=leak#contact">Tell us about your roof</a>
-        </div>
-      </article>
-      <div class="svc-list">
-        <article class="svc">
-          <span class="cw"><img data-sample="service-photo" src="img/clay-tiles.webp" width="410" height="180" alt="Clay-tiled roof with two brick chimney stacks."></span>
-          <div class="svc-body">
-            <h3>Slipped or missing tiles or slates</h3>
-            <p>Wind lifts them, frost splits them. Replaced like for like, ridge re-bedded if it moved.</p>
-            <a class="link svc-link" href="?issue=slipped#contact">Tell us about this</a>
-          </div>
-        </article>
-        <article class="svc">
-          <span class="cw"><img data-sample="service-photo" src="img/chimney.webp" width="590" height="740" alt="Brick chimney stack above a pitched tiled roof."></span>
-          <div class="svc-body">
-            <h3>Chimney or lead</h3>
-            <p>Crumbling pointing, cracked flaunching or lead pulling away from the stack.</p>
-            <a class="link svc-link" href="?issue=chimney#contact">Tell us about this</a>
-          </div>
-        </article>
-        <article class="svc">
-          <span class="cw"><img data-sample="service-photo" src="img/lead-valley.webp" width="328" height="180" alt="Slate roof meeting a stone wall at a lead-lined valley."></span>
-          <div class="svc-body">
-            <h3>Old roof that keeps needing patching</h3>
-            <p>Patching over failed battens only delays the bill. If the roof is past repair, we say so.</p>
-            <a class="link svc-link" href="?issue=patching#contact">Tell us about this</a>
-          </div>
-        </article>
-        <article class="svc">
-          <span class="cw"><img data-sample="service-photo" src="img/tiling-work.webp" width="383" height="210" alt="Clay-tiled roof slope behind scaffold netting."></span>
-          <div class="svc-body">
-            <h3>Not sure</h3>
-            <p>Send photos from the ground and say what you can see in the loft.</p>
-            <a class="link svc-link" href="?issue=notsure#contact">Tell us about this</a>
-          </div>
-        </article>
+    <div class="svc-stage">
+      <!-- v3 only: a roof every house has, with the five problem zones. Decorative: the list beside it is the real content. -->
+      <div class="svc-map" aria-hidden="true">
+        <svg viewBox="0 0 560 400" focusable="false">
+          <defs>
+            <pattern id="svc-tiles" width="28" height="18" patternUnits="userSpaceOnUse"><rect width="28" height="18" fill="#E9D3C1"/><path d="M0 17.5H28M14 0V9M0 9H28M0 9v9M28 9v9" stroke="#985632" stroke-opacity=".35" stroke-width="1"/></pattern>
+            <clipPath id="svc-roofclip"><path d="M150 112H410L500 262H60Z"/></clipPath>
+          </defs>
+          <path class="svc-map-ground" d="M0 386H560" stroke="#1F2B30" stroke-opacity=".3" stroke-width="1.5"/>
+          <!-- walls -->
+          <path d="M84 262H476V386H84Z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5"/>
+          <path d="M130 296h52v44h-52zM378 296h52v44h-52zM252 314h48v72h-48z" fill="#EAF0F2" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/>
+          <path d="M156 296v44M130 318h52M404 296v44M378 318h52" stroke="#1F2B30" stroke-opacity=".35" stroke-width="1.2"/>
+          <!-- roof -->
+          <path d="M150 112H410L500 262H60Z" fill="url(#svc-tiles)" stroke="#1F2B30" stroke-opacity=".65" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M146 112H414" stroke="#985632" stroke-width="4" stroke-linecap="round"/>
+          <path d="M52 264H508" stroke="#1F2B30" stroke-opacity=".6" stroke-width="3" stroke-linecap="round"/>
+          <g clip-path="url(#svc-roofclip)">
+            <!-- patching: mismatched patch lower left -->
+            <g class="svc-z-art" data-z="patching"><path d="M88 214h84v36H88z" fill="#D7D1C5"/><path d="M98 222h26v12H98zM128 232h30v12h-30z" fill="#C9C2B3"/><path d="M88 214h84v36H88z" fill="none" stroke="#1F2B30" stroke-opacity=".45" stroke-width="1.2" stroke-dasharray="4 3"/></g>
+            <!-- leak: a gap in the tiles with water getting in -->
+            <g class="svc-z-art" data-z="leak"><path d="M196 160h28v18h-28z" fill="#1F2B30" fill-opacity=".72"/><path class="svc-map-drop" d="M210 182c3 5 5 8 5 11a5 5 0 0 1-10 0c0-3 2-6 5-11z" fill="#7FA3B0"/></g>
+            <!-- slipped tiles lower right -->
+            <g class="svc-z-art" data-z="slipped"><path d="M380 196h28v18h-28z" fill="#1F2B30" fill-opacity=".55"/><path d="M384 214l26 4-3 17-26-4z" fill="#E9D3C1" stroke="#985632" stroke-width="1.2"/><path d="M412 222l24 8-5 15-24-8z" fill="#E9D3C1" stroke="#985632" stroke-width="1.2"/></g>
+          </g>
+          <!-- dormer (not sure: you cannot see the roof from inside) -->
+          <g class="svc-z-art" data-z="notsure"><path d="M258 186l26-26 26 26v30h-52z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/><path d="M270 192h28v24h-28z" fill="#EAF0F2" stroke="#1F2B30" stroke-opacity=".5" stroke-width="1.2"/><path d="M280 199a4 4 0 1 1 6 3.4c-1.4.9-2 1.6-2 3.2M284 210v.5" fill="none" stroke="#985632" stroke-width="1.8" stroke-linecap="round"/></g>
+          <!-- chimney with lead flashing -->
+          <g class="svc-z-art" data-z="chimney"><path d="M330 58h40v76h-40z" fill="#E6DFD0" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5"/><path d="M330 74h40M330 90h40M330 106h40M350 58v16M340 74v16M360 74v16M350 90v16" stroke="#1F2B30" stroke-opacity=".25" stroke-width="1"/><path d="M326 50h48v8h-48z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5"/><path d="M338 50v-12h9v12M354 50v-10h9v10" fill="#DDA783" stroke="#985632" stroke-width="1.3"/><path d="M324 128h52v8h-52z" fill="#B9C5C9" stroke="#1F2B30" stroke-opacity=".5" stroke-width="1.2"/></g>
+          <!-- zone rings (shown on the hot zone) -->
+          <g class="svc-rings" fill="none" stroke="#985632" stroke-width="2">
+            <circle class="svc-ring" data-z="leak" cx="210" cy="172" r="34"/>
+            <circle class="svc-ring" data-z="slipped" cx="408" cy="218" r="38"/>
+            <circle class="svc-ring" data-z="chimney" cx="350" cy="92" r="52"/>
+            <circle class="svc-ring" data-z="patching" cx="130" cy="232" r="42"/>
+            <circle class="svc-ring" data-z="notsure" cx="284" cy="192" r="36"/>
+          </g>
+          <!-- generous hit areas (pointer only; the list is the accessible control) -->
+          <g class="svc-hits" fill="transparent">
+            <circle data-z="leak" cx="210" cy="172" r="40"/>
+            <circle data-z="slipped" cx="408" cy="218" r="44"/>
+            <circle data-z="chimney" cx="350" cy="92" r="54"/>
+            <circle data-z="patching" cx="130" cy="232" r="46"/>
+            <circle data-z="notsure" cx="284" cy="192" r="34"/>
+          </g>
+        </svg>
+        <p class="svc-map-tip"><span class="svc-map-dot"></span><span class="svc-map-txt">Point at the part of the roof that worries you.</span></p>
       </div>
+
+      <ul class="svc-list">
+        <li class="svc" data-issue="leak">
+          <span class="cw svc-ph"><img data-sample="service-photo" src="img/broken-slate.webp" width="570" height="441" alt="Old slate roof with several slipped and broken slates."></span>
+          <h3 class="svc-t">Water coming in or damp</h3>
+          <p class="svc-p">A ceiling stain usually traces back to a slipped slate, cracked tile or lifted lead. We find it from the roof, not the ceiling.</p>
+          <a class="svc-a" href="?issue=leak#contact"><span>Tell us about the leak</span><svg aria-hidden="true" viewBox="0 0 28 10"><use href="#i-arrow"/></svg></a>
+          <span class="svc-drip" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="svc-stamp" aria-hidden="true">On your form</span>
+        </li>
+        <li class="svc" data-issue="slipped">
+          <span class="cw svc-ph"><img data-sample="service-photo" src="img/clay-tiles.webp" width="410" height="180" alt="Clay-tiled roof with two brick chimney stacks."></span>
+          <h3 class="svc-t">Slipped or missing tiles or slates</h3>
+          <p class="svc-p">Wind lifts them, frost splits them. Replaced like for like, ridge re-bedded if it moved.</p>
+          <a class="svc-a" href="?issue=slipped#contact"><span>Tell us what has slipped</span><svg aria-hidden="true" viewBox="0 0 28 10"><use href="#i-arrow"/></svg></a>
+          <span class="svc-stamp" aria-hidden="true">On your form</span>
+        </li>
+        <li class="svc" data-issue="chimney">
+          <span class="cw svc-ph"><img data-sample="service-photo" src="img/lodge-chimney.webp" width="400" height="400" alt="Stone chimney stack rising from a slate roof, with lead flashing at its base."></span>
+          <h3 class="svc-t">Chimney or lead</h3>
+          <p class="svc-p">Crumbling pointing, cracked flaunching or lead pulling away from the stack.</p>
+          <a class="svc-a" href="?issue=chimney#contact"><span>Tell us about the chimney</span><svg aria-hidden="true" viewBox="0 0 28 10"><use href="#i-arrow"/></svg></a>
+          <span class="svc-stamp" aria-hidden="true">On your form</span>
+        </li>
+        <li class="svc" data-issue="patching">
+          <span class="cw svc-ph"><img data-sample="service-photo" src="img/tiling-work.webp" width="383" height="210" alt="Roofer laying new clay tiles behind scaffold netting."></span>
+          <h3 class="svc-t">Old roof that keeps needing patching</h3>
+          <p class="svc-p">Patching over failed battens only delays the bill. If the roof is past repair, we say so.</p>
+          <a class="svc-a" href="?issue=patching#contact"><span>Ask about the old roof</span><svg aria-hidden="true" viewBox="0 0 28 10"><use href="#i-arrow"/></svg></a>
+          <span class="svc-stamp" aria-hidden="true">On your form</span>
+        </li>
+        <li class="svc" data-issue="notsure">
+          <span class="cw svc-ph"><img data-sample="service-photo" src="img/lead-valley.webp" width="328" height="180" alt="Slate roof meeting a stone wall at a lead-lined valley."></span>
+          <h3 class="svc-t">Not sure</h3>
+          <p class="svc-p">Send photos from the ground and say what you can see in the loft.</p>
+          <a class="svc-a" href="?issue=notsure#contact"><span>Send us what you can see</span><svg aria-hidden="true" viewBox="0 0 28 10"><use href="#i-arrow"/></svg></a>
+          <span class="svc-stamp" aria-hidden="true">On your form</span>
+        </li>
+      </ul>
     </div>
   </div>
 </section>

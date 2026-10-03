@@ -1,1 +1,139 @@
-/* projects section styles */
+/* =====================================================================
+   PROJECTS (sample module). Owner: projects/how agent. Prefix .prj-
+   Shared: peak-cut photo with offset copper outline, facts list, day ticks, layered parallax.
+   Prototype variants (stage 1) live under .prj[data-v="1..5"], set from ?pv=N in projects.js.
+   No JS / reduced motion / data-motion="off": everything below shows in its final state.
+   ===================================================================== */
+.prj{
+  --prj-stone:#CDC4B2; --prj-stone-d:#9C917D; --prj-leaf:#9AA27A;
+  --prj-slate:#8C989E; --prj-slate-d:#6E7B82; --prj-water:#6F93A8;
+  --prj-ease:cubic-bezier(.23,1,.32,1);
+}
+.prj-defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---------- back layer: faint stone coursing ---------- */
+.prj-coursing{right:-6%;top:6%;width:52%;height:78%;color:var(--line);opacity:.7;
+  -webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent);mask-image:radial-gradient(closest-side,#000 25%,transparent)}
+.prj-coursing-2{right:auto;left:-14%;top:auto;bottom:-10%;width:40%;height:56%;opacity:.45}
+
+/* ---------- layout ---------- */
+.prj-grid{display:grid;gap:clamp(2rem,6vw,3rem);align-items:center}
+.prj-media{width:100%;max-width:25rem;justify-self:center}
+.prj-stack{position:relative}
+.prj-peak{position:relative;isolation:isolate}
+.prj-cw{width:100%;aspect-ratio:430/520;clip-path:polygon(0 18%,50% 0,100% 18%,100% 100%,0 100%);background:var(--sand)}
+.prj-cw img{transform-origin:50% 45%}
+.prj-line{position:absolute;left:0;top:0;width:100%;height:auto;aspect-ratio:430/520;z-index:-1;overflow:visible;fill:none;pointer-events:none;translate:12px 12px}
+.prj-line polygon{stroke:var(--copper);stroke-width:1.5px}
+.prj-cap{margin-top:1.5rem;padding-left:.1rem}
+.prj-plate,.prj-tag,.prj-frag-near,.prj-course,.prj-cond{display:none}
+
+.prj-body h2{margin-bottom:1.4rem;max-width:18ch}
+.prj-spec>div{position:relative;display:grid;grid-template-columns:min(7.5rem,31%) minmax(0,1fr);gap:1rem;padding:.85rem 0;border-top:1px solid var(--line)}
+.prj-spec>div:last-child{border-bottom:1px solid var(--line)}
+.prj-spec dt{font-family:var(--ui);font-weight:600;font-size:.875rem;color:var(--copper);padding-top:.15rem;min-width:0}
+.prj-spec dd{min-width:0;max-width:34rem;overflow-wrap:break-word}
+/* active row marker (v2, v5): a copper bar in the gutter */
+.prj-spec>div::before{content:"";position:absolute;left:-.9rem;top:.85rem;bottom:.85rem;width:2px;background:var(--copper);opacity:0;transform:scaleY(.6);transform-origin:50% 0;transition:opacity .25s var(--prj-ease),transform .25s var(--prj-ease)}
+
+/* six working days: one slate per day, they drop into place when the row is reached */
+.prj-dur{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1rem}
+.prj-days{display:inline-flex;gap:5px;padding-top:2px}
+.prj-days i{position:relative;display:block;width:15px;height:10px;border:1px solid var(--copper-tint);border-radius:1px}
+.prj-days i::after{content:"";position:absolute;inset:-1px;background:var(--copper);border-radius:1px;transition:opacity .3s var(--prj-ease),transform .3s var(--prj-ease)}
+.prj-days.is-set i::after{opacity:0;transform:translateY(-5px)}
+.prj-days.is-set i.on::after{opacity:1;transform:none}
+
+@media (min-width:800px){
+  .prj-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(3rem,6vw,5.5rem);max-width:68rem}
+  .prj-media{max-width:26rem}
+}
+
+/* ---------- front layer: stone slate fragments, a nail, a leaf (gutters only) ---------- */
+.prj-stone{fill:var(--prj-stone);stroke:var(--prj-stone-d);stroke-width:1.2;stroke-linejoin:round}
+.prj-stone-edge{fill:none;stroke:rgba(31,43,48,.28);stroke-width:1.2}
+.prj-hole{fill:var(--paper);stroke:var(--prj-stone-d);stroke-width:1}
+.prj-frag-a{left:1.5%;bottom:12%;width:84px;opacity:.9}
+.prj-frag-b{right:2.5%;top:16%;width:54px;opacity:.85}
+.prj-nail{right:5.5%;bottom:18%;width:10px;height:38px;color:rgba(31,43,48,.55)}
+.prj-leaf{left:47%;top:5%;width:30px;fill:var(--prj-leaf);opacity:.8}
+@media (max-width:1279px){.prj-frag-a{left:.25rem;bottom:4%;width:60px}.prj-frag-b,.prj-nail{display:none}}
+@media (max-width:799px){.prj-frag-a{display:none}.prj-leaf{left:auto;right:6%;top:3%}}
+
+/* =====================================================================
+   v2: condition toggle (before / after drawing of the sample fault)
+   ===================================================================== */
+.prj[data-v="2"] .prj-cond{display:block;margin-top:1.75rem;padding:1rem 1rem .75rem;background:var(--card);border:1px solid var(--line-soft);box-shadow:var(--shadow-soft)}
+.prj-cond-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1rem;margin-bottom:.75rem}
+.prj-cond-h{font-family:var(--ui);font-weight:600;color:var(--text)}
+.prj-cond-tg{display:inline-flex;border:1px solid var(--copper)}
+html:not(.js) .prj-cond-tg{display:none}
+.prj-cond-b{min-height:44px;min-width:5.5rem;padding:0 1rem;border:0;background:transparent;color:var(--copper);font-family:var(--ui);font-weight:600;cursor:pointer;transition:transform .16s var(--prj-ease)}
+.prj-cond-b[aria-pressed="true"]{background:var(--copper);color:var(--paper)}
+.prj-cond-b:active{transform:scale(.97)}
+@media (hover:hover){.prj-cond-b[aria-pressed="false"]:hover{background:var(--copper-wash)}}
+.prj-cond-art{display:block;width:100%;height:auto}
+.prj-cond-cap{margin-top:.5rem}
+.pc-sky{fill:var(--sky)}
+.pc-chim{fill:#C9A58C;stroke:var(--copper-deep);stroke-width:1.2}
+.pc-chim-line{fill:none;stroke:rgba(122,67,38,.45);stroke-width:1}
+.pc-pot{fill:#B98466;stroke:var(--copper-deep);stroke-width:1}
+.pc-slates path,.pc-slip{fill:var(--prj-slate);stroke:var(--paper);stroke-width:2}
+.pc-slip{transform-box:fill-box;transform-origin:50% 0;transition:transform .45s var(--prj-ease)}
+.pc-valley-old{fill:#9AA0A0;stroke:var(--prj-slate-d);stroke-width:1}
+.pc-valley{fill:var(--copper-tint);stroke:var(--copper);stroke-width:1.2;transition:opacity .4s var(--prj-ease)}
+.pc-split{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;opacity:0;transition:opacity .3s}
+.pc-water path{fill:var(--prj-water);opacity:0;transition:opacity .3s}
+.pc-eave{fill:none;stroke:var(--ink);stroke-width:2;opacity:.6}
+.pc-tick circle{fill:var(--paper);stroke:var(--copper);stroke-width:1.5}
+.pc-tick path{fill:none;stroke:var(--copper);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pc-tick{transform-box:fill-box;transform-origin:50% 50%;transition:opacity .35s var(--prj-ease),transform .35s var(--prj-ease)}
+.prj-cond[data-cond="before"] .pc-slip-1{transform:translate(-5px,13px) rotate(-8deg)}
+.prj-cond[data-cond="before"] .pc-slip-2{transform:translate(3px,17px) rotate(11deg)}
+.prj-cond[data-cond="before"] .pc-valley{opacity:0}
+.prj-cond[data-cond="before"] .pc-split{opacity:1}
+.prj-cond[data-cond="before"] .pc-water path{opacity:.9;animation:prj-drip 1.8s cubic-bezier(.45,0,.55,1) infinite}
+.prj-cond[data-cond="before"] .pc-water path:nth-child(2){animation-delay:.6s}
+.prj-cond[data-cond="before"] .pc-water path:nth-child(3){animation-delay:1.1s}
+.prj-cond[data-cond="before"] .pc-tick{opacity:0;transform:scale(.94)}
+@keyframes prj-drip{0%{transform:translateY(-4px);opacity:0}25%{opacity:.9}100%{transform:translateY(12px);opacity:0}}
+.prj[data-v="2"]:has(.prj-cond[data-cond="before"]) [data-k="problem"]::before,
+.prj[data-v="2"]:has(.prj-cond[data-cond="after"]) [data-k="work"]::before{opacity:1;transform:none}
+
+/* =====================================================================
+   v3: scrubbed reading. Problem and Work sentences reveal word by word;
+   the six days become a course of six slates laid as you read.
+   ===================================================================== */
+.prj[data-v="3"] .prj-days{display:none}
+.prj[data-v="3"] .prj-course{display:block;width:min(228px,100%);height:auto;flex-basis:100%}
+.prj-course-batten{fill:none;stroke:var(--copper-tint);stroke-width:1.5}
+.prj-course-slates path{fill:var(--prj-slate);stroke:var(--paper);stroke-width:1.5}
+.prj-words .pw{display:inline}
+
+/* =====================================================================
+   v4: layered frame. Plate, photo, outline and a stone fragment sit on
+   separate depths and tilt with the pointer (or gently with scroll on touch).
+   A small tag hangs from a nail at the eave and swings with scroll speed.
+   ===================================================================== */
+.prj[data-v="4"] .prj-media{perspective:1100px}
+.prj[data-v="4"] .prj-stack{transform-style:preserve-3d}
+.prj[data-v="4"] .prj-plate{display:block;position:absolute;left:-1.25rem;right:1.75rem;top:12%;bottom:2.75rem;background:var(--sand);transform:translateZ(-40px);overflow:hidden}
+.prj-plate svg{width:100%;height:100%;color:rgba(122,67,38,.22)}
+.prj[data-v="4"] .prj-peak{transform:translateZ(0)}
+.prj[data-v="4"] .prj-frag-near{display:block;position:absolute;left:-1.75rem;bottom:2rem;width:88px;transform:translateZ(60px) rotate(-12deg);filter:drop-shadow(0 8px 10px rgba(31,43,48,.18))}
+.prj[data-v="4"] .prj-tag{display:block;position:absolute;right:-1rem;top:17%;width:7.5rem;transform:translateZ(36px);transform-origin:50% 0;pointer-events:none}
+.prj-tag-string{display:block;width:40px;height:56px;margin-left:calc(50% - 20px);color:var(--muted);fill:var(--ink)}
+.prj-tag-card{display:grid;gap:.35rem;margin-top:-4px;padding:.55rem .6rem .6rem;background:var(--card);box-shadow:var(--shadow-card);clip-path:polygon(18% 0,82% 0,100% 16%,100% 100%,0 100%,0 16%);font-family:var(--ui);font-weight:600;font-size:.8125rem;line-height:1.2;color:var(--text);text-align:center}
+.prj-days-tag{justify-content:center;gap:3px}
+.prj-days-tag i{width:12px;height:8px}
+.prj[data-v="4"] .prj-frag-a{display:none}
+@media (max-width:799px){.prj[data-v="4"] .prj-tag{right:-.25rem;width:6.5rem}.prj[data-v="4"] .prj-frag-near{left:-.5rem;width:64px}.prj[data-v="4"] .prj-plate{left:-.5rem}}
+
+/* =====================================================================
+   v5: pinned project scene (desktop): the photo closes in on the roof while
+   the facts are read one at a time; rows not yet reached rest quieter.
+   ===================================================================== */
+.prj[data-v="5"] .prj-spec>div{transition:opacity .3s var(--prj-ease)}
+.prj[data-v="5"] .prj-spec>div.is-later{opacity:.4}
+.prj[data-v="5"] .prj-spec>div.is-cur::before{opacity:1;transform:none}
+.prj-zoomnote{display:none}
