@@ -164,7 +164,7 @@ html:not(.has-motion) .dia-sec .dg-hl,.dia-sec:not(.is-touring) .dg-hl{opacity:1
 .dia-streaks{width:44px;height:160px;fill:none;stroke:rgba(79,118,134,.28);stroke-width:1.2px;stroke-linecap:round}
 .dia-streaks-l{left:max(.25rem,calc((100% - var(--max))/2 - 3.25rem));top:18%}
 .dia-streaks-r{right:max(.25rem,calc((100% - var(--max))/2 - 3.5rem));top:52%}
-.dia-leaf{width:34px;height:24px;right:max(1rem,calc((100% - var(--max))/2 - 2rem));bottom:9%}
+.dia-leaf{width:34px;height:24px;right:max(1rem,calc((100% - var(--max))/2 - 5rem));bottom:9%}
 .dia-leaf .lf{fill:#D9B48E;stroke:rgba(31,43,48,.55);stroke-width:1.2px}
 .dia-leaf .lv{fill:none;stroke:rgba(31,43,48,.45);stroke-width:1px;stroke-linecap:round}
 @media (max-width:999px){.dia-streaks-l{top:8%}.dia-streaks-r{top:auto;bottom:6%}.dia-leaf{bottom:2%}}

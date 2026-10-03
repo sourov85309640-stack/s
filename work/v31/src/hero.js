@@ -52,7 +52,7 @@
     if (sweep && H.v !== 4) {
       tl.fromTo(sweep, { xPercent: -70, opacity: 0 }, { xPercent: 70, duration: 2.2, ease: 'power2.inOut' }, 1.2)
         .to(sweep, { opacity: 1, duration: 0.7, ease: 'power1.out' }, 1.2)
-        .to(sweep, { opacity: 0, duration: 0.9, ease: 'power1.in' }, 2.5);
+        .to(sweep, { opacity: 0, duration: 0.9, ease: 'power1.out' }, 2.5);
     }
     H.intro = tl;
   }, { motion: true });

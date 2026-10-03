@@ -57,7 +57,7 @@
 .prj-frag-a{left:1.5%;bottom:12%;width:84px;opacity:.9}
 .prj-frag-b{right:2.5%;top:16%;width:54px;opacity:.85}
 .prj-nail{right:5.5%;bottom:18%;width:10px;height:38px;color:rgba(31,43,48,.55)}
-.prj-leaf{left:47%;top:5%;width:30px;fill:var(--prj-leaf);opacity:.8}
+.prj-leaf{left:44%;top:1.5%;width:30px;fill:var(--prj-leaf);opacity:.8}
 @media (max-width:1279px){.prj-frag-a{left:.25rem;bottom:4%;width:60px}.prj-frag-b,.prj-nail{display:none}}
 @media (max-width:799px){.prj-frag-a{display:none}.prj-leaf{left:auto;right:6%;top:3%}}
 

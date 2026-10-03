@@ -261,7 +261,7 @@
       if (performance.now() - h[h.length - 1].t > 80) v = 0; /* held still before release */
       var proj = x + (v / 1000) * 0.998 / (1 - 0.998);
       var i = nearest(RW.clamp(proj, 0, maxX));
-      if (MODE !== 'rail') i = RW.clamp(i, d.startIdx - 1, d.startIdx + 1);
+      if (MODE !== 'rail' || vpW < 640) i = RW.clamp(i, d.startIdx - 1, d.startIdx + 1); /* phones: one review per swipe */
       if (MODE === 'rail' && i === d.startIdx && Math.abs(v) > 350) i = RW.clamp(d.startIdx + (v > 0 ? 1 : -1), 0, snaps.length - 1);
       damp = Math.abs(v) > 300 ? 0.86 : 1; resp = 0.42;
       setIndex(i, true);

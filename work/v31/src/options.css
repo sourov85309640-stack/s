@@ -19,3 +19,4 @@
 @media (hover:hover){.opt-btns button[aria-pressed="false"]:hover{border-color:var(--copper)}}
 .opt-btns button:active{transform:scale(.97)}
 @media print{.opt{display:none}}
+@media (max-width:599px){.opt-toggle span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.opt-toggle{width:44px;padding:0;justify-content:center}}

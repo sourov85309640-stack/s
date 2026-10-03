@@ -265,3 +265,5 @@ html.has-motion [data-depth],html.has-motion [data-px],html.has-motion [data-dri
 .ftr-bird{width:26px;height:11px;fill:var(--muted);opacity:.35;right:18%;top:2.75rem}
 .ftr-bird2{width:18px;height:8px;right:calc(18% + 46px);top:3.6rem;opacity:.28}
 @media (max-width:767px){.ftr-bird{display:none}}
+/* narrow screens have no real gutters: foreground pieces would sit on text, so they step out (canvas particles and back layers stay) */
+@media (max-width:1439px){.layers-front{display:none}}

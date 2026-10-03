@@ -20,7 +20,7 @@
 .chk-fr-slate{width:34px;height:26px;right:3%;bottom:20%;fill:#AEB7BA;stroke:#6E7B80;opacity:.75}
 .chk-fr-slate .v{fill:var(--paper)}
 .chk-fr-nail{width:8px;height:32px;left:4%;bottom:12%;stroke:#6E7B80;opacity:.7}
-.chk-fr-bird{width:26px;height:11px;right:22%;top:4.5rem;fill:var(--muted);stroke:none;opacity:.32}
+.chk-fr-bird{width:26px;height:11px;right:22%;top:1.25rem;fill:var(--muted);stroke:none;opacity:.32}
 @media (max-width:767px){.chk-fr-nail,.chk-fr-bird,.chk-bk-cloud2{display:none}.chk-fr-leaf{top:1.5rem;left:auto;right:6%}.chk-fr-slate{bottom:1.25rem}}
 
 /* ---------- layout (mobile first) ---------- */

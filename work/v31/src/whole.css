@@ -32,7 +32,7 @@
   .whole-cta{grid-area:cta;margin-top:1.5rem}
   .whole-media{grid-area:media;margin:0;align-self:stretch;min-height:32rem}
   /* pinned: the whole grid is one viewport tall and the copy column never moves (QC-4) */
-  .whole.xv-pinned .whole-grid{height:min(52rem,calc(100vh - 5.5rem))}
+  .whole.xv-pinned .whole-grid{height:min(52rem,calc(100vh - 7rem))}
   .whole.xv-pinned .whole-copy .lead{font-size:var(--h4);line-height:1.5;margin-bottom:1.25rem}
   .whole.xv-pinned .whole-copy h2{margin-bottom:.75rem}
   .whole.xv-pinned .whole-cta{margin-top:1.25rem}
