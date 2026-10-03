@@ -1,6 +1,6 @@
 /* BEFORE AND AFTER, prefix .bf- (owner: lead). One drawn cottage, two states, a drag handle between them.
    On fine pointers the handle also follows the pointer while it hovers the drawing. */
-.bf{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .bf{overflow-x:clip}
 .bf-bk-sun{width:110px;height:110px;right:9%;top:2.2rem;fill:rgba(246,201,121,.35);stroke:rgba(214,160,70,.4);stroke-width:3;stroke-linecap:round}
 .bf-bk-cloud{width:200px;height:60px;left:6%;top:3rem;fill:#fff;opacity:.8}
 .bf-fr-brush{width:76px;height:38px;left:2.5%;bottom:18%;fill:none;stroke:#9C7A5E;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}

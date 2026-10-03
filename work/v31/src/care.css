@@ -1,6 +1,6 @@
 /* LOOKING AFTER YOUR ROOF, prefix .cr- (owner: lead). The garden changes with the chosen season (data-season on the
    section): sky, tree, ground, snow, falling leaves, blossom, birds, sun. The tree leans towards the pointer (care.js). */
-.cr{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .cr{overflow-x:clip}
 .cr-bk-cal{width:84px;height:84px;right:6%;top:2.4rem;fill:none;stroke:rgba(31,43,48,.16);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .cr-bk-leaf{width:38px;height:38px;left:7%;top:4rem;fill:rgba(201,119,79,.25);stroke:rgba(152,86,50,.3);stroke-width:2}
 .cr-box{display:grid;gap:clamp(1.5rem,4vw,3.5rem);align-items:start}

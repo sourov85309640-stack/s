@@ -1,7 +1,7 @@
 /* WHO WE WORK FOR, prefix .sc- (owner: lead). Four cards, four little scenes, each with its own motion:
    the home's door swings open and the windows glow, the To Let sign swings, the shop shutter rolls up, the camera flashes
    and the photo prints onto the report. Each plays once on arrival (.is-play) and again on hover or focus. */
-.sc{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .sc{overflow-x:clip}
 .sc-bk-crane{width:150px;height:190px;right:5%;top:1.5rem;fill:none;stroke:rgba(31,43,48,.13);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .sc-bk-gulls{width:120px;height:40px;left:8%;top:3rem;fill:none;stroke:rgba(31,43,48,.3);stroke-width:2;stroke-linecap:round}
 .sc-grid{display:grid;gap:1rem}

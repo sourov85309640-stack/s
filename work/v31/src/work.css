@@ -37,3 +37,26 @@
 html.has-motion .wk-dlg[open] .wk-fig{animation:wk-in .3s var(--ease)}
 @keyframes wk-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
 @media (max-width:899px){.wk-f{grid-column:span 2}}
+
+/* depth: a big camera viewfinder behind, a stray photo print and a bit of tape in front */
+.wk{position:relative;overflow-x:clip}
+.wk-bk-finder{width:min(40vw,480px);height:auto;aspect-ratio:400/260;right:-2%;top:8%;fill:none;stroke:rgba(31,43,48,.1);stroke-width:4;stroke-linecap:round}
+.wk-fr-pola{width:50px;height:58px;left:1%;top:40%}
+.wk-pola-f{fill:#fff;stroke:rgba(31,43,48,.25);stroke-width:1.5}
+.wk-pola-p{fill:#DCE6EA}.wk-pola-r{fill:#C9774F}
+.wk-fr-tape{width:56px;height:18px;right:2.5%;bottom:20%;fill:rgba(242,195,91,.5)}
+
+/* photo reveals (motion only, work.js): a cover peels away a different way on each photo, transform only */
+.wk-cov{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+.wk-cov::before,.wk-cov i{content:"";position:absolute;inset:0;background:var(--sand);transition:transform .9s cubic-bezier(.7,0,.2,1)}
+.wk-cov-shut::before{transform-origin:50% 0}.wk-cov-shut.is-open::before{transform:scaleY(0)}
+.wk-cov-wipe::before{transform-origin:100% 50%}.wk-cov-wipe.is-open::before{transform:translateX(101%)}
+.wk-cov-lift::before{transform-origin:50% 0}.wk-cov-lift.is-open::before{transform:translateY(-101%)}
+.wk-cov-diag::before{inset:-40%;transform:rotate(-30deg)}.wk-cov-diag.is-open::before{transform:rotate(-30deg) translateY(101%)}
+.wk-cov-iris::before{inset:auto;left:50%;top:50%;width:300%;height:auto;aspect-ratio:1;translate:-50% -50%;background:radial-gradient(circle,transparent 18%,var(--sand) 18.5%);transform:scale(.25)}
+.wk-cov-iris.is-open::before{transform:scale(3);transition-duration:1.1s}
+.wk-cov-slats::before{display:none}
+.wk-cov-slats i{height:25%;transform-origin:0 50%}
+.wk-cov-slats i:nth-child(2){top:25%;transition-delay:.08s}.wk-cov-slats i:nth-child(3){top:50%;transition-delay:.16s}.wk-cov-slats i:nth-child(4){top:75%;transition-delay:.24s}
+.wk-cov-slats.is-open i{transform:scaleX(0)}
+.wk-cov.is-open{transition:visibility 0s 1.4s;visibility:hidden}

@@ -1,6 +1,6 @@
 /* QUICK ROOF CHECK, prefix .qz- (owner: lead). One question at a time; the drawing answers each tap.
    State lives on the section: data-step (0 to 3), data-what, data-where, data-when. */
-.qz{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .qz{overflow-x:clip}
 .qz-bk-q{width:56px;height:84px;right:8%;top:2.5rem;fill:none;stroke:rgba(152,86,50,.22);stroke-width:7;stroke-linecap:round}
 .qz-bk-ticks{width:200px;height:60px;left:5%;bottom:10%;fill:none;stroke:rgba(31,43,48,.12);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
 .qz-fr-pencil{width:120px;height:24px;right:2.5%;bottom:22%;fill:#F2C35B;stroke:rgba(31,43,48,.5);stroke-width:1.5;stroke-linejoin:round}

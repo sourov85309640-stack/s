@@ -1,6 +1,6 @@
 /* MEET THE TEAM, prefix .tm- (owner: lead). Drawn portraits in gable-shaped frames. Eyes follow the pointer (team.js),
    they blink now and then, and each person does one small thing on hover: clipboard tap, hammer swing, cap tip, phone ring. */
-.tm{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .tm{overflow-x:clip}
 .tm-bk-mug{width:76px;height:76px;right:7%;top:2.4rem;fill:none;stroke:rgba(31,43,48,.18);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .tm-bk-tape{width:220px;height:40px;left:4%;bottom:8%;fill:rgba(242,195,91,.25);stroke:rgba(31,43,48,.18);stroke-width:2}
 @keyframes tm-steam{0%{transform:translateY(4px);opacity:0}40%{opacity:1}100%{transform:translateY(-8px);opacity:0}}

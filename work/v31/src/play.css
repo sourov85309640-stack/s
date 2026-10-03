@@ -1,0 +1,21 @@
+/* PLAY (play.js): hover moments by kind of control, each different. All transform and opacity, all inside (hover:hover),
+   none under reduced motion (html.has-motion is only set when motion is allowed). */
+h2[data-split] .w{display:inline-block;transform-origin:50% 80%}
+@media (hover:hover) and (pointer:fine){
+  /* text links: a little roofline draws itself under the words instead of the plain underline */
+  .link{position:relative}
+  .link::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:6px;background:var(--copper);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 5.5L6 .8 12 5.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") 0 0/12px 6px repeat-x;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='6'%3E%3Cpath d='M0 5.5L6 .8 12 5.5' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") 0 0/12px 6px repeat-x;
+    transform:scaleX(0);transform-origin:0 50%;transition:transform .28s var(--ease)}
+  html.has-motion .link:hover::after{transform:none}
+  /* phone links and buttons: the handset rings */
+  @keyframes pl-ring{0%,100%{transform:none}15%{transform:rotate(-16deg)}30%{transform:rotate(14deg)}45%{transform:rotate(-10deg)}60%{transform:rotate(7deg)}75%{transform:rotate(-3deg)}}
+  html.has-motion a[href^="tel:"]:hover svg{animation:pl-ring .6s ease}
+  /* filled buttons with an arrow: the arrow hops over a little ridge */
+  @keyframes pl-hop{0%{transform:none}40%{transform:translate(3px,-5px)}70%{transform:translate(6px,0)}85%{transform:translate(5px,0)}100%{transform:translate(5px,0)}}
+  html.has-motion .btn:not([href^="tel:"]):hover svg{animation:pl-hop .45s var(--ease) forwards}
+  /* text-and-arrow links: the arrow stretches like a tape measure, then springs back */
+  @keyframes pl-tape{0%{transform:none}50%{transform:translateX(6px) scaleX(1.25)}100%{transform:translateX(4px)}}
+  html.has-motion .btn-text:not([href^="tel:"]):hover svg{animation:pl-tape .4s var(--ease) forwards;transform-origin:0 50%}
+}

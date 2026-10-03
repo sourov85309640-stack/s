@@ -1,6 +1,6 @@
 /* URGENT LEAK BAND, prefix .ug- (owner: lead). Pale sky surface, a drip that keeps falling into a bucket while the band
    is on screen (paused offscreen by urgent.js), staggered rings on the water. */
-.ug{position:relative;background:var(--sky);padding-block:clamp(2.5rem,5vw,4rem);overflow:hidden}
+.ug{position:relative;background:var(--sky);padding-block:clamp(2.5rem,5vw,4rem);overflow-x:clip}
 .ug-rain{inset:0;opacity:.5;background:repeating-linear-gradient(105deg,transparent 0 22px,rgba(74,104,122,.07) 22px 23px,transparent 23px 46px)}
 .ug-grid{display:grid;gap:1.25rem 2.5rem;align-items:center;grid-template-columns:minmax(0,1fr)}
 @media (min-width:860px){.ug-grid{grid-template-columns:150px minmax(0,1fr) auto}}
@@ -36,3 +36,8 @@ html.has-motion .ug.is-live .ug-call svg{animation:ug-ring-ic .7s ease .5s 2}
 html.has-motion .ug.is-live .ug-splash path{animation:ug-splash .6s ease-out 1.26s infinite}
 .ug:not(.is-miss) .ug-splash{visibility:hidden}
 .ug.is-miss .ug-ripple{visibility:hidden}
+
+/* depth: a storm cloud drifting behind, two big soft drops in front */
+.ug-md-cloud{width:240px;height:80px;right:10%;top:-12px;fill:rgba(111,152,174,.18)}
+.ug-fr-drop{width:22px;height:30px;left:1.5%;top:22%;fill:rgba(111,152,174,.35)}
+.ug-fr-drop2{width:14px;height:19px;left:auto;right:1.6%;top:auto;bottom:18%;fill:rgba(111,152,174,.28)}

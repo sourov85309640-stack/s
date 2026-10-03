@@ -24,6 +24,14 @@
     var sec = RW.$('#work'); if (!sec) return;
     RW.headings(sec);
     RW.reveal(RW.$$('.wk-it', sec), { y: 30, stagger: 0.07 });
+    /* every photo uncovers in its own way: shutter, wipe, iris, slats, lift, diagonal */
+    var KINDS = ['shut', 'wipe', 'iris', 'slats', 'lift', 'diag'];
+    RW.$$('.wk-btn', sec).forEach(function (b, i) {
+      var c = document.createElement('span'); c.className = 'wk-cov wk-cov-' + KINDS[i % KINDS.length]; c.setAttribute('aria-hidden', 'true');
+      if (KINDS[i % KINDS.length] === 'slats') for (var k = 0; k < 4; k++) c.appendChild(document.createElement('i'));
+      b.appendChild(c);
+      RW.onView(b, { once: true, margin: '0px 0px -12% 0px', enter: function () { setTimeout(function () { c.classList.add('is-open'); }, 120 + (i % 3) * 110); } });
+    });
     RW.reveal(RW.$$('.head2 > p, .wk-cta', sec), { y: 16 });
   }, { motion: true });
 }());

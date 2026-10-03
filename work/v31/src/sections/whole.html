@@ -2,6 +2,13 @@
      Prototype stage: data-v="1".."6" picks the immersive variant (whole.js reads ?v=N). data-cover="tiles|slates" is set
      by the Tiles / Slates switch and swaps the covering and ridge artwork (src/svg/xv-*.svg, made by gen_xv2.py). -->
 <section class="sec sec-warm whole e-rake" id="whole" data-reveal="tilt" data-v="1" data-cover="tiles" aria-labelledby="h-whole">
+  <div class="layers layers-back" aria-hidden="true">
+    <svg class="wh-bk-truss" viewBox="0 0 600 260" data-depth="-0.06" data-px="10" focusable="false"><path d="M10 250L300 20L590 250ZM10 250H590M300 20V250M155 135L300 250L445 135M155 135V250M445 135V250"/></svg>
+  </div>
+  <div class="layers layers-front" aria-hidden="true">
+    <svg class="wh-fr-square fr-safe" viewBox="0 0 60 60" data-depth="0.26" data-rot="-16" data-px="-14" focusable="false"><path d="M4 4v52h52L4 4zM14 30v16h16z"/></svg>
+    <svg class="wh-fr-pencil" viewBox="0 0 110 22" data-depth="0.34" data-rot="22" data-px="-18" focusable="false"><path d="M6 11l14-8h80v16H20z"/><path d="M20 3v16"/></svg>
+  </div>
   <div class="wrap whole-grid" id="whole-grid">
     <div class="whole-copy">
       <p class="kicker"><span class="rule" aria-hidden="true"></span>Under the part you can see</p>

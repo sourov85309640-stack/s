@@ -1,7 +1,7 @@
 /* ABOUT AND WHY CHOOSE US, prefix .ab- (owner: lead).
    The drawing is a small working scene: a roofer on a ladder slots the last tile into the gap, smoke drifts from the stack.
    The tile goes in once when the section arrives and again whenever the pointer visits the drawing. */
-.ab{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .ab{overflow-x:clip}
 .ab-bk-cloud{width:200px;height:60px;top:2.5rem;left:6%;fill:#fff;opacity:.75}
 .ab-bk-cloud2{width:150px;height:45px;top:auto;bottom:18%;left:auto;right:8%;opacity:.6}
 .ab-grid{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center}
@@ -59,3 +59,9 @@ html:not(.has-motion) .ab-gap{opacity:0}
 @media (max-width:479px){.ab-stats{grid-template-columns:minmax(0,1fr)}.ab-stats>div{flex-direction:row-reverse;align-items:baseline;justify-content:space-between}}
 .ab-sign{font-family:var(--ui);color:var(--muted)}
 .ab-sign-n{font-weight:600;color:var(--text)}
+
+/* depth: a TV aerial in the middle distance, a hammer and a blowing leaf in front */
+.ab-md-aerial{width:70px;height:105px;left:44%;top:1.2rem;fill:none;stroke:rgba(31,43,48,.16);stroke-width:3;stroke-linecap:round}
+.ab-fr-ham{width:52px;height:52px;left:1.2%;bottom:10%;fill:none;stroke:#9C7A5E;stroke-width:5;stroke-linecap:round}
+.ab-fr-ham .ab-fr-head{fill:#5B656A;stroke:none}
+.ab-fr-leaf{width:34px;height:34px;right:4%;top:30%;fill:rgba(201,119,79,.7);stroke:var(--copper);stroke-width:1.5}

@@ -1,6 +1,6 @@
 /* ROOFS WE WORK ON, prefix .ty- (owner: lead). Tabs on the left, a drawn swatch in the middle, the facts on the right.
    Pieces are laid from the eaves up when a type is chosen, and lift and swing on their nails under the pointer. */
-.ty{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .ty{overflow-x:clip}
 .ty-bk-vane{width:70px;height:105px;right:7%;top:3rem;fill:none;stroke:rgba(31,43,48,.22);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 .ty-bk-roofs{left:0;right:0;bottom:-4px;width:100%;height:clamp(60px,8vw,120px);fill:rgba(185,197,201,.32)}
 .ty-fr-nail{width:16px;height:56px;left:3.5%;top:38%;fill:none;stroke:#7E8A90;stroke-width:3;stroke-linecap:round}

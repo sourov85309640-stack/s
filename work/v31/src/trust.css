@@ -39,3 +39,9 @@
   .tr-item:hover .t-tick{animation:tr-tick .5s var(--ease) backwards}
   .tr-item:hover .t-rose{animation:tr-spin .7s var(--ease)}
 }
+
+/* depth: a faint run of rooftops and one bird drifting across the strip */
+.tr{overflow-x:clip}
+.tr-bk-roofs{left:0;bottom:0;width:100%;height:28px;fill:rgba(185,197,201,.25)}
+.tr-bk-bird{width:22px;height:9px;left:30%;top:22%;fill:rgba(31,43,48,.25)}
+.tr .wrap{position:relative;z-index:1}

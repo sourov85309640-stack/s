@@ -1,6 +1,6 @@
 /* FREE SURVEY BAND, prefix .sv- (owner: lead). A clipboard ticks itself off as the band arrives; hovering the button
    makes the pencil sign the bottom line. */
-.sv{position:relative;background:var(--copper-wash);padding-block:clamp(2.5rem,5vw,4rem);overflow:hidden}
+.sv{position:relative;background:var(--copper-wash);padding-block:clamp(2.5rem,5vw,4rem);overflow-x:clip}
 .sv-grid{inset:0;background:linear-gradient(rgba(152,86,50,.07) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(152,86,50,.07) 1px,transparent 1px) 0 0/28px 28px}
 .sv-in{display:grid;gap:1.25rem 2.5rem;align-items:center}
 @media (min-width:900px){.sv-in{grid-template-columns:160px minmax(0,1fr) auto}}

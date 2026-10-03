@@ -353,3 +353,6 @@ html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin
 @media (hover:hover){.ftr .btn-line:hover{color:var(--paper)}}
 /* edges that slide in sideways are wider than the page: keep them from widening it */
 .e-wave,.e-ridge{overflow-x:clip}
+
+/* laptops (1024 to 1439): only the small pieces marked .fr-safe stay in front, tucked into the outer edges */
+@media (min-width:1024px) and (max-width:1439px){.layers-front{display:block}.layers-front>:not(.fr-safe){display:none}.layers-front>.fr-safe{scale:.8}}

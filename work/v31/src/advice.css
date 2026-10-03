@@ -1,6 +1,6 @@
 /* ROOFING ADVICE, prefix .ad- (owner: lead). Guide cards that open in place (<details>). Covers loop a tiny scene while
    hovered, focused or open: binoculars scan with a glint, wind blows a tile off, a brush sweeps the moss away. */
-.ad{overflow:hidden}
+/* sections never clip vertically: their roof-shaped top edge sits above the box */ .ad{overflow-x:clip}
 .ad-bk-book{width:100px;height:70px;right:7%;top:2.5rem;fill:none;stroke:rgba(31,43,48,.15);stroke-width:3;stroke-linejoin:round}
 .ad-grid{display:grid;gap:1rem;align-items:start}
 @media (min-width:900px){.ad-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}

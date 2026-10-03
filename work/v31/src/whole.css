@@ -225,3 +225,8 @@ html.has-motion .whole[data-v="5"] .xv-note{display:block}
 html.has-motion .whole[data-v="6"] .xv{cursor:grab;touch-action:pan-y}
 html.has-motion .whole[data-v="6"] .xv.is-drag{cursor:grabbing}
 @media (max-width:420px){.xv-lift label{font-size:.875rem}}
+
+/* depth: a faint roof truss drawing behind, a set square and a pencil in front */
+.wh-bk-truss{width:min(46vw,640px);height:auto;aspect-ratio:600/260;left:-4%;bottom:6%;fill:none;stroke:rgba(62,111,163,.1);stroke-width:2.5;stroke-linejoin:round}
+.wh-fr-square{width:50px;height:50px;left:1.2%;top:24%;fill:rgba(242,195,91,.35);stroke:#B98A2E;stroke-width:2;stroke-linejoin:round}
+.wh-fr-pencil{width:110px;height:22px;right:2%;bottom:14%;fill:#F2C35B;stroke:rgba(31,43,48,.5);stroke-width:1.5;stroke-linejoin:round}
