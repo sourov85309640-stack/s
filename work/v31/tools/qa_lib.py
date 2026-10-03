@@ -33,7 +33,7 @@ def newpage(b, w, h=900, mob=False, reduced=False, **kw):
 
 def goto(pg, url, wait=2500, motion_off=False):
     if motion_off:
-        pg.add_init_script("document.documentElement.setAttribute('data-motion','off')")
+        pg.add_init_script("(function(){function set(){document.documentElement.setAttribute('data-motion','off')}if(document.documentElement)set();else new MutationObserver(function(m,o){if(document.documentElement){set();o.disconnect()}}).observe(document,{childList:true})})()")
     pg.goto(url if url.startswith('file://') else 'file://' + url)
     pg.wait_for_timeout(wait)
 
