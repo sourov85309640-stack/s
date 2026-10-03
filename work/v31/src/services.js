@@ -61,19 +61,19 @@
   /* ---- 3. V6: chooser tabs (WAI-ARIA tabs, roving tabindex, arrow keys; hover-intent preview on fine pointers) ---- */
   if (V === '6') RW.add('svc-tabs', function () {
     var bar = d.createElement('div');
-    bar.className = 'svc-tabs'; bar.setAttribute('role', 'tablist'); bar.setAttribute('aria-label', 'Roof problems');
+    bar.className = 'svc-tabs'; bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', 'Roof problems');
     list.setAttribute('role', 'none');
     var tabs = cards.map(function (li, i) {
       var k = li.getAttribute('data-issue');
       var b = d.createElement('button');
-      b.type = 'button'; b.className = 'svc-tab'; b.id = 'svc-tab-' + k; b.setAttribute('role', 'tab');
+      b.type = 'button'; b.className = 'svc-tab'; b.id = 'svc-tab-' + k;
       b.setAttribute('aria-controls', 'svc-pan-' + k);
       b.style.setProperty('--clip', getComputedStyle(li).getPropertyValue('--clip'));
       var th = d.createElement('span'); th.className = 'cw'; th.setAttribute('aria-hidden', 'true');
       var im = $('img', li).cloneNode(); im.alt = ''; im.removeAttribute('data-sample'); th.appendChild(im);
       var t = d.createElement('span'); t.textContent = $('.svc-t', li).textContent;
       b.appendChild(th); b.appendChild(t); bar.appendChild(b);
-      li.id = 'svc-pan-' + k; li.setAttribute('role', 'tabpanel'); li.setAttribute('aria-labelledby', b.id);
+      li.id = 'svc-pan-' + k;
       return b;
     });
     stage.insertBefore(bar, list);
@@ -81,7 +81,8 @@
     function select(i, focus) {
       if (i === cur) { if (focus) tabs[i].focus(); return; }
       cur = i;
-      tabs.forEach(function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); b.tabIndex = j === i ? 0 : -1; });
+      tabs.forEach(function (b, j) { b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+      cards.forEach(function (li, j) { li.hidden = false; li.setAttribute('aria-hidden', j === i ? 'false' : 'true'); li.inert = j !== i; });
       cards.forEach(function (li, j) { li.classList.toggle('is-on', j === i); });
       if (bar.scrollWidth > bar.clientWidth + 4) bar.scrollTo({ left: Math.max(0, tabs[i].offsetLeft - 16), behavior: RW.motionOK ? 'smooth' : 'auto' });
       if (focus) tabs[i].focus();

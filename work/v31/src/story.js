@@ -47,7 +47,7 @@
       .set([$('.st-sky-storm'), $('.st-sky-dawn'), $('.st-sun'), $('.st-water'), $('.st-stain'), $('.st-drips'), $('.st-bucket'), $('.st-rot'), $('.st-felt-wet'), $('.st-cal'), $('.st-man'), $('.st-newslate'), $('.st-spark'), $('.st-birds')], { opacity: 0 }, 0)
       .set([$('.st-moon'), $('.st-lamp-glow'), $('.st-slate')], { opacity: 1 }, 0)
       .set($('.st-water'), { strokeDashoffset: 1 }, 0)
-      .set($('.st-van'), { x: -560 }, 0)
+      .set($('.st-van'), { x: -1200 }, 0)
       .set($('.st-ladder'), { scaleY: 0, transformOrigin: '50% 100%' }, 0)
       .set($('.st-man'), { y: 180 }, 0)
       .set($('.st-sun'), { y: 90 }, 0)

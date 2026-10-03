@@ -235,7 +235,7 @@
 .svc-tab{position:relative;display:flex;align-items:center;gap:.75rem;flex:none;min-height:56px;padding:.4rem .9rem .4rem .45rem;border:1px solid var(--line);border-radius:6px;background:var(--paper);font-family:var(--ui);font-weight:600;font-size:1rem;line-height:1.25;color:var(--text);text-align:left;cursor:pointer;transition:border-color .18s ease,background-color .18s ease,transform .14s var(--svc-out)}
 .svc-tab .cw{width:44px;height:44px;flex:none;clip-path:var(--clip);background:var(--sand)}
 .svc-tab .cw img{width:100%;height:100%;object-fit:cover}
-.svc-tab[aria-selected="true"]{border-color:var(--copper);background:var(--svc-wash);box-shadow:inset 3px 0 0 var(--copper)}
+.svc-tab[aria-pressed="true"]{border-color:var(--copper);background:var(--svc-wash);box-shadow:inset 3px 0 0 var(--copper)}
 .svc-tab:active{transform:scale(.97)}
 @media (hover:hover) and (pointer:fine){.svc-tab:hover{border-color:var(--copper-tint)}}
 .svc-sec[data-v="6"] .svc-list{display:grid;margin-top:1.25rem}
@@ -287,9 +287,9 @@ html.has-motion .svc.is-noted .svc-note2{transition-delay:.35s}html.has-motion .
 .svc-sec[data-v="6"] .svc-tab{counter-increment:svc;border-radius:14px;background:rgba(255,255,255,.6);border-color:transparent;box-shadow:inset 0 0 0 1px var(--line)}
 .svc-sec[data-v="6"] .svc-tabs{counter-reset:svc}
 .svc-sec[data-v="6"] .svc-tab .cw{border-radius:10px;clip-path:none}
-.svc-sec[data-v="6"] .svc-tab[aria-selected="true"]{background:var(--card);box-shadow:inset 0 0 0 2px var(--copper),var(--shadow-soft)}
+.svc-sec[data-v="6"] .svc-tab[aria-pressed="true"]{background:var(--card);box-shadow:inset 0 0 0 2px var(--copper),var(--shadow-soft)}
 .svc-sec[data-v="6"] .svc-tab::after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;border-radius:1px;background:var(--copper);transform:scaleX(0);transform-origin:0 50%;opacity:0}
-.svc-sec[data-v="6"].is-auto .svc-tab[aria-selected="true"]::after{opacity:.8;animation:svc-prog var(--svc-t,5.5s) linear forwards}
+.svc-sec[data-v="6"].is-auto .svc-tab[aria-pressed="true"]::after{opacity:.8;animation:svc-prog var(--svc-t,5.5s) linear forwards}
 @keyframes svc-prog{to{transform:scaleX(1)}}
 /* the stage: one big photo, the words sit on a soft shade at its foot */
 .svc-sec[data-v="6"] .svc{position:relative;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"ph"!important;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lift);background:var(--ink)}

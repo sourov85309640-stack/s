@@ -335,8 +335,17 @@
             .call(function () { mpos.f = 0; paint(k, true); }, null, 0.85)
             .to(mpos, { h: 1, duration: 1.5, ease: 'none' }, 0.85);
         };
+        /* the reading line sits just under the sticky drawing, so the current row is always the first one you can read */
+        var plateEl = RW.$('.dia-plate', sec);
+        var lineY = function () {
+          var h = plateEl ? plateEl.offsetHeight : 0;
+          return Math.round(Math.min(window.innerHeight * 0.75, Math.max(window.innerHeight * 0.4, (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr-h')) || 64) + 8 + h + 12)));
+        };
+        var lowY = function () { return Math.round(Math.min(window.innerHeight * 0.85, Math.max(lineY() + 150, window.innerHeight * 0.66))); };
         var sts = items.map(function (li, k) {
-          return ST.create({ trigger: li, start: 'top 62%', end: 'bottom 62%', onToggle: function (self) { if (self.isActive) moveTo(k); } });
+          /* a row is current from when its top reaches the lower line until its top meets the drawing, so its heading stays readable */
+          return ST.create({ trigger: li, start: function () { return 'top ' + lowY() + 'px'; }, end: function () { return 'top ' + lineY() + 'px'; },
+            onToggle: function (self) { if (self.isActive) moveTo(k); else if (self.direction < 0 && k > 0) moveTo(k - 1); } });
         });
         var syncFlow = function () {
           measure();
@@ -352,7 +361,7 @@
         render = function () { moveTo(flowI < 0 ? 0 : flowI, true); };
         /* tap a pin or a row: bring that row to the reading line (only ever in response to a tap) */
         var goRow = function (k) {
-          var y = items[k].getBoundingClientRect().top + window.scrollY - window.innerHeight * 0.62 + 14;
+          var y = items[k].getBoundingClientRect().top + window.scrollY - lowY() + 14;
           moveTo(k); RW.scrollTo(Math.max(0, y), { duration: 0.9 });
         };
         pins.forEach(function (p, k) { on(p, 'click', function () { goRow(k); }); });

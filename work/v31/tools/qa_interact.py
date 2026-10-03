@@ -1,4 +1,5 @@
 """Interaction checks: python3 tools/qa_interact.py out/lead.html TAG"""
+import os
 import sys, os, json
 sys.path.insert(0, os.path.dirname(__file__))
 from qa_lib import *
@@ -8,11 +9,12 @@ def ev(pg, js, arg=None): return pg.evaluate(js, arg) if arg is not None else pg
 with sync_playwright() as p:
     b = launch(p)
     # 1. every design option loads clean
-    opts = [('hm', ['1', '2', '6', '3', '4', '5']), ('rv', ['1', '2', '6', '3', '4', '5']), ('sv', ['1', '2', '6', '3', '4', '5']), ('wv', ['2', '3', '6', '1']), ('dv', ['2', '1', '4', '3', '5', '6']),
-            ('xv', ['1', '2', '5']), ('pv', ['1', '2', '3', '4', '5']), ('hv', ['1', '2', '4', '3', '5', '6']), ('cv', ['1', '4', '2', '3', '5']), ('av', ['1', '2', '3', '4', '5']), ('fv', ['1', '2', '3', '4']),
-            ('ctv', ['4', '2', '5', '1', '3', '6']), ('fxv', ['6', '3', '1', '0']), ('hero', ['a', 'b', 'c']), ('cur', ['full', 'ring', 'off'])]
+    opts = [('hm', ['1', '2', '6', '3', '4', '5']), ('rv', ['1', '2', '6', '3', '4', '5']), ('sv', ['6', '1', '2', '3', '4', '5']), ('wv', ['2', '3', '6', '1']), ('dv', ['7', '4', '2', '1', '3', '5', '6']),
+            ('xv', ['1', '2', '5']), ('pv', ['1', '2', '3', '4', '5']), ('hv', ['2', '1', '4', '3', '5', '6']), ('cv', ['1', '4', '2', '3', '5']), ('av', ['2', '1', '3', '4', '5']), ('fv', ['1', '2', '3', '4']),
+            ('ctv', ['4', '2', '5', '1', '3', '6']), ('hero', ['a', 'b', 'c']), ('cur', ['soft', 'full', 'ring', 'off']), ('tyv', ['3', '1', '2']), ('qzv', ['1', '2', '3']), ('bfv', ['2', '1']),
+            ('scv', ['1', '2']), ('svv', ['2', '1']), ('crv', ['1', '2']), ('adv', ['1', '2']), ('acv', ['2', '1']), ('stv', ['1', '2']), ('team', ['off', 'on']), ('pal', ['on', 'off'])]
     out['options'] = {}
-    for (w, h, m) in [(1440, 900, False), (390, 844, True)]:
+    for (w, h, m) in ([] if os.environ.get('SKIPOPT') else [(1440, 900, False), (390, 844, True)]):
         pg = newpage(b, w, h, mob=m)
         for prm, vals in opts:
             for v in vals[1:]:
@@ -47,7 +49,8 @@ with sync_playwright() as p:
     # 4. decide pick
     jump_to(pg, '#decide');
     picks = pg.query_selector_all('#decide .dec-pick')
-    if len(picks) > 3: picks[3].click(); pg.wait_for_timeout(700)
+    vis=[x for x in picks if x.is_visible()]
+    if vis: vis[-1].click(); pg.wait_for_timeout(700)
     out['decide'] = {'pressed': [x.get_attribute('aria-pressed') for x in picks], 'state': ev(pg, "()=>{const b=document.querySelector('.dec-body');return b?getComputedStyle(b).getPropertyValue('--s'):null}")}
     shot(pg, f'{TAG}_decide_pick')
     # 5. faq deep link + toggle
@@ -80,7 +83,7 @@ with sync_playwright() as p:
     shot(pg, f'{TAG}_town_390')
     # 8. mobile menu
     goto(pg, F, 1200); pg.tap('#menu-btn'); pg.wait_for_timeout(500)
-    out['menu'] = ev(pg, "()=>({exp:document.getElementById('menu-btn').getAttribute('aria-expanded'),open:document.getElementById('nav').classList.contains('is-open')})")
+    out['menu'] = ev(pg, "()=>({exp:document.getElementById('menu-btn').getAttribute('aria-expanded'),open:document.documentElement.classList.contains('menu-open')})")
     shot(pg, f'{TAG}_menu_390')
     pg.keyboard.press('Escape'); pg.wait_for_timeout(200)
     out['menu_esc'] = ev(pg, "()=>document.getElementById('menu-btn').getAttribute('aria-expanded')")

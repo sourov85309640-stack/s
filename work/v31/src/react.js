@@ -150,6 +150,52 @@
       }
     }()));
 
+    /* SERVICES: the paper hides roof courses. Under the pointer the tiles show, lift and tilt, then settle and fade. */
+    reg(d.getElementById('services'), (function () {
+      var S, TW = 26, TH = 13, G = 3, act = new Map(), pres = 0;
+      return {
+        init: function (sec) { S = canvasFor(sec, 'rx-tiles'); S.redraw = draw; },
+        frame: function (dt, lx, ly, inside) {
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
+          if (inside) {
+            var R = 120, r0 = Math.floor((ly - R) / (TH + G)), r1 = Math.ceil((ly + R) / (TH + G));
+            for (var row = r0; row <= r1; row++) {
+              var off = (row & 1) ? (TW + G) / 2 : 0, c0 = Math.floor((lx - R - off) / (TW + G)), c1 = Math.ceil((lx + R - off) / (TW + G));
+              for (var col = c0; col <= c1; col++) {
+                var x = col * (TW + G) + off + TW / 2, y = row * (TH + G) + TH / 2, dd = Math.hypot(x - lx, y - ly);
+                if (dd > R) continue;
+                var key = row * 10000 + col, t = 1 - dd / R, a = act.get(key);
+                if (!a) { a = { x: x, y: y, e: 0, t: 0, ph: (col * 7 + row * 3) % 5 }; act.set(key, a); }
+                a.t = Math.max(a.t, t);
+              }
+            }
+          }
+          var busy = false;
+          act.forEach(function (a, key) {
+            a.e += (a.t - a.e) * Math.min(1, dt * (a.t > a.e ? 12 : 1.8));
+            a.t *= Math.pow(0.02, dt);                   /* the lift decays once the pointer moves on */
+            if (a.e < 0.003 && a.t < 0.003) act.delete(key); else busy = true;
+          });
+          draw(); return busy || pres > 0.01;
+        }
+      };
+      function draw() {
+        var c = S.c; c.clearRect(0, 0, S.w, S.h);
+        act.forEach(function (a) {
+          var e = a.e; if (e < 0.01) return;
+          var lift = e * 7, tilt = (a.ph - 2) * 0.05 * e;
+          c.save(); c.translate(a.x, a.y - lift); c.rotate(tilt);
+          c.fillStyle = 'rgba(31,43,48,' + (0.08 * e).toFixed(3) + ')';
+          c.fillRect(-TW / 2 + 2, -TH / 2 + 3 + lift * 0.6, TW, TH);              /* shadow grows as it lifts */
+          c.fillStyle = 'rgba(217,163,131,' + (0.5 * e).toFixed(3) + ')';
+          c.strokeStyle = 'rgba(152,86,50,' + (0.55 * e).toFixed(3) + ')'; c.lineWidth = 1;
+          c.beginPath(); c.rect(-TW / 2, -TH / 2, TW, TH); c.fill(); c.stroke();
+          c.beginPath(); c.moveTo(-TW / 2 + 3, TH / 2 - 3); c.lineTo(TW / 2 - 3, TH / 2 - 3); c.stroke();
+          c.restore();
+        });
+      }
+    }()));
+
     /* WHERE (the leak tour): rain falls while you are here and slides off an umbrella that follows you. */
     reg(d.getElementById('where'), (function () {
       var S, drops = [], pres = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;

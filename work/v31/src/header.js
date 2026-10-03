@@ -62,6 +62,7 @@
           return;
         }
         e.preventDefault();
+        if (d.documentElement.classList.contains('menu-open')) setMenu(false);   /* Lenis ignores scrollTo while the sheet has it stopped */
         RW.scrollTo(id === '#top' ? 0 : t, { offset: 0 });
         try { history.replaceState(null, '', id); } catch (x2) {}
         if (id !== '#top') focusTarget(t);

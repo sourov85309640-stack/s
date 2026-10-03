@@ -279,6 +279,18 @@
       ctx.globalAlpha = 1;
     }
 
+    /* click the chimney: a big puff of smoke (a small surprise for the curious) */
+    sec.addEventListener('click', function (e) {
+      var sm = S.smoke; if (!sm || e.target.closest('a,button')) return;
+      var r = cv.getBoundingClientRect(), p = S.vis[sm.pane], top = S.fh * 0.3;
+      var ox = sm.x + (p && p.dx || 0), oy = sm.y + top + st.py + (p && p.dy || 0);
+      if (Math.hypot(e.clientX - r.left - ox, e.clientY - r.top - oy) > 140) return;
+      for (var i = 0; i < 18; i++) {
+        emit(sm.u * 1.3, ox, oy);
+        var q = puffs[puffs.length - 1]; q.vy *= 2.4; q.vx = (Math.random() - 0.5) * 70 * sm.u; q.a *= 1.4; q.life *= 0.8;
+      }
+    });
+
     /* ---------- the loop ---------- */
     var on = true;
     RW.onView(sec, { margin: '10% 0px 10% 0px', enter: function () { on = true; }, leave: function () { on = false; } });

@@ -6,7 +6,7 @@
 (function () {
   'use strict';
   var d = document, root = d.documentElement;
-  var RW = window.RW = { features: [], ready: false, HDR: 64 };
+  var RW = window.RW = { features: [], ready: false, HDR: 76 };
   RW.d = d; RW.root = root;
   RW.$ = function (s, r) { return (r || d).querySelector(s); };
   RW.$$ = function (s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); };

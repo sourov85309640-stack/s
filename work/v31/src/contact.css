@@ -68,6 +68,7 @@
   .ct-photo{margin-top:1.75rem}
   .ct-gable{max-width:min(300px,72%);margin-inline:auto;aspect-ratio:650/600}
 }
+@media (max-width:599px){.ct-photo{margin-top:1.25rem}.ct-gable{max-width:min(220px,58%)}}
 /* lights on: warm glow over the windows (opacity only) */
 .ct-lamp{position:absolute;z-index:1;border-radius:50%;pointer-events:none;mix-blend-mode:screen;opacity:.7;
   background:radial-gradient(closest-side,var(--ct-lamp),rgba(255,214,163,0));transition:opacity .9s var(--ct-ease)}

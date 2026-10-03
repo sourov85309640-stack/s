@@ -7,6 +7,7 @@
 .ab-grid{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center}
 @media (min-width:960px){.ab-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}}
 .ab-art{position:relative;border-radius:22px;background:linear-gradient(#F4F7F8,#FAF9F6);box-shadow:var(--shadow-card);padding:clamp(1rem,2.5vw,1.75rem);max-width:560px;width:100%;justify-self:center}
+@media (max-width:959px){.ab-art{justify-self:start;max-width:520px}}
 .ab-scene{display:block;width:100%;height:auto;overflow:visible}
 .ab .ab-ground{fill:none;stroke:rgba(31,43,48,.6);stroke-width:2.5;stroke-linecap:round}
 .ab .ab-wall{fill:#F1E7DA;stroke:rgba(31,43,48,.65);stroke-width:2}

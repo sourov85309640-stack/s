@@ -11,3 +11,19 @@
     } });
   }, { motion: true });
 }());
+/* trust items flip to one more line (works without motion too) */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('trust-flip', function () {
+    RW.$$('#trust .tr-flip').forEach(function (b) {
+      var more = RW.$('.tr-more', b), txt = RW.$('.tr-txt', b);
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-expanded') !== 'true';
+        b.setAttribute('aria-expanded', on ? 'true' : 'false');
+        more.hidden = !on;
+        var el = on ? more : txt; el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+      });
+    });
+  });
+}());
