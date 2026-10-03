@@ -706,6 +706,7 @@
     if (edges.length) updateEdges();
 
     var stats = { frames: 0, work: 0 };
+    var slowEma = 1 / 60, slowFor = 0, lowPower = false;
     var stop = RW.tick(function (t, dt) {
       if (hidden) return;
       var t0 = performance.now();
@@ -715,9 +716,18 @@
       if (Math.abs(dScroll) > vh * 1.5) dScroll = 0;   /* a jump (anchor link, reload) is not a scroll */
       vel += ((dScroll / Math.max(dt, 1e-3)) - vel) * (1 - Math.exp(-dt * 10));
 
+      /* adaptive quality (optimize-web-animations): if frames stay slow for 2.5 s the particles bow out for good */
+      slowEma += (dt - slowEma) * 0.05;
+      if (!lowPower) {
+        slowFor = slowEma > 0.03 ? slowFor + dt : 0;
+        if (slowFor > 2.5) {
+          lowPower = true; root.setAttribute('data-fx-low', '1');
+          fields.forEach(function (fl) { fl.ctx.setTransform(1, 0, 0, 1, 0, 0); fl.ctx.clearRect(0, 0, fl.cv.width, fl.cv.height); fl.layer.style.display = 'none'; });
+        }
+      }
       /* particles */
       var ptrAge = (performance.now() / 1000) - pT;
-      for (var i = 0; i < fields.length; i++) {
+      for (var i = 0; i < fields.length && !lowPower; i++) {
         var f = fields[i];
         if (!f.on || !f.w) continue;
         var ptr = null;
@@ -734,7 +744,9 @@
         /* while the canvas is held in the viewport the world scrolls past it, so particles carry the scroll (by depth) */
         var held = -top > 0 && -top < f.m.h - f.h;
         stepField(f, dt, held ? dScroll : 0, ptr);
-        drawField(f);
+        /* big canvases repaint at about 30 fps: slow leaves and motes look the same and the raster cost halves */
+        f.acc = (f.acc || 0) + dt;
+        if (f.w * f.h < 700000 || f.acc >= 1 / 31) { f.acc = 0; drawField(f); }
       }
       if (tint) tint.update();
       if (weather) weather.frame(dt, dScroll);
