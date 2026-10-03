@@ -75,3 +75,24 @@ html.has-motion .st.is-js .st-hint{display:flex;align-items:center;gap:.5rem;mar
 @keyframes st-wheel{0%{transform:none;opacity:1}100%{transform:translateY(7px);opacity:0}}
 .st.is-end .st-hint{opacity:0}
 @media (min-width:1000px){html.has-motion .st.is-js .st-steps{left:clamp(1.5rem,4vw,4rem);right:auto;bottom:clamp(1.5rem,4vh,2.5rem)}}
+
+/* round 7: the person in the bedroom, lightning */
+.st .st-p-head circle{fill:#E9C8A8;stroke:rgba(31,43,48,.5);stroke-width:1.6}
+.st .st-p-hair{fill:#6B4A30}
+.st .st-p-body,.st .st-p-arm-l,.st .st-p-arm path{fill:none;stroke:#5E7F5A;stroke-width:6;stroke-linecap:round}
+.st .st-p-phone{fill:#1F2B30}
+.st .st-p-q path{fill:none;stroke:var(--copper);stroke-width:3;stroke-linecap:round}
+.st .st-p-q{opacity:0}
+.st .st-flash{fill:#fff;opacity:0;pointer-events:none}
+.st .st-p-head{transform-box:fill-box;transform-origin:50% 100%}
+.st .st-p-arm{transform-box:view-box;transform-origin:610px 542px}
+
+/* version 2: tap through */
+.st-nav{display:none}
+.st.is-tap .st-nav{display:flex;align-items:center;gap:.75rem;margin-top:1.25rem}
+.st.is-tap .st-hint{display:none!important}
+.st-prev{min-height:44px;padding:.5rem .9rem;border:1px solid var(--line);border-radius:999px;background:var(--card);font:600 .9375rem/1 var(--ui);color:var(--text);cursor:pointer}
+.st-prev:disabled{opacity:.4;cursor:default}
+.st.is-tap .st-next{border-radius:999px}
+.st.is-tap .st-pin{min-height:auto}
+@media (min-width:1000px){.st.is-tap .st-pin{height:min(100vh,860px)}}

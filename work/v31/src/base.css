@@ -369,3 +369,122 @@ html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin
   .m-rail-bar i{position:absolute;top:0;bottom:0;left:0;width:30%;border-radius:2px;background:var(--copper);transform:translateX(var(--mx,0px));transition:transform .15s linear}
 }
 @media (min-width:760px){.m-rail-bar{display:none}}
+
+/* =====================================================================================================
+   HEADER v2 (round 7): a floating frosted bar with rounded ends. A small roof peak slides under the
+   current or hovered link, the scroll progress runs along the bar's own bottom edge, the call button
+   reads "Call us" over the number. Under 1240px the nav becomes a full-screen sheet with big links,
+   a Services accordion, call and quote buttons, opening hours and a little roofline at the foot.
+   ===================================================================================================== */
+.hdr{position:sticky;top:0;z-index:60;background:transparent;border:0;padding:10px var(--gut) 0;pointer-events:none}
+.hdr.is-stuck{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+html.mega-open .hdr{background:transparent}
+.hdr-progress,.hdr-house{display:none}
+.hdr .hdr-in{position:relative;pointer-events:auto;width:min(100%,1320px);min-height:64px;margin-inline:auto;padding:0 10px 0 18px;flex-wrap:nowrap;gap:.75rem;
+  border-radius:20px;background:rgba(250,249,246,.82);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:0 0 0 1px rgba(31,43,48,.07),0 6px 20px -12px rgba(31,43,48,.28);transition:min-height .3s var(--ease),box-shadow .3s,background-color .3s}
+.hdr.is-stuck .hdr-in{min-height:58px;background:rgba(250,249,246,.9);box-shadow:0 0 0 1px rgba(31,43,48,.08),0 14px 34px -18px rgba(31,43,48,.4)}
+/* progress along the bar's foot */
+.hdr .hdr-in::after{content:"";position:absolute;left:18px;right:18px;bottom:0;height:2px;border-radius:2px;background:var(--copper);transform:scaleX(var(--p,0));transform-origin:0 50%;opacity:.9;pointer-events:none}
+.hdr-glow{display:none}
+/* brand */
+.hdr .brand{gap:.65rem;flex:none}
+.brand-tx{display:grid;line-height:1.1}
+.brand-name{font-size:1.0625rem;letter-spacing:-.005em}
+.brand-sub{font:500 .75rem/1.2 var(--ui);color:var(--muted);letter-spacing:0}
+@media (max-width:399px){.brand-sub{display:none}}
+/* actions */
+.hdr .hdr-act{gap:.4rem;flex:none}
+.hdr .hdr-phone{gap:.6rem;padding:0 .5rem 0 .25rem;border-radius:999px;color:var(--text)}
+.hdr-phone-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--copper-wash);transition:background-color .2s,transform .2s var(--ease)}
+.hdr .hdr-phone svg{width:19px;height:19px;color:var(--copper)}
+.hdr-phone-tx{display:none;line-height:1.1}
+.hdr-phone-l{display:block;font:500 .75rem/1.2 var(--ui);color:var(--muted)}
+.hdr .hdr-phone-n{display:block;font-weight:700;font-size:.9375rem}
+@media (min-width:1100px){.hdr-phone-tx{display:block}}
+@media (hover:hover){.hdr .hdr-phone:hover .hdr-phone-ic{background:var(--copper);transform:rotate(-8deg)}.hdr .hdr-phone:hover .hdr-phone-ic svg{color:var(--paper)}}
+.hdr .hdr-cta{border-radius:999px;min-height:44px;padding:.55rem 1.15rem}
+/* menu button: round, burger lines that fold into a cross */
+.hdr .menu{position:relative;z-index:2;width:44px;height:44px;padding:0;justify-content:center;border:0;border-radius:50%;background:var(--ink);color:var(--paper);transition:transform .16s var(--ease),background-color .2s}
+.hdr .menu:active{transform:scale(.94)}
+.hdr .menu-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hdr .menu-i{width:18px;height:2px;border-radius:1px;transition:background-color .15s}
+.hdr .menu-i::before,.hdr .menu-i::after{width:18px;border-radius:1px;transition:transform .3s cubic-bezier(.6,0,.2,1)}
+.hdr .menu-i::before{transform:translateY(-5.5px)}.hdr .menu-i::after{transform:translateY(5.5px)}
+.hdr .menu[aria-expanded=true]{background:var(--copper)}
+.hdr .menu[aria-expanded=true] .menu-i{background:transparent}
+.hdr .menu[aria-expanded=true] .menu-i::before{transform:rotate(45deg)}
+.hdr .menu[aria-expanded=true] .menu-i::after{transform:rotate(-45deg)}
+.hdr .menu:focus-visible,.hdr a:focus-visible,.hdr button:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+@media (max-width:767px){.hdr .hdr-cta{display:none}}
+
+/* ---------- the full-screen menu sheet (under 1240px) ---------- */
+@media (max-width:1239px){
+  .hdr .nav{display:flex;flex-direction:column;position:fixed;inset:0;z-index:1;margin:0;padding:calc(64px + 30px) var(--gut) calc(1.5rem + env(safe-area-inset-bottom));
+    background:var(--paper);border:0;box-shadow:none;overflow-y:auto;overscroll-behavior:contain;
+    visibility:hidden;opacity:0;transform:translateY(-12px);transition:opacity .28s ease,transform .4s var(--ease),visibility 0s linear .4s}
+  .hdr .nav.is-open{visibility:visible;opacity:1;transform:none;transition:opacity .28s ease,transform .4s var(--ease),visibility 0s}
+  .hdr .nav::before{content:"";position:absolute;right:-60px;top:-40px;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,rgba(221,167,131,.35),transparent);pointer-events:none}
+  .hdr .nav>ul{counter-reset:nv;width:min(100%,640px);margin:0 auto}
+  .hdr .nav>ul>li{counter-increment:nv;border-bottom:1px solid var(--line-soft)}
+  .hdr .nav>ul>li>a{position:relative;display:flex;align-items:center;gap:.9rem;min-height:64px;border:0;font:700 clamp(1.5rem,1.1rem + 2.2vw,2.125rem)/1.15 var(--display);letter-spacing:-.01em;color:var(--text)}
+  .hdr .nav>ul>li>a::before{content:counter(nv,decimal-leading-zero);font:600 .8125rem/1 var(--ui);color:var(--copper);letter-spacing:0;min-width:1.6rem}
+  .hdr .nav>ul>li>a[aria-current=true]{color:var(--copper)}
+  .hdr .nav-mega{flex-wrap:wrap}
+  .hdr .mega-tg{width:48px;height:48px;margin:0;border-radius:50%;background:var(--warm)}
+  .hdr .mega-tg svg{width:14px;height:9px}
+  .hdr .mega{flex-basis:100%;padding:0 0 .75rem 2.5rem}
+  .hdr .mega-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem}
+  .hdr .mega-it{min-height:48px;padding:.4rem .5rem;font-size:.9375rem;background:rgba(240,236,227,.6)}
+  .hdr .mega-ic{width:36px!important;height:36px!important}.hdr .mega-ic svg{width:26px!important;height:26px!important}
+  .nav-extra{display:grid;gap:.6rem;width:min(100%,640px);margin:1.5rem auto 0}
+  .nav-extra .btn{width:100%;border-radius:14px;min-height:54px}
+  .nav-call{gap:.6rem}
+  .nav-call svg{width:20px;height:20px}
+  .nav-hours{display:flex;align-items:center;gap:.55rem;margin-top:.4rem;font-size:.875rem;color:var(--muted)}
+  .nav-dot{flex:none;width:8px;height:8px;border-radius:50%;background:#5FA86A;box-shadow:0 0 0 4px rgba(95,168,106,.18)}
+  .nav-town{display:block;width:calc(100% + 2*var(--gut));height:70px;margin:1.25rem calc(-1 * var(--gut)) 0;fill:var(--warm)}
+  html.menu-open{overflow:hidden}
+  html.menu-open .hdr .hdr-in{background:var(--paper);box-shadow:0 0 0 1px rgba(31,43,48,.06)}
+  html.menu-open .mbar,html.menu-open .rwopt,html.menu-open .pal{opacity:0;pointer-events:none}
+}
+@media (max-width:1239px) and (max-width:520px){.hdr .mega-grid{grid-template-columns:minmax(0,1fr)}}
+@keyframes nav-town{0%{transform:translateY(24px);opacity:0}100%{transform:none;opacity:1}}
+html.has-motion .hdr .nav.is-open .nav-town{animation:nav-town .8s var(--ease) .35s backwards}
+.nav-extra{display:none}
+@media (max-width:1239px){.nav-extra{display:grid}}
+
+/* ---------- desktop nav (1240px and up) ---------- */
+@media (min-width:1240px){
+  .hdr .nav{margin-left:1rem;display:flex;justify-content:center}
+  .hdr .nav>ul{gap:.15rem}
+  .hdr .nav>ul>li>a{min-height:44px;padding:0 .85rem;border-radius:999px;font-size:.9688rem;transition:color .2s,background-color .2s}
+  @media (hover:hover){.hdr .nav>ul>li>a:hover{background:rgba(152,86,50,.07);color:var(--text)}}
+  .hdr .nav>ul>li>a[aria-current=true]{color:var(--copper-deep)}
+  /* the roof peak that slides under the current or hovered link */
+  .hdr .nav-ind{bottom:3px;width:18px;height:8px;background:var(--copper);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 8'%3E%3Cpath d='M1 7L9 1l8 6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 8'%3E%3Cpath d='M1 7L9 1l8 6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    transform:translateX(calc(var(--ix,0px) + var(--iw,0) * .5px - 9px));transition:transform .45s cubic-bezier(.3,1.4,.5,1),opacity .2s}
+  .hdr .nav-mega{flex-wrap:nowrap}
+  .hdr .mega-tg{width:28px;height:44px;margin-left:-.6rem;border-radius:999px}
+  /* the Services panel floats under the bar as its own card */
+  .hdr .mega{left:50%;right:auto;top:calc(100% + 10px);width:min(1100px,calc(100vw - 2*var(--gut)));transform:translateX(-50%);border:0;border-radius:22px;background:rgba(250,249,246,.97);
+    box-shadow:0 0 0 1px rgba(31,43,48,.07),0 30px 60px -30px rgba(31,43,48,.45)}
+  .hdr .mega-in{width:auto;padding:1.5rem}
+  .hdr .nav-mega{position:static}
+  .hdr .hdr-in{position:relative}
+}
+/* the bar steps aside on the way down (desktop), as before */
+.hdr.is-hidden{transform:translateY(calc(-100% - 12px))}
+/* a backdrop blur would trap the fixed menu sheet inside the bar, so the bar is solid under 1240px */
+@media (max-width:1239px){.hdr .hdr-in,.hdr.is-stuck .hdr-in{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(250,249,246,.96)}}
+@media (max-width:1239px){
+  .hdr .brand{position:relative;z-index:2}
+  html.menu-open .bar{opacity:0;pointer-events:none;transform:translateY(100%)}
+  html.menu-open .hdr .hdr-phone,html.menu-open .hdr .hdr-cta{opacity:0;pointer-events:none}
+}
+/* round 7: no square grids or block patterns behind the sections (owner asked: "no blocks") */
+.chk-grid-bg,.dec-grid,.faq-bk-grid,.how-grid-bg,.sv-grid,.dia-survey{display:none!important}
+.xv-stage,.sx-svg{background-image:none!important}
+.dia-plate::before{background-image:none!important}

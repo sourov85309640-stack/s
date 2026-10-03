@@ -12,5 +12,14 @@
     function off() { sec.classList.remove('is-sign'); }
     go.addEventListener('pointerenter', on); go.addEventListener('pointerleave', off);
     go.addEventListener('focus', on); go.addEventListener('blur', off);
+    /* the card leans a little towards the pointer (version 2, fine pointers) */
+    var card = RW.$('.sv-in', sec);
+    if (RW.fine && sec.getAttribute('data-v') === '2') {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect(), u = (e.clientX - r.left) / r.width - 0.5, v = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(1200px) rotateX(' + (-v * 4).toFixed(2) + 'deg) rotateY(' + (u * 5).toFixed(2) + 'deg)';
+      });
+      card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+    }
   }, { motion: true });
 }());

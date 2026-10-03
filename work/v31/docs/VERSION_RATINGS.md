@@ -8,10 +8,10 @@ holds up on a phone. The highest score is now the default. Every other version s
 | Reviews | Card rail 8, Spotlight 8, Card deck 7, Cover flow 6.5, Scroll drift 6, Timed rail 6 | Card rail (closest to a real Google widget, shows three reviews at once) |
 | Accreditations | Slow moving strip 8, Row of badges 7.5 | Slow moving strip (new) |
 | Roofs we work on | Roof first 8.5, Tabs above 8, Tabs beside 7.5 | Roof first, words beside (new) |
-| Story of one slate | new section, one version | scroll story |
+| Story of one slate | Scroll story 9, Tap through 7.5 | Scroll story (now with the homeowner, lightning, camera moves) |
 | Start with what you can see | Chooser (rebuilt photo stage) 8.5, Roof slope of tiles 7.5, Roof map 7, Lead card 6, Floating photo 6, Slate pile 6 | Chooser, rebuilt (new) |
 | Where water gets in | Follow the water 8, Rain and loupe 8, Camera zoom 7.5, Marker and splash 7 | Follow the water |
-| Repair or replace | Dial 8.5, Weathering roof 8, Gauge 7, Timeline rail 6.5, Tabs 6.5, Self-check slider 6.5 | Dial (new) |
+| Repair or replace | Roof through the years 9 (new, pinned story), Dial 8.5, Weathering roof 8, Gauge 7, Timeline rail 6.5, Tabs 6.5, Self-check slider 6.5 | Roof through the years (new) |
 | 3D roof | Layers lift apart 8.5, Roof builds itself 8, Raindrop 7.5 | Layers lift apart |
 | Quick roof check | Drawing and questions 8.5, Questions first 8, Compact card 7 | Drawing and questions |
 | Before and after | Wide slider 8.5, Notes beside 8 | Wide slider (new) |

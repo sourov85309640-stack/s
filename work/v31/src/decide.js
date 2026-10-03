@@ -13,14 +13,14 @@
   if (!RW || !sec) return;
   var $ = RW.$, $$ = RW.$$;
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'dv', ['4', '2', '1', '3', '5', '6'], ['Dial', 'Weathering roof', 'Gauge', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
+  var V = RW.variant(sec, 'dv', ['7', '4', '2', '1', '3', '5', '6'], ['Roof through the years', 'Dial', 'Weathering roof', 'Gauge', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
 
   var body = $('.dec-body', sec), cards = $$('.dec-card', sec), picks = $$('.dec-pick', sec);
   var NAMES = ['Sound', 'Tired', 'Unclear', 'Past repair'];
   var VALUETEXT = ['Sound with one fault: repair', 'Tired: maintain', 'Unclear: investigate', 'Past repair: replace'];
   var S = { s: 0, t: 0, i: -1, hover: -1, lock: -1, scrollT: null };
   var range = $('#dec-range', sec), tabs = $$('.dec-t', sec);
-  var roofLayers = (V === '2' || V === '5') ? $$('.dec-roof [data-lc],.dec-roof [data-lx]', sec) : [];
+  var roofLayers = (V === '2' || V === '5' || V === '7') ? $$('.dec-roof [data-lc],.dec-roof [data-lx]', sec) : [];
   var lastRoof = -1;
 
   function paint() {
@@ -34,8 +34,13 @@
         el.style.opacity = (el.hasAttribute('data-lx') ? 1 - o : o).toFixed(3);
       });
     }
+    if (V === '7') {   /* the years tick on with the condition */
+      var yr = Math.round(2 + S.s / 3 * 38);
+      if (yr !== S.yr) { S.yr = yr; var ye = $('.dec-yr', sec); if (ye) ye.textContent = yr; }
+    }
     if (i === S.i) return;
     S.i = i;
+    sec.setAttribute('data-stage', String(i));
     /* V1-V4 start with no card lit until the scale has a meaning (scroll reached it, or the reader chose) */
     var lit = S.active ? i : -1;
     cards.forEach(function (c, j) { c.classList.toggle('is-on', j === lit); c.classList.toggle('is-reached', j <= i && S.active); });
@@ -84,6 +89,13 @@
     loop = true;
     var vh = window.innerHeight, geo = { top: 0, h: 0, centers: [], vertical: false };
     var snapRow = (V === '4') ? $('.dec-cards', sec) : null;
+    /* V7: the stage pins and the scroll ages the roof from new to past repair */
+    var pinP = 0;
+    if (V === '7') {
+      S.active = true; S.i = -2; paint();
+      RW.ST.create({ trigger: $('.dec-stage7', sec) || body, start: 'top top+=' + ((RW.HDR || 76) + 8), end: '+=' + (window.innerWidth > 999 ? 230 : 190) + '%',
+        pin: true, anticipatePin: 1, invalidateOnRefresh: true, onUpdate: function (self) { pinP = self.progress; } });
+    }
     var narrow = window.matchMedia('(max-width: 767px)');
     function measure() {
       vh = window.innerHeight;
@@ -95,6 +107,7 @@
     /* a soft dwell at each stop so the marker rests on a stop rather than sliding through it */
     function dwell(x) { var i = Math.floor(x), f = x - i; f = RW.clamp((f - 0.2) / 0.6, 0, 1); f = f * f * (3 - 2 * f); return Math.min(3, i + f); }
     function fromScroll() {
+      if (V === '7') return dwell(RW.clamp(pinP * 1.08, 0, 1) * 3);
       if (snapRow && narrow.matches) {
         var max = snapRow.scrollWidth - snapRow.clientWidth;
         return max > 0 ? RW.clamp(snapRow.scrollLeft / max, 0, 1) * 3 : 0;

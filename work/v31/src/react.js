@@ -150,52 +150,6 @@
       }
     }()));
 
-    /* SERVICES: the paper hides roof courses. Under the pointer the tiles show, lift and tilt, then settle and fade. */
-    reg(d.getElementById('services'), (function () {
-      var S, TW = 26, TH = 13, G = 3, act = new Map(), pres = 0;
-      return {
-        init: function (sec) { S = canvasFor(sec, 'rx-tiles'); S.redraw = draw; },
-        frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
-          if (inside) {
-            var R = 120, r0 = Math.floor((ly - R) / (TH + G)), r1 = Math.ceil((ly + R) / (TH + G));
-            for (var row = r0; row <= r1; row++) {
-              var off = (row & 1) ? (TW + G) / 2 : 0, c0 = Math.floor((lx - R - off) / (TW + G)), c1 = Math.ceil((lx + R - off) / (TW + G));
-              for (var col = c0; col <= c1; col++) {
-                var x = col * (TW + G) + off + TW / 2, y = row * (TH + G) + TH / 2, dd = Math.hypot(x - lx, y - ly);
-                if (dd > R) continue;
-                var key = row * 10000 + col, t = 1 - dd / R, a = act.get(key);
-                if (!a) { a = { x: x, y: y, e: 0, t: 0, ph: (col * 7 + row * 3) % 5 }; act.set(key, a); }
-                a.t = Math.max(a.t, t);
-              }
-            }
-          }
-          var busy = false;
-          act.forEach(function (a, key) {
-            a.e += (a.t - a.e) * Math.min(1, dt * (a.t > a.e ? 12 : 1.8));
-            a.t *= Math.pow(0.02, dt);                   /* the lift decays once the pointer moves on */
-            if (a.e < 0.003 && a.t < 0.003) act.delete(key); else busy = true;
-          });
-          draw(); return busy || pres > 0.01;
-        }
-      };
-      function draw() {
-        var c = S.c; c.clearRect(0, 0, S.w, S.h);
-        act.forEach(function (a) {
-          var e = a.e; if (e < 0.01) return;
-          var lift = e * 7, tilt = (a.ph - 2) * 0.05 * e;
-          c.save(); c.translate(a.x, a.y - lift); c.rotate(tilt);
-          c.fillStyle = 'rgba(31,43,48,' + (0.08 * e).toFixed(3) + ')';
-          c.fillRect(-TW / 2 + 2, -TH / 2 + 3 + lift * 0.6, TW, TH);              /* shadow grows as it lifts */
-          c.fillStyle = 'rgba(217,163,131,' + (0.5 * e).toFixed(3) + ')';
-          c.strokeStyle = 'rgba(152,86,50,' + (0.55 * e).toFixed(3) + ')'; c.lineWidth = 1;
-          c.beginPath(); c.rect(-TW / 2, -TH / 2, TW, TH); c.fill(); c.stroke();
-          c.beginPath(); c.moveTo(-TW / 2 + 3, TH / 2 - 3); c.lineTo(TW / 2 - 3, TH / 2 - 3); c.stroke();
-          c.restore();
-        });
-      }
-    }()));
-
     /* WHERE (the leak tour): rain falls while you are here and slides off an umbrella that follows you. */
     reg(d.getElementById('where'), (function () {
       var S, drops = [], pres = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
@@ -236,38 +190,6 @@
         c.beginPath();
         for (var i = 0; i < drops.length; i++) { var p = drops[i], k = p.l / p.v; c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * k, p.y - p.l); }
         c.stroke();
-      }
-    }()));
-
-    /* WHOLE (the 3D roof): a pale blueprint grid that bends away from the pointer like a lens, copper inside the lens. */
-    reg(d.getElementById('whole'), (function () {
-      var S, pres = 0, gx = -1e4, gy = -1e4, SP = 44;
-      return {
-        init: function (sec) { S = canvasFor(sec, 'rx-grid'); S.redraw = draw; draw(); },
-        frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 4);
-          if (inside) { if (gx < -1e3) { gx = lx; gy = ly; } gx += (lx - gx) * Math.min(1, dt * 9); gy += (ly - gy) * Math.min(1, dt * 9); }
-          draw(); return pres > 0.01 || inside;
-        }
-      };
-      function bend(x, y) {
-        var dx = x - gx, dy = y - gy, g = gauss(dx, dy, 95) * 30 * pres, dd = Math.sqrt(dx * dx + dy * dy) || 1;
-        return [x + dx / dd * g, y + dy / dd * g];
-      }
-      function grid(c) {
-        c.beginPath();
-        for (var x = SP / 2; x < S.w; x += SP) for (var y = 0; y <= S.h; y += 22) { var p = bend(x, y); y === 0 ? c.moveTo(p[0], p[1]) : c.lineTo(p[0], p[1]); }
-        for (var y2 = SP / 2; y2 < S.h; y2 += SP) for (var x2 = 0; x2 <= S.w; x2 += 22) { var q = bend(x2, y2); x2 === 0 ? c.moveTo(q[0], q[1]) : c.lineTo(q[0], q[1]); }
-        c.stroke();
-      }
-      function draw() {
-        var c = S.c; c.clearRect(0, 0, S.w, S.h);
-        c.lineWidth = 1; c.strokeStyle = 'rgba(62,111,163,.07)'; grid(c);
-        if (pres > 0.01) {
-          c.save(); c.beginPath(); c.arc(gx, gy, 150, 0, 6.283); c.clip();
-          c.strokeStyle = 'rgba(152,86,50,' + (0.3 * pres).toFixed(3) + ')'; grid(c);
-          c.restore();
-        }
       }
     }()));
 

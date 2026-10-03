@@ -5,6 +5,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('story'); if (s) RW.variant(s, 'stv', ['1', '2'], ['Scroll story', 'Tap through']); }());
   RW.add('story', function () {
     var sec = RW.$('#story'); if (!sec || !RW.ST) return;
     var gsap = RW.gsap, ST = RW.ST, $ = function (s) { return RW.$(s, sec); }, $$ = function (s) { return RW.$$(s, sec); };
@@ -97,6 +98,21 @@
       .to($('.st-spark'), { opacity: 0, duration: 0.2 }, 10)
       .fromTo($('.st-birds'), { opacity: 0, x: -40 }, { opacity: 1, x: 60, duration: 0.6 }, 9.6)
       .set({}, {}, 10.3)
+      /* lightning twice as the storm arrives */
+      .fromTo($('.st-flash'), { opacity: 0 }, { opacity: 0.55, duration: 0.06, yoyo: true, repeat: 1 }, 1.45)
+      .fromTo($('.st-flash'), { opacity: 0 }, { opacity: 0.4, duration: 0.05, yoyo: true, repeat: 1 }, 1.8)
+      /* the person in the bedroom: looks up at the stain, wonders, then phones; waves when it is fixed */
+      .set($('.st-p-q'), { opacity: 0 }, 0)
+      .to($('.st-p-head'), { rotation: -18, duration: 0.4 }, 5.0)
+      .to($('.st-person'), { x: 90, duration: 0.6, ease: 'power1.inOut' }, 5.1)
+      .to($('.st-p-q'), { opacity: 1, duration: 0.25 }, 5.3)
+      .to($('.st-p-q'), { opacity: 0, duration: 0.2 }, 6.3)
+      .to($('.st-p-head'), { rotation: 0, duration: 0.3 }, 6.4)
+      .to($('.st-p-arm'), { rotation: -110, duration: 0.4 }, 6.5)
+      .to($('.st-p-arm'), { rotation: 0, duration: 0.3 }, 7.6)
+      .to($('.st-person'), { x: 0, duration: 0.6, ease: 'power1.inOut' }, 9.4)
+      .to($('.st-p-arm'), { rotation: -140, duration: 0.25 }, 10.0)
+      .to($('.st-p-arm'), { rotation: -110, duration: 0.15, yoyo: true, repeat: 3 }, 10.05)
       /* camera moves: in on the slate as it goes, hold while the water runs, out for the winter, in again for the fix */
       .to(cam, { z: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: aim }, 1.9)
       .to(cam, { tx: 790, ty: 395, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
@@ -114,6 +130,26 @@
     }
     show(0);
     var desk = window.matchMedia('(min-width:1000px)').matches;
+    if (sec.getAttribute('data-v') === '2') {
+      /* tap through: no pinning; Back and Next play the scene to each step */
+      var AT = [0, 1.95, 4.3, 5.75, 10.3], step = 0, nav = document.createElement('div');
+      nav.className = 'st-nav';
+      nav.innerHTML = '<button type="button" class="st-prev" aria-label="Previous step">Back</button><button type="button" class="btn btn-fill st-next">Next</button>';
+      copy.appendChild(nav);
+      var prev = nav.firstChild, next = nav.lastChild;
+      var goStep = function (k) {
+        step = RW.clamp(k, 0, AT.length - 1);
+        tl.tweenTo(AT[step], { duration: Math.min(2.4, Math.abs(tl.time() - AT[step]) * 0.4 + 0.5), ease: 'power1.inOut' });
+        show(STEPS[step] + 0.001);
+        prev.disabled = step === 0; next.textContent = step === AT.length - 1 ? 'Start again' : 'Next';
+      };
+      next.addEventListener('click', function () { goStep(step === AT.length - 1 ? 0 : step + 1); });
+      prev.addEventListener('click', function () { goStep(step - 1); });
+      tl.progress(0); goStep(0);
+      sec.classList.add('is-tap');
+      RW.onView(sec, { enter: function () { sec.classList.add('is-live'); }, leave: function () { sec.classList.remove('is-live'); } });
+      return;
+    }
     ST.create({
       trigger: sec, start: 'top top', end: '+=' + (desk ? 420 : 300) + '%', pin: $('.st-pin'), scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
       onUpdate: function (self) { tl.progress(self.progress); show(self.progress); },

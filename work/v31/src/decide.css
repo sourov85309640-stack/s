@@ -191,3 +191,52 @@
 .dec-s-labels li:nth-child(3){left:66.667%}
 .dec-s-labels li:nth-child(4){left:100%;transform:translateX(calc(-100% + 18px))}
 .dec-s-labels li.is-on{color:var(--copper);font-weight:600}
+
+/* ===== V7 "Roof through the years" (default): the stage pins, scrolling ages the roof, the years count up,
+   the weather turns, the dial swings and one big card at a time says what to do. ===== */
+.dec-years,.dec-rain{display:none}
+.dec-sec[data-v="7"] .dec-roof,.dec-sec[data-v="7"] .dec-dial{display:block}
+.dec-sec[data-v="7"] .dec-body{display:grid;gap:1rem;align-items:center}
+.dec-sec[data-v="7"] .dec-roof{position:relative;border-radius:22px;background:linear-gradient(#EAF0F2,#FAF9F6 75%);padding:clamp(.75rem,2vw,1.5rem);box-shadow:var(--shadow-card);overflow:hidden;transition:background-color .6s}
+.dec-sec[data-v="7"] .dec-roof svg{display:block;width:100%;height:auto;max-height:46vh;margin-inline:auto;position:relative}
+.dec-sec[data-v="7"] .dec-years{display:block;position:absolute;left:clamp(.9rem,2vw,1.5rem);top:clamp(.75rem,1.6vw,1.25rem);margin:0;font:600 .875rem/1 var(--ui);color:var(--muted)}
+.dec-sec[data-v="7"] .dec-yr{display:block;font:700 clamp(2rem,1.4rem + 2.2vw,3.25rem)/1 var(--display);color:var(--text);font-variant-numeric:tabular-nums;margin-top:.2rem}
+.dec-sec[data-v="7"] .dec-roof-cap{position:absolute;right:clamp(.9rem,2vw,1.5rem);top:clamp(.9rem,2vw,1.5rem);margin:0;padding:.3rem .75rem;border-radius:999px;background:rgba(255,255,255,.85);font:600 .875rem/1.2 var(--ui);color:var(--copper-deep)}
+.dec-sec[data-v="7"] .dec-rain{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .6s}
+.dec-rain path{stroke:rgba(74,104,122,.5);stroke-width:2;stroke-linecap:round}
+.dec-sun{fill:#F6C979;transition:opacity .6s,transform .8s var(--ease);transform-box:fill-box;transform-origin:50% 50%}
+.dec-cloud{fill:#fff;stroke:rgba(31,43,48,.2);stroke-width:1.2;opacity:0;transition:opacity .6s,transform .8s var(--ease);transform-box:fill-box}
+.dec-sec[data-v="7"][data-stage="1"] .dec-cloud{opacity:.9;transform:translateX(-20px)}
+.dec-sec[data-v="7"][data-stage="2"] .dec-cloud,.dec-sec[data-v="7"][data-stage="3"] .dec-cloud{opacity:1;transform:translateX(-46px) scale(1.2)}
+.dec-sec[data-v="7"][data-stage="2"] .dec-sun{opacity:.4;transform:scale(.85)}
+.dec-sec[data-v="7"][data-stage="3"] .dec-sun{opacity:0}
+.dec-sec[data-v="7"][data-stage="2"] .dec-rain{opacity:.5}
+.dec-sec[data-v="7"][data-stage="3"] .dec-rain{opacity:1}
+.dec-sec[data-v="7"][data-stage="3"] .dec-roof{background:linear-gradient(#D9DEE1,#F1EEE8 75%)}
+@keyframes dec-rain{0%{transform:translateY(-20px)}100%{transform:translate(-10px,60px)}}
+html.has-motion .dec-sec[data-v="7"] .dec-rain path{animation:dec-rain .7s linear infinite}
+html.has-motion .dec-sec[data-v="7"] .dec-rain path:nth-child(2n){animation-delay:-.35s}
+/* the right-hand side: the dial, then one card at a time */
+.dec-sec[data-v="7"] .dec-dial{width:min(260px,62%);margin:0 auto}
+.dec-sec[data-v="7"] .dec-tabs{display:none}
+.dec-sec[data-v="7"] .dec-cards{display:grid;grid-template-columns:minmax(0,1fr)}
+.dec-sec[data-v="7"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(18px) scale(.98);transition:opacity .35s ease,transform .5s var(--ease),visibility 0s linear .35s;padding:clamp(1.1rem,2.4vw,1.75rem)}
+.dec-sec[data-v="7"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease,transform .5s var(--ease),visibility 0s}
+.dec-sec[data-v="7"] .dec-card h3{font-size:clamp(1.25rem,1rem + 1vw,1.75rem)}
+.dec-sec[data-v="7"] .dec-rail-dot{display:none}
+.dec-stage7{position:relative}
+@media (min-width:1000px){
+  .dec-sec[data-v="7"] .dec-body{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);min-height:calc(100vh - 140px)}
+  .dec-sec[data-v="7"] .dec-roof{grid-row:1/3}
+  .dec-sec[data-v="7"] .dec-dial{width:min(300px,80%);align-self:end}
+  .dec-sec[data-v="7"] .dec-cards{align-self:start}
+}
+@media (max-width:999px){
+  .dec-sec[data-v="7"] .dec-roof svg{max-height:30svh}
+  .dec-sec[data-v="7"] .dec-dial{width:min(190px,52%)}
+  .dec-sec[data-v="7"] .dec-card p{font-size:.9375rem}
+}
+/* without motion: no pinning, the four cards simply sit in a list */
+html:not(.has-motion) .dec-sec[data-v="7"] .dec-card{grid-area:auto;opacity:1;visibility:visible;transform:none}
+html:not(.has-motion) .dec-sec[data-v="7"] .dec-cards{gap:1rem}
+@media (min-width:1000px){.dec-sec[data-v="7"] .dec-roof{align-self:center}.dec-sec[data-v="7"] .dec-body{min-height:calc(100vh - 160px)}}

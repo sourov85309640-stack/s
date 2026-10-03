@@ -81,7 +81,7 @@
 <span class="hdr-progress" id="progress" aria-hidden="true"></span>
 <span class="hdr-house" aria-hidden="true"><svg viewBox="0 0 16 14" focusable="false"><path d="M1 7L8 1l7 6M3 6v7h10V6"/></svg></span>
 
-<header class="hdr" id="header">
+<header class="hdr" id="header"><span class="hdr-glow" aria-hidden="true"></span>
   <div class="wrap hdr-in">
     <a class="brand" href="#top" aria-label="Ridgewell Roofing, back to the top">
       <svg class="brand-mark" viewBox="0 -6 32 38" aria-hidden="true" focusable="false">
@@ -91,7 +91,7 @@
         <path d="M8 18v10h16V18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
         <path d="M12 28v-7h8v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
       </svg>
-      <span class="brand-name" data-sample="company">Ridgewell Roofing</span>
+      <span class="brand-tx"><span class="brand-name" data-sample="company">Ridgewell Roofing</span><span class="brand-sub" data-sample="town">Roofers in Cirencester</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="Main">
       <ul>
@@ -103,12 +103,18 @@
         <li><a href="#faq" data-nav="faq">FAQ</a></li>
       </ul>
       <span class="nav-ind" aria-hidden="true"></span>
+      <div class="nav-extra">
+        <a class="btn btn-fill nav-call" href="tel:+441632960482" data-sample="phone"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call 01632 960 482</a>
+        <a class="btn btn-line nav-quote" href="#contact">Tell us about your roof</a>
+        <p class="nav-hours" data-sample="hours" data-confirm="hours"><span class="nav-dot" aria-hidden="true"></span>Phones answered Monday to Friday 8am to 6pm, Saturday 9am to 1pm</p>
+        <svg class="nav-town" viewBox="0 0 600 90" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><path d="M0 90V62l34-24 34 24h14V40h10v22h20l46-36 46 36h16l30-22 30 22h18V44h10v18h26l50-38 50 38h22l34-26 34 26h20V40h10v22h18l40-30 40 30h12V90z"/></svg>
+      </div>
     </nav>
     <div class="hdr-act">
       <a class="hdr-phone" href="tel:+441632960482" data-sample="phone" aria-label="Call 01632 960 482">
-        <svg aria-hidden="true"><use href="#i-phone"/></svg><span class="hdr-phone-n">01632 960 482</span>
+        <span class="hdr-phone-ic"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><span class="hdr-phone-tx"><span class="hdr-phone-l">Call us</span><span class="hdr-phone-n">01632 960 482</span></span>
       </a>
-      <a class="btn btn-fill hdr-cta" href="#contact">Tell us about your roof</a>
+      <a class="btn btn-fill hdr-cta" href="#contact">Get a quote</a>
       <button class="menu" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><span class="menu-t">Menu</span><span class="menu-i" aria-hidden="true"></span></button>
     </div>
   </div>

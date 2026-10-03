@@ -111,3 +111,17 @@ data-motion=off show the final state, 44 px targets, visible focus, Lenis only, 
 ## Round 5 checks for Sonnet
 - Touch fields: check scrolling smoothness on a real phone; drop TOUCH mode in react.js if it costs frames.
 - Click bursts must never fire on controls (selector list in cursor.js pointerdown).
+
+## Round 7 done by Opus
+- "No blocks": brick textures (services, contact, projects), the services cursor tile field, the 3D roof grid field and all
+  square background grids removed; Versions pill icon is now a slider icon.
+- Header rebuilt: floating frosted bar, roof-peak marker under the current or hovered link, progress along the bar's foot,
+  "Call us" over the number, round menu button, full-screen phone/tablet menu sheet (numbered links, Services accordion,
+  call and quote buttons, hours, roofline). Services panel floats as a card on desktop.
+- Repair or replace: new default "Roof through the years" (pinned; roof ages, years count, weather turns, dial swings, one card).
+- Story: homeowner in the bedroom (notices, phones, waves), lightning; second version "Tap through" (?stv=2).
+- Free survey band: more spacing; clipboard swing, seal stamp, roofline draw, button shine, card tilt.
+- Who we work for: door swing only on the home card; landlord homes light up in turn.
+## Round 7 checks for Sonnet
+- Header at 1024 to 1239 (sheet mode) and 1240 to 1440 (nav fits?); mega card position; menu sheet focus order and Escape.
+- Decide v7 pin with Lenis on desktop and on phones; cards hidden when not current must still be reachable by keyboard.

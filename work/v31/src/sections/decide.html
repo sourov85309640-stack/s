@@ -1,7 +1,7 @@
 <!-- ================= REPAIR, MAINTAIN, INVESTIGATE OR REPLACE ================= -->
 <!-- A four-stop roof-condition scale. Prototype variants data-v="1".."6" (set by ?v=N or ?dv=N in decide.js).
      The four cards are the content and the accessible controls (buttons with aria-pressed). Each meter below is one variant's picture of the same state. -->
-<section class="sec decide dec-sec" id="decide" data-reveal="scale" data-v="4" aria-labelledby="h-decide">
+<section class="sec decide dec-sec" id="decide" data-reveal="scale" data-v="7" aria-labelledby="h-decide">
   <div class="layers layers-back dec-back" aria-hidden="true">
     <div class="dec-grid" data-depth="-0.06"></div>
     <svg class="dec-hills" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMax slice" data-depth="-0.04" focusable="false"><path d="M0 90V70c90-22 170-30 260-18s170 20 260 4 190-34 300-22 220 30 380 26V90z"/></svg>
@@ -17,6 +17,7 @@
       <p class="dec-keep">The right recommendation should follow the condition of the roof, not the size of the job.</p>
     </div>
 
+    <div class="dec-stage7">
     <div class="dec-body">
       <!-- V1 horizontal gauge -->
       <div class="dec-m dec-gauge" aria-hidden="true">
@@ -32,6 +33,7 @@
             <pattern id="dec-tl" width="24" height="16" patternUnits="userSpaceOnUse"><rect width="24" height="16" fill="#E9D3C1"/><path d="M0 15.5H24M12 0V8M0 8H24M0 8v8M24 8v8" stroke="#985632" stroke-opacity=".38" stroke-width="1"/></pattern>
             <clipPath id="dec-rc"><path d="M100 58H320L392 186H28Z"/></clipPath>
           </defs>
+          <g class="dec-sky"><circle class="dec-sun" cx="380" cy="34" r="18"/><path class="dec-cloud" d="M330 40h56c7 0 9-10 1-12 0-9-12-12-18-6-4-8-17-9-21 0-7-4-17 0-16 7-7-1-11 11-2 11z"/></g>
           <path d="M0 250H420" stroke="#1F2B30" stroke-opacity=".25" stroke-width="1.5"/>
           <path d="M56 186H364V250H56Z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/>
           <path d="M92 204h40v30H92zM288 204h40v30h-40zM190 210h40v40h-40z" fill="#EAF0F2" stroke="#1F2B30" stroke-opacity=".45" stroke-width="1.3"/>
@@ -51,7 +53,9 @@
             <g data-lc="3"><path d="M118 120h24v16h-24zM238 152h24v16h-24zM300 104h24v16h-24z" fill="#1F2B30" fill-opacity=".62"/><path d="M120 138l24 4-3 15-24-4z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/><path d="M240 170l22 7-4 13-22-7z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/></g>
           </g>
         </svg>
+        <svg class="dec-rain" viewBox="0 0 420 260" aria-hidden="true" focusable="false"><path d="M40 10l-8 20M110 0l-8 20M180 16l-8 20M250 4l-8 20M330 12l-8 20M70 60l-8 20M150 70l-8 20M290 64l-8 20M380 50l-8 20"/></svg>
         <p class="dec-roof-cap"><span class="dec-cap-t">Sound</span></p>
+        <p class="dec-years" aria-hidden="true">Year <b class="dec-yr">2</b></p>
       </div>
 
       <!-- V3 sticky side meter (the rail itself is drawn on the cards list) -->
@@ -124,6 +128,7 @@
           <a class="dec-a" href="?issue=patching#contact">Ask about a new roof</a>
         </li>
       </ol>
+    </div>
     </div>
   </div>
 </section>

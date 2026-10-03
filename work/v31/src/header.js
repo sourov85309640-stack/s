@@ -32,9 +32,11 @@
       if (!btn || !nav) return;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       nav.classList.toggle('is-open', open);
+      d.documentElement.classList.toggle('menu-open', open);
+      if (RW.lenis) { if (open) RW.lenis.stop(); else RW.lenis.start(); }
       if (open && hdr) hdr.classList.remove('is-hidden');
       if (open && RW.motionOK) {
-        RW.gsap.fromTo($$('li', nav), { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.26, ease: 'power2.out', stagger: 0.04, clearProps: 'transform,opacity' });
+        RW.gsap.fromTo($$('#nav > ul > li, .nav-extra > *', nav), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out', stagger: 0.045, delay: 0.08, clearProps: 'transform,opacity' });
       }
     }
     if (btn && nav) {
@@ -99,6 +101,7 @@
       if (hdr) hdr.classList.toggle('is-stuck', y > 8);
       var pr = max > 0 ? Math.min(1, y / max).toFixed(4) : 0;
       if (prog) prog.style.setProperty('--p', pr);
+      if (hdr) hdr.style.setProperty('--p', pr);
       if (house) house.style.setProperty('--p', pr);
       var cur = -1, line = window.innerHeight * 0.35;
       secs.forEach(function (sec, i) {

@@ -404,6 +404,125 @@ html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin
   .m-rail-bar i{position:absolute;top:0;bottom:0;left:0;width:30%;border-radius:2px;background:var(--copper);transform:translateX(var(--mx,0px));transition:transform .15s linear}
 }
 @media (min-width:760px){.m-rail-bar{display:none}}
+
+/* =====================================================================================================
+   HEADER v2 (round 7): a floating frosted bar with rounded ends. A small roof peak slides under the
+   current or hovered link, the scroll progress runs along the bar's own bottom edge, the call button
+   reads "Call us" over the number. Under 1240px the nav becomes a full-screen sheet with big links,
+   a Services accordion, call and quote buttons, opening hours and a little roofline at the foot.
+   ===================================================================================================== */
+.hdr{position:sticky;top:0;z-index:60;background:transparent;border:0;padding:10px var(--gut) 0;pointer-events:none}
+.hdr.is-stuck{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+html.mega-open .hdr{background:transparent}
+.hdr-progress,.hdr-house{display:none}
+.hdr .hdr-in{position:relative;pointer-events:auto;width:min(100%,1320px);min-height:64px;margin-inline:auto;padding:0 10px 0 18px;flex-wrap:nowrap;gap:.75rem;
+  border-radius:20px;background:rgba(250,249,246,.82);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);
+  box-shadow:0 0 0 1px rgba(31,43,48,.07),0 6px 20px -12px rgba(31,43,48,.28);transition:min-height .3s var(--ease),box-shadow .3s,background-color .3s}
+.hdr.is-stuck .hdr-in{min-height:58px;background:rgba(250,249,246,.9);box-shadow:0 0 0 1px rgba(31,43,48,.08),0 14px 34px -18px rgba(31,43,48,.4)}
+/* progress along the bar's foot */
+.hdr .hdr-in::after{content:"";position:absolute;left:18px;right:18px;bottom:0;height:2px;border-radius:2px;background:var(--copper);transform:scaleX(var(--p,0));transform-origin:0 50%;opacity:.9;pointer-events:none}
+.hdr-glow{display:none}
+/* brand */
+.hdr .brand{gap:.65rem;flex:none}
+.brand-tx{display:grid;line-height:1.1}
+.brand-name{font-size:1.0625rem;letter-spacing:-.005em}
+.brand-sub{font:500 .75rem/1.2 var(--ui);color:var(--muted);letter-spacing:0}
+@media (max-width:399px){.brand-sub{display:none}}
+/* actions */
+.hdr .hdr-act{gap:.4rem;flex:none}
+.hdr .hdr-phone{gap:.6rem;padding:0 .5rem 0 .25rem;border-radius:999px;color:var(--text)}
+.hdr-phone-ic{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--copper-wash);transition:background-color .2s,transform .2s var(--ease)}
+.hdr .hdr-phone svg{width:19px;height:19px;color:var(--copper)}
+.hdr-phone-tx{display:none;line-height:1.1}
+.hdr-phone-l{display:block;font:500 .75rem/1.2 var(--ui);color:var(--muted)}
+.hdr .hdr-phone-n{display:block;font-weight:700;font-size:.9375rem}
+@media (min-width:1100px){.hdr-phone-tx{display:block}}
+@media (hover:hover){.hdr .hdr-phone:hover .hdr-phone-ic{background:var(--copper);transform:rotate(-8deg)}.hdr .hdr-phone:hover .hdr-phone-ic svg{color:var(--paper)}}
+.hdr .hdr-cta{border-radius:999px;min-height:44px;padding:.55rem 1.15rem}
+/* menu button: round, burger lines that fold into a cross */
+.hdr .menu{position:relative;z-index:2;width:44px;height:44px;padding:0;justify-content:center;border:0;border-radius:50%;background:var(--ink);color:var(--paper);transition:transform .16s var(--ease),background-color .2s}
+.hdr .menu:active{transform:scale(.94)}
+.hdr .menu-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hdr .menu-i{width:18px;height:2px;border-radius:1px;transition:background-color .15s}
+.hdr .menu-i::before,.hdr .menu-i::after{width:18px;border-radius:1px;transition:transform .3s cubic-bezier(.6,0,.2,1)}
+.hdr .menu-i::before{transform:translateY(-5.5px)}.hdr .menu-i::after{transform:translateY(5.5px)}
+.hdr .menu[aria-expanded=true]{background:var(--copper)}
+.hdr .menu[aria-expanded=true] .menu-i{background:transparent}
+.hdr .menu[aria-expanded=true] .menu-i::before{transform:rotate(45deg)}
+.hdr .menu[aria-expanded=true] .menu-i::after{transform:rotate(-45deg)}
+.hdr .menu:focus-visible,.hdr a:focus-visible,.hdr button:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+@media (max-width:767px){.hdr .hdr-cta{display:none}}
+
+/* ---------- the full-screen menu sheet (under 1240px) ---------- */
+@media (max-width:1239px){
+  .hdr .nav{display:flex;flex-direction:column;position:fixed;inset:0;z-index:1;margin:0;padding:calc(64px + 30px) var(--gut) calc(1.5rem + env(safe-area-inset-bottom));
+    background:var(--paper);border:0;box-shadow:none;overflow-y:auto;overscroll-behavior:contain;
+    visibility:hidden;opacity:0;transform:translateY(-12px);transition:opacity .28s ease,transform .4s var(--ease),visibility 0s linear .4s}
+  .hdr .nav.is-open{visibility:visible;opacity:1;transform:none;transition:opacity .28s ease,transform .4s var(--ease),visibility 0s}
+  .hdr .nav::before{content:"";position:absolute;right:-60px;top:-40px;width:320px;height:320px;border-radius:50%;background:radial-gradient(closest-side,rgba(221,167,131,.35),transparent);pointer-events:none}
+  .hdr .nav>ul{counter-reset:nv;width:min(100%,640px);margin:0 auto}
+  .hdr .nav>ul>li{counter-increment:nv;border-bottom:1px solid var(--line-soft)}
+  .hdr .nav>ul>li>a{position:relative;display:flex;align-items:center;gap:.9rem;min-height:64px;border:0;font:700 clamp(1.5rem,1.1rem + 2.2vw,2.125rem)/1.15 var(--display);letter-spacing:-.01em;color:var(--text)}
+  .hdr .nav>ul>li>a::before{content:counter(nv,decimal-leading-zero);font:600 .8125rem/1 var(--ui);color:var(--copper);letter-spacing:0;min-width:1.6rem}
+  .hdr .nav>ul>li>a[aria-current=true]{color:var(--copper)}
+  .hdr .nav-mega{flex-wrap:wrap}
+  .hdr .mega-tg{width:48px;height:48px;margin:0;border-radius:50%;background:var(--warm)}
+  .hdr .mega-tg svg{width:14px;height:9px}
+  .hdr .mega{flex-basis:100%;padding:0 0 .75rem 2.5rem}
+  .hdr .mega-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem}
+  .hdr .mega-it{min-height:48px;padding:.4rem .5rem;font-size:.9375rem;background:rgba(240,236,227,.6)}
+  .hdr .mega-ic{width:36px!important;height:36px!important}.hdr .mega-ic svg{width:26px!important;height:26px!important}
+  .nav-extra{display:grid;gap:.6rem;width:min(100%,640px);margin:1.5rem auto 0}
+  .nav-extra .btn{width:100%;border-radius:14px;min-height:54px}
+  .nav-call{gap:.6rem}
+  .nav-call svg{width:20px;height:20px}
+  .nav-hours{display:flex;align-items:center;gap:.55rem;margin-top:.4rem;font-size:.875rem;color:var(--muted)}
+  .nav-dot{flex:none;width:8px;height:8px;border-radius:50%;background:#5FA86A;box-shadow:0 0 0 4px rgba(95,168,106,.18)}
+  .nav-town{display:block;width:calc(100% + 2*var(--gut));height:70px;margin:1.25rem calc(-1 * var(--gut)) 0;fill:var(--warm)}
+  html.menu-open{overflow:hidden}
+  html.menu-open .hdr .hdr-in{background:var(--paper);box-shadow:0 0 0 1px rgba(31,43,48,.06)}
+  html.menu-open .mbar,html.menu-open .rwopt,html.menu-open .pal{opacity:0;pointer-events:none}
+}
+@media (max-width:1239px) and (max-width:520px){.hdr .mega-grid{grid-template-columns:minmax(0,1fr)}}
+@keyframes nav-town{0%{transform:translateY(24px);opacity:0}100%{transform:none;opacity:1}}
+html.has-motion .hdr .nav.is-open .nav-town{animation:nav-town .8s var(--ease) .35s backwards}
+.nav-extra{display:none}
+@media (max-width:1239px){.nav-extra{display:grid}}
+
+/* ---------- desktop nav (1240px and up) ---------- */
+@media (min-width:1240px){
+  .hdr .nav{margin-left:1rem;display:flex;justify-content:center}
+  .hdr .nav>ul{gap:.15rem}
+  .hdr .nav>ul>li>a{min-height:44px;padding:0 .85rem;border-radius:999px;font-size:.9688rem;transition:color .2s,background-color .2s}
+  @media (hover:hover){.hdr .nav>ul>li>a:hover{background:rgba(152,86,50,.07);color:var(--text)}}
+  .hdr .nav>ul>li>a[aria-current=true]{color:var(--copper-deep)}
+  /* the roof peak that slides under the current or hovered link */
+  .hdr .nav-ind{bottom:3px;width:18px;height:8px;background:var(--copper);
+    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 8'%3E%3Cpath d='M1 7L9 1l8 6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 8'%3E%3Cpath d='M1 7L9 1l8 6' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+    transform:translateX(calc(var(--ix,0px) + var(--iw,0) * .5px - 9px));transition:transform .45s cubic-bezier(.3,1.4,.5,1),opacity .2s}
+  .hdr .nav-mega{flex-wrap:nowrap}
+  .hdr .mega-tg{width:28px;height:44px;margin-left:-.6rem;border-radius:999px}
+  /* the Services panel floats under the bar as its own card */
+  .hdr .mega{left:50%;right:auto;top:calc(100% + 10px);width:min(1100px,calc(100vw - 2*var(--gut)));transform:translateX(-50%);border:0;border-radius:22px;background:rgba(250,249,246,.97);
+    box-shadow:0 0 0 1px rgba(31,43,48,.07),0 30px 60px -30px rgba(31,43,48,.45)}
+  .hdr .mega-in{width:auto;padding:1.5rem}
+  .hdr .nav-mega{position:static}
+  .hdr .hdr-in{position:relative}
+}
+/* the bar steps aside on the way down (desktop), as before */
+.hdr.is-hidden{transform:translateY(calc(-100% - 12px))}
+/* a backdrop blur would trap the fixed menu sheet inside the bar, so the bar is solid under 1240px */
+@media (max-width:1239px){.hdr .hdr-in,.hdr.is-stuck .hdr-in{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(250,249,246,.96)}}
+@media (max-width:1239px){
+  .hdr .brand{position:relative;z-index:2}
+  html.menu-open .bar{opacity:0;pointer-events:none;transform:translateY(100%)}
+  html.menu-open .hdr .hdr-phone,html.menu-open .hdr .hdr-cta{opacity:0;pointer-events:none}
+}
+/* round 7: no square grids or block patterns behind the sections (owner asked: "no blocks") */
+.chk-grid-bg,.dec-grid,.faq-bk-grid,.how-grid-bg,.sv-grid,.dia-survey{display:none!important}
+.xv-stage,.sx-svg{background-image:none!important}
+.dia-plate::before{background-image:none!important}
 </style>
 <style>
 /* =====================================================================
@@ -1141,6 +1260,27 @@ html.has-motion .st.is-js .st-hint{display:flex;align-items:center;gap:.5rem;mar
 @keyframes st-wheel{0%{transform:none;opacity:1}100%{transform:translateY(7px);opacity:0}}
 .st.is-end .st-hint{opacity:0}
 @media (min-width:1000px){html.has-motion .st.is-js .st-steps{left:clamp(1.5rem,4vw,4rem);right:auto;bottom:clamp(1.5rem,4vh,2.5rem)}}
+
+/* round 7: the person in the bedroom, lightning */
+.st .st-p-head circle{fill:#E9C8A8;stroke:rgba(31,43,48,.5);stroke-width:1.6}
+.st .st-p-hair{fill:#6B4A30}
+.st .st-p-body,.st .st-p-arm-l,.st .st-p-arm path{fill:none;stroke:#5E7F5A;stroke-width:6;stroke-linecap:round}
+.st .st-p-phone{fill:#1F2B30}
+.st .st-p-q path{fill:none;stroke:var(--copper);stroke-width:3;stroke-linecap:round}
+.st .st-p-q{opacity:0}
+.st .st-flash{fill:#fff;opacity:0;pointer-events:none}
+.st .st-p-head{transform-box:fill-box;transform-origin:50% 100%}
+.st .st-p-arm{transform-box:view-box;transform-origin:610px 542px}
+
+/* version 2: tap through */
+.st-nav{display:none}
+.st.is-tap .st-nav{display:flex;align-items:center;gap:.75rem;margin-top:1.25rem}
+.st.is-tap .st-hint{display:none!important}
+.st-prev{min-height:44px;padding:.5rem .9rem;border:1px solid var(--line);border-radius:999px;background:var(--card);font:600 .9375rem/1 var(--ui);color:var(--text);cursor:pointer}
+.st-prev:disabled{opacity:.4;cursor:default}
+.st.is-tap .st-next{border-radius:999px}
+.st.is-tap .st-pin{min-height:auto}
+@media (min-width:1000px){.st.is-tap .st-pin{height:min(100vh,860px)}}
 </style>
 <style>
 /* =====================================================================
@@ -1949,6 +2089,55 @@ html.has-motion .dia-sec.is-touring .dia-list li.is-on .dia-more{animation:dia-m
 .dec-s-labels li:nth-child(3){left:66.667%}
 .dec-s-labels li:nth-child(4){left:100%;transform:translateX(calc(-100% + 18px))}
 .dec-s-labels li.is-on{color:var(--copper);font-weight:600}
+
+/* ===== V7 "Roof through the years" (default): the stage pins, scrolling ages the roof, the years count up,
+   the weather turns, the dial swings and one big card at a time says what to do. ===== */
+.dec-years,.dec-rain{display:none}
+.dec-sec[data-v="7"] .dec-roof,.dec-sec[data-v="7"] .dec-dial{display:block}
+.dec-sec[data-v="7"] .dec-body{display:grid;gap:1rem;align-items:center}
+.dec-sec[data-v="7"] .dec-roof{position:relative;border-radius:22px;background:linear-gradient(#EAF0F2,#FAF9F6 75%);padding:clamp(.75rem,2vw,1.5rem);box-shadow:var(--shadow-card);overflow:hidden;transition:background-color .6s}
+.dec-sec[data-v="7"] .dec-roof svg{display:block;width:100%;height:auto;max-height:46vh;margin-inline:auto;position:relative}
+.dec-sec[data-v="7"] .dec-years{display:block;position:absolute;left:clamp(.9rem,2vw,1.5rem);top:clamp(.75rem,1.6vw,1.25rem);margin:0;font:600 .875rem/1 var(--ui);color:var(--muted)}
+.dec-sec[data-v="7"] .dec-yr{display:block;font:700 clamp(2rem,1.4rem + 2.2vw,3.25rem)/1 var(--display);color:var(--text);font-variant-numeric:tabular-nums;margin-top:.2rem}
+.dec-sec[data-v="7"] .dec-roof-cap{position:absolute;right:clamp(.9rem,2vw,1.5rem);top:clamp(.9rem,2vw,1.5rem);margin:0;padding:.3rem .75rem;border-radius:999px;background:rgba(255,255,255,.85);font:600 .875rem/1.2 var(--ui);color:var(--copper-deep)}
+.dec-sec[data-v="7"] .dec-rain{display:block;position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .6s}
+.dec-rain path{stroke:rgba(74,104,122,.5);stroke-width:2;stroke-linecap:round}
+.dec-sun{fill:#F6C979;transition:opacity .6s,transform .8s var(--ease);transform-box:fill-box;transform-origin:50% 50%}
+.dec-cloud{fill:#fff;stroke:rgba(31,43,48,.2);stroke-width:1.2;opacity:0;transition:opacity .6s,transform .8s var(--ease);transform-box:fill-box}
+.dec-sec[data-v="7"][data-stage="1"] .dec-cloud{opacity:.9;transform:translateX(-20px)}
+.dec-sec[data-v="7"][data-stage="2"] .dec-cloud,.dec-sec[data-v="7"][data-stage="3"] .dec-cloud{opacity:1;transform:translateX(-46px) scale(1.2)}
+.dec-sec[data-v="7"][data-stage="2"] .dec-sun{opacity:.4;transform:scale(.85)}
+.dec-sec[data-v="7"][data-stage="3"] .dec-sun{opacity:0}
+.dec-sec[data-v="7"][data-stage="2"] .dec-rain{opacity:.5}
+.dec-sec[data-v="7"][data-stage="3"] .dec-rain{opacity:1}
+.dec-sec[data-v="7"][data-stage="3"] .dec-roof{background:linear-gradient(#D9DEE1,#F1EEE8 75%)}
+@keyframes dec-rain{0%{transform:translateY(-20px)}100%{transform:translate(-10px,60px)}}
+html.has-motion .dec-sec[data-v="7"] .dec-rain path{animation:dec-rain .7s linear infinite}
+html.has-motion .dec-sec[data-v="7"] .dec-rain path:nth-child(2n){animation-delay:-.35s}
+/* the right-hand side: the dial, then one card at a time */
+.dec-sec[data-v="7"] .dec-dial{width:min(260px,62%);margin:0 auto}
+.dec-sec[data-v="7"] .dec-tabs{display:none}
+.dec-sec[data-v="7"] .dec-cards{display:grid;grid-template-columns:minmax(0,1fr)}
+.dec-sec[data-v="7"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(18px) scale(.98);transition:opacity .35s ease,transform .5s var(--ease),visibility 0s linear .35s;padding:clamp(1.1rem,2.4vw,1.75rem)}
+.dec-sec[data-v="7"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease,transform .5s var(--ease),visibility 0s}
+.dec-sec[data-v="7"] .dec-card h3{font-size:clamp(1.25rem,1rem + 1vw,1.75rem)}
+.dec-sec[data-v="7"] .dec-rail-dot{display:none}
+.dec-stage7{position:relative}
+@media (min-width:1000px){
+  .dec-sec[data-v="7"] .dec-body{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);min-height:calc(100vh - 140px)}
+  .dec-sec[data-v="7"] .dec-roof{grid-row:1/3}
+  .dec-sec[data-v="7"] .dec-dial{width:min(300px,80%);align-self:end}
+  .dec-sec[data-v="7"] .dec-cards{align-self:start}
+}
+@media (max-width:999px){
+  .dec-sec[data-v="7"] .dec-roof svg{max-height:30svh}
+  .dec-sec[data-v="7"] .dec-dial{width:min(190px,52%)}
+  .dec-sec[data-v="7"] .dec-card p{font-size:.9375rem}
+}
+/* without motion: no pinning, the four cards simply sit in a list */
+html:not(.has-motion) .dec-sec[data-v="7"] .dec-card{grid-area:auto;opacity:1;visibility:visible;transform:none}
+html:not(.has-motion) .dec-sec[data-v="7"] .dec-cards{gap:1rem}
+@media (min-width:1000px){.dec-sec[data-v="7"] .dec-roof{align-self:center}.dec-sec[data-v="7"] .dec-body{min-height:calc(100vh - 160px)}}
 </style>
 <style>
 /* =====================================================================
@@ -2817,7 +3006,7 @@ html.has-motion .prj-build[data-day="3"] .pb-glint path{animation:pb-glint 1.4s 
 @keyframes sc-print{0%,20%{transform:translateY(-14px) scaleY(.1);opacity:0}45%{opacity:1}100%{transform:none;opacity:1}}
 @keyframes sc-smoke{0%{transform:translateY(6px) scale(.4);opacity:0}30%{opacity:1}100%{transform:translate(6px,-14px) scale(1.3);opacity:0}}
 @keyframes sc-glow{0%,25%{fill:#E3EAED}40%,80%{fill:#F6C979}100%{fill:#E3EAED}}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-dr{animation:sc-door 2.2s var(--ease)}
+html.has-motion .sc-home:is(.is-play,:hover,:focus-within) .sc-dr{animation:sc-door 2.2s var(--ease)}
 html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-glow{animation:sc-glow 2.2s ease}
 html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle{animation:sc-smoke 1.6s ease-out 2}
 html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle:nth-child(2){animation-delay:.5s}
@@ -2834,6 +3023,13 @@ html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:s
   .sc[data-v="2"] .sc-card:nth-child(even) .sc-art{grid-column:2}
   .sc[data-v="2"] .sc-card h3{margin-top:.5rem}
 }
+
+/* landlords: no doors swinging; the three homes light up one after another while the sign swings */
+@keyframes sc-lit{0%,15%{fill:#E3EAED}30%,80%{fill:#F6C979}100%{fill:#E3EAED}}
+.sc-let .sc-wn{transition:none}
+html.has-motion .sc-let:is(.is-play,:hover,:focus-within) .sc-wn{animation:sc-lit 2.4s ease}
+.sc-let .sc-wn{fill:#E3EAED}
+html.has-motion .sc-let .sc-w2{animation-delay:.35s!important}html.has-motion .sc-let .sc-w3{animation-delay:.7s!important}
 </style>
 <style>
 /* =====================================================================
@@ -3130,6 +3326,33 @@ html.has-motion .sv.is-in:not(.is-sign) .sv-pencil{animation:sv-wob 2s ease-in-o
 .sv[data-v="2"] .sv-in{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;max-width:720px;margin-inline:auto;padding:clamp(1.5rem,4vw,2.5rem);border-radius:24px;background:var(--card);box-shadow:var(--shadow-lift)}
 .sv[data-v="2"] .sv-copy p{margin-inline:auto}
 .sv[data-v="2"] .sv-act{justify-content:center}
+
+/* round 7: more room, more life */
+.sv{padding-block:clamp(4rem,8vw,7rem)}
+.sv[data-v="2"] .sv-in{position:relative;gap:1.5rem;max-width:760px;padding:clamp(2.25rem,5vw,3.75rem) clamp(1.5rem,5vw,3.5rem) clamp(2rem,4.5vw,3.25rem);transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.sv[data-v="2"] .sv-copy h2{margin-bottom:.9rem}
+.sv[data-v="2"] .sv-copy p+p{margin-top:.75rem}
+.sv[data-v="2"] .sv-act{margin-top:.75rem;gap:1rem 1.75rem}
+.sv[data-v="2"] .sv-art{width:150px;margin-bottom:.25rem}
+.sv-roofline{display:none}
+.sv[data-v="2"] .sv-roofline{display:block;position:absolute;left:8%;right:8%;top:-20px;width:84%;height:40px;fill:none;stroke:var(--copper);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;overflow:visible}
+.sv[data-v="2"] .sv-roofline path{stroke-dasharray:1;stroke-dashoffset:0}
+.sv .sv-seal circle{fill:var(--copper);stroke:#7A4326;stroke-width:2;stroke-dasharray:3 2}
+.sv .sv-seal .sv-seal-in{fill:none;stroke:rgba(255,255,255,.55);stroke-dasharray:none;stroke-width:1.5}
+.sv .sv-seal path{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.sv .sv-seal{transform-box:fill-box;transform-origin:50% 50%}
+@keyframes sv-swing{0%{transform:rotate(-10deg) translateY(-14px);opacity:0}55%{transform:rotate(4deg);opacity:1}80%{transform:rotate(-2deg)}100%{transform:none;opacity:1}}
+@keyframes sv-stamp{0%{transform:scale(1.9) rotate(-25deg);opacity:0}60%{transform:scale(.92) rotate(4deg);opacity:1}100%{transform:rotate(-8deg);opacity:1}}
+@keyframes sv-line{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes sv-shine{0%,82%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(220%) skewX(-20deg)}}
+html.has-motion .sv:not(.is-in) .sv-seal{opacity:0}
+html.has-motion .sv.is-in .sv-art svg{animation:sv-swing 1s var(--ease) backwards;transform-origin:50% 0}
+html.has-motion .sv.is-in .sv-seal{animation:sv-stamp .55s cubic-bezier(.3,1.4,.5,1) 1.15s backwards}
+html.has-motion .sv[data-v="2"]:not(.is-in) .sv-roofline path{stroke-dashoffset:1}
+html.has-motion .sv[data-v="2"].is-in .sv-roofline path{animation:sv-line 1.4s var(--ease) .2s backwards}
+.sv .sv-go{overflow:hidden}
+.sv .sv-go::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-120%) skewX(-20deg);pointer-events:none}
+html.has-motion .sv.is-in .sv-go::after{animation:sv-shine 6s ease-in-out 2s infinite}
 </style>
 <style>
 /* =====================================================================
@@ -4613,7 +4836,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 <span class="hdr-progress" id="progress" aria-hidden="true"></span>
 <span class="hdr-house" aria-hidden="true"><svg viewBox="0 0 16 14" focusable="false"><path d="M1 7L8 1l7 6M3 6v7h10V6"/></svg></span>
 
-<header class="hdr" id="header">
+<header class="hdr" id="header"><span class="hdr-glow" aria-hidden="true"></span>
   <div class="wrap hdr-in">
     <a class="brand" href="#top" aria-label="Ridgewell Roofing, back to the top">
       <svg class="brand-mark" viewBox="0 -6 32 38" aria-hidden="true" focusable="false">
@@ -4623,7 +4846,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         <path d="M8 18v10h16V18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
         <path d="M12 28v-7h8v7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
       </svg>
-      <span class="brand-name" data-sample="company">Ridgewell Roofing</span>
+      <span class="brand-tx"><span class="brand-name" data-sample="company">Ridgewell Roofing</span><span class="brand-sub" data-sample="town">Roofers in Cirencester</span></span>
     </a>
     <nav class="nav" id="nav" aria-label="Main">
       <ul>
@@ -4635,12 +4858,18 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         <li><a href="#faq" data-nav="faq">FAQ</a></li>
       </ul>
       <span class="nav-ind" aria-hidden="true"></span>
+      <div class="nav-extra">
+        <a class="btn btn-fill nav-call" href="tel:+441632960482" data-sample="phone"><svg aria-hidden="true"><use href="#i-phone"/></svg>Call 01632 960 482</a>
+        <a class="btn btn-line nav-quote" href="#contact">Tell us about your roof</a>
+        <p class="nav-hours" data-sample="hours" data-confirm="hours"><span class="nav-dot" aria-hidden="true"></span>Phones answered Monday to Friday 8am to 6pm, Saturday 9am to 1pm</p>
+        <svg class="nav-town" viewBox="0 0 600 90" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><path d="M0 90V62l34-24 34 24h14V40h10v22h20l46-36 46 36h16l30-22 30 22h18V44h10v18h26l50-38 50 38h22l34-26 34 26h20V40h10v22h18l40-30 40 30h12V90z"/></svg>
+      </div>
     </nav>
     <div class="hdr-act">
       <a class="hdr-phone" href="tel:+441632960482" data-sample="phone" aria-label="Call 01632 960 482">
-        <svg aria-hidden="true"><use href="#i-phone"/></svg><span class="hdr-phone-n">01632 960 482</span>
+        <span class="hdr-phone-ic"><svg aria-hidden="true"><use href="#i-phone"/></svg></span><span class="hdr-phone-tx"><span class="hdr-phone-l">Call us</span><span class="hdr-phone-n">01632 960 482</span></span>
       </a>
-      <a class="btn btn-fill hdr-cta" href="#contact">Tell us about your roof</a>
+      <a class="btn btn-fill hdr-cta" href="#contact">Get a quote</a>
       <button class="menu" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav"><span class="menu-t">Menu</span><span class="menu-i" aria-hidden="true"></span></button>
     </div>
   </div>
@@ -5154,6 +5383,13 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
           <ellipse class="st-stain" cx="752" cy="390" rx="44" ry="12"/>
           <g class="st-drips"><path class="st-drip" d="M752 396c-3 5-4 7-4 9a4 4 0 0 0 8 0c0-2-1-4-4-9z"/></g>
           <path class="st-bucket" d="M736 574h32l-4 24h-24z"/>
+          <g class="st-person"><g transform="translate(610 598)">
+            <g class="st-p-head"><circle cx="0" cy="-74" r="10"/><path class="st-p-hair" d="M-10 -78c1-11 19-13 20 0-5-5-15-5-20 0z"/></g>
+            <path class="st-p-body" d="M0 -63v34M0 -29l-8 29M0 -29l8 29"/>
+            <path class="st-p-arm-l" d="M0 -56l-12 18"/>
+            <g class="st-p-arm"><path d="M0 -56l14 14"/><rect class="st-p-phone" x="10" y="-48" width="6" height="10" rx="1.5"/></g>
+            <g class="st-p-q"><path d="M10 -104c0-8 12-8 12 0 0 5-6 5-6 10M16 -88v1"/></g>
+          </g></g>
         </g>
         <path class="st-floor" d="M402 598H798"/>
         <path class="st-ceiling" d="M380 382H820"/>
@@ -5184,6 +5420,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         <g class="st-ladder"><path d="M872 600L838 384M900 600L866 384M866 572h28M861 540h28M856 508h28M851 476h28M846 444h28M841 412h28"/></g>
         <g class="st-man"><g transform="translate(858 420)"><circle cx="0" cy="-34" r="7"/><path class="st-hat" d="M-7 -36c1-8 13-9 15 0z"/><path class="st-bd" d="M0 -27v18M0 -9l-6 12M0 -9l7 11M0 -22l-10 -6M0 -22l9 4"/></g></g>
         <g class="st-birds"><path d="M300 120c5-5 10-5 13 0 3-5 8-5 13 0M340 100c4-4 8-4 10 0 2-4 6-4 10 0"/></g>
+        <rect class="st-flash" x="-800" y="-900" width="2800" height="1700"/>
         <g class="st-spark"><path d="M776 312l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>
       </svg>
       <ol class="st-steps" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
@@ -5194,7 +5431,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         <li class="st-cap is-on"><b>It starts with one slate.</b> A quiet evening. The roof has kept the rain out for years, but one nail has quietly rusted through.</li>
         <li class="st-cap"><b>A storm lifts it.</b> Wind gets under the loose slate and it slides out. From the ground you might never notice.</li>
         <li class="st-cap"><b>Water finds the gap.</b> Rain runs in, along the felt and the timbers, and shows up as a stain somewhere else.</li>
-        <li class="st-cap"><b>Left for a winter.</b> Wet battens rot, more slates slip, and a small repair becomes a bigger one.</li>
+        <li class="st-cap"><b>Left for a winter.</b> Wet battens rot, more slates slip, and a small repair becomes a bigger one. This is the moment to pick up the phone.</li>
         <li class="st-cap"><b>Caught early, it is a morning's work.</b> The slate goes back, the rest of the roof is checked, and the ceiling dries out. <a class="link st-go" href="?issue=slipped#contact">Tell us what you have spotted</a></li>
       </ol>
       <p class="st-hint" aria-hidden="true"><span class="st-hint-m"></span>Keep scrolling</p>
@@ -5206,7 +5443,6 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
      Keep 3 to 6 problems. Each <li> is: photo (.cw, cut to a roof shape by data-issue), title, short copy, link that pre-fills the form (?issue=KEY#contact). -->
 <section class="sec sec-warm e-wave svc-sec" id="problems" data-reveal="slide" data-v="6" aria-labelledby="h-problems">
   <div class="layers layers-back svc-back" aria-hidden="true">
-    <div class="svc-course" data-depth="-0.08"><div class="tex"></div></div>
     <svg class="svc-roofs" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" focusable="false"><path d="M0 120V92l46-30 46 30h20V64h12v28h26l60-44 60 44h24l40-26 40 26h22V70h12v22h30l70-52 70 52h26l46-32 46 32h24V60h12v32h20l58-42 58 42h30l40-26 40 26h28V120z"/></svg>
   </div>
   <div class="layers layers-front svc-front" aria-hidden="true">
@@ -5463,7 +5699,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 <!-- ================= REPAIR, MAINTAIN, INVESTIGATE OR REPLACE ================= -->
 <!-- A four-stop roof-condition scale. Prototype variants data-v="1".."6" (set by ?v=N or ?dv=N in decide.js).
      The four cards are the content and the accessible controls (buttons with aria-pressed). Each meter below is one variant's picture of the same state. -->
-<section class="sec decide dec-sec" id="decide" data-reveal="scale" data-v="4" aria-labelledby="h-decide">
+<section class="sec decide dec-sec" id="decide" data-reveal="scale" data-v="7" aria-labelledby="h-decide">
   <div class="layers layers-back dec-back" aria-hidden="true">
     <div class="dec-grid" data-depth="-0.06"></div>
     <svg class="dec-hills" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMax slice" data-depth="-0.04" focusable="false"><path d="M0 90V70c90-22 170-30 260-18s170 20 260 4 190-34 300-22 220 30 380 26V90z"/></svg>
@@ -5479,6 +5715,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       <p class="dec-keep">The right recommendation should follow the condition of the roof, not the size of the job.</p>
     </div>
 
+    <div class="dec-stage7">
     <div class="dec-body">
       <!-- V1 horizontal gauge -->
       <div class="dec-m dec-gauge" aria-hidden="true">
@@ -5494,6 +5731,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
             <pattern id="dec-tl" width="24" height="16" patternUnits="userSpaceOnUse"><rect width="24" height="16" fill="#E9D3C1"/><path d="M0 15.5H24M12 0V8M0 8H24M0 8v8M24 8v8" stroke="#985632" stroke-opacity=".38" stroke-width="1"/></pattern>
             <clipPath id="dec-rc"><path d="M100 58H320L392 186H28Z"/></clipPath>
           </defs>
+          <g class="dec-sky"><circle class="dec-sun" cx="380" cy="34" r="18"/><path class="dec-cloud" d="M330 40h56c7 0 9-10 1-12 0-9-12-12-18-6-4-8-17-9-21 0-7-4-17 0-16 7-7-1-11 11-2 11z"/></g>
           <path d="M0 250H420" stroke="#1F2B30" stroke-opacity=".25" stroke-width="1.5"/>
           <path d="M56 186H364V250H56Z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/>
           <path d="M92 204h40v30H92zM288 204h40v30h-40zM190 210h40v40h-40z" fill="#EAF0F2" stroke="#1F2B30" stroke-opacity=".45" stroke-width="1.3"/>
@@ -5513,7 +5751,9 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
             <g data-lc="3"><path d="M118 120h24v16h-24zM238 152h24v16h-24zM300 104h24v16h-24z" fill="#1F2B30" fill-opacity=".62"/><path d="M120 138l24 4-3 15-24-4z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/><path d="M240 170l22 7-4 13-22-7z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/></g>
           </g>
         </svg>
+        <svg class="dec-rain" viewBox="0 0 420 260" aria-hidden="true" focusable="false"><path d="M40 10l-8 20M110 0l-8 20M180 16l-8 20M250 4l-8 20M330 12l-8 20M70 60l-8 20M150 70l-8 20M290 64l-8 20M380 50l-8 20"/></svg>
         <p class="dec-roof-cap"><span class="dec-cap-t">Sound</span></p>
+        <p class="dec-years" aria-hidden="true">Year <b class="dec-yr">2</b></p>
       </div>
 
       <!-- V3 sticky side meter (the rail itself is drawn on the cards list) -->
@@ -5586,6 +5826,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
           <a class="dec-a" href="?issue=patching#contact">Ask about a new roof</a>
         </li>
       </ol>
+    </div>
     </div>
   </div>
 </section>
@@ -6003,8 +6244,6 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
      presented as the client's work. Prototype variants: ?pv=1..5 (stage 1, the judge picks one, the rest are removed). -->
 <section class="sec e-hip prj" id="projects" data-reveal="slide" data-nav="projects" data-sample="project" data-v="1" aria-labelledby="h-projects" data-fx="leaves" data-fx-count="6">
   <div class="layers layers-back" aria-hidden="true">
-    <div class="prj-coursing" data-depth="-0.08"></div>
-    <div class="prj-coursing prj-coursing-2" data-depth="-0.14"></div>
   </div>
 
 
@@ -6139,7 +6378,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
           <path class="sc-gnd" d="M6 128H194"/>
           <path class="sc-wl" d="M20 64H180V128H20Z"/><path class="sc-rf" d="M14 66L44 40H156L186 66Z"/>
           <path class="sc-sep" d="M73 64V128M127 64V128"/>
-          <path class="sc-wn" d="M32 76h28v16H32zM86 76h28v16H86zM140 76h28v16h-28z"/>
+          <path class="sc-wn" d="M32 76h28v16H32z"/><path class="sc-wn sc-w2" d="M86 76h28v16H86z"/><path class="sc-wn sc-w3" d="M140 76h28v16h-28z"/>
           <path class="sc-dr" d="M38 104h16v24H38zM92 104h16v24H92zM146 104h16v24h-16z"/>
           <g class="sc-sign"><path class="sc-post" d="M176 128V92M176 96h-4"/><g class="sc-board"><path d="M150 100h30v18h-30z"/><path class="sc-board-t" d="M156 107h18M156 112h12"/></g></g>
         </svg>
@@ -6314,6 +6553,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     <span class="sv-grid" data-depth="-0.05"></span>
   </div>
   <div class="wrap sv-in">
+    <svg class="sv-roofline" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M0 38H70L110 8L150 38H240L300 4L360 38H450L490 8L530 38H600"/></svg>
     <div class="sv-art" aria-hidden="true">
       <svg viewBox="0 0 200 220" focusable="false">
         <path class="sv-board" d="M30 24h140v186H30z"/><path class="sv-clip" d="M76 14h48v22H76z"/>
@@ -6321,6 +6561,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         <g class="sv-row"><path class="sv-box" d="M48 96h16v16H48z"/><path class="sv-tick" d="M51 104l4 4 7-8"/><path class="sv-ln" d="M76 104h60"/></g>
         <g class="sv-row"><path class="sv-box" d="M48 130h16v16H48z"/><path class="sv-tick" d="M51 138l4 4 7-8"/><path class="sv-ln" d="M76 138h68"/></g>
         <path class="sv-sign" d="M50 184c10-12 16 6 24-4s12 8 22-2 14 4 24-2"/>
+        <g class="sv-seal"><circle cx="160" cy="58" r="24"/><circle class="sv-seal-in" cx="160" cy="58" r="17"/><path d="M150 58l7 7 13-14"/></g>
         <g class="sv-pencil"><path d="M0 0l40-40 8 8-40 40-10 2z"/><path d="M34 -34l8 8"/></g>
       </svg>
     </div>
@@ -6741,7 +6982,6 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 <section class="contact sec sec-warm e-chim ct" id="contact" data-reveal="drop" data-v="4" aria-labelledby="h-contact">
   <div class="layers layers-back ct-back" aria-hidden="true">
     <div class="ct-glow"></div>
-    <div class="tex-fade ct-tex" data-depth="-0.05"><div class="tex"></div></div>
     <svg class="ct-outline" viewBox="0 0 420 250" data-depth="-0.12" data-px="8" focusable="false"><path d="M8 244L210 42l202 202M300 132V58h34v108M296 58h42M205 42h10M60 192h300" /></svg>
     <svg class="ct-far" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.07" focusable="false"><path d="M0 120V88l46-34 46 34h22V60h12v28h26l58-46 58 46h36l40-30 40 30h24V66h14v22h34l64-52 64 52h28l48-36 48 36h30V58h12v30h22l60-48 60 48h34l44-32 44 32h26V68h14v20h30l54-44 54 44h28V120z"/></svg>
   </div>
@@ -7200,9 +7440,11 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       if (!btn || !nav) return;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       nav.classList.toggle('is-open', open);
+      d.documentElement.classList.toggle('menu-open', open);
+      if (RW.lenis) { if (open) RW.lenis.stop(); else RW.lenis.start(); }
       if (open && hdr) hdr.classList.remove('is-hidden');
       if (open && RW.motionOK) {
-        RW.gsap.fromTo($$('li', nav), { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.26, ease: 'power2.out', stagger: 0.04, clearProps: 'transform,opacity' });
+        RW.gsap.fromTo($$('#nav > ul > li, .nav-extra > *', nav), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: 'expo.out', stagger: 0.045, delay: 0.08, clearProps: 'transform,opacity' });
       }
     }
     if (btn && nav) {
@@ -7267,6 +7509,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       if (hdr) hdr.classList.toggle('is-stuck', y > 8);
       var pr = max > 0 ? Math.min(1, y / max).toFixed(4) : 0;
       if (prog) prog.style.setProperty('--p', pr);
+      if (hdr) hdr.style.setProperty('--p', pr);
       if (house) house.style.setProperty('--p', pr);
       var cur = -1, line = window.innerHeight * 0.35;
       secs.forEach(function (sec, i) {
@@ -8741,6 +8984,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('story'); if (s) RW.variant(s, 'stv', ['1', '2'], ['Scroll story', 'Tap through']); }());
   RW.add('story', function () {
     var sec = RW.$('#story'); if (!sec || !RW.ST) return;
     var gsap = RW.gsap, ST = RW.ST, $ = function (s) { return RW.$(s, sec); }, $$ = function (s) { return RW.$$(s, sec); };
@@ -8833,6 +9077,21 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       .to($('.st-spark'), { opacity: 0, duration: 0.2 }, 10)
       .fromTo($('.st-birds'), { opacity: 0, x: -40 }, { opacity: 1, x: 60, duration: 0.6 }, 9.6)
       .set({}, {}, 10.3)
+      /* lightning twice as the storm arrives */
+      .fromTo($('.st-flash'), { opacity: 0 }, { opacity: 0.55, duration: 0.06, yoyo: true, repeat: 1 }, 1.45)
+      .fromTo($('.st-flash'), { opacity: 0 }, { opacity: 0.4, duration: 0.05, yoyo: true, repeat: 1 }, 1.8)
+      /* the person in the bedroom: looks up at the stain, wonders, then phones; waves when it is fixed */
+      .set($('.st-p-q'), { opacity: 0 }, 0)
+      .to($('.st-p-head'), { rotation: -18, duration: 0.4 }, 5.0)
+      .to($('.st-person'), { x: 90, duration: 0.6, ease: 'power1.inOut' }, 5.1)
+      .to($('.st-p-q'), { opacity: 1, duration: 0.25 }, 5.3)
+      .to($('.st-p-q'), { opacity: 0, duration: 0.2 }, 6.3)
+      .to($('.st-p-head'), { rotation: 0, duration: 0.3 }, 6.4)
+      .to($('.st-p-arm'), { rotation: -110, duration: 0.4 }, 6.5)
+      .to($('.st-p-arm'), { rotation: 0, duration: 0.3 }, 7.6)
+      .to($('.st-person'), { x: 0, duration: 0.6, ease: 'power1.inOut' }, 9.4)
+      .to($('.st-p-arm'), { rotation: -140, duration: 0.25 }, 10.0)
+      .to($('.st-p-arm'), { rotation: -110, duration: 0.15, yoyo: true, repeat: 3 }, 10.05)
       /* camera moves: in on the slate as it goes, hold while the water runs, out for the winter, in again for the fix */
       .to(cam, { z: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: aim }, 1.9)
       .to(cam, { tx: 790, ty: 395, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
@@ -8850,6 +9109,26 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     }
     show(0);
     var desk = window.matchMedia('(min-width:1000px)').matches;
+    if (sec.getAttribute('data-v') === '2') {
+      /* tap through: no pinning; Back and Next play the scene to each step */
+      var AT = [0, 1.95, 4.3, 5.75, 10.3], step = 0, nav = document.createElement('div');
+      nav.className = 'st-nav';
+      nav.innerHTML = '<button type="button" class="st-prev" aria-label="Previous step">Back</button><button type="button" class="btn btn-fill st-next">Next</button>';
+      copy.appendChild(nav);
+      var prev = nav.firstChild, next = nav.lastChild;
+      var goStep = function (k) {
+        step = RW.clamp(k, 0, AT.length - 1);
+        tl.tweenTo(AT[step], { duration: Math.min(2.4, Math.abs(tl.time() - AT[step]) * 0.4 + 0.5), ease: 'power1.inOut' });
+        show(STEPS[step] + 0.001);
+        prev.disabled = step === 0; next.textContent = step === AT.length - 1 ? 'Start again' : 'Next';
+      };
+      next.addEventListener('click', function () { goStep(step === AT.length - 1 ? 0 : step + 1); });
+      prev.addEventListener('click', function () { goStep(step - 1); });
+      tl.progress(0); goStep(0);
+      sec.classList.add('is-tap');
+      RW.onView(sec, { enter: function () { sec.classList.add('is-live'); }, leave: function () { sec.classList.remove('is-live'); } });
+      return;
+    }
     ST.create({
       trigger: sec, start: 'top top', end: '+=' + (desk ? 420 : 300) + '%', pin: $('.st-pin'), scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
       onUpdate: function (self) { tl.progress(self.progress); show(self.progress); },
@@ -9519,14 +9798,14 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   if (!RW || !sec) return;
   var $ = RW.$, $$ = RW.$$;
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'dv', ['4', '2', '1', '3', '5', '6'], ['Dial', 'Weathering roof', 'Gauge', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
+  var V = RW.variant(sec, 'dv', ['7', '4', '2', '1', '3', '5', '6'], ['Roof through the years', 'Dial', 'Weathering roof', 'Gauge', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
 
   var body = $('.dec-body', sec), cards = $$('.dec-card', sec), picks = $$('.dec-pick', sec);
   var NAMES = ['Sound', 'Tired', 'Unclear', 'Past repair'];
   var VALUETEXT = ['Sound with one fault: repair', 'Tired: maintain', 'Unclear: investigate', 'Past repair: replace'];
   var S = { s: 0, t: 0, i: -1, hover: -1, lock: -1, scrollT: null };
   var range = $('#dec-range', sec), tabs = $$('.dec-t', sec);
-  var roofLayers = (V === '2' || V === '5') ? $$('.dec-roof [data-lc],.dec-roof [data-lx]', sec) : [];
+  var roofLayers = (V === '2' || V === '5' || V === '7') ? $$('.dec-roof [data-lc],.dec-roof [data-lx]', sec) : [];
   var lastRoof = -1;
 
   function paint() {
@@ -9540,8 +9819,13 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         el.style.opacity = (el.hasAttribute('data-lx') ? 1 - o : o).toFixed(3);
       });
     }
+    if (V === '7') {   /* the years tick on with the condition */
+      var yr = Math.round(2 + S.s / 3 * 38);
+      if (yr !== S.yr) { S.yr = yr; var ye = $('.dec-yr', sec); if (ye) ye.textContent = yr; }
+    }
     if (i === S.i) return;
     S.i = i;
+    sec.setAttribute('data-stage', String(i));
     /* V1-V4 start with no card lit until the scale has a meaning (scroll reached it, or the reader chose) */
     var lit = S.active ? i : -1;
     cards.forEach(function (c, j) { c.classList.toggle('is-on', j === lit); c.classList.toggle('is-reached', j <= i && S.active); });
@@ -9590,6 +9874,13 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     loop = true;
     var vh = window.innerHeight, geo = { top: 0, h: 0, centers: [], vertical: false };
     var snapRow = (V === '4') ? $('.dec-cards', sec) : null;
+    /* V7: the stage pins and the scroll ages the roof from new to past repair */
+    var pinP = 0;
+    if (V === '7') {
+      S.active = true; S.i = -2; paint();
+      RW.ST.create({ trigger: $('.dec-stage7', sec) || body, start: 'top top+=' + ((RW.HDR || 76) + 8), end: '+=' + (window.innerWidth > 999 ? 230 : 190) + '%',
+        pin: true, anticipatePin: 1, invalidateOnRefresh: true, onUpdate: function (self) { pinP = self.progress; } });
+    }
     var narrow = window.matchMedia('(max-width: 767px)');
     function measure() {
       vh = window.innerHeight;
@@ -9601,6 +9892,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     /* a soft dwell at each stop so the marker rests on a stop rather than sliding through it */
     function dwell(x) { var i = Math.floor(x), f = x - i; f = RW.clamp((f - 0.2) / 0.6, 0, 1); f = f * f * (3 - 2 * f); return Math.min(3, i + f); }
     function fromScroll() {
+      if (V === '7') return dwell(RW.clamp(pinP * 1.08, 0, 1) * 3);
       if (snapRow && narrow.matches) {
         var max = snapRow.scrollWidth - snapRow.clientWidth;
         return max > 0 ? RW.clamp(snapRow.scrollLeft / max, 0, 1) * 3 : 0;
@@ -10907,6 +11199,15 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     function off() { sec.classList.remove('is-sign'); }
     go.addEventListener('pointerenter', on); go.addEventListener('pointerleave', off);
     go.addEventListener('focus', on); go.addEventListener('blur', off);
+    /* the card leans a little towards the pointer (version 2, fine pointers) */
+    var card = RW.$('.sv-in', sec);
+    if (RW.fine && sec.getAttribute('data-v') === '2') {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect(), u = (e.clientX - r.left) / r.width - 0.5, v = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(1200px) rotateX(' + (-v * 4).toFixed(2) + 'deg) rotateY(' + (u * 5).toFixed(2) + 'deg)';
+      });
+      card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+    }
   }, { motion: true });
 }());
 </script>
@@ -12895,52 +13196,6 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       }
     }()));
 
-    /* SERVICES: the paper hides roof courses. Under the pointer the tiles show, lift and tilt, then settle and fade. */
-    reg(d.getElementById('services'), (function () {
-      var S, TW = 26, TH = 13, G = 3, act = new Map(), pres = 0;
-      return {
-        init: function (sec) { S = canvasFor(sec, 'rx-tiles'); S.redraw = draw; },
-        frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
-          if (inside) {
-            var R = 120, r0 = Math.floor((ly - R) / (TH + G)), r1 = Math.ceil((ly + R) / (TH + G));
-            for (var row = r0; row <= r1; row++) {
-              var off = (row & 1) ? (TW + G) / 2 : 0, c0 = Math.floor((lx - R - off) / (TW + G)), c1 = Math.ceil((lx + R - off) / (TW + G));
-              for (var col = c0; col <= c1; col++) {
-                var x = col * (TW + G) + off + TW / 2, y = row * (TH + G) + TH / 2, dd = Math.hypot(x - lx, y - ly);
-                if (dd > R) continue;
-                var key = row * 10000 + col, t = 1 - dd / R, a = act.get(key);
-                if (!a) { a = { x: x, y: y, e: 0, t: 0, ph: (col * 7 + row * 3) % 5 }; act.set(key, a); }
-                a.t = Math.max(a.t, t);
-              }
-            }
-          }
-          var busy = false;
-          act.forEach(function (a, key) {
-            a.e += (a.t - a.e) * Math.min(1, dt * (a.t > a.e ? 12 : 1.8));
-            a.t *= Math.pow(0.02, dt);                   /* the lift decays once the pointer moves on */
-            if (a.e < 0.003 && a.t < 0.003) act.delete(key); else busy = true;
-          });
-          draw(); return busy || pres > 0.01;
-        }
-      };
-      function draw() {
-        var c = S.c; c.clearRect(0, 0, S.w, S.h);
-        act.forEach(function (a) {
-          var e = a.e; if (e < 0.01) return;
-          var lift = e * 7, tilt = (a.ph - 2) * 0.05 * e;
-          c.save(); c.translate(a.x, a.y - lift); c.rotate(tilt);
-          c.fillStyle = 'rgba(31,43,48,' + (0.08 * e).toFixed(3) + ')';
-          c.fillRect(-TW / 2 + 2, -TH / 2 + 3 + lift * 0.6, TW, TH);              /* shadow grows as it lifts */
-          c.fillStyle = 'rgba(217,163,131,' + (0.5 * e).toFixed(3) + ')';
-          c.strokeStyle = 'rgba(152,86,50,' + (0.55 * e).toFixed(3) + ')'; c.lineWidth = 1;
-          c.beginPath(); c.rect(-TW / 2, -TH / 2, TW, TH); c.fill(); c.stroke();
-          c.beginPath(); c.moveTo(-TW / 2 + 3, TH / 2 - 3); c.lineTo(TW / 2 - 3, TH / 2 - 3); c.stroke();
-          c.restore();
-        });
-      }
-    }()));
-
     /* WHERE (the leak tour): rain falls while you are here and slides off an umbrella that follows you. */
     reg(d.getElementById('where'), (function () {
       var S, drops = [], pres = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
@@ -12981,38 +13236,6 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         c.beginPath();
         for (var i = 0; i < drops.length; i++) { var p = drops[i], k = p.l / p.v; c.moveTo(p.x, p.y); c.lineTo(p.x - p.vx * k, p.y - p.l); }
         c.stroke();
-      }
-    }()));
-
-    /* WHOLE (the 3D roof): a pale blueprint grid that bends away from the pointer like a lens, copper inside the lens. */
-    reg(d.getElementById('whole'), (function () {
-      var S, pres = 0, gx = -1e4, gy = -1e4, SP = 44;
-      return {
-        init: function (sec) { S = canvasFor(sec, 'rx-grid'); S.redraw = draw; draw(); },
-        frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 4);
-          if (inside) { if (gx < -1e3) { gx = lx; gy = ly; } gx += (lx - gx) * Math.min(1, dt * 9); gy += (ly - gy) * Math.min(1, dt * 9); }
-          draw(); return pres > 0.01 || inside;
-        }
-      };
-      function bend(x, y) {
-        var dx = x - gx, dy = y - gy, g = gauss(dx, dy, 95) * 30 * pres, dd = Math.sqrt(dx * dx + dy * dy) || 1;
-        return [x + dx / dd * g, y + dy / dd * g];
-      }
-      function grid(c) {
-        c.beginPath();
-        for (var x = SP / 2; x < S.w; x += SP) for (var y = 0; y <= S.h; y += 22) { var p = bend(x, y); y === 0 ? c.moveTo(p[0], p[1]) : c.lineTo(p[0], p[1]); }
-        for (var y2 = SP / 2; y2 < S.h; y2 += SP) for (var x2 = 0; x2 <= S.w; x2 += 22) { var q = bend(x2, y2); x2 === 0 ? c.moveTo(q[0], q[1]) : c.lineTo(q[0], q[1]); }
-        c.stroke();
-      }
-      function draw() {
-        var c = S.c; c.clearRect(0, 0, S.w, S.h);
-        c.lineWidth = 1; c.strokeStyle = 'rgba(62,111,163,.07)'; grid(c);
-        if (pres > 0.01) {
-          c.save(); c.beginPath(); c.arc(gx, gy, 150, 0, 6.283); c.clip();
-          c.strokeStyle = 'rgba(152,86,50,' + (0.3 * pres).toFixed(3) + ')'; grid(c);
-          c.restore();
-        }
       }
     }()));
 
@@ -13792,7 +14015,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     var LABELS = { top: 'Hero motion', reviews: 'Reviews', services: 'What we do', problems: 'Start with what you can see', where: 'Where water gets in',
       decide: 'Repair or replace', whole: '3D roof', projects: 'Recent project', how: 'How it works', checks: 'Checks from the ground', areas: 'Areas',
       faq: 'FAQ', contact: 'Contact', types: 'Roofs we work on', quiz: 'Quick roof check', before: 'Before and after', sectors: 'Who we work for',
-      survey: 'Free survey band', care: 'Seasonal care', advice: 'Advice guides', accred: 'Accreditations', trust: 'Trust strip', about: 'About', work: 'Gallery', urgent: 'Urgent band' };
+      survey: 'Free survey band', story: 'Story of one slate', care: 'Seasonal care', advice: 'Advice guides', accred: 'Accreditations', trust: 'Trust strip', about: 'About', work: 'Gallery', urgent: 'Urgent band' };
     var GLOBAL = ['cursor', 'companion', 'team', 'atmosphere'];
     var all = [{ id: 'top-layout', sec: 'top', param: 'hero', allowed: ['a', 'b', 'c'], names: ['Headline left', 'Gable plate', 'Centred'], current: root.getAttribute('data-hero') || 'a', label: 'Hero layout' }]
       .concat(RW.options.map(function (o) { return { id: o.id, sec: o.id, param: o.param, allowed: o.allowed, names: o.names, current: o.current, label: o.label || LABELS[o.id] || o.id }; }));
@@ -13812,7 +14035,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         '<button type="button" class="rwopt-page">Whole page settings</button></div>' +
         '<p class="rwopt-note">Owner tool. Delete before sending to a client.</p>' +
       '</div>' +
-      '<button type="button" class="rwopt-toggle" aria-expanded="false" aria-controls="rwopt-panel"><span class="rwopt-ic" aria-hidden="true">&#9638;</span><span class="rwopt-t">Versions</span></button>';
+      '<button type="button" class="rwopt-toggle" aria-expanded="false" aria-controls="rwopt-panel"><span class="rwopt-ic" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M3 6h9M15 6h2M3 14h2M8 14h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="13.5" cy="6" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="14" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="rwopt-t">Versions</span></button>';
     d.body.appendChild(wrap);
     var panel = RW.$('.rwopt-panel', wrap), body = RW.$('.rwopt-body', wrap), head = RW.$('.rwopt-h', wrap), tog = RW.$('.rwopt-toggle', wrap), togT = RW.$('.rwopt-t', wrap);
     var curSec = 'page', mode = 'sec';

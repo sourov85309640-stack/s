@@ -15,7 +15,7 @@
     var LABELS = { top: 'Hero motion', reviews: 'Reviews', services: 'What we do', problems: 'Start with what you can see', where: 'Where water gets in',
       decide: 'Repair or replace', whole: '3D roof', projects: 'Recent project', how: 'How it works', checks: 'Checks from the ground', areas: 'Areas',
       faq: 'FAQ', contact: 'Contact', types: 'Roofs we work on', quiz: 'Quick roof check', before: 'Before and after', sectors: 'Who we work for',
-      survey: 'Free survey band', care: 'Seasonal care', advice: 'Advice guides', accred: 'Accreditations', trust: 'Trust strip', about: 'About', work: 'Gallery', urgent: 'Urgent band' };
+      survey: 'Free survey band', story: 'Story of one slate', care: 'Seasonal care', advice: 'Advice guides', accred: 'Accreditations', trust: 'Trust strip', about: 'About', work: 'Gallery', urgent: 'Urgent band' };
     var GLOBAL = ['cursor', 'companion', 'team', 'atmosphere'];
     var all = [{ id: 'top-layout', sec: 'top', param: 'hero', allowed: ['a', 'b', 'c'], names: ['Headline left', 'Gable plate', 'Centred'], current: root.getAttribute('data-hero') || 'a', label: 'Hero layout' }]
       .concat(RW.options.map(function (o) { return { id: o.id, sec: o.id, param: o.param, allowed: o.allowed, names: o.names, current: o.current, label: o.label || LABELS[o.id] || o.id }; }));
@@ -35,7 +35,7 @@
         '<button type="button" class="rwopt-page">Whole page settings</button></div>' +
         '<p class="rwopt-note">Owner tool. Delete before sending to a client.</p>' +
       '</div>' +
-      '<button type="button" class="rwopt-toggle" aria-expanded="false" aria-controls="rwopt-panel"><span class="rwopt-ic" aria-hidden="true">&#9638;</span><span class="rwopt-t">Versions</span></button>';
+      '<button type="button" class="rwopt-toggle" aria-expanded="false" aria-controls="rwopt-panel"><span class="rwopt-ic" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><path d="M3 6h9M15 6h2M3 14h2M8 14h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="13.5" cy="6" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="6.5" cy="14" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="rwopt-t">Versions</span></button>';
     d.body.appendChild(wrap);
     var panel = RW.$('.rwopt-panel', wrap), body = RW.$('.rwopt-body', wrap), head = RW.$('.rwopt-h', wrap), tog = RW.$('.rwopt-toggle', wrap), togT = RW.$('.rwopt-t', wrap);
     var curSec = 'page', mode = 'sec';

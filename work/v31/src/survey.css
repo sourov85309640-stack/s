@@ -37,3 +37,30 @@ html.has-motion .sv.is-in:not(.is-sign) .sv-pencil{animation:sv-wob 2s ease-in-o
 .sv[data-v="2"] .sv-in{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center;max-width:720px;margin-inline:auto;padding:clamp(1.5rem,4vw,2.5rem);border-radius:24px;background:var(--card);box-shadow:var(--shadow-lift)}
 .sv[data-v="2"] .sv-copy p{margin-inline:auto}
 .sv[data-v="2"] .sv-act{justify-content:center}
+
+/* round 7: more room, more life */
+.sv{padding-block:clamp(4rem,8vw,7rem)}
+.sv[data-v="2"] .sv-in{position:relative;gap:1.5rem;max-width:760px;padding:clamp(2.25rem,5vw,3.75rem) clamp(1.5rem,5vw,3.5rem) clamp(2rem,4.5vw,3.25rem);transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.sv[data-v="2"] .sv-copy h2{margin-bottom:.9rem}
+.sv[data-v="2"] .sv-copy p+p{margin-top:.75rem}
+.sv[data-v="2"] .sv-act{margin-top:.75rem;gap:1rem 1.75rem}
+.sv[data-v="2"] .sv-art{width:150px;margin-bottom:.25rem}
+.sv-roofline{display:none}
+.sv[data-v="2"] .sv-roofline{display:block;position:absolute;left:8%;right:8%;top:-20px;width:84%;height:40px;fill:none;stroke:var(--copper);stroke-width:2.5;stroke-linejoin:round;stroke-linecap:round;overflow:visible}
+.sv[data-v="2"] .sv-roofline path{stroke-dasharray:1;stroke-dashoffset:0}
+.sv .sv-seal circle{fill:var(--copper);stroke:#7A4326;stroke-width:2;stroke-dasharray:3 2}
+.sv .sv-seal .sv-seal-in{fill:none;stroke:rgba(255,255,255,.55);stroke-dasharray:none;stroke-width:1.5}
+.sv .sv-seal path{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.sv .sv-seal{transform-box:fill-box;transform-origin:50% 50%}
+@keyframes sv-swing{0%{transform:rotate(-10deg) translateY(-14px);opacity:0}55%{transform:rotate(4deg);opacity:1}80%{transform:rotate(-2deg)}100%{transform:none;opacity:1}}
+@keyframes sv-stamp{0%{transform:scale(1.9) rotate(-25deg);opacity:0}60%{transform:scale(.92) rotate(4deg);opacity:1}100%{transform:rotate(-8deg);opacity:1}}
+@keyframes sv-line{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes sv-shine{0%,82%{transform:translateX(-120%) skewX(-20deg)}100%{transform:translateX(220%) skewX(-20deg)}}
+html.has-motion .sv:not(.is-in) .sv-seal{opacity:0}
+html.has-motion .sv.is-in .sv-art svg{animation:sv-swing 1s var(--ease) backwards;transform-origin:50% 0}
+html.has-motion .sv.is-in .sv-seal{animation:sv-stamp .55s cubic-bezier(.3,1.4,.5,1) 1.15s backwards}
+html.has-motion .sv[data-v="2"]:not(.is-in) .sv-roofline path{stroke-dashoffset:1}
+html.has-motion .sv[data-v="2"].is-in .sv-roofline path{animation:sv-line 1.4s var(--ease) .2s backwards}
+.sv .sv-go{overflow:hidden}
+.sv .sv-go::after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:translateX(-120%) skewX(-20deg);pointer-events:none}
+html.has-motion .sv.is-in .sv-go::after{animation:sv-shine 6s ease-in-out 2s infinite}
