@@ -64,3 +64,6 @@ html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(3){
   .ad[data-v="2"] .ad-t{margin-top:.4rem}
   .ad[data-v="2"] .ad-body{padding-left:calc(200px + 2.15rem)}
 }
+
+/* tablets: three across already from 760px */
+@media (min-width:760px) and (max-width:899px){.ad-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ad-t{font-size:1rem}}

@@ -57,3 +57,5 @@ html.has-motion .ty-sw.is-laying .ty-ridge{animation:ty-ridge .5s var(--ease) .9
   .ty[data-v="3"] .ty-box{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-areas:"stage tabs" "stage panels"}
   .ty[data-v="3"] .ty-stage{grid-area:stage}.ty[data-v="3"] .ty-tabs{grid-area:tabs;flex-direction:row;flex-wrap:wrap}.ty[data-v="3"] .ty-panels{grid-area:panels}
 }
+/* phones and tablets: the six roof types sit on one row you can swipe */
+@media (max-width:999px){.ty-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) .25rem;scroll-snap-type:x proximity}.ty-tabs::-webkit-scrollbar{display:none}.ty-tab{flex:none;scroll-snap-align:start}}

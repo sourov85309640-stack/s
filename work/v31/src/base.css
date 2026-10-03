@@ -356,3 +356,16 @@ html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin
 
 /* laptops (1024 to 1439): only the small pieces marked .fr-safe stay in front, tucked into the outer edges */
 @media (min-width:1024px) and (max-width:1439px){.layers-front{display:block}.layers-front>:not(.fr-safe){display:none}.layers-front>.fr-safe{scale:.8}}
+
+/* ===== phones: swipe rails (made for the thumb, not a desktop grid squeezed down) =====
+   Any list with .m-rail becomes a horizontal snap rail under 760px: the next card peeks in, a thin progress line
+   underneath shows where you are (base: mobile.js). Desktop layouts are untouched. */
+@media (max-width:759px){
+  .m-rail{display:flex!important;gap:.75rem!important;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) .5rem;scroll-padding-inline:var(--gut);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .m-rail::-webkit-scrollbar{display:none}
+  .m-rail>*{flex:0 0 82%;scroll-snap-align:start;min-width:0}
+  .m-rail-bar{position:relative;height:3px;margin:.6rem auto 0;width:96px;border-radius:2px;background:var(--line);overflow:hidden}
+  .m-rail-bar i{position:absolute;top:0;bottom:0;left:0;width:30%;border-radius:2px;background:var(--copper);transform:translateX(var(--mx,0px));transition:transform .15s linear}
+}
+@media (min-width:760px){.m-rail-bar{display:none}}

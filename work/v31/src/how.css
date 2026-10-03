@@ -249,3 +249,5 @@
   .how[data-v="6"] .how-steps{grid-area:steps}
   .how[data-v="6"] .how-sheet{grid-area:sheet;margin-top:0}
 }
+/* phones: the ridge walk line sits above the steps as a small strip instead of after them */
+@media (max-width:759px){.how[data-v="2"] .how-ridge{display:none}}

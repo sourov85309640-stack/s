@@ -391,6 +391,19 @@ html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin
 
 /* laptops (1024 to 1439): only the small pieces marked .fr-safe stay in front, tucked into the outer edges */
 @media (min-width:1024px) and (max-width:1439px){.layers-front{display:block}.layers-front>:not(.fr-safe){display:none}.layers-front>.fr-safe{scale:.8}}
+
+/* ===== phones: swipe rails (made for the thumb, not a desktop grid squeezed down) =====
+   Any list with .m-rail becomes a horizontal snap rail under 760px: the next card peeks in, a thin progress line
+   underneath shows where you are (base: mobile.js). Desktop layouts are untouched. */
+@media (max-width:759px){
+  .m-rail{display:flex!important;gap:.75rem!important;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) .5rem;scroll-padding-inline:var(--gut);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .m-rail::-webkit-scrollbar{display:none}
+  .m-rail>*{flex:0 0 82%;scroll-snap-align:start;min-width:0}
+  .m-rail-bar{position:relative;height:3px;margin:.6rem auto 0;width:96px;border-radius:2px;background:var(--line);overflow:hidden}
+  .m-rail-bar i{position:absolute;top:0;bottom:0;left:0;width:30%;border-radius:2px;background:var(--copper);transform:translateX(var(--mx,0px));transition:transform .15s linear}
+}
+@media (min-width:760px){.m-rail-bar{display:none}}
 </style>
 <style>
 /* =====================================================================
@@ -1047,6 +1060,87 @@ html.has-motion .ty-sw.is-laying .ty-ridge{animation:ty-ridge .5s var(--ease) .9
   .ty[data-v="3"] .ty-box{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-areas:"stage tabs" "stage panels"}
   .ty[data-v="3"] .ty-stage{grid-area:stage}.ty[data-v="3"] .ty-tabs{grid-area:tabs;flex-direction:row;flex-wrap:wrap}.ty[data-v="3"] .ty-panels{grid-area:panels}
 }
+/* phones and tablets: the six roof types sit on one row you can swipe */
+@media (max-width:999px){.ty-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut));padding:0 var(--gut) .25rem;scroll-snap-type:x proximity}.ty-tabs::-webkit-scrollbar{display:none}.ty-tab{flex:none;scroll-snap-align:start}}
+</style>
+<style>
+/* THE STORY OF ONE SLATE, prefix .st- (owner: lead). A full-screen pinned scene driven by scroll (story.js).
+   Static state (no JS, reduced motion): the repaired morning scene and the five steps as a list. */
+.st{padding:0;background:var(--sky);overflow-x:clip}
+.st-pin{position:relative;display:grid;min-height:100vh;min-height:100svh}
+.st-stage{position:relative;overflow:hidden;min-height:56svh}
+.st-sc{position:absolute;inset:0;width:100%;height:100%;display:block}
+.st-copy{position:relative;z-index:2;padding:1.25rem var(--gut) 1.75rem;background:var(--paper)}
+.st-copy h2{margin-bottom:.9rem}
+.st-caps{display:grid;gap:.9rem;counter-reset:st}
+.st-cap{counter-increment:st;color:var(--muted);line-height:1.55}
+.st-cap b{display:block;font:700 var(--h4)/1.3 var(--display);color:var(--text);margin-bottom:.2rem}
+.st-cap b::before{content:counter(st) ". ";color:var(--copper)}
+.st-go{margin-top:.25rem}
+.st-steps,.st-hint{display:none}
+@media (min-width:1000px){
+  .st-pin{display:block;height:100vh}
+  .st-stage{position:absolute;inset:0}
+  .st-copy{position:absolute;left:clamp(1.5rem,4vw,4rem);top:50%;transform:translateY(-50%);width:min(390px,30vw);padding:1.75rem 1.75rem 1.5rem;border-radius:22px;background:rgba(250,249,246,.94);box-shadow:var(--shadow-lift)}
+}
+/* scene paint */
+.st .st-moon{fill:#F4F1E8;stroke:rgba(31,43,48,.12);stroke-width:2}
+.st .st-sun{fill:#F6C979}
+.st .st-clouds path{fill:#fff;opacity:.85}
+.st .st-wind path{fill:none;stroke:rgba(74,104,122,.45);stroke-width:3;stroke-linecap:round}
+.st .st-hill{fill:#C9D6B8}.st .st-ground{fill:#B7C79E}
+.st .st-trunk{fill:none;stroke:#7A5A40;stroke-width:8;stroke-linecap:round}.st .st-crown circle{fill:#86A35B}
+.st .st-wall{fill:#E8D9BF;stroke:rgba(31,43,48,.55);stroke-width:3}
+.st .st-room-bg{fill:#F6EEE2}.st .st-wallpaper{fill:#F3E7D6}
+.st .st-pic{fill:#C9A27E}.st .st-pic-in{fill:#DCE6EA}
+.st .st-lamp-l{fill:#F2C35B}.st .st-lamp-p{fill:none;stroke:#7A5A40;stroke-width:3}
+.st .st-lamp-glow{fill:rgba(246,201,121,.35)}
+.st .st-bed{fill:#9FB3C2;stroke:rgba(31,43,48,.4);stroke-width:2}.st .st-bed-h{fill:#7A5A40}
+.st .st-stain{fill:rgba(120,96,60,.45)}
+.st .st-drip{fill:#6F98AE}.st .st-bucket{fill:#9DBACA;stroke:rgba(31,43,48,.5);stroke-width:2}
+.st .st-floor,.st .st-ceiling{stroke:rgba(31,43,48,.6);stroke-width:4}
+.st .st-loft{fill:#EFE6D8;stroke:none}
+.st .st-rafter-l,.st .st-rafter-r{stroke:#B98A5E;stroke-width:10;stroke-linecap:round}
+.st .st-chim{fill:#C98B62;stroke:rgba(31,43,48,.55);stroke-width:3}.st .st-chimtop{stroke:rgba(31,43,48,.7);stroke-width:7;stroke-linecap:round}
+.st .st-smoke circle{fill:#E8E6E1;opacity:.85}
+.st .st-felt{stroke:#7C93A3;stroke-width:3}.st .st-felt-wet{stroke:#4E7487;stroke-width:4}
+.st .st-battens rect{fill:#B98A5E}.st .st-rot rect{fill:#4A3526}
+.st .st-slates path,.st .st-slate path,.st .st-newslate path{fill:#5E6B73;stroke:#3C474D;stroke-width:1.2}
+.st .st-newslate path{fill:#6F7D86}
+.st .st-water{fill:none;stroke:#4E86A6;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.st .st-rain path{stroke:rgba(74,104,122,.55);stroke-width:2.5;stroke-linecap:round}
+.st .st-cal-b{fill:#fff;stroke:rgba(31,43,48,.45);stroke-width:2}.st .st-cal-t{fill:var(--copper)}
+.st .st-cal-n{font:700 30px Arial,sans-serif;fill:var(--text);text-anchor:middle}
+.st .st-cal-w{font:600 15px Arial,sans-serif;fill:var(--text);text-anchor:middle}
+.st .st-van-b{fill:#FAF9F6;stroke:rgba(31,43,48,.55);stroke-width:2.5;stroke-linejoin:round}.st .st-van-w{fill:#DCE6EA}
+.st .st-van-stripe{stroke:var(--copper);stroke-width:5}.st .st-wheel{fill:#3F5560}
+.st .st-ladder path{fill:none;stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}
+.st .st-man circle{fill:#E2B693;stroke:rgba(31,43,48,.5);stroke-width:1.6}.st .st-hat{fill:var(--copper)}
+.st .st-bd{fill:none;stroke:#3F5560;stroke-width:5;stroke-linecap:round}
+.st .st-birds path{fill:none;stroke:#3F5560;stroke-width:2.5;stroke-linecap:round}
+.st .st-spark path{fill:#F6C979}
+/* static (final) state */
+.st .st-sky-eve,.st .st-sky-storm,.st .st-moon,.st .st-wind,.st .st-rain,.st .st-water,.st .st-stain,.st .st-drips,.st .st-bucket,
+.st .st-slate,.st .st-rot,.st .st-felt-wet,.st .st-cal,.st .st-lamp-glow,.st .st-spark{opacity:0}
+.st .st-slate{display:none}
+@keyframes st-rain{0%{transform:translateY(-30px)}100%{transform:translate(-20px,60px)}}
+@keyframes st-drip{0%,20%{transform:none;opacity:0}30%{opacity:1}90%{transform:translateY(180px);opacity:1}100%{transform:translateY(184px);opacity:0}}
+html.has-motion .st.is-live .st-rain{animation:st-rain .6s linear infinite}
+html.has-motion .st.is-live .st-drip{animation:st-drip 1.4s ease-in infinite;transform-box:fill-box}
+/* motion: the story drives everything, the copy becomes one step at a time */
+html.has-motion .st.is-js .st-slate{display:inline}
+html.has-motion .st.is-js .st-caps{display:grid;gap:0}
+html.has-motion .st.is-js .st-cap{grid-area:1/1;opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .5s var(--ease);pointer-events:none}
+html.has-motion .st.is-js .st-cap.is-on{opacity:1;transform:none;pointer-events:auto}
+html.has-motion .st.is-js .st-steps{display:flex;position:absolute;z-index:3;gap:6px;right:16px;bottom:16px}
+.st-steps li{width:22px;height:4px;border-radius:2px;background:rgba(31,43,48,.18);transition:background-color .3s}
+.st-steps li.is-on{background:var(--copper)}
+html.has-motion .st.is-js .st-hint{display:flex;align-items:center;gap:.5rem;margin-top:1rem;font:600 .8125rem/1 var(--ui);color:var(--muted);transition:opacity .3s}
+.st-hint-m{width:14px;height:22px;border:2px solid var(--muted);border-radius:8px;position:relative}
+.st-hint-m::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:5px;margin-left:-1px;background:var(--muted);border-radius:1px;animation:st-wheel 1.4s ease-in-out infinite}
+@keyframes st-wheel{0%{transform:none;opacity:1}100%{transform:translateY(7px);opacity:0}}
+.st.is-end .st-hint{opacity:0}
+@media (min-width:1000px){html.has-motion .st.is-js .st-steps{left:clamp(1.5rem,4vw,4rem);right:auto;bottom:clamp(1.5rem,4vh,2.5rem)}}
 </style>
 <style>
 /* =====================================================================
@@ -1332,6 +1426,42 @@ html.has-motion .svc.is-noted .svc-ring{stroke-dashoffset:0}
 html.has-motion .svc.is-noted .svc-note{opacity:1;transform:none}
 html.has-motion .svc.is-noted .svc-ring:nth-child(2){transition-delay:.25s}html.has-motion .svc.is-noted .svc-ring:nth-child(3){transition-delay:.5s}
 html.has-motion .svc.is-noted .svc-note2{transition-delay:.35s}html.has-motion .svc.is-noted .svc-note3{transition-delay:.6s}
+
+/* ===== Chooser, round 6 ("Start with what you can see" default): a photo stage with the words on the photo ===== */
+.svc-sec[data-v="6"] .head2{margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.svc-sec[data-v="6"] .svc-tab{counter-increment:svc;border-radius:14px;background:rgba(255,255,255,.6);border-color:transparent;box-shadow:inset 0 0 0 1px var(--line)}
+.svc-sec[data-v="6"] .svc-tabs{counter-reset:svc}
+.svc-sec[data-v="6"] .svc-tab .cw{border-radius:10px;clip-path:none}
+.svc-sec[data-v="6"] .svc-tab[aria-selected="true"]{background:var(--card);box-shadow:inset 0 0 0 2px var(--copper),var(--shadow-soft)}
+.svc-sec[data-v="6"] .svc-tab::after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;border-radius:1px;background:var(--copper);transform:scaleX(0);transform-origin:0 50%;opacity:0}
+.svc-sec[data-v="6"].is-auto .svc-tab[aria-selected="true"]::after{opacity:.8;animation:svc-prog var(--svc-t,5.5s) linear forwards}
+@keyframes svc-prog{to{transform:scaleX(1)}}
+/* the stage: one big photo, the words sit on a soft shade at its foot */
+.svc-sec[data-v="6"] .svc{position:relative;grid-template-columns:minmax(0,1fr)!important;grid-template-areas:"ph"!important;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lift);background:var(--ink)}
+.svc-sec[data-v="6"] .svc-ph{grid-area:1/1!important;margin:0}
+.svc-sec[data-v="6"] .svc-ph .cw{clip-path:none;aspect-ratio:16/10;max-height:none;border-radius:0}
+.svc-sec[data-v="6"] .svc-ph .cw img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 6s linear}
+.svc-sec[data-v="6"] .svc.is-on .svc-ph .cw img{transform:scale(1.16)}
+.svc-sec[data-v="6"] .svc-ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,29,0) 35%,rgba(20,26,29,.78) 100%);pointer-events:none}
+.svc-sec[data-v="6"] .svc-cap>*{grid-area:auto!important;align-self:auto}
+.svc-sec[data-v="6"] .svc-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;display:grid;gap:.5rem;padding:clamp(1.25rem,3vw,2.25rem);color:#fff}
+.svc-sec[data-v="6"] .svc-cap .svc-t{color:#fff;margin:0}
+.svc-sec[data-v="6"] .svc-cap .svc-p{color:rgba(255,255,255,.88);max-width:40rem;margin:0}
+.svc-sec[data-v="6"] .svc-cap .svc-a{justify-self:start;margin-top:.5rem}
+.svc-sec[data-v="6"] .svc-n{font:600 .875rem/1 var(--ui);color:rgba(255,255,255,.75)}
+html.has-motion .svc-sec[data-v="6"] .svc .svc-cap>*{opacity:0;transform:translateY(14px);transition:opacity .4s ease,transform .6s var(--ease)}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*{opacity:1;transform:none}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(2){transition-delay:.06s}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(3){transition-delay:.12s}
+html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(4){transition-delay:.18s}
+.svc-sec[data-v="6"] .svc-drip,.svc-sec[data-v="6"] .svc-stamp,.svc-sec[data-v="6"] .svc-notes{display:none}
+@media (max-width:899px){
+  .svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:16/11}
+  .svc-sec[data-v="6"] .svc-tab{min-height:52px}
+  .svc-sec[data-v="6"] .svc-tab::after{bottom:4px}
+}
+
+@media (max-width:599px){.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:4/5}}
 </style>
 <style>
 /* =====================================================================
@@ -2957,6 +3087,8 @@ html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:s
   .how[data-v="6"] .how-steps{grid-area:steps}
   .how[data-v="6"] .how-sheet{grid-area:sheet;margin-top:0}
 }
+/* phones: the ridge walk line sits above the steps as a small strip instead of after them */
+@media (max-width:759px){.how[data-v="2"] .how-ridge{display:none}}
 </style>
 <style>
 /* FREE SURVEY BAND, prefix .sv- (owner: lead). A clipboard ticks itself off as the band arrives; hovering the button
@@ -3597,6 +3729,9 @@ html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(3){
   .ad[data-v="2"] .ad-t{margin-top:.4rem}
   .ad[data-v="2"] .ad-body{padding-left:calc(200px + 2.15rem)}
 }
+
+/* tablets: three across already from 760px */
+@media (min-width:760px) and (max-width:899px){.ad-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.ad-t{font-size:1rem}}
 </style>
 <style>
 /* =====================================================================
@@ -3815,6 +3950,12 @@ html.has-motion .faq[data-q="5"] .b-pen{animation:b-pen 3.4s ease infinite}
 html.has-motion .faq[data-q="5"] .b-seal{animation:b-stamp 3.4s cubic-bezier(.3,1.4,.5,1) infinite}
 html.has-motion .faq[data-q="6"] .b-photo{animation:b-photo 3s var(--ease) infinite}
 html.has-motion .faq[data-q="6"] .b-tag{animation:b-swing 2.4s ease-in-out infinite}
+/* phones: the drawing board becomes a small strip above the questions (scene left, takeaway right) */
+@media (max-width:959px){
+  .faq-board{display:grid;grid-template-columns:132px minmax(0,1fr);gap:.9rem;align-items:center;max-width:none;margin-top:1rem;padding:.75rem}
+  .faq-board .faq-cap{margin:0;min-height:0;font-size:.875rem}
+  .faq-board .faq-ill{display:block}
+}
 </style>
 <style>
 /* URGENT LEAK BAND, prefix .ug- (owner: lead). Pale sky surface, a drip that keeps falling into a bucket while the band
@@ -4314,14 +4455,6 @@ h2[data-split] .w{display:inline-block;transform-origin:50% 80%}
   html.has-motion .btn-text:not([href^="tel:"]):hover svg{animation:pl-tape .4s var(--ease) forwards;transform-origin:0 50%}
 }
 
-/* the loupe over the problem photos (play.js) */
-.rx-loupe{position:fixed;left:0;top:0;z-index:96;width:156px;height:156px;border-radius:50%;pointer-events:none;background-repeat:no-repeat;background-color:#ddd;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--copper),0 12px 30px rgba(31,43,48,.35);opacity:0;scale:.6;transition:opacity .18s,scale .22s var(--ease)}
-.rx-loupe.is-on{opacity:1;scale:1}
-.rx-loupe i::before,.rx-loupe i::after{content:"";position:absolute;left:50%;top:50%;background:rgba(255,255,255,.75)}
-.rx-loupe i::before{width:18px;height:1.5px;margin:-.75px 0 0 -9px}.rx-loupe i::after{width:1.5px;height:18px;margin:-9px 0 0 -.75px}
-.rx-loupe span{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);padding:.2rem .55rem;border-radius:999px;background:var(--copper);color:#fff;font:600 .75rem/1.2 var(--ui);white-space:nowrap}
-html.is-loupe .cur{opacity:0}
-@media (hover:none),(pointer:coarse){.rx-loupe{display:none}}
 /* footer windows (play.js 'evening') */
 .ftr-wins rect{fill:#F6C979;opacity:0;transition:opacity .8s ease,fill .3s}
 .ftr-wins rect.is-lit{opacity:.55}
@@ -4984,10 +5117,94 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     </div>
   </div>
 </section>
+<!-- ================= THE STORY OF ONE SLATE (scroll story) =================
+     A pinned, scroll-driven scene: a quiet evening, a storm lifts one slate, water finds the gap and stains the ceiling,
+     a winter makes it worse, then a roofer puts it right in a morning. Scroll moves the story (story.js); nothing is
+     forced. Teaching copy, no claims. Without JS or with reduced motion: the repaired scene and all five steps as a list. -->
+<section class="sec st" id="story" aria-labelledby="h-story">
+  <div class="st-pin">
+    <div class="st-stage">
+      <svg class="st-sc" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="st-g-eve" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE5EC"/><stop offset="1" stop-color="#F3E6D6"/></linearGradient>
+          <linearGradient id="st-g-storm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9C3C9"/><stop offset="1" stop-color="#DCE1E3"/></linearGradient>
+          <linearGradient id="st-g-dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6DFC4"/><stop offset="1" stop-color="#FBF3E8"/></linearGradient>
+          <clipPath id="st-room"><path d="M402 382H798V598H402Z"/></clipPath>
+        </defs>
+        <rect class="st-sky st-sky-eve" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-eve)"/>
+        <rect class="st-sky st-sky-storm" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-storm)"/>
+        <rect class="st-sky st-sky-dawn" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-dawn)"/>
+        <circle class="st-moon" cx="1010" cy="120" r="30"/>
+        <circle class="st-sun" cx="1030" cy="150" r="46"/>
+        <g class="st-clouds"><path d="M120 150h170c14 0 18-20 3-24 0-18-24-24-35-12-7-15-33-17-41 0-13-8-33 0-31 13-14-2-22 23-66 23z"/><path d="M820 110h200c16 0 20-24 3-28 0-22-28-28-41-14-9-18-39-20-48 0-15-10-39 0-36 15-17-2-26 27-78 27z"/></g>
+        <g class="st-wind"><path d="M60 250h140c14 0 14-18 0-18M30 300h220M80 350h120c14 0 14 18 0 18"/><path d="M960 260h140c14 0 14-18 0-18M940 310h200"/></g>
+        <path class="st-hill" d="M-800 556C0 540 200 530 380 548S1000 520 2000 536V800H-800Z"/>
+        <path class="st-ground" d="M-800 600H2000V900H-800Z"/>
+        <!-- tree -->
+        <g class="st-tree"><path class="st-trunk" d="M1000 600V470M1000 510l-22-24M1000 495l20-22"/><g class="st-crown"><circle cx="1000" cy="440" r="48"/><circle cx="966" cy="468" r="30"/><circle cx="1036" cy="466" r="32"/></g></g>
+        <!-- house shell -->
+        <path class="st-wall" d="M380 380H820V600H380Z"/>
+        <path class="st-room-bg" d="M402 382H798V598H402Z"/>
+        <g clip-path="url(#st-room)">
+          <path class="st-wallpaper" d="M402 382H798V598H402Z"/>
+          <path class="st-pic" d="M450 430h70v52h-70z"/><path class="st-pic-in" d="M458 438h54v36h-54z"/>
+          <path class="st-lamp-l" d="M650 512h20l-6-20h-8z"/><path class="st-lamp-p" d="M660 512v28M648 540h24"/>
+          <ellipse class="st-lamp-glow" cx="660" cy="508" rx="60" ry="46"/>
+          <path class="st-bed" d="M520 560h200v30H520zM520 548h56v14h-56z"/><path class="st-bed-h" d="M716 520h8v70h-8z"/>
+          <ellipse class="st-stain" cx="752" cy="390" rx="44" ry="12"/>
+          <g class="st-drips"><path class="st-drip" d="M752 396c-3 5-4 7-4 9a4 4 0 0 0 8 0c0-2-1-4-4-9z"/></g>
+          <path class="st-bucket" d="M736 574h32l-4 24h-24z"/>
+        </g>
+        <path class="st-floor" d="M402 598H798"/>
+        <path class="st-ceiling" d="M380 382H820"/>
+        <!-- loft and roof, seen in section -->
+        <path class="st-loft" d="M360 390L600 190L840 390Z"/>
+        <path class="st-rafter-l" d="M360 390L600 190"/><path class="st-rafter-r" d="M600 190L840 390"/>
+        <path class="st-chim" d="M452 214h36v100h-36z"/><path class="st-chimtop" d="M446 214h48"/>
+        <g class="st-smoke"><circle cx="470" cy="196" r="8"/><circle cx="480" cy="178" r="10"/><circle cx="468" cy="158" r="12"/></g>
+        <!-- right slope in its own frame: x along the slope, -y outward -->
+        <g class="st-slope" transform="translate(600 190) rotate(39.8)">
+          <path class="st-felt" d="M0 0H312"/>
+          <path class="st-felt-wet" d="M232 0H312"/>
+          <g class="st-battens"><rect x="20" y="-4" width="6" height="4"/><rect x="60" y="-4" width="6" height="4"/><rect x="100" y="-4" width="6" height="4"/><rect x="140" y="-4" width="6" height="4"/><rect x="180" y="-4" width="6" height="4"/><rect x="220" y="-4" width="6" height="4"/><rect x="260" y="-4" width="6" height="4"/><rect x="300" y="-4" width="6" height="4"/></g>
+          <g class="st-rot"><rect x="220" y="-4" width="6" height="4"/><rect x="260" y="-4" width="6" height="4"/><rect x="300" y="-4" width="6" height="4"/></g>
+          <g class="st-slates"><path d="M0 -9h34v6H0z"/><path d="M20 -10h34v6H20z"/><path d="M40 -10h34v6H40z"/><path d="M60 -10h34v6H60z"/><path d="M80 -10h34v6H80z"/><path d="M100 -10h34v6h-34z"/><path d="M120 -10h34v6h-34z"/><path d="M140 -10h34v6h-34z"/><path d="M160 -10h34v6h-34z"/><path d="M180 -10h34v6h-34z"/><path d="M200 -10h34v6h-34z"/><path class="st-s2" d="M244 -10h34v6h-34z"/><path class="st-s3" d="M264 -10h34v6h-34z"/><path d="M284 -10h34v6h-34z"/></g>
+        </g>
+        <!-- the slate that slips (its own group so it can travel) -->
+        <g class="st-slate"><g transform="translate(776 337) rotate(39.8)"><path d="M-12 -10h34v6h-34z"/></g></g>
+        <g class="st-newslate"><g transform="translate(776 337) rotate(39.8)"><path d="M-12 -10h34v6h-34z"/></g></g>
+        <!-- water path -->
+        <path class="st-water" pathLength="1" d="M777 334L820 370L806 383L760 386"/>
+        <g class="st-rain"><path d="M100 40l-14 40M220 20l-14 40M340 60l-14 40M460 10l-14 40M580 50l-14 40M700 20l-14 40M820 60l-14 40M940 30l-14 40M1060 50l-14 40M160 120l-14 40M400 130l-14 40M640 110l-14 40M880 140l-14 40M1120 120l-14 40"/></g>
+        <!-- weeks later -->
+        <g class="st-cal"><path class="st-cal-b" d="M880 430h90v84h-90z"/><path class="st-cal-t" d="M880 430h90v20h-90z"/><text class="st-cal-n" x="925" y="494">6</text><text class="st-cal-w" x="925" y="534">weeks later</text></g>
+        <!-- the repair -->
+        <g class="st-van"><g transform="translate(230 0)"><path class="st-van-b" d="M0 548h120l26 22v30H0z"/><path class="st-van-w" d="M120 552l20 18h-20z"/><path class="st-van-stripe" d="M0 576h146"/><circle class="st-wheel" cx="30" cy="600" r="13"/><circle class="st-wheel" cx="112" cy="600" r="13"/></g></g>
+
+        <g class="st-ladder"><path d="M872 600L838 384M900 600L866 384M866 572h28M861 540h28M856 508h28M851 476h28M846 444h28M841 412h28"/></g>
+        <g class="st-man"><g transform="translate(858 420)"><circle cx="0" cy="-34" r="7"/><path class="st-hat" d="M-7 -36c1-8 13-9 15 0z"/><path class="st-bd" d="M0 -27v18M0 -9l-6 12M0 -9l7 11M0 -22l-10 -6M0 -22l9 4"/></g></g>
+        <g class="st-birds"><path d="M300 120c5-5 10-5 13 0 3-5 8-5 13 0M340 100c4-4 8-4 10 0 2-4 6-4 10 0"/></g>
+        <g class="st-spark"><path d="M776 312l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>
+      </svg>
+      <ol class="st-steps" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
+    </div>
+    <div class="st-copy">
+      <h2 id="h-story">What one slipped slate does.</h2>
+      <ol class="st-caps">
+        <li class="st-cap is-on"><b>It starts with one slate.</b> A quiet evening. The roof has kept the rain out for years, but one nail has quietly rusted through.</li>
+        <li class="st-cap"><b>A storm lifts it.</b> Wind gets under the loose slate and it slides out. From the ground you might never notice.</li>
+        <li class="st-cap"><b>Water finds the gap.</b> Rain runs in, along the felt and the timbers, and shows up as a stain somewhere else.</li>
+        <li class="st-cap"><b>Left for a winter.</b> Wet battens rot, more slates slip, and a small repair becomes a bigger one.</li>
+        <li class="st-cap"><b>Caught early, it is a morning's work.</b> The slate goes back, the rest of the roof is checked, and the ceiling dries out. <a class="link st-go" href="?issue=slipped#contact">Tell us what you have spotted</a></li>
+      </ol>
+      <p class="st-hint" aria-hidden="true"><span class="st-hint-m"></span>Keep scrolling</p>
+    </div>
+  </div>
+</section>
 <!-- ================= SERVICES ================= -->
 <!-- Prototype variants: data-v="1".."6" (set by ?v=N or ?sv=N in services.js). Content is shared; each variant only changes layout and interaction.
      Keep 3 to 6 problems. Each <li> is: photo (.cw, cut to a roof shape by data-issue), title, short copy, link that pre-fills the form (?issue=KEY#contact). -->
-<section class="sec sec-warm e-wave svc-sec" id="problems" data-reveal="slide" data-v="1" aria-labelledby="h-problems">
+<section class="sec sec-warm e-wave svc-sec" id="problems" data-reveal="slide" data-v="6" aria-labelledby="h-problems">
   <div class="layers layers-back svc-back" aria-hidden="true">
     <div class="svc-course" data-depth="-0.08"><div class="tex"></div></div>
     <svg class="svc-roofs" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" focusable="false"><path d="M0 120V92l46-30 46 30h20V64h12v28h26l60-44 60 44h24l40-26 40 26h22V70h12v22h30l70-52 70 52h26l46-32 46 32h24V60h12v32h20l58-42 58 42h30l40-26 40 26h28V120z"/></svg>
@@ -5246,7 +5463,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 <!-- ================= REPAIR, MAINTAIN, INVESTIGATE OR REPLACE ================= -->
 <!-- A four-stop roof-condition scale. Prototype variants data-v="1".."6" (set by ?v=N or ?dv=N in decide.js).
      The four cards are the content and the accessible controls (buttons with aria-pressed). Each meter below is one variant's picture of the same state. -->
-<section class="sec decide dec-sec" id="decide" data-reveal="scale" data-v="2" aria-labelledby="h-decide">
+<section class="sec decide dec-sec" id="decide" data-reveal="scale" data-v="4" aria-labelledby="h-decide">
   <div class="layers layers-back dec-back" aria-hidden="true">
     <div class="dec-grid" data-depth="-0.06"></div>
     <svg class="dec-hills" viewBox="0 0 1200 90" preserveAspectRatio="xMidYMax slice" data-depth="-0.04" focusable="false"><path d="M0 90V70c90-22 170-30 260-18s170 20 260 4 190-34 300-22 220 30 380 26V90z"/></svg>
@@ -5905,7 +6122,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       <div><h2 id="h-sectors">Who we work for.</h2></div>
       <p>Most of our work is for homeowners. We also look after rented homes, shops and small business units.</p>
     </div>
-    <ul class="sc-grid">
+    <ul class="sc-grid m-rail">
       <li class="sc-card sc-home">
         <svg class="sc-art" viewBox="0 0 200 140" aria-hidden="true" focusable="false">
           <path class="sc-gnd" d="M6 128H194"/><path class="sc-wl" d="M50 70H150V128H50Z"/><path class="sc-rf" d="M38 74L100 28L162 74Z"/>
@@ -5960,7 +6177,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 <!-- ================= HOW IT WORKS ================= -->
 <!-- Prototype variants (stage 1): ?hv=1..6. The four stages are the template's default process: the owner confirms
      them with the client (data-confirm="process"). The quote sheet is an example layout (data-sample="quote-sheet"). -->
-<section class="sec sec-warm e-saw how" id="how" data-reveal="drop" data-nav="how" data-v="1" aria-labelledby="h-how">
+<section class="sec sec-warm e-saw how" id="how" data-reveal="drop" data-nav="how" data-v="2" aria-labelledby="h-how">
   <div class="layers layers-back" aria-hidden="true">
     <div class="how-grid-bg" data-depth="-0.1"></div>
     <svg class="how-roofs" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice" data-depth="-0.05" data-drift="-18" focusable="false"><path d="M0 120V88l34-26 34 26h22V58h12v30h26l58-48 58 48h16l40-30 40 30h30V64h14v24h18l64-52 64 52h28l44-34 44 34h22V60h12v28h24l52-42 52 42h30l40-30 40 30h28V62h14v26h26l56-44 56 44h12V120z"/></svg>
@@ -6302,7 +6519,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
      Each town is a link to the form with the town recorded: ?town=NAME#contact (app.js reads ?town=).
      data-pos="x,y" (percent of the map box) places a town on the abstract map / rings; leave it out and the
      towns are spread evenly round the base. The first town with class is-home is the firm's base. -->
-<section class="sec sec-warm are e-zig" id="areas" data-reveal="scale" data-v="1" aria-labelledby="h-areas">
+<section class="sec sec-warm are e-zig" id="areas" data-reveal="scale" data-v="2" aria-labelledby="h-areas">
   <div class="layers layers-back" aria-hidden="true">
     <svg class="are-bk-contour" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" data-depth="-0.06" focusable="false"><path d="M-40 520C120 470 220 540 380 500S640 380 820 420 1080 520 1240 470"/><path d="M-40 560C140 520 260 590 420 548S660 440 840 470 1100 560 1240 520"/><path d="M-40 90C90 130 200 60 330 100S560 190 700 150 980 40 1240 80"/><path d="M-40 40C110 80 230 10 360 50S580 130 720 100 990 0 1240 30"/></svg>
     <svg class="are-bk-hills" viewBox="0 0 1200 120" preserveAspectRatio="none" data-depth="-0.12" focusable="false"><path d="M0 120V70C120 40 240 40 360 62S600 96 720 70 960 30 1080 52 1200 70 1200 70V120Z"/></svg>
@@ -6366,7 +6583,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       <div><h2 id="h-advice">Roofing advice.</h2></div>
       <p>Short, honest guides for homeowners. No ladders needed for any of them.</p>
     </div>
-    <ul class="ad-grid">
+    <ul class="ad-grid m-rail">
       <li class="ad-card ad-c1">
         <details class="ad-d">
           <summary class="ad-s">
@@ -8297,7 +8514,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('accred'); if (s) RW.variant(s, 'acv', ['1','2'], ['Row of badges','Slow moving strip']); }());
+  (function () { var s = document.getElementById('accred'); if (s) RW.variant(s, 'acv', ['2','1'], ['Slow moving strip','Row of badges']); }());
   RW.add('accred', function () {
     var sec = RW.$('#accred'); if (!sec) return;
     RW.onView(sec, { once: true, margin: '0px 0px -15% 0px', enter: function () { sec.classList.add('is-in'); } });
@@ -8348,7 +8565,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('types'); if (s) RW.variant(s, 'tyv', ['1','2','3'], ['Tabs beside the roof','Tabs above a big roof','Roof first, words beside']); }());
+  (function () { var s = document.getElementById('types'); if (s) RW.variant(s, 'tyv', ['3','1','2'], ['Roof first, words beside','Tabs beside the roof','Tabs above a big roof']); }());
   RW.add('types', function () {
     var sec = RW.$('#types'); if (!sec) return;
     var tabs = RW.$$('.ty-tab', sec), panels = RW.$$('.ty-panel', sec);
@@ -8517,6 +8734,132 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 }());
 </script>
 <script>
+/* THE STORY OF ONE SLATE (owner: lead). One GSAP timeline scrubbed by scroll while the scene is pinned.
+   The camera (viewBox) frames the scene for the screen: on desktop the house sits to the right of the caption card,
+   on phones the scene sits above the caption. Scroll moves the story both ways; nothing is forced.
+   Reduced motion / data-motion="off" / no JS: the repaired scene and all five steps as a plain list (CSS). */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('story', function () {
+    var sec = RW.$('#story'); if (!sec || !RW.ST) return;
+    var gsap = RW.gsap, ST = RW.ST, $ = function (s) { return RW.$(s, sec); }, $$ = function (s) { return RW.$$(s, sec); };
+    var svg = $('.st-sc'), stage = $('.st-stage'), copy = $('.st-copy'), caps = $$('.st-cap'), dots = $$('.st-steps li');
+    sec.classList.add('is-js');
+    RW.headings(sec);
+
+    /* camera: keep x from 200 (van) to 1060 (beyond the ladder) visible, clear of the caption card on desktop */
+    function frame() {
+      var r = stage.getBoundingClientRect(); if (!r.width || !r.height) return;
+      var desk = window.innerWidth >= 1000, aspect = r.width / r.height;
+      var f = desk ? (copy.getBoundingClientRect().right - r.left + 24) / r.width : 0;
+      var X1 = desk ? 1080 : 1010, X0c = desk ? 190 : 210;
+      var Wv = (X1 - X0c) / (1 - f), H = Wv / aspect;
+      if (H < 470) { H = 470; Wv = H * aspect; }
+      var X0 = X1 - Wv, Y0 = 640 - H;
+      base = { x: X0, y: Y0, w: Wv, h: H, f: f };
+      svg.setAttribute('preserveAspectRatio', 'xMidYMax meet');
+      aim();
+    }
+    /* camera: cam.z 0 = the whole scene, 1 = close on the slipped slate; cam.tx/ty = the point it looks at */
+    var base = null, cam = { z: 0, tx: 770, ty: 360 };
+    function aim() {
+      if (!base) return;
+      var K = 2.3, w1 = base.w / K, h1 = base.h / K;
+      var sx = base.f ? base.f + (1 - base.f) * 0.5 : 0.5;          /* the open part of the screen */
+      var x1 = cam.tx - w1 * sx, y1 = cam.ty - h1 * 0.5, e = cam.z;
+      var x = base.x + (x1 - base.x) * e, y = base.y + (y1 - base.y) * e, w = base.w + (w1 - base.w) * e, h = base.h + (h1 - base.h) * e;
+      svg.setAttribute('viewBox', x.toFixed(1) + ' ' + y.toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1));
+    }
+    frame();
+    window.addEventListener('resize', frame);
+    if (RW.ST) RW.ST.addEventListener('refresh', frame);
+
+    /* the story, in time units (10 in all) */
+    var tl = gsap.timeline({ paused: true, defaults: { ease: 'none' } });
+    var slope = { x: 0.768, y: 0.640 };
+    tl.set($('.st-sky-eve'), { opacity: 1 }, 0)
+      .set([$('.st-sky-storm'), $('.st-sky-dawn'), $('.st-sun'), $('.st-water'), $('.st-stain'), $('.st-drips'), $('.st-bucket'), $('.st-rot'), $('.st-felt-wet'), $('.st-cal'), $('.st-man'), $('.st-newslate'), $('.st-spark'), $('.st-birds')], { opacity: 0 }, 0)
+      .set([$('.st-moon'), $('.st-lamp-glow'), $('.st-slate')], { opacity: 1 }, 0)
+      .set($('.st-water'), { strokeDashoffset: 1 }, 0)
+      .set($('.st-van'), { x: -560 }, 0)
+      .set($('.st-ladder'), { scaleY: 0, transformOrigin: '50% 100%' }, 0)
+      .set($('.st-man'), { y: 180 }, 0)
+      .set($('.st-sun'), { y: 90 }, 0)
+      /* 1 to 2: the storm comes in */
+      .to($('.st-sky-storm'), { opacity: 1, duration: 1 }, 1)
+      .to($('.st-moon'), { opacity: 0, duration: 0.6 }, 1)
+      .fromTo($('.st-wind'), { opacity: 0, x: -60 }, { opacity: 1, x: 40, duration: 1.2 }, 1.1)
+      .to($('.st-rain'), { opacity: 0.9, duration: 0.8 }, 1.3)
+      .to($('.st-clouds'), { x: 80, duration: 2 }, 1)
+      .to($('.st-smoke'), { skewX: -30, x: 30, opacity: 0.4, duration: 1 }, 1.2)
+      .to($('.st-crown'), { rotation: 4, transformOrigin: '50% 100%', duration: 1 }, 1.2)
+      /* 2: the slate slides down the slope, then drops off the eaves */
+      .to($('.st-slate'), { x: 46 * slope.x, y: 46 * slope.y, duration: 1, ease: 'power1.in' }, 2.1)
+      .to($('.st-slate'), { x: 120, y: 262, rotation: 210, transformOrigin: '50% 50%', duration: 0.9, ease: 'power2.in' }, 3.1)
+      .to($('.st-slate'), { opacity: 0, duration: 0.2 }, 3.9)
+      /* 3: water finds the gap */
+      .to($('.st-felt-wet'), { opacity: 1, duration: 0.5 }, 4)
+      .to($('.st-water'), { opacity: 1, duration: 0.2 }, 4)
+      .to($('.st-water'), { strokeDashoffset: 0, duration: 1 }, 4.1)
+      .fromTo($('.st-stain'), { scale: 0.2, opacity: 0, transformOrigin: '50% 0%' }, { scale: 1, opacity: 1, duration: 0.8 }, 4.8)
+      .to($('.st-drips'), { opacity: 1, duration: 0.3 }, 5.2)
+      .to($('.st-bucket'), { opacity: 1, duration: 0.3 }, 5.4)
+      .to($('.st-lamp-glow'), { opacity: 0.6, duration: 0.5 }, 5)
+      /* 4: weeks go by */
+      .to($('.st-cal'), { opacity: 1, duration: 0.4 }, 5.6)
+      .to($('.st-rot'), { opacity: 1, duration: 0.8 }, 5.8)
+      .to($('.st-stain'), { scale: 1.45, duration: 0.8 }, 5.8)
+      .to([$('.st-s2'), $('.st-s3')], { x: 10, rotation: 4, transformOrigin: '0% 50%', duration: 0.6, stagger: 0.2 }, 6)
+      .to($('.st-crown'), { opacity: 0.55, duration: 0.6 }, 5.9)
+      /* 5: the weather clears and the roofer comes */
+      .to($('.st-cal'), { opacity: 0, duration: 0.3 }, 6.7)
+      .to([$('.st-rain'), $('.st-wind')], { opacity: 0, duration: 0.5 }, 6.7)
+      .to($('.st-sky-dawn'), { opacity: 1, duration: 0.8 }, 6.8)
+      .to($('.st-sky-storm'), { opacity: 0, duration: 0.8 }, 6.9)
+      .to($('.st-sun'), { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 6.9)
+      .to($('.st-crown'), { opacity: 1, rotation: 0, duration: 0.6 }, 7)
+      .to($('.st-smoke'), { skewX: 0, x: 0, opacity: 1, duration: 0.5 }, 7)
+      .to($('.st-van'), { x: 0, duration: 0.9, ease: 'power2.out' }, 7.4)
+      .to($('.st-ladder'), { scaleY: 1, duration: 0.6, ease: 'power2.out' }, 8.2)
+      .to($('.st-man'), { opacity: 1, duration: 0.2 }, 8.7)
+      .to($('.st-man'), { y: 0, duration: 0.7, ease: 'power1.inOut' }, 8.7)
+      .fromTo($('.st-newslate'), { opacity: 0, x: 70, y: 50 }, { opacity: 1, x: 0, y: 0, duration: 0.5, ease: 'power2.out' }, 9.3)
+      .to([$('.st-s2'), $('.st-s3')], { x: 0, rotation: 0, duration: 0.3 }, 9.4)
+      .to([$('.st-rot'), $('.st-felt-wet'), $('.st-water'), $('.st-drips'), $('.st-bucket')], { opacity: 0, duration: 0.4 }, 9.5)
+      .to($('.st-stain'), { opacity: 0, duration: 0.5 }, 9.6)
+      .to($('.st-lamp-glow'), { opacity: 0, duration: 0.4 }, 9.6)
+      .fromTo($('.st-spark'), { opacity: 0, scale: 0.3, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1.2, duration: 0.25 }, 9.75)
+      .to($('.st-spark'), { opacity: 0, duration: 0.2 }, 10)
+      .fromTo($('.st-birds'), { opacity: 0, x: -40 }, { opacity: 1, x: 60, duration: 0.6 }, 9.6)
+      .set({}, {}, 10.3)
+      /* camera moves: in on the slate as it goes, hold while the water runs, out for the winter, in again for the fix */
+      .to(cam, { z: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: aim }, 1.9)
+      .to(cam, { tx: 790, ty: 395, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
+      .to(cam, { z: 0, duration: 1, ease: 'power2.inOut', onUpdate: aim }, 5.5)
+      .to(cam, { z: 0.55, tx: 820, ty: 400, duration: 0.9, ease: 'power2.inOut', onUpdate: aim }, 8.5)
+      .to(cam, { z: 0, duration: 0.8, ease: 'power2.inOut', onUpdate: aim }, 9.7);
+
+    var STEPS = [0, 0.17, 0.37, 0.54, 0.72], cur = -1;
+    function show(p) {
+      var k = 0; for (var i = 0; i < STEPS.length; i++) if (p >= STEPS[i]) k = i;
+      if (k === cur) return; cur = k;
+      caps.forEach(function (c, i) { c.classList.toggle('is-on', i === k); });
+      dots.forEach(function (d, i) { d.classList.toggle('is-on', i <= k); });
+      sec.classList.toggle('is-end', k === STEPS.length - 1);
+    }
+    show(0);
+    var desk = window.matchMedia('(min-width:1000px)').matches;
+    ST.create({
+      trigger: sec, start: 'top top', end: '+=' + (desk ? 420 : 300) + '%', pin: $('.st-pin'), scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: function (self) { tl.progress(self.progress); show(self.progress); },
+      onRefresh: function (self) { frame(); tl.progress(self.progress); show(self.progress); }
+    });
+    RW.onView(sec, { enter: function () { sec.classList.add('is-live'); }, leave: function () { sec.classList.remove('is-live'); } });
+  }, { motion: true });
+}());
+</script>
+<script>
 /* SERVICES behaviour (owner: section team svc/dec). Prototype variants 1..6 behind data-v.
    ?v=N sets services and decide, ?sv=N services only. Default 1.
    Features that must work without motion (stamp, roof map sync, chooser tabs) register with {motion:false}. */
@@ -8528,7 +8871,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   var $ = RW.$, $$ = RW.$$;
 
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'sv', ['1', '2', '6', '3', '4', '5'], ['Lead card and list', 'Roof slope of tiles', 'Chooser', 'Sketch: roof map', 'Sketch: floating photo', 'Sketch: slate pile']);
+  var V = RW.variant(sec, 'sv', ['6', '1', '2', '3', '4', '5'], ['Chooser', 'Lead card and list', 'Roof slope of tiles', 'Sketch: roof map', 'Sketch: floating photo', 'Sketch: slate pile']);
   var list = $('.svc-list', sec), stage = $('.svc-stage', sec);
   var cards = $$('.svc', sec);
   function byKey(k) { return $('.svc[data-issue="' + k + '"]', sec); }
@@ -8602,6 +8945,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       cur = i;
       tabs.forEach(function (b, j) { b.setAttribute('aria-selected', j === i ? 'true' : 'false'); b.tabIndex = j === i ? 0 : -1; });
       cards.forEach(function (li, j) { li.classList.toggle('is-on', j === i); });
+      if (bar.scrollWidth > bar.clientWidth + 4) bar.scrollTo({ left: Math.max(0, tabs[i].offsetLeft - 16), behavior: RW.motionOK ? 'smooth' : 'auto' });
       if (focus) tabs[i].focus();
     }
     var timer = 0;
@@ -8621,7 +8965,32 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     });
     var k = issueFromURL(), start = 0;
     cards.forEach(function (li, i) { if (li.getAttribute('data-issue') === k) start = i; });
+    /* the words move onto the photo: title, text and link are gathered into one caption block with a counter */
+    cards.forEach(function (li, i) {
+      var cap = d.createElement('div'); cap.className = 'svc-cap';
+      var n = d.createElement('span'); n.className = 'svc-n'; n.setAttribute('aria-hidden', 'true'); n.textContent = (i + 1) + ' of ' + cards.length;
+      cap.appendChild(n);
+      ['.svc-t', '.svc-p', '.svc-a'].forEach(function (s) { var el = $(s, li); if (el) cap.appendChild(el); });
+      li.appendChild(cap);
+    });
     select(start);
+    /* stories-style: while the section is on screen it moves to the next problem every few seconds, until the visitor
+       touches anything in it. Swipe the photo left or right on touch screens. */
+    if (RW.motionOK) {
+      var auto = 0, live = false, stopped = false, T = 5500;
+      var stopAuto = function () { stopped = true; clearInterval(auto); sec.classList.remove('is-auto'); };
+      var run = function () { if (stopped || !live) return; clearInterval(auto); sec.classList.add('is-auto'); auto = setInterval(function () { select((cur + 1) % cards.length); }, T); };
+      sec.style.setProperty('--svc-t', T + 'ms');
+      RW.onView(stage, { margin: '0px 0px -25% 0px', enter: function () { live = true; run(); }, leave: function () { live = false; clearInterval(auto); sec.classList.remove('is-auto'); } });
+      ['pointerdown', 'keydown', 'focusin'].forEach(function (ev) { stage.addEventListener(ev, stopAuto, { passive: true }); });
+      if (RW.fine) stage.addEventListener('pointerenter', stopAuto);
+    }
+    var sx = null;
+    list.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    list.addEventListener('touchend', function (e) {
+      if (sx === null) return; var dx = e.changedTouches[0].clientX - sx; sx = null;
+      if (Math.abs(dx) > 50) select((cur + (dx < 0 ? 1 : -1) + cards.length) % cards.length);
+    }, { passive: true });
   });
 
   /* ---- 4. V4: a roof-cut photo rides beside the rows and floods from grey into colour (reveal-hover-effect) ---- */
@@ -9150,7 +9519,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   if (!RW || !sec) return;
   var $ = RW.$, $$ = RW.$$;
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = RW.variant(sec, 'dv', ['2', '1', '4', '3', '5', '6'], ['Weathering roof', 'Gauge', 'Dial', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
+  var V = RW.variant(sec, 'dv', ['4', '2', '1', '3', '5', '6'], ['Dial', 'Weathering roof', 'Gauge', 'Sketch: timeline rail', 'Sketch: tabs', 'Sketch: self-check slider']);
 
   var body = $('.dec-body', sec), cards = $$('.dec-card', sec), picks = $$('.dec-pick', sec);
   var NAMES = ['Sound', 'Tired', 'Unclear', 'Past repair'];
@@ -9945,7 +10314,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('before'); if (s) RW.variant(s, 'bfv', ['1','2'], ['Slider with notes beside','Wide slider, notes below']); }());
+  (function () { var s = document.getElementById('before'); if (s) RW.variant(s, 'bfv', ['2','1'], ['Wide slider, notes below','Slider with notes beside']); }());
   RW.add('before', function () {
     var sec = RW.$('#before'); if (!sec) return;
     var view = RW.$('.bf-view', sec), range = RW.$('.bf-range', sec), notes = RW.$$('.bf-notes li', sec);
@@ -10270,7 +10639,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   var NAMES = ['Inspect', 'Quote', 'Work', 'Handover'];
 
   function variantOf(sec) {
-    return RW.variant(sec, 'hv', ['1', '2', '4', '3', '5', '6'], ['Timeline', 'Ridge walk', 'Quote fills in', 'Sketch: chapters', 'Sketch: ladder', 'Sketch: gable tabs']);
+    return RW.variant(sec, 'hv', ['2', '1', '4', '3', '5', '6'], ['Ridge walk', 'Timeline', 'Quote fills in', 'Sketch: chapters', 'Sketch: ladder', 'Sketch: gable tabs']);
   }
 
   /* ---------------- always ---------------- */
@@ -10528,7 +10897,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 (function () {
   'use strict';
   var RW = window.RW;
-  (function () { var s = document.getElementById('survey'); if (s) RW.variant(s, 'svv', ['1','2'], ['Band','Centred card']); }());
+  (function () { var s = document.getElementById('survey'); if (s) RW.variant(s, 'svv', ['2','1'], ['Centred card','Band']); }());
   RW.add('survey', function () {
     var sec = RW.$('#survey'); if (!sec) return;
     RW.headings(sec);
@@ -10807,7 +11176,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   var RW = window.RW;
   var sec = document.getElementById('areas');
   if (!sec) return;
-  var V = +RW.variant(sec, 'av', ['1', '2', '3', '4', '5'], ['Contour map', 'Rooftops', 'Sketch: distance rings', 'Sketch: tile grid', 'Sketch: route and search']);
+  var V = +RW.variant(sec, 'av', ['2', '1', '3', '4', '5'], ['Rooftops', 'Contour map', 'Sketch: distance rings', 'Sketch: tile grid', 'Sketch: route and search']);
 
   var towns = RW.$$('.are-town', sec);
   var stage = RW.$('.are-stage', sec);
@@ -12350,6 +12719,30 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 }());
 </script>
 <script>
+/* MOBILE (owner: lead). Phone-first touches that do not exist on desktop:
+   - .m-rail lists get a small progress line that follows the swipe.
+   Runs everywhere (no motion needed); the CSS only turns rails on under 760px. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('m-rails', function () {
+    RW.$$('.m-rail').forEach(function (rail) {
+      var bar = document.createElement('div'); bar.className = 'm-rail-bar'; bar.setAttribute('aria-hidden', 'true');
+      var i = document.createElement('i'); bar.appendChild(i);
+      rail.parentNode.insertBefore(bar, rail.nextSibling);
+      function upd() {
+        var max = rail.scrollWidth - rail.clientWidth; if (max <= 0) { bar.style.visibility = 'hidden'; return; }
+        bar.style.visibility = '';
+        var p = rail.scrollLeft / max, w = Math.max(18, 96 * rail.clientWidth / rail.scrollWidth);
+        i.style.width = w + 'px'; i.style.setProperty('--mx', (p * (96 - w)).toFixed(1) + 'px');
+      }
+      rail.addEventListener('scroll', upd, { passive: true });
+      window.addEventListener('resize', upd); upd();
+    });
+  });
+}());
+</script>
+<script>
 /* REACT (owner: lead). The page answers the pointer, differently in every section.
    1. Entry wash: crossing into a section sends one soft wave across its background from the point you came in.
       Six shapes (ring, ripple, gable, glow, dots, sweep), never the same on two neighbouring sections.
@@ -13053,43 +13446,6 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   }, { motion: true });
 }());
 
-/* LOUPE (owner: lead): in "Start with what you can see", a round magnifier follows the pointer over the problem photos,
-   so people can look closer at the slates the way a roofer would. The lead photo's hand-drawn notes draw in on arrival
-   and again whenever the photo is hovered. */
-(function () {
-  'use strict';
-  var RW = window.RW;
-  RW.add('loupe', function () {
-    var sec = RW.$('#problems'); if (!sec) return;
-    var lead = RW.$('.svc:first-child', sec);
-    if (lead && RW.$('.svc-notes', lead)) {
-      RW.onView(lead, { once: true, margin: '0px 0px -30% 0px', enter: function () { lead.classList.add('is-noted'); } });
-    }
-    if (!RW.fine) return;
-    var Z = 2.4, R = 78, L = document.createElement('div');
-    L.className = 'rx-loupe'; L.setAttribute('aria-hidden', 'true'); L.innerHTML = '<i></i><span>Look closer</span>';
-    document.body.appendChild(L);
-    var cur = null;
-    /* the whole card is a stretched link, so listen on the card and check whether the pointer is over its photo */
-    function off() { if (!cur) return; cur = null; L.classList.remove('is-on'); document.documentElement.classList.remove('is-loupe'); }
-    RW.$$('.svc', sec).forEach(function (card) {
-      var img = RW.$('.cw img', card); if (!img) return;
-      card.addEventListener('pointermove', function (e) {
-        var r = img.closest('.cw').getBoundingClientRect();
-        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) { off(); return; }
-        if (cur !== img) { cur = img; L.style.backgroundImage = 'url("' + (img.currentSrc || img.src) + '")'; L.classList.add('is-on'); document.documentElement.classList.add('is-loupe'); }
-        var ir = img.getBoundingClientRect(), nw = img.naturalWidth || ir.width, nh = img.naturalHeight || ir.height;
-        var sc = Math.max(ir.width / nw, ir.height / nh), dw = nw * sc, dh = nh * sc, ox = (ir.width - dw) / 2, oy = (ir.height - dh) / 2;
-        var ix = e.clientX - ir.left - ox, iy = e.clientY - ir.top - oy;
-        L.style.transform = 'translate(' + (e.clientX - R) + 'px,' + (e.clientY - R) + 'px)';
-        L.style.backgroundSize = (dw * Z).toFixed(0) + 'px ' + (dh * Z).toFixed(0) + 'px';
-        L.style.backgroundPosition = (R - ix * Z).toFixed(0) + 'px ' + (R - iy * Z).toFixed(0) + 'px';
-      });
-      card.addEventListener('pointerleave', off);
-    });
-  }, { motion: true });
-}());
-
 /* EVENING (owner: lead): at the very bottom the little town in the footer settles in for the evening. Windows light up one
    by one as the footer arrives, and the ones nearest the pointer glow brighter as it passes over the roofs. */
 (function () {
@@ -13168,6 +13524,16 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       items.forEach(function (el, i) { el.classList.add('bd-wait'); el.style.setProperty('--bd', (i * 110) + 'ms'); });
       RW.onView(sec, { once: true, margin: '0px 0px -15% 0px', enter: function () { items.forEach(function (el) { el.classList.add('bd-in'); }); } });
     });
+  }, { motion: true });
+}());
+
+/* lead-photo notes for "Start with what you can see" version B (hand-drawn rings draw in once) */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('svc-notes', function () {
+    var lead = RW.$('#problems .svc:first-child'); if (!lead || !RW.$('.svc-notes', lead)) return;
+    RW.onView(lead, { once: true, margin: '0px 0px -30% 0px', enter: function () { lead.classList.add('is-noted'); } });
   }, { motion: true });
 }());
 </script>

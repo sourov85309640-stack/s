@@ -214,3 +214,9 @@ html.has-motion .faq[data-q="5"] .b-pen{animation:b-pen 3.4s ease infinite}
 html.has-motion .faq[data-q="5"] .b-seal{animation:b-stamp 3.4s cubic-bezier(.3,1.4,.5,1) infinite}
 html.has-motion .faq[data-q="6"] .b-photo{animation:b-photo 3s var(--ease) infinite}
 html.has-motion .faq[data-q="6"] .b-tag{animation:b-swing 2.4s ease-in-out infinite}
+/* phones: the drawing board becomes a small strip above the questions (scene left, takeaway right) */
+@media (max-width:959px){
+  .faq-board{display:grid;grid-template-columns:132px minmax(0,1fr);gap:.9rem;align-items:center;max-width:none;margin-top:1rem;padding:.75rem}
+  .faq-board .faq-cap{margin:0;min-height:0;font-size:.875rem}
+  .faq-board .faq-ill{display:block}
+}

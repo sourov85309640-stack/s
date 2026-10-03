@@ -311,7 +311,9 @@ html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(3){transiti
 html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(4){transition-delay:.18s}
 .svc-sec[data-v="6"] .svc-drip,.svc-sec[data-v="6"] .svc-stamp,.svc-sec[data-v="6"] .svc-notes{display:none}
 @media (max-width:899px){
-  .svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:4/5}
+  .svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:16/11}
   .svc-sec[data-v="6"] .svc-tab{min-height:52px}
   .svc-sec[data-v="6"] .svc-tab::after{bottom:4px}
 }
+
+@media (max-width:599px){.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:4/5}}
