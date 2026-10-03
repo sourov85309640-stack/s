@@ -28,6 +28,20 @@
     RW.features.push({ name: name, fn: fn, motion: !!(opts && opts.motion) });
   };
 
+  /* ---- design options: RW.variant(sectionEl, 'param', ['1','2','6']) returns the variant to use.
+         Order: ?param=N in the address (the Design options panel), then the section's own data-v, then the first allowed.
+         To fix a choice for a client, set data-v on the <section> in its partial and delete the options panel. ---- */
+  RW.options = [];
+  RW.variant = function (sec, param, allowed, names) {
+    var v = null;
+    try { var m = new RegExp('[?&]' + param + '=(\\w+)').exec(location.search); if (m) v = m[1]; } catch (e) {}
+    if (allowed.indexOf(v) < 0) v = sec.getAttribute('data-v');
+    if (allowed.indexOf(v) < 0) v = allowed[0];
+    sec.setAttribute('data-v', v);
+    RW.options.push({ id: sec.id, param: param, allowed: allowed, names: names || allowed, current: v });
+    return v;
+  };
+
   /* ---- shared ticker: one rAF loop for everything (GSAP ticker when motion is on, own rAF otherwise).
          fn(timeSeconds, dtSeconds) with dt clamped to 1/30. Returns a remover. ---- */
   var tickers = [], rafId = 0, last = 0;

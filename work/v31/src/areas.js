@@ -6,9 +6,7 @@
   var RW = window.RW;
   var sec = document.getElementById('areas');
   if (!sec) return;
-  var V = 1;
-  try { var m = /[?&]av=(\d)/.exec(location.search); if (m && +m[1] >= 1 && +m[1] <= 5) V = +m[1]; } catch (e) {}
-  sec.setAttribute('data-v', String(V));
+  var V = +RW.variant(sec, 'av', ['1', '2'], ['Contour map', 'Rooftops']);
 
   var towns = RW.$$('.are-town', sec);
   var stage = RW.$('.are-stage', sec);

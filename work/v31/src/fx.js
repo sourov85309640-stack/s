@@ -25,11 +25,12 @@
     5: { cursor: 1, magnet: 1, edges: 1, skew: 1 },
     6: { particles: 1, tint: 1, edges: 1, magnet: 1 }
   };
-  var DEFAULT_V = 1;
+  var DEFAULT_V = 6;
   var V = DEFAULT_V, F = VARIANTS[DEFAULT_V];
   try {
     var mv = /[?&]fxv=(\d)\b/.exec(location.search);
     if (mv && VARIANTS[mv[1]]) { V = +mv[1]; F = VARIANTS[V]; }
+    RW.options.push({ id: 'atmosphere', param: 'fxv', allowed: ['6', '3', '1', '0'], names: ['Full atmosphere', 'Weather story', 'Particles only', 'Off'], current: String(V), label: 'Page atmosphere' });
     var mf = /[?&]fx=([a-z,]+)/.exec(location.search);
     if (mf) { F = {}; V = 'custom'; mf[1].split(',').forEach(function (k) { if (k) F[k] = 1; }); }
   } catch (e) {}

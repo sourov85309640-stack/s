@@ -12,8 +12,7 @@
 
   RW.add('where-variant', function () {
     var sec = RW.$('#where'); if (!sec) return;
-    var m = /[?&]v=([1-6])\b/.exec(location.search);
-    sec.setAttribute('data-v', m ? m[1] : '1');
+    RW.variant(sec, 'wv', ['2', '3', '6'], ['Follow the water', 'Rain and loupe', 'Camera zoom']);
   });
 
   RW.add('where-tour', function () {

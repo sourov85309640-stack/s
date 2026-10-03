@@ -25,45 +25,7 @@
   /* ---------- prototype variant switch ---------- */
   RW.add('hero-variant', function () {
     var sec = RW.$('.hero'); if (!sec) return;
-    var m = /[?&]v=([1-6])\b/.exec(location.search);
-    H.sec = sec; H.v = m ? +m[1] : (+sec.getAttribute('data-v') || 1);
-    sec.setAttribute('data-v', H.v);
-  });
-
-  /* ---------- hero-picker: OWNER TOOL, delete this block (and the markup + CSS block) before sending to a client ---------- */
-  RW.add('hero-picker', function () {
-    var pick = RW.$('[data-owner-tool="hero-picker"]'); if (!pick) return;
-    d.body.appendChild(pick);            /* fixed to the viewport, outside any section stacking */
-    pick.hidden = false;
-    var btns = RW.$$('[data-hero-set]', pick);
-    function sync() {
-      var l = layout();
-      btns.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-hero-set') === l ? 'true' : 'false'); });
-    }
-    btns.forEach(function (b) {
-      b.addEventListener('click', function () {
-        var l = b.getAttribute('data-hero-set');
-        root.setAttribute('data-hero', l);
-        setParam('hero', l);
-        sync();
-        try { d.dispatchEvent(new CustomEvent('rw:hero-layout', { detail: l })); } catch (e) {}
-        if (RW.depth) RW.depth.measure();
-        if (RW.motionOK && RW.ST) RW.ST.refresh();
-      });
-    });
-    sync();
-    /* prototype only: motion concept buttons, shown when the address already carries ?v= */
-    var vrow = RW.$('.hero-pick-v', pick);
-    if (vrow && /[?&]v=/.test(location.search)) {
-      vrow.hidden = false;
-      RW.$$('[data-v-set]', vrow).forEach(function (b) {
-        var n = +b.getAttribute('data-v-set');
-        b.setAttribute('aria-pressed', n === H.v ? 'true' : 'false');
-        b.addEventListener('click', function () {
-          try { var u = new URL(location.href); u.searchParams.set('v', n); location.href = u.toString(); } catch (e) {}
-        });
-      });
-    }
+    H.sec = sec; H.v = +RW.variant(sec, 'hm', ['1', '2', '6'], ['Calm roofscape', 'Roof assembles', 'Wind']);
   });
 
   /* ---------- intro: one composed load sequence (cinematic-gsap-lenis: media first, headline, copy, CTA) ---------- */

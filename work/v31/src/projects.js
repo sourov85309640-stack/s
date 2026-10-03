@@ -7,10 +7,7 @@
   var MAX = 5;
 
   function variantOf(sec, key) {
-    var m = new RegExp('[?&]' + key + '=(\\d)').exec(location.search);
-    var v = m && +m[1] >= 1 && +m[1] <= MAX ? m[1] : (sec.getAttribute('data-v') || '1');
-    sec.setAttribute('data-v', v);
-    return v;
+    return RW.variant(sec, key, ['1', '2'], ['Facts list', 'Before and after drawing']);
   }
 
   /* ---------- always: variant + v2 toggle (works with motion off) ---------- */

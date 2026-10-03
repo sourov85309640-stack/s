@@ -9,8 +9,7 @@
   var $ = RW.$, $$ = RW.$$;
 
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = q('sv') || q('v') || '1';
-  sec.setAttribute('data-v', V);
+  var V = RW.variant(sec, 'sv', ['1', '2', '6'], ['Lead card and list', 'Roof slope of tiles', 'Chooser']);
   var list = $('.svc-list', sec), stage = $('.svc-stage', sec);
   var cards = $$('.svc', sec);
   function byKey(k) { return $('.svc[data-issue="' + k + '"]', sec); }

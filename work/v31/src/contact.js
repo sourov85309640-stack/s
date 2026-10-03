@@ -11,8 +11,7 @@
   /* ---------- variant switch ---------- */
   RW.add('ct-variant', function () {
     var s = sec(); if (!s) return;
-    var m = /[?&]v=([1-6])\b/.exec(window.location.search);
-    if (m) s.setAttribute('data-v', m[1]);
+    RW.variant(s, 'ctv', ['4', '2', '5'], ['Evening house', 'Clipboard', 'Roof outline draws']);
   });
   function v() { var s = sec(); return s ? s.getAttribute('data-v') : '1'; }
 

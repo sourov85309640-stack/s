@@ -15,10 +15,7 @@
   if (!RW || !sec) return;
 
   /* ---- variant switch (prototype stage): ?v=1..6, default 1 ---- */
-  var V = sec.getAttribute('data-v') || '1';
-  /* ?rv=N wins over the page-wide ?v=N, so the reviews variant can be judged next to any other section's variant */
-  try { var m = /[?&]rv=([1-6])\b/.exec(location.search) || /[?&]v=([1-6])\b/.exec(location.search); if (m) V = m[1]; } catch (e) {}
-  sec.setAttribute('data-v', V);
+  var V = RW.variant(sec, 'rv', ['1', '2', '6'], ['Card rail', 'Card deck', 'Cover flow']);
   var MODE = { 1: 'rail', 2: 'deck', 3: 'rail', 4: 'spot', 5: 'rail', 6: 'flow' }[V];
 
   var car = RW.$('.rv-car', sec), vp = RW.$('.rv-vp', sec), track = RW.$('.rv-track', sec);

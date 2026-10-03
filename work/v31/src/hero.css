@@ -146,16 +146,3 @@ html:not([data-hero="b"]):not([data-hero="c"]) .hero-outline-dash .ho-a,html[dat
 .hero-horizon-mid{z-index:4}
 .hero-horizon-front{z-index:5}
 
-/* ---------- hero-picker (OWNER TOOL: delete this block with the picker markup before sending to a client) ---------- */
-.hero-pick{position:fixed;left:10px;bottom:calc(var(--bar) + 10px + env(safe-area-inset-bottom));z-index:75;display:flex;flex-wrap:wrap;align-items:center;gap:2px;max-width:calc(100vw - 20px);
-  padding:3px 3px 3px 12px;background:rgba(250,249,246,.96);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-soft);
-  font-family:var(--ui);font-size:.8125rem;font-weight:600;line-height:1;color:var(--muted)}
-.hero-pick-l{margin-right:4px;white-space:nowrap}
-.hero-pick button{width:44px;height:44px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--text);font-family:var(--ui);font-weight:600;font-size:.9375rem;cursor:pointer;transition:background-color .15s ease,color .15s ease,transform .12s var(--ease)}
-.hero-pick button[aria-pressed="true"]{background:var(--copper);color:var(--paper)}
-@media (hover:hover){.hero-pick button[aria-pressed="false"]:hover{background:var(--warm)}}
-.hero-pick button:active{transform:scale(.96)}
-.hero-pick-v{display:flex;align-items:center;gap:2px;padding-left:10px;margin-left:4px;border-left:1px solid var(--line)}
-.hero-pick-v[hidden]{display:none}
-@media (max-width:599px){.hero-pick-v{flex-basis:100%;margin-left:0;padding-left:0;border-left:0;border-top:1px solid var(--line)}}
-@media (min-width:768px){.hero-pick{left:16px;bottom:16px}}

@@ -13,8 +13,7 @@
   if (!RW || !sec) return;
   var $ = RW.$, $$ = RW.$$;
   function q(key) { var m = new RegExp('[?&]' + key + '=([1-6])(?:&|#|$)').exec(location.search); return m ? m[1] : null; }
-  var V = q('dv') || q('v') || '1';
-  sec.setAttribute('data-v', V);
+  var V = RW.variant(sec, 'dv', ['2', '1', '4'], ['Weathering roof', 'Gauge', 'Dial']);
 
   var body = $('.dec-body', sec), cards = $$('.dec-card', sec), picks = $$('.dec-pick', sec);
   var NAMES = ['Sound', 'Tired', 'Unclear', 'Past repair'];
@@ -74,7 +73,8 @@
     });
     tabs.forEach(function (b, i) { b.addEventListener('click', function () { if (S.lock !== i) setLock(i); }); });
     if (range) {
-      range.addEventListener('input', function () { S.lock = -1; setLock(+range.value); });
+      var onRange = function () { if (S.lock !== +range.value) { S.lock = -1; setLock(+range.value); } };
+      range.addEventListener('input', onRange); range.addEventListener('change', onRange);
     }
     S.i = -2; paint();
   });

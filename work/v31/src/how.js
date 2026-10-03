@@ -8,10 +8,7 @@
   var NAMES = ['Inspect', 'Quote', 'Work', 'Handover'];
 
   function variantOf(sec) {
-    var m = /[?&]hv=(\d)/.exec(location.search);
-    var v = m && +m[1] >= 1 && +m[1] <= MAX ? m[1] : (sec.getAttribute('data-v') || '1');
-    sec.setAttribute('data-v', v);
-    return v;
+    return RW.variant(sec, 'hv', ['1', '2', '4'], ['Timeline', 'Ridge walk', 'Quote fills in']);
   }
 
   /* ---------------- always ---------------- */

@@ -17,9 +17,7 @@
   var sec = d.getElementById('whole');
   if (!sec || !RW) return;
 
-  var V = 1;
-  try { var mv = /[?&]v=([1-6])(?:&|#|$)/.exec(location.search); if (mv) V = +mv[1]; } catch (e) {}
-  sec.setAttribute('data-v', String(V));
+  var V = +RW.variant(sec, 'xv', ['1', '2', '5'], ['Layers lift apart', 'Roof builds itself', 'Raindrop through the layers']);
 
   var $ = RW.$, $$ = RW.$$, clamp = RW.clamp;
   var xv = d.getElementById('xv'), tilt = d.getElementById('xv-tilt'), grid = d.getElementById('whole-grid');

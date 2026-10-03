@@ -7,9 +7,7 @@
   var RW = window.RW;
   var sec = document.getElementById('faq');
   if (!sec) return;
-  var V = 1;
-  try { var m = /[?&]fv=(\d)/.exec(location.search); if (m && +m[1] >= 1 && +m[1] <= 4) V = +m[1]; } catch (e) {}
-  sec.setAttribute('data-v', String(V));
+  var V = +RW.variant(sec, 'fv', ['1', '2'], ['Accordion', 'Answer panel']);
 
   RW.add('faq', function () {
     var items = RW.$$('.faq-item', sec);

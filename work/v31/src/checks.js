@@ -8,9 +8,7 @@
   var sec = document.getElementById('checks');
   if (!sec) return;
   /* variant first, before anything paints in a later frame */
-  var V = 1;
-  try { var m = /[?&]cv=(\d)/.exec(location.search); if (m && +m[1] >= 1 && +m[1] <= 5) V = +m[1]; } catch (e) {}
-  sec.setAttribute('data-v', String(V));
+  var V = +RW.variant(sec, 'cv', ['1', '4'], ['Sightline diagram', 'Binocular photo']);
 
   var items = RW.$$('.chk-item', sec);
   var photo = RW.$('.chk-photo', sec);
