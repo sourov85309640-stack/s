@@ -122,3 +122,54 @@
     foot.addEventListener('pointerleave', function () { wins.forEach(function (w) { w.el.classList.remove('is-near'); }); });
   }, { motion: true });
 }());
+
+/* IDLE LIFE (owner: lead): if nobody moves, scrolls or types for a few seconds, a small flock of birds crosses the screen,
+   each time on a different path. Never more than once every 25 seconds. Motion only, any device. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('idle-life', function () {
+    var last = performance.now(), lastFlock = 0, n = 0, d = document;
+    ['pointermove', 'scroll', 'keydown', 'touchstart', 'wheel'].forEach(function (ev) { window.addEventListener(ev, function () { last = performance.now(); }, { passive: true }); });
+    var BIRD = '<svg viewBox="0 0 40 16" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>';
+    setInterval(function () {
+      var now = performance.now();
+      if (d.hidden || now - last < 7000 || now - lastFlock < 25000) return;
+      lastFlock = now; n++;
+      var f = d.createElement('div'); f.className = 'idle-flock idle-path' + (n % 3); f.setAttribute('aria-hidden', 'true');
+      f.style.top = (12 + (n * 17) % 30) + 'vh';
+      for (var i = 0; i < 4; i++) { var b = d.createElement('span'); b.className = 'idle-b'; b.innerHTML = BIRD; b.style.setProperty('--i', i); f.appendChild(b); }
+      d.body.appendChild(f);
+      setTimeout(function () { f.remove(); }, 9500);
+    }, 1000);
+  }, { motion: true });
+}());
+
+/* BACK TO THE TOP (owner: lead): a little ladder in the footer; its rungs climb on hover, the page glides up. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('to-top', function () {
+    var ftr = RW.$('footer'); if (!ftr) return;
+    var a = document.createElement('a');
+    a.className = 'to-top'; a.href = '#top';
+    a.innerHTML = '<svg viewBox="0 0 24 32" aria-hidden="true" focusable="false"><path class="tt-rail" d="M6 31V1M18 31V1"/><path class="tt-rungs" d="M6 27h12M6 21h12M6 15h12M6 9h12M6 3h12"/></svg><span>Back to the top</span>';
+    ftr.appendChild(a);
+  });
+}());
+
+/* BACKDROP ARRIVALS (owner: lead): the drawings in each section's back and front layers grow in softly the first time
+   the section arrives, one after another. Uses the individual `scale` property and opacity, so it never fights
+   depth.js (translate, rotate) or GSAP (transform). */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('backdrop-in', function () {
+    RW.$$('main > section, footer').forEach(function (sec) {
+      var items = RW.$$(':scope > .layers > svg, :scope > .layers > span:not(.ug-rain):not(.sv-grid):not(.faq-bk-grid)', sec);
+      if (!items.length) return;
+      items.forEach(function (el, i) { el.classList.add('bd-wait'); el.style.setProperty('--bd', (i * 110) + 'ms'); });
+      RW.onView(sec, { once: true, margin: '0px 0px -15% 0px', enter: function () { items.forEach(function (el) { el.classList.add('bd-in'); }); } });
+    });
+  }, { motion: true });
+}());

@@ -72,34 +72,57 @@
     var me = RW.$('.pal-me', el), tip = RW.$('.pal-tip', el), eyes = RW.$('.pal-eyes', el), svg = RW.$('.pal-svg', el);
     var shown = false, cueNow = '', seen = {}, lastShow = -1e9, hideT = 0;
 
+    /* the tip only opens by itself when it would not sit on top of text; otherwise he just peeks with a small
+       "..." bubble and the tip opens when he is hovered or clicked */
+    function spaceFree() {
+      var x0 = window.innerWidth < 1400 ? 60 : 100, y1 = window.innerHeight - 84 - 96, pts = [[x0 + 20, y1 - 10], [x0 + 120, y1 - 10], [x0 + 220, y1 - 10], [x0 + 20, y1 - 60], [x0 + 120, y1 - 60], [x0 + 220, y1 - 60]];
+      for (var i = 0; i < pts.length; i++) {
+        var e = d.elementFromPoint(pts[i][0], pts[i][1]);
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+      }
+      return true;
+    }
+    function bodyFree() {   /* where he stands must be clear of text too, or he waits for a better moment */
+      var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44] : [30, 70, 92];
+      for (var i = 0; i < xs.length; i++) for (var y = H - 200; y < H - 90; y += 36) {
+        var e = d.elementFromPoint(xs[i], y);
+        if (e && !e.closest('.pal,.rwopt') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main img,footer p,footer a,footer li')) return false;
+      }
+      return true;
+    }
     function show(id) {
       var c = CUES[id]; if (!c) return;
+      if (!bodyFree()) return;
       cueNow = id; seen[id] = true; lastShow = performance.now();
       el.setAttribute('data-p', c[0]); el.setAttribute('data-act', c[1]);
-      tip.textContent = c[2];
+      var free = spaceFree();
+      tip.textContent = free ? c[2] : '';
+      el.classList.toggle('is-quiet', !free);
       el.classList.add('is-in'); shown = true;
       el.classList.remove('is-act'); void el.offsetWidth; el.classList.add('is-act');
-      clearTimeout(hideT); hideT = setTimeout(hide, 6000);
+      clearTimeout(hideT); hideT = setTimeout(hide, free ? 4800 : 3800);
     }
-    function hide() { el.classList.remove('is-in', 'is-act'); shown = false; tip.textContent = ''; }
+    function hide() { el.classList.remove('is-in', 'is-act', 'is-quiet'); shown = false; tip.textContent = ''; }
+    function speak() { if (!cueNow) return; tip.textContent = CUES[cueNow][2]; el.classList.remove('is-quiet'); }
 
     /* when a section's top passes 55% of the screen, maybe peek in: never in the hero, at most every 14s, once per section */
     var secs = Object.keys(CUES).map(function (id) { return d.getElementById(id); }).filter(Boolean);
     secs.forEach(function (s) {
-      RW.onView(s, { margin: '-45% 0px -45% 0px', enter: function () {
+      RW.onView(s, { margin: '-45% 0px -45% 0px', leave: function () { if (cueNow === s.id && shown) hide(); }, enter: function () {
         if (!mq.matches || seen[s.id] || d.documentElement.classList.contains('menu-open')) return;
         if (performance.now() - lastShow < 14000) return;
         if (window.pageYOffset < window.innerHeight * 0.6) return;
         show(s.id);
+        if (!shown) setTimeout(function () { if (!seen[s.id] && !shown && performance.now() - lastShow > 14000) show(s.id); }, 1600);
       } });
     });
     me.addEventListener('click', function () {
       if (!cueNow) return;
-      el.setAttribute('data-act', 'wave'); tip.textContent = CUES[cueNow][2];
+      el.setAttribute('data-act', 'wave'); speak();
       el.classList.add('is-in'); el.classList.remove('is-act'); void el.offsetWidth; el.classList.add('is-act');
       clearTimeout(hideT); hideT = setTimeout(hide, 6000);
     });
-    el.addEventListener('pointerenter', function () { clearTimeout(hideT); });
+    el.addEventListener('pointerenter', function () { clearTimeout(hideT); if (shown) speak(); });
     el.addEventListener('pointerleave', function () { if (shown) { clearTimeout(hideT); hideT = setTimeout(hide, 2500); } });
     RW.$('.pal-x', el).addEventListener('click', function () { hide(); try { sessionStorage.setItem('rw-pal', 'gone'); } catch (e) {} setTimeout(function () { el.remove(); }, 400); });
 

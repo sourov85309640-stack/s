@@ -2,7 +2,6 @@
    its ring once on hover. The ribbons flutter. Replace with real logos (see the comment in accred.html). */
 .ac{position:relative;background:var(--warm);border-top:1px solid var(--line-soft);padding-block:clamp(1.5rem,3vw,2.25rem);border-bottom:1px solid var(--line-soft)}
 .ac-in{display:grid;gap:1rem;align-items:center}
-@media (min-width:1000px){.ac-in{grid-template-columns:150px minmax(0,1fr)}.ac-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}}
 .ac-h{font:600 1rem/1.35 var(--ui);color:var(--muted);letter-spacing:0;margin:0}
 .ac-list{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;justify-content:space-between}
 .ac-it{display:flex;align-items:center;gap:.6rem;font:600 .9375rem/1.25 var(--ui);color:var(--text);max-width:12rem}
@@ -24,6 +23,8 @@ html.has-motion .ac.is-in .ac-it:nth-child(4) .ac-seal{animation-delay:.24s}
 html.has-motion .ac.is-in .ac-it:nth-child(5) .ac-seal{animation-delay:.32s}
 html.has-motion .ac.is-live .ac-rib{animation:ac-flut 2.4s ease-in-out infinite}
 @media (hover:hover){html.has-motion .ac-it:hover .ac-ring{animation:ac-spin .7s var(--ease)}}
+/* desktop: label column and five badges in one row */
+@media (min-width:1000px){.ac-in{grid-template-columns:150px minmax(0,1fr)}.ac[data-v="1"] .ac-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}}
 /* versions (?acv=): 2 the badges drift slowly across in a strip (pauses on hover; still under reduced motion) */
 .ac[data-v="2"] .ac-in{grid-template-columns:minmax(0,1fr);text-align:center}
 .ac[data-v="2"] .ac-list{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:3rem;width:max-content}
@@ -32,3 +33,5 @@ html.has-motion .ac.is-live .ac-rib{animation:ac-flut 2.4s ease-in-out infinite}
 @keyframes ac-drift{to{transform:translateX(-50%)}}
 html.has-motion .ac[data-v="2"] .ac-list{animation:ac-drift 40s linear infinite}
 @media (hover:hover){.ac[data-v="2"] .ac-list:hover{animation-play-state:paused}}
+/* phones: two columns of badges */
+@media (max-width:999px){.ac[data-v="1"] .ac-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1rem}.ac-it{max-width:none;font-size:.875rem}.ac-seal{width:40px;height:40px}}

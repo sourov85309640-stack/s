@@ -817,7 +817,6 @@ html.has-motion [data-v="4"] .rv-note{display:flex;align-items:center;gap:10px;p
    its ring once on hover. The ribbons flutter. Replace with real logos (see the comment in accred.html). */
 .ac{position:relative;background:var(--warm);border-top:1px solid var(--line-soft);padding-block:clamp(1.5rem,3vw,2.25rem);border-bottom:1px solid var(--line-soft)}
 .ac-in{display:grid;gap:1rem;align-items:center}
-@media (min-width:1000px){.ac-in{grid-template-columns:150px minmax(0,1fr)}.ac-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}}
 .ac-h{font:600 1rem/1.35 var(--ui);color:var(--muted);letter-spacing:0;margin:0}
 .ac-list{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;justify-content:space-between}
 .ac-it{display:flex;align-items:center;gap:.6rem;font:600 .9375rem/1.25 var(--ui);color:var(--text);max-width:12rem}
@@ -839,6 +838,8 @@ html.has-motion .ac.is-in .ac-it:nth-child(4) .ac-seal{animation-delay:.24s}
 html.has-motion .ac.is-in .ac-it:nth-child(5) .ac-seal{animation-delay:.32s}
 html.has-motion .ac.is-live .ac-rib{animation:ac-flut 2.4s ease-in-out infinite}
 @media (hover:hover){html.has-motion .ac-it:hover .ac-ring{animation:ac-spin .7s var(--ease)}}
+/* desktop: label column and five badges in one row */
+@media (min-width:1000px){.ac-in{grid-template-columns:150px minmax(0,1fr)}.ac[data-v="1"] .ac-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem}}
 /* versions (?acv=): 2 the badges drift slowly across in a strip (pauses on hover; still under reduced motion) */
 .ac[data-v="2"] .ac-in{grid-template-columns:minmax(0,1fr);text-align:center}
 .ac[data-v="2"] .ac-list{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:3rem;width:max-content}
@@ -847,6 +848,8 @@ html.has-motion .ac.is-live .ac-rib{animation:ac-flut 2.4s ease-in-out infinite}
 @keyframes ac-drift{to{transform:translateX(-50%)}}
 html.has-motion .ac[data-v="2"] .ac-list{animation:ac-drift 40s linear infinite}
 @media (hover:hover){.ac[data-v="2"] .ac-list:hover{animation-play-state:paused}}
+/* phones: two columns of badges */
+@media (max-width:999px){.ac[data-v="1"] .ac-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1rem}.ac-it{max-width:none;font-size:.875rem}.ac-seal{width:40px;height:40px}}
 </style>
 <style>
 /* WHAT WE DO (services overview), prefix .of- (owner: lead).
@@ -977,6 +980,12 @@ html:not(.has-motion) .of-ic .i-roll{transform:translateX(34px)}
 .of-fr-tile{width:44px;height:30px;left:1.2%;top:58%;fill:#D9A383;stroke:var(--copper);stroke-width:1.5}
 .of-fr-tile path:last-child{fill:none;stroke:rgba(255,255,255,.4)}
 .of-fr-nail{width:12px;height:44px;right:1.4%;bottom:12%;fill:none;stroke:#7E8A90;stroke-width:2.5;stroke-linecap:round}
+/* phones: tighter cards so eight services do not become a long scroll (description kept, two lines) */
+@media (max-width:559px){
+  .of-grid{gap:.6rem}
+  .of-link{padding:.9rem 1rem;column-gap:.85rem}
+  .of-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.9375rem}
+}
 </style>
 <style>
 /* ROOFS WE WORK ON, prefix .ty- (owner: lead). Tabs on the left, a drawn swatch in the middle, the facts on the right.
@@ -4279,7 +4288,7 @@ html.has-motion[data-fx-edges] .e-dormer::before{transform:perspective(500px) ro
 /* about: the roofer's eye */
 .ab .ab-eye{fill:#1F2B30;opacity:0}
 .ab .ab-head,.ab .ab-cap,.ab .ab-eye{transform-box:view-box}
-@media (hover:none),(pointer:coarse){.rx-umb,.rx-cv,.rx-wash,.rx-lamp,.rx-glint{display:none}}
+@media (hover:none),(pointer:coarse){.rx-umb,.rx-wash,.rx-lamp,.rx-glint{display:none}}
 @media print{.rx-cv,.rx-wash,.rx-lamp,.rx-glint{display:none}}
 </style>
 <style>
@@ -4317,18 +4326,55 @@ html.is-loupe .cur{opacity:0}
 .ftr-wins rect{fill:#F6C979;opacity:0;transition:opacity .8s ease,fill .3s}
 .ftr-wins rect.is-lit{opacity:.55}
 .ftr-wins rect.is-near{opacity:1;fill:#FFD98A}
+/* idle flock (play.js): three different flight paths, wings flap */
+.idle-flock{position:fixed;left:0;z-index:4;width:100vw;height:0;pointer-events:none}
+.idle-b{position:absolute;left:-60px;top:calc(var(--i) * 9px);width:calc(22px - var(--i) * 2px);height:10px;opacity:.55;animation:idle-fly 9s linear forwards;animation-delay:calc(var(--i) * .35s)}
+.idle-b svg{display:block;width:100%;height:100%;fill:var(--ink);animation:idle-flap .35s ease-in-out infinite alternate;transform-origin:50% 60%}
+.idle-path1 .idle-b{animation-name:idle-fly1}.idle-path2 .idle-b{animation-name:idle-fly2}
+@keyframes idle-fly{0%{transform:translate(0,0)}50%{transform:translate(55vw,-30px)}100%{transform:translate(115vw,10px)}}
+@keyframes idle-fly1{0%{transform:translate(0,40px)}40%{transform:translate(45vw,-20px)}100%{transform:translate(115vw,-70px)}}
+@keyframes idle-fly2{0%{transform:translate(0,-20px)}30%{transform:translate(30vw,30px)}70%{transform:translate(75vw,-10px)}100%{transform:translate(115vw,20px)}}
+@keyframes idle-flap{0%{transform:scaleY(1)}100%{transform:scaleY(.45)}}
+@media (prefers-reduced-motion:reduce){.idle-flock{display:none}}
+/* back to the top ladder */
+.to-top{display:flex;align-items:center;gap:.6rem;width:max-content;min-height:44px;margin:1.5rem auto 0;padding:.3rem .9rem;border-radius:999px;font:600 .9375rem/1.2 var(--ui);color:var(--copper-deep);text-decoration:none;position:relative;z-index:1}
+.to-top svg{width:18px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;overflow:hidden}
+.to-top:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+@keyframes tt-climb{0%{transform:translateY(0)}100%{transform:translateY(-6px)}}
+@media (hover:hover){.to-top:hover{background:rgba(152,86,50,.08)}html.has-motion .to-top:hover .tt-rungs{animation:tt-climb .35s linear infinite}}
+/* text selection in the brand colour */
+::selection{background:rgba(221,167,131,.45);color:var(--ink)}
+/* backdrop arrivals (play.js) */
+html.has-motion .bd-wait{transition:opacity .9s ease var(--bd,0ms),scale 1.1s cubic-bezier(.2,.7,.2,1) var(--bd,0ms)}
+html.has-motion .bd-wait:not(.bd-in){opacity:0;scale:.86}
+/* small idle loops on the decorative drawings (children only, so depth.js keeps the element itself) */
+@keyframes pl-swing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes pl-spin{to{transform:rotate(360deg)}}
+@keyframes pl-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pl-sway{0%,100%{transform:skewX(0)}50%{transform:skewX(-3deg)}}
+html.has-motion .ty-bk-vane path{transform-box:view-box;transform-origin:40px 118px;animation:pl-swing 7s ease-in-out infinite}
+html.has-motion .bf-bk-sun path{transform-box:view-box;transform-origin:60px 60px;animation:pl-spin 40s linear infinite}
+html.has-motion .qz-bk-q path{animation:pl-bob 3.4s ease-in-out infinite}
+html.has-motion .sc-bk-crane path{transform-box:view-box;transform-origin:30px 198px;animation:pl-sway 9s ease-in-out infinite}
+html.has-motion .cr-bk-leaf path{transform-box:fill-box;transform-origin:20% 90%;animation:pl-swing 3.2s ease-in-out infinite}
+html.has-motion .ab-md-aerial path{transform-box:view-box;transform-origin:40px 118px;animation:pl-swing 11s ease-in-out infinite}
 </style>
 <style>
 /* COMPANION (companion.js): the roofer who leans in from the left edge. Desktop, fine pointer, motion only (made by JS). */
-.pal{position:fixed;left:0;bottom:84px;z-index:80;width:120px;height:170px;pointer-events:none;transform:translate(-125%,var(--bob,0px)) rotate(-8deg);transform-origin:0 100%;transition:transform .6s cubic-bezier(.3,1.25,.5,1)}
+.pal{position:fixed;left:0;bottom:84px;z-index:80;width:96px;height:136px;pointer-events:none;transform:translate(-125%,var(--bob,0px)) rotate(-8deg);transform-origin:0 100%;transition:transform .6s cubic-bezier(.3,1.25,.5,1)}
 .pal.is-in{transform:translate(-8px,var(--bob,0px)) rotate(5deg)}
+/* laptops: the side margin is narrow, so he only leans his head and arm in from the edge */
+@media (max-width:1399px){.pal.is-in{transform:translate(-42%,var(--bob,0px)) rotate(7deg)}}
 .pal-me{position:absolute;inset:0;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;border-radius:40px 40px 0 0}
 .pal-me:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
 .pal-svg{display:block;width:100%;height:100%;overflow:visible}
-.pal-tip{position:absolute;left:112px;bottom:118px;width:230px;margin:0;padding:.7rem .9rem;border-radius:14px 14px 14px 4px;background:var(--card);box-shadow:var(--shadow-lift);font:600 .9375rem/1.4 var(--ui);color:var(--text);pointer-events:auto;opacity:0;transform:translateY(8px) scale(.94);transform-origin:0 100%;transition:opacity .2s,transform .3s var(--ease)}
+.pal-tip{position:absolute;left:92px;bottom:96px;width:230px;margin:0;padding:.7rem .9rem;border-radius:14px 14px 14px 4px;background:var(--card);box-shadow:var(--shadow-lift);font:600 .9375rem/1.4 var(--ui);color:var(--text);pointer-events:auto;opacity:0;transform:translateY(8px) scale(.94);transform-origin:0 100%;transition:opacity .2s,transform .3s var(--ease)}
 .pal-tip:empty{display:none}
+/* quiet peek: a small thinking bubble instead of the tip, which opens on hover or click */
+.pal::after{content:"...";position:absolute;left:78px;top:2px;width:40px;height:28px;border-radius:14px;background:var(--card);box-shadow:var(--shadow-soft);font:700 1rem/22px var(--ui);text-align:center;color:var(--copper);opacity:0;transform:scale(.6);transition:opacity .2s,transform .3s var(--ease);pointer-events:none}
+.pal.is-in.is-quiet::after{opacity:1;transform:none;transition-delay:.4s}
 .pal.is-in .pal-tip{opacity:1;transform:none;transition-delay:.35s}
-.pal-x{position:absolute;left:114px;bottom:84px;min-height:28px;padding:.2rem .6rem;border:0;border-radius:999px;background:rgba(31,43,48,.08);font:600 .75rem/1.2 var(--ui);color:var(--muted);cursor:pointer;pointer-events:auto;opacity:0;transition:opacity .2s}
+.pal-x{position:absolute;left:94px;bottom:64px;min-height:28px;padding:.2rem .6rem;border:0;border-radius:999px;background:rgba(31,43,48,.08);font:600 .75rem/1.2 var(--ui);color:var(--muted);cursor:pointer;pointer-events:auto;opacity:0;transition:opacity .2s}
 .pal.is-in .pal-x{opacity:1;transition-delay:.5s}
 .pal-x:focus-visible{outline:3px solid var(--copper);outline-offset:2px;opacity:1}
 @media (hover:hover){.pal-x:hover{background:rgba(31,43,48,.14)}}
@@ -12113,7 +12159,14 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     }, { passive: true });
     d.addEventListener('pointerover', function (e) { if (e.pointerType !== 'mouse') return; var r = classify(e.target); setState(r[0], r[1], r[2]); }, { passive: true });
     d.addEventListener('pointerleave', function () { c.classList.remove('is-on'); seen = false; });
-    d.addEventListener('pointerdown', function () { c.classList.add('is-down'); });
+    d.addEventListener('pointerdown', function (e) {
+      c.classList.add('is-down');
+      /* a click on empty background lets a small handful of that section's pieces fall from the pointer */
+      if (MODE === 'off' || e.button > 0 || !e.target.closest || e.target.closest('a,button,input,textarea,select,label,summary,[role],[tabindex],.rv-vp,.xv-stage,.bf-view,.ty-stage,.dia-art,.cr-scene,.qz-scene,img,.rwopt,.pal,dialog')) return;
+      var k = kindAt(e.clientY) || 'chips';
+      if (k === 'scan' || k === 'ripple' || k === 'chalk' || k === 'glint') { spawn(k, e.clientX, e.clientY, 0, 0); return; }
+      for (var n = 0; n < 6; n++) spawn(k, e.clientX, e.clientY, (Math.random() - 0.5) * 260, -60 - Math.random() * 160);
+    });
     d.addEventListener('pointerup', function () { c.classList.remove('is-down'); });
     window.addEventListener('blur', function () { c.classList.remove('is-on'); seen = false; });
 
@@ -12314,8 +12367,12 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
   'use strict';
   var RW = window.RW;
   RW.add('react', function () {
-    if (!RW.fine) return;
+    /* touch screens join in too: the fields answer the finger while it is on the glass (scrolling included),
+       then settle a moment after it lifts. No entry washes, umbrella or lamp on touch. */
     var d = document, $ = RW.$, $$ = RW.$$, clamp = RW.clamp;
+    var TOUCH = !RW.fine;
+    if (TOUCH && !('ontouchstart' in window)) return;
+    if (TOUCH) d.documentElement.classList.add('rx-touch');
     var P = { x: -1e4, y: -1e4, sx: -1e4, sy: -1e4, v: 0, k: 1 };   /* k: field strength, lower while over text so words stay easy to read */
     var cur = null, lastSY = window.pageYOffset, pr = Math.min(window.devicePixelRatio || 1, 1.5);
     var all = [];        /* every reactor: { el, wake(), frame(dt, lx, ly, inside, rect) -> keep awake? } */
@@ -12330,6 +12387,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       quiz: 'ring', care: 'gable', advice: 'dots', survey: 'ripple', accred: 'glow', footer: 'ripple' };
     var lastWash = new WeakMap();
     function wash(sec, cx, cy, fromAbove) {
+      if (TOUCH) return;
       var key = sec.id || (sec.tagName === 'FOOTER' ? 'footer' : '');
       var shape = SHAPE[key]; if (!shape) return;
       var now = performance.now(); if (now - (lastWash.get(sec) || 0) < 900) return; lastWash.set(sec, now);
@@ -12364,6 +12422,20 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       if (cur) wakeSec(cur);
     }, { passive: true });
     d.documentElement.addEventListener('pointerleave', function () { P.x = P.y = -1e4; setCur(null); });
+    if (TOUCH) {
+      var liftT = 0;
+      var onTouch = function (e) {
+        var t = e.touches && e.touches[0]; if (!t) return;
+        clearTimeout(liftT);
+        P.x = t.clientX; P.y = t.clientY; P.k = 0.8;
+        var sec = secAt(d.elementFromPoint(P.x, P.y));
+        if (sec !== cur) { var prev = cur; cur = sec; if (prev) wakeSec(prev); }
+        if (cur) wakeSec(cur);
+      };
+      d.addEventListener('touchstart', onTouch, { passive: true });
+      d.addEventListener('touchmove', onTouch, { passive: true });
+      d.addEventListener('touchend', function () { liftT = setTimeout(function () { var prev = cur; cur = null; P.x = P.y = -1e4; if (prev) wakeSec(prev); }, 700); }, { passive: true });
+    }
 
     /* ------------------------------------------------ canvas helper ------------------------------------------------ */
     function canvasFor(sec, cls) {
@@ -13047,6 +13119,57 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     foot.addEventListener('pointerleave', function () { wins.forEach(function (w) { w.el.classList.remove('is-near'); }); });
   }, { motion: true });
 }());
+
+/* IDLE LIFE (owner: lead): if nobody moves, scrolls or types for a few seconds, a small flock of birds crosses the screen,
+   each time on a different path. Never more than once every 25 seconds. Motion only, any device. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('idle-life', function () {
+    var last = performance.now(), lastFlock = 0, n = 0, d = document;
+    ['pointermove', 'scroll', 'keydown', 'touchstart', 'wheel'].forEach(function (ev) { window.addEventListener(ev, function () { last = performance.now(); }, { passive: true }); });
+    var BIRD = '<svg viewBox="0 0 40 16" focusable="false"><path d="M1 9c6-6 12-6 19 1 7-7 13-7 19-1-6-2-12-1-19 5-7-6-13-7-19-5z"/></svg>';
+    setInterval(function () {
+      var now = performance.now();
+      if (d.hidden || now - last < 7000 || now - lastFlock < 25000) return;
+      lastFlock = now; n++;
+      var f = d.createElement('div'); f.className = 'idle-flock idle-path' + (n % 3); f.setAttribute('aria-hidden', 'true');
+      f.style.top = (12 + (n * 17) % 30) + 'vh';
+      for (var i = 0; i < 4; i++) { var b = d.createElement('span'); b.className = 'idle-b'; b.innerHTML = BIRD; b.style.setProperty('--i', i); f.appendChild(b); }
+      d.body.appendChild(f);
+      setTimeout(function () { f.remove(); }, 9500);
+    }, 1000);
+  }, { motion: true });
+}());
+
+/* BACK TO THE TOP (owner: lead): a little ladder in the footer; its rungs climb on hover, the page glides up. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('to-top', function () {
+    var ftr = RW.$('footer'); if (!ftr) return;
+    var a = document.createElement('a');
+    a.className = 'to-top'; a.href = '#top';
+    a.innerHTML = '<svg viewBox="0 0 24 32" aria-hidden="true" focusable="false"><path class="tt-rail" d="M6 31V1M18 31V1"/><path class="tt-rungs" d="M6 27h12M6 21h12M6 15h12M6 9h12M6 3h12"/></svg><span>Back to the top</span>';
+    ftr.appendChild(a);
+  });
+}());
+
+/* BACKDROP ARRIVALS (owner: lead): the drawings in each section's back and front layers grow in softly the first time
+   the section arrives, one after another. Uses the individual `scale` property and opacity, so it never fights
+   depth.js (translate, rotate) or GSAP (transform). */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('backdrop-in', function () {
+    RW.$$('main > section, footer').forEach(function (sec) {
+      var items = RW.$$(':scope > .layers > svg, :scope > .layers > span:not(.ug-rain):not(.sv-grid):not(.faq-bk-grid)', sec);
+      if (!items.length) return;
+      items.forEach(function (el, i) { el.classList.add('bd-wait'); el.style.setProperty('--bd', (i * 110) + 'ms'); });
+      RW.onView(sec, { once: true, margin: '0px 0px -15% 0px', enter: function () { items.forEach(function (el) { el.classList.add('bd-in'); }); } });
+    });
+  }, { motion: true });
+}());
 </script>
 <script>
 /* COMPANION (owner: lead). A small drawn roofer who leans in from the left edge as you reach certain sections, does
@@ -13123,34 +13246,57 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     var me = RW.$('.pal-me', el), tip = RW.$('.pal-tip', el), eyes = RW.$('.pal-eyes', el), svg = RW.$('.pal-svg', el);
     var shown = false, cueNow = '', seen = {}, lastShow = -1e9, hideT = 0;
 
+    /* the tip only opens by itself when it would not sit on top of text; otherwise he just peeks with a small
+       "..." bubble and the tip opens when he is hovered or clicked */
+    function spaceFree() {
+      var x0 = window.innerWidth < 1400 ? 60 : 100, y1 = window.innerHeight - 84 - 96, pts = [[x0 + 20, y1 - 10], [x0 + 120, y1 - 10], [x0 + 220, y1 - 10], [x0 + 20, y1 - 60], [x0 + 120, y1 - 60], [x0 + 220, y1 - 60]];
+      for (var i = 0; i < pts.length; i++) {
+        var e = d.elementFromPoint(pts[i][0], pts[i][1]);
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+      }
+      return true;
+    }
+    function bodyFree() {   /* where he stands must be clear of text too, or he waits for a better moment */
+      var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44] : [30, 70, 92];
+      for (var i = 0; i < xs.length; i++) for (var y = H - 200; y < H - 90; y += 36) {
+        var e = d.elementFromPoint(xs[i], y);
+        if (e && !e.closest('.pal,.rwopt') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main img,footer p,footer a,footer li')) return false;
+      }
+      return true;
+    }
     function show(id) {
       var c = CUES[id]; if (!c) return;
+      if (!bodyFree()) return;
       cueNow = id; seen[id] = true; lastShow = performance.now();
       el.setAttribute('data-p', c[0]); el.setAttribute('data-act', c[1]);
-      tip.textContent = c[2];
+      var free = spaceFree();
+      tip.textContent = free ? c[2] : '';
+      el.classList.toggle('is-quiet', !free);
       el.classList.add('is-in'); shown = true;
       el.classList.remove('is-act'); void el.offsetWidth; el.classList.add('is-act');
-      clearTimeout(hideT); hideT = setTimeout(hide, 6000);
+      clearTimeout(hideT); hideT = setTimeout(hide, free ? 4800 : 3800);
     }
-    function hide() { el.classList.remove('is-in', 'is-act'); shown = false; tip.textContent = ''; }
+    function hide() { el.classList.remove('is-in', 'is-act', 'is-quiet'); shown = false; tip.textContent = ''; }
+    function speak() { if (!cueNow) return; tip.textContent = CUES[cueNow][2]; el.classList.remove('is-quiet'); }
 
     /* when a section's top passes 55% of the screen, maybe peek in: never in the hero, at most every 14s, once per section */
     var secs = Object.keys(CUES).map(function (id) { return d.getElementById(id); }).filter(Boolean);
     secs.forEach(function (s) {
-      RW.onView(s, { margin: '-45% 0px -45% 0px', enter: function () {
+      RW.onView(s, { margin: '-45% 0px -45% 0px', leave: function () { if (cueNow === s.id && shown) hide(); }, enter: function () {
         if (!mq.matches || seen[s.id] || d.documentElement.classList.contains('menu-open')) return;
         if (performance.now() - lastShow < 14000) return;
         if (window.pageYOffset < window.innerHeight * 0.6) return;
         show(s.id);
+        if (!shown) setTimeout(function () { if (!seen[s.id] && !shown && performance.now() - lastShow > 14000) show(s.id); }, 1600);
       } });
     });
     me.addEventListener('click', function () {
       if (!cueNow) return;
-      el.setAttribute('data-act', 'wave'); tip.textContent = CUES[cueNow][2];
+      el.setAttribute('data-act', 'wave'); speak();
       el.classList.add('is-in'); el.classList.remove('is-act'); void el.offsetWidth; el.classList.add('is-act');
       clearTimeout(hideT); hideT = setTimeout(hide, 6000);
     });
-    el.addEventListener('pointerenter', function () { clearTimeout(hideT); });
+    el.addEventListener('pointerenter', function () { clearTimeout(hideT); if (shown) speak(); });
     el.addEventListener('pointerleave', function () { if (shown) { clearTimeout(hideT); hideT = setTimeout(hide, 2500); } });
     RW.$('.pal-x', el).addEventListener('click', function () { hide(); try { sessionStorage.setItem('rw-pal', 'gone'); } catch (e) {} setTimeout(function () { el.remove(); }, 400); });
 

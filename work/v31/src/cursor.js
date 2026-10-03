@@ -64,7 +64,14 @@
     }, { passive: true });
     d.addEventListener('pointerover', function (e) { if (e.pointerType !== 'mouse') return; var r = classify(e.target); setState(r[0], r[1], r[2]); }, { passive: true });
     d.addEventListener('pointerleave', function () { c.classList.remove('is-on'); seen = false; });
-    d.addEventListener('pointerdown', function () { c.classList.add('is-down'); });
+    d.addEventListener('pointerdown', function (e) {
+      c.classList.add('is-down');
+      /* a click on empty background lets a small handful of that section's pieces fall from the pointer */
+      if (MODE === 'off' || e.button > 0 || !e.target.closest || e.target.closest('a,button,input,textarea,select,label,summary,[role],[tabindex],.rv-vp,.xv-stage,.bf-view,.ty-stage,.dia-art,.cr-scene,.qz-scene,img,.rwopt,.pal,dialog')) return;
+      var k = kindAt(e.clientY) || 'chips';
+      if (k === 'scan' || k === 'ripple' || k === 'chalk' || k === 'glint') { spawn(k, e.clientX, e.clientY, 0, 0); return; }
+      for (var n = 0; n < 6; n++) spawn(k, e.clientX, e.clientY, (Math.random() - 0.5) * 260, -60 - Math.random() * 160);
+    });
     d.addEventListener('pointerup', function () { c.classList.remove('is-down'); });
     window.addEventListener('blur', function () { c.classList.remove('is-on'); seen = false; });
 

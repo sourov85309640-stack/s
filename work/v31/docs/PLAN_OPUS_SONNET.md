@@ -98,3 +98,16 @@ data-motion=off show the final state, 44 px targets, visible focus, Lenis only, 
 - Companion must never cover the form, the mobile bar or the Versions button; check at 1024 to 1920.
 - FAQ board scenes at 960 to 1100 wide (sticky column), the loupe at the edges of photos, day-by-day buttons on phones.
 - Where tour: the expanded current row shifts the rows below while pinned; check it reads well at 1000 to 1440.
+
+## Round 5 (deep pass) done by Opus
+- Full tours at 390 and 1440 looked at screen by screen. Fixed: companion lingering and covering text (now hides when its
+  section leaves, smaller, half-peek under 1400 wide, skips spots with text, quiet "..." bubble when the tip would cover text),
+  accreditation row wrapping on desktop (CSS order bug), long service list on phones (tighter cards), badges 2-up on phones.
+- Touch screens: the living fields now answer the finger (react.js TOUCH mode); no washes, umbrella or lamp on touch.
+- Click on empty background drops a small handful of that section's pieces (cursor.js).
+- Idle life: a small flock crosses the screen after 7 s without input (max every 25 s). Footer ladder "Back to the top".
+- Backdrop drawings grow in when a section arrives (individual scale property); small idle loops on weathervane, sun rays,
+  crane, question mark, leaf, aerial. Brand text-selection colour.
+## Round 5 checks for Sonnet
+- Touch fields: check scrolling smoothness on a real phone; drop TOUCH mode in react.js if it costs frames.
+- Click bursts must never fire on controls (selector list in cursor.js pointerdown).

@@ -38,5 +38,5 @@
 /* about: the roofer's eye */
 .ab .ab-eye{fill:#1F2B30;opacity:0}
 .ab .ab-head,.ab .ab-cap,.ab .ab-eye{transform-box:view-box}
-@media (hover:none),(pointer:coarse){.rx-umb,.rx-cv,.rx-wash,.rx-lamp,.rx-glint{display:none}}
+@media (hover:none),(pointer:coarse){.rx-umb,.rx-wash,.rx-lamp,.rx-glint{display:none}}
 @media print{.rx-cv,.rx-wash,.rx-lamp,.rx-glint{display:none}}

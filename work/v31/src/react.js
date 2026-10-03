@@ -15,8 +15,12 @@
   'use strict';
   var RW = window.RW;
   RW.add('react', function () {
-    if (!RW.fine) return;
+    /* touch screens join in too: the fields answer the finger while it is on the glass (scrolling included),
+       then settle a moment after it lifts. No entry washes, umbrella or lamp on touch. */
     var d = document, $ = RW.$, $$ = RW.$$, clamp = RW.clamp;
+    var TOUCH = !RW.fine;
+    if (TOUCH && !('ontouchstart' in window)) return;
+    if (TOUCH) d.documentElement.classList.add('rx-touch');
     var P = { x: -1e4, y: -1e4, sx: -1e4, sy: -1e4, v: 0, k: 1 };   /* k: field strength, lower while over text so words stay easy to read */
     var cur = null, lastSY = window.pageYOffset, pr = Math.min(window.devicePixelRatio || 1, 1.5);
     var all = [];        /* every reactor: { el, wake(), frame(dt, lx, ly, inside, rect) -> keep awake? } */
@@ -31,6 +35,7 @@
       quiz: 'ring', care: 'gable', advice: 'dots', survey: 'ripple', accred: 'glow', footer: 'ripple' };
     var lastWash = new WeakMap();
     function wash(sec, cx, cy, fromAbove) {
+      if (TOUCH) return;
       var key = sec.id || (sec.tagName === 'FOOTER' ? 'footer' : '');
       var shape = SHAPE[key]; if (!shape) return;
       var now = performance.now(); if (now - (lastWash.get(sec) || 0) < 900) return; lastWash.set(sec, now);
@@ -65,6 +70,20 @@
       if (cur) wakeSec(cur);
     }, { passive: true });
     d.documentElement.addEventListener('pointerleave', function () { P.x = P.y = -1e4; setCur(null); });
+    if (TOUCH) {
+      var liftT = 0;
+      var onTouch = function (e) {
+        var t = e.touches && e.touches[0]; if (!t) return;
+        clearTimeout(liftT);
+        P.x = t.clientX; P.y = t.clientY; P.k = 0.8;
+        var sec = secAt(d.elementFromPoint(P.x, P.y));
+        if (sec !== cur) { var prev = cur; cur = sec; if (prev) wakeSec(prev); }
+        if (cur) wakeSec(cur);
+      };
+      d.addEventListener('touchstart', onTouch, { passive: true });
+      d.addEventListener('touchmove', onTouch, { passive: true });
+      d.addEventListener('touchend', function () { liftT = setTimeout(function () { var prev = cur; cur = null; P.x = P.y = -1e4; if (prev) wakeSec(prev); }, 700); }, { passive: true });
+    }
 
     /* ------------------------------------------------ canvas helper ------------------------------------------------ */
     function canvasFor(sec, cls) {

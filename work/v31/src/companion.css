@@ -1,13 +1,18 @@
 /* COMPANION (companion.js): the roofer who leans in from the left edge. Desktop, fine pointer, motion only (made by JS). */
-.pal{position:fixed;left:0;bottom:84px;z-index:80;width:120px;height:170px;pointer-events:none;transform:translate(-125%,var(--bob,0px)) rotate(-8deg);transform-origin:0 100%;transition:transform .6s cubic-bezier(.3,1.25,.5,1)}
+.pal{position:fixed;left:0;bottom:84px;z-index:80;width:96px;height:136px;pointer-events:none;transform:translate(-125%,var(--bob,0px)) rotate(-8deg);transform-origin:0 100%;transition:transform .6s cubic-bezier(.3,1.25,.5,1)}
 .pal.is-in{transform:translate(-8px,var(--bob,0px)) rotate(5deg)}
+/* laptops: the side margin is narrow, so he only leans his head and arm in from the edge */
+@media (max-width:1399px){.pal.is-in{transform:translate(-42%,var(--bob,0px)) rotate(7deg)}}
 .pal-me{position:absolute;inset:0;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;border-radius:40px 40px 0 0}
 .pal-me:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
 .pal-svg{display:block;width:100%;height:100%;overflow:visible}
-.pal-tip{position:absolute;left:112px;bottom:118px;width:230px;margin:0;padding:.7rem .9rem;border-radius:14px 14px 14px 4px;background:var(--card);box-shadow:var(--shadow-lift);font:600 .9375rem/1.4 var(--ui);color:var(--text);pointer-events:auto;opacity:0;transform:translateY(8px) scale(.94);transform-origin:0 100%;transition:opacity .2s,transform .3s var(--ease)}
+.pal-tip{position:absolute;left:92px;bottom:96px;width:230px;margin:0;padding:.7rem .9rem;border-radius:14px 14px 14px 4px;background:var(--card);box-shadow:var(--shadow-lift);font:600 .9375rem/1.4 var(--ui);color:var(--text);pointer-events:auto;opacity:0;transform:translateY(8px) scale(.94);transform-origin:0 100%;transition:opacity .2s,transform .3s var(--ease)}
 .pal-tip:empty{display:none}
+/* quiet peek: a small thinking bubble instead of the tip, which opens on hover or click */
+.pal::after{content:"...";position:absolute;left:78px;top:2px;width:40px;height:28px;border-radius:14px;background:var(--card);box-shadow:var(--shadow-soft);font:700 1rem/22px var(--ui);text-align:center;color:var(--copper);opacity:0;transform:scale(.6);transition:opacity .2s,transform .3s var(--ease);pointer-events:none}
+.pal.is-in.is-quiet::after{opacity:1;transform:none;transition-delay:.4s}
 .pal.is-in .pal-tip{opacity:1;transform:none;transition-delay:.35s}
-.pal-x{position:absolute;left:114px;bottom:84px;min-height:28px;padding:.2rem .6rem;border:0;border-radius:999px;background:rgba(31,43,48,.08);font:600 .75rem/1.2 var(--ui);color:var(--muted);cursor:pointer;pointer-events:auto;opacity:0;transition:opacity .2s}
+.pal-x{position:absolute;left:94px;bottom:64px;min-height:28px;padding:.2rem .6rem;border:0;border-radius:999px;background:rgba(31,43,48,.08);font:600 .75rem/1.2 var(--ui);color:var(--muted);cursor:pointer;pointer-events:auto;opacity:0;transition:opacity .2s}
 .pal.is-in .pal-x{opacity:1;transition-delay:.5s}
 .pal-x:focus-visible{outline:3px solid var(--copper);outline-offset:2px;opacity:1}
 @media (hover:hover){.pal-x:hover{background:rgba(31,43,48,.14)}}
