@@ -24,3 +24,11 @@ html.has-motion .ac.is-in .ac-it:nth-child(4) .ac-seal{animation-delay:.24s}
 html.has-motion .ac.is-in .ac-it:nth-child(5) .ac-seal{animation-delay:.32s}
 html.has-motion .ac.is-live .ac-rib{animation:ac-flut 2.4s ease-in-out infinite}
 @media (hover:hover){html.has-motion .ac-it:hover .ac-ring{animation:ac-spin .7s var(--ease)}}
+/* versions (?acv=): 2 the badges drift slowly across in a strip (pauses on hover; still under reduced motion) */
+.ac[data-v="2"] .ac-in{grid-template-columns:minmax(0,1fr);text-align:center}
+.ac[data-v="2"] .ac-list{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:3rem;width:max-content}
+.ac[data-v="2"] .ac-it{max-width:none;white-space:nowrap}
+.ac[data-v="2"] .ac-in{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+@keyframes ac-drift{to{transform:translateX(-50%)}}
+html.has-motion .ac[data-v="2"] .ac-list{animation:ac-drift 40s linear infinite}
+@media (hover:hover){.ac[data-v="2"] .ac-list:hover{animation-play-state:paused}}

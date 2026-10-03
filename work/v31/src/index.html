@@ -31,7 +31,7 @@
   "areaServed": ["Cirencester", "Tetbury", "Fairford", "Malmesbury", "Stroud", "Cheltenham", "Swindon", "Lechlade"]
 }
 </script>
-<script>(function(d){var r=d.documentElement;r.className+=" js";try{var m=/[?&]hero=([abc])\b/.exec(location.search);if(m)r.setAttribute("data-hero",m[1]);}catch(e){}}(document))</script>
+<script>(function(d){var r=d.documentElement;r.className+=" js";try{var m=/[?&]hero=([abc])\b/.exec(location.search);if(m)r.setAttribute("data-hero",m[1]);var t=/[?&]team=(on|off)\b/.exec(location.search);r.setAttribute("data-team",t?t[1]:"off");}catch(e){}}(document))</script>
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="hero.css">
 <link rel="stylesheet" href="trust.css">
@@ -63,6 +63,7 @@
 <link rel="stylesheet" href="cursor.css">
 <link rel="stylesheet" href="react.css">
 <link rel="stylesheet" href="play.css">
+<link rel="stylesheet" href="companion.css">
 <!-- OWNER TOOL: Design options panel. Delete this line and the options.js line before sending to a client. -->
 <link rel="stylesheet" href="options.css">
 </head>
@@ -234,6 +235,7 @@
 <script src="cursor.js"></script>
 <script src="react.js"></script>
 <script src="play.js"></script>
+<script src="companion.js"></script>
 <script src="depth.js"></script>
 <!-- OWNER TOOL: delete before sending to a client -->
 <script src="options.js"></script>

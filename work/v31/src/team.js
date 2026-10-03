@@ -3,6 +3,8 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  /* Design options: the team section is hidden unless ?team=on (most firms put people on a separate team page) */
+  RW.options.push({ id: 'team', param: 'team', allowed: ['off', 'on'], names: ['Hidden (use a team page)', 'Show the team section'], current: document.documentElement.getAttribute('data-team') || 'off', label: 'Team' });
   RW.add('team', function () {
     var sec = RW.$('#team'); if (!sec) return;
     var cards = RW.$$('.tm-card', sec), live = false;

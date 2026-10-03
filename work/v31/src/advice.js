@@ -2,6 +2,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('advice'); if (s) RW.variant(s, 'adv', ['1','2'], ['Three cards','List with pictures']); }());
   RW.add('advice', function () {
     var sec = RW.$('#advice'); if (!sec) return;
     RW.headings(sec);

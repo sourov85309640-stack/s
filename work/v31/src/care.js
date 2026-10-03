@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('care'); if (s) RW.variant(s, 'crv', ['1','2'], ['Garden left','Garden right, tabs on top']); }());
   RW.add('care', function () {
     var sec = RW.$('#care'); if (!sec) return;
     var tabs = RW.$$('.cr-tab', sec), panels = RW.$$('.cr-panel', sec);

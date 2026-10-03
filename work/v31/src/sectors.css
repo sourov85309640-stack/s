@@ -58,3 +58,12 @@ html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-board{animation:s
 html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-shutter{animation:sc-roll 2.6s var(--ease)}
 html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-flash{animation:sc-flash .9s ease-out}
 html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:sc-print 1.2s var(--ease) .25s backwards}
+/* versions (?scv=): 2 alternating rows, picture one side and words the other */
+@media (min-width:760px){
+  .sc[data-v="2"] .sc-grid{grid-template-columns:minmax(0,1fr);max-width:900px;margin-inline:auto;gap:1.25rem}
+  .sc[data-v="2"] .sc-card{display:grid;grid-template-columns:260px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:1.75rem;align-items:start}
+  .sc[data-v="2"] .sc-art{grid-row:1/4}
+  .sc[data-v="2"] .sc-card:nth-child(even){grid-template-columns:minmax(0,1fr) 260px}
+  .sc[data-v="2"] .sc-card:nth-child(even) .sc-art{grid-column:2}
+  .sc[data-v="2"] .sc-card h3{margin-top:.5rem}
+}

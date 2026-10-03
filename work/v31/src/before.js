@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('before'); if (s) RW.variant(s, 'bfv', ['1','2'], ['Slider with notes beside','Wide slider, notes below']); }());
   RW.add('before', function () {
     var sec = RW.$('#before'); if (!sec) return;
     var view = RW.$('.bf-view', sec), range = RW.$('.bf-range', sec), notes = RW.$$('.bf-notes li', sec);

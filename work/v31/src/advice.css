@@ -55,3 +55,12 @@ html.has-motion .ad-card:is(:hover,:focus-within) .ad-brush,html.has-motion .ad-
 html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse,html.has-motion .ad-d[open] .ad-moss ellipse{animation:ad-gone 3.2s ease infinite}
 html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(2){animation-delay:.3s}
 html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(3){animation-delay:.6s}
+/* versions (?adv=): 2 a list, the picture small on the left of each guide */
+@media (min-width:760px){
+  .ad[data-v="2"] .ad-grid{grid-template-columns:minmax(0,1fr);max-width:860px}
+  .ad[data-v="2"] .ad-s{grid-template-columns:200px minmax(0,1fr);grid-template-rows:auto auto 1fr;column-gap:1.25rem;padding:.9rem;align-items:start}
+  .ad[data-v="2"] .ad-cov{grid-row:1/4;margin:0;border-radius:10px}
+  .ad[data-v="2"] .ad-t,.ad[data-v="2"] .ad-m{padding:0}
+  .ad[data-v="2"] .ad-t{margin-top:.4rem}
+  .ad[data-v="2"] .ad-body{padding-left:calc(200px + 2.15rem)}
+}

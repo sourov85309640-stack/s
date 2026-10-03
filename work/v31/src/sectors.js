@@ -2,6 +2,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('sectors'); if (s) RW.variant(s, 'scv', ['1','2'], ['Four cards','Alternating rows']); }());
   RW.add('sectors', function () {
     var sec = RW.$('#sectors'); if (!sec) return;
     var cards = RW.$$('.sc-card', sec);

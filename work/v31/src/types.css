@@ -49,3 +49,11 @@ html.has-motion .ty-sw.is-laying .ty-ridge{animation:ty-ridge .5s var(--ease) .9
   .ty-pcs{transition:transform .8s cubic-bezier(.3,1.7,.45,1)}
   html.has-motion .ty-pc:hover .ty-pcs{transform:translateY(-7px) rotate(-5deg);transition:transform .12s ease-out}
 }
+/* versions (?tyv=): 2 tabs in a row above a big roof, facts beside; 3 roof first on the left, tabs and facts on the right */
+@media (min-width:1000px){
+  .ty[data-v="2"] .ty-box{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);grid-template-areas:"tabs tabs" "stage panels"}
+  .ty[data-v="2"] .ty-tabs{grid-area:tabs;flex-direction:row;flex-wrap:wrap}
+  .ty[data-v="2"] .ty-stage{grid-area:stage}.ty[data-v="2"] .ty-panels{grid-area:panels}
+  .ty[data-v="3"] .ty-box{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);grid-template-areas:"stage tabs" "stage panels"}
+  .ty[data-v="3"] .ty-stage{grid-area:stage}.ty[data-v="3"] .ty-tabs{grid-area:tabs;flex-direction:row;flex-wrap:wrap}.ty[data-v="3"] .ty-panels{grid-area:panels}
+}

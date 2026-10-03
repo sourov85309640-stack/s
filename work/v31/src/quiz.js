@@ -3,6 +3,7 @@
 (function () {
   'use strict';
   var RW = window.RW;
+  (function () { var s = document.getElementById('quiz'); if (s) RW.variant(s, 'qzv', ['1','2','3'], ['Drawing and questions','Questions first, drawing beside','Compact card']); }());
   /* plain wording for each answer; keep it general and honest */
   var RESULT = {
     leak: { h: 'Sounds like water is getting in.', p: 'Most leaks start at a slipped slate, a cracked ridge, lifted flashing or a blocked valley, and the stain inside is rarely right under the cause.', issue: 'leak' },

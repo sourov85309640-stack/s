@@ -1,0 +1,61 @@
+/* COMPANION (companion.js): the roofer who leans in from the left edge. Desktop, fine pointer, motion only (made by JS). */
+.pal{position:fixed;left:0;bottom:84px;z-index:80;width:120px;height:170px;pointer-events:none;transform:translate(-125%,var(--bob,0px)) rotate(-8deg);transform-origin:0 100%;transition:transform .6s cubic-bezier(.3,1.25,.5,1)}
+.pal.is-in{transform:translate(-8px,var(--bob,0px)) rotate(5deg)}
+.pal-me{position:absolute;inset:0;padding:0;border:0;background:none;cursor:pointer;pointer-events:auto;border-radius:40px 40px 0 0}
+.pal-me:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+.pal-svg{display:block;width:100%;height:100%;overflow:visible}
+.pal-tip{position:absolute;left:112px;bottom:118px;width:230px;margin:0;padding:.7rem .9rem;border-radius:14px 14px 14px 4px;background:var(--card);box-shadow:var(--shadow-lift);font:600 .9375rem/1.4 var(--ui);color:var(--text);pointer-events:auto;opacity:0;transform:translateY(8px) scale(.94);transform-origin:0 100%;transition:opacity .2s,transform .3s var(--ease)}
+.pal-tip:empty{display:none}
+.pal.is-in .pal-tip{opacity:1;transform:none;transition-delay:.35s}
+.pal-x{position:absolute;left:114px;bottom:84px;min-height:28px;padding:.2rem .6rem;border:0;border-radius:999px;background:rgba(31,43,48,.08);font:600 .75rem/1.2 var(--ui);color:var(--muted);cursor:pointer;pointer-events:auto;opacity:0;transition:opacity .2s}
+.pal.is-in .pal-x{opacity:1;transition-delay:.5s}
+.pal-x:focus-visible{outline:3px solid var(--copper);outline-offset:2px;opacity:1}
+@media (hover:hover){.pal-x:hover{background:rgba(31,43,48,.14)}}
+@media (max-width:1023px),(hover:none),(pointer:coarse){.pal{display:none}}
+@media print{.pal{display:none}}
+/* drawing */
+.pal-svg *{transform-box:fill-box}
+.pal .pal-body{fill:#6B7880;stroke:rgba(31,43,48,.45);stroke-width:1.5}
+.pal .pal-vest{fill:#F2A23A;stroke:rgba(31,43,48,.4);stroke-width:1.2}
+.pal .pal-strip{stroke:#E8ECEE;stroke-width:4}
+.pal .pal-skin{fill:#E2B693;stroke:rgba(31,43,48,.45);stroke-width:1.4}
+.pal .pal-cap{fill:var(--copper)}
+.pal .pal-brim{stroke:#7A4326;stroke-width:5;stroke-linecap:round}
+.pal .pal-eyes circle{fill:#1F2B30}
+.pal .pal-eyes{transform-box:view-box}
+.pal .pal-eyes.is-blink circle{transform:scaleY(.15);transform-origin:50% 50%}
+.pal .pal-brow{fill:none;stroke:#5A3A28;stroke-width:2;stroke-linecap:round}
+.pal .pal-mouth{fill:none;stroke:#7A4326;stroke-width:2.2;stroke-linecap:round}
+.pal .pal-sleeve{stroke:#6B7880;stroke-width:10;stroke-linecap:round}
+.pal .pal-q path{fill:none;stroke:var(--copper);stroke-width:3;stroke-linecap:round}
+.pal .pal-q{opacity:0}
+.pal[data-p="think"] .pal-q{opacity:1}
+.pal-p{display:none}
+.pal[data-p="thumb"] [data-p="thumb"],.pal[data-p="hammer"] [data-p="hammer"],.pal[data-p="slate"] [data-p="slate"],.pal[data-p="bino"] [data-p="bino"],
+.pal[data-p="umbrella"] [data-p="umbrella"],.pal[data-p="tape"] [data-p="tape"],.pal[data-p="board"] [data-p="board"],.pal[data-p="camera"] [data-p="camera"],
+.pal[data-p="brush"] [data-p="brush"],.pal[data-p="rake"] [data-p="rake"],.pal[data-p="map"] [data-p="map"],.pal[data-p="mug"] [data-p="mug"],.pal[data-p="bucket"] [data-p="bucket"]{display:inline}
+.pal .pal-p path,.pal .pal-p circle,.pal .pal-p rect{stroke:rgba(31,43,48,.55);stroke-width:1.4}
+.pal [data-p="thumb"] path{fill:#E2B693}
+.pal .pp-wood{fill:none;stroke:#9C7A5E!important;stroke-width:4!important;stroke-linecap:round}
+.pal .pp-steel{fill:#5B656A}.pal .pp-steel2{fill:none;stroke:#5B656A!important;stroke-width:2.4!important;stroke-linecap:round}
+.pal .pp-slate{fill:#5E6B73}.pal .pp-hole{fill:#EAF0F2}
+.pal .pp-dark{fill:#3F5560}.pal .pp-lens{fill:#9DBACA}
+.pal .pp-canopy{fill:rgba(152,86,50,.8)}
+.pal .pp-yellow{fill:#F2C35B}.pal .pp-tape{fill:none;stroke:#F2C35B!important;stroke-width:4!important}
+.pal .pp-board{fill:#C9A27E}.pal .pp-line{fill:none;stroke:rgba(31,43,48,.5)!important}
+.pal .pp-bristle{fill:#C9A27E}
+.pal .pp-map{fill:#EEF0E6}
+.pal .pp-mug{fill:var(--copper)}.pal .pp-steam{fill:none;stroke:rgba(31,43,48,.3)!important}
+.pal .pp-bucket{fill:#9DBACA}
+/* arm actions */
+.pal .pal-arm{transform-box:view-box;transform-origin:86px 122px;transform:rotate(60deg)}
+.pal.is-in .pal-arm{transform:none;transition:transform .5s var(--ease) .25s}
+@keyframes pal-tap{0%,100%{transform:none}50%{transform:rotate(-22deg)}}
+@keyframes pal-wave{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(16deg)}}
+@keyframes pal-sweep{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(18deg)}}
+@keyframes pal-scratch{0%,100%{transform:rotate(-58deg)}50%{transform:rotate(-64deg)}}
+@keyframes pal-nod{0%,100%{transform:none}50%{transform:rotate(-4deg)}}
+.pal.is-act[data-act="tap"] .pal-arm{animation:pal-tap .45s ease-in-out .7s 5}
+.pal.is-act[data-act="wave"] .pal-arm{animation:pal-wave .5s ease-in-out .5s 5}
+.pal.is-act[data-act="sweep"] .pal-arm{animation:pal-sweep .9s ease-in-out .6s 4}
+.pal.is-act[data-act="scratch"] .pal-arm{animation:pal-scratch .3s ease-in-out .5s infinite}

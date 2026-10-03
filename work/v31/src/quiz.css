@@ -102,3 +102,8 @@ html.has-motion .qz[data-what="moss"] .qz-moss ellipse:nth-child(3){animation-de
 /* the question swap */
 @keyframes qz-in{0%{opacity:0;transform:translateX(24px)}100%{opacity:1;transform:none}}
 html.has-motion .qz-q.is-in,html.has-motion .qz-res.is-in{animation:qz-in .45s var(--ease)}
+/* versions (?qzv=): 2 questions on the left, drawing on the right; 3 one compact card without the drawing */
+@media (min-width:960px){.qz[data-v="2"] .qz-art{order:2}}
+.qz[data-v="3"] .qz-box{grid-template-columns:minmax(0,1fr);max-width:760px;margin-inline:auto}
+.qz[data-v="3"] .qz-art{display:none}
+.qz[data-v="3"] .qz-form{padding:clamp(1.25rem,3vw,2rem);border-radius:22px;background:var(--card);box-shadow:var(--shadow-lift)}

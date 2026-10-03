@@ -85,3 +85,5 @@ html.has-motion .cr.is-live[data-season="spring"] .cr-bird{animation:cr-bird 7s 
 html.has-motion .cr.is-live[data-season="spring"] .cr-bird2{animation-delay:-3s}
 html.has-motion .cr.is-live[data-season="summer"] .cr-fx-summer{animation:cr-rays 6s linear infinite;transform-box:view-box;transform-origin:400px 62px}
 html.has-motion .cr.is-live[data-season="spring"] .cr-fx-spring>path{animation:cr-sway 2s ease-in-out infinite}
+/* versions (?crv=): 2 the garden on the right with the season tabs above it */
+@media (min-width:960px){.cr[data-v="2"] .cr-box{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.cr[data-v="2"] .cr-art{order:2;display:flex;flex-direction:column-reverse}.cr[data-v="2"] .cr-tabs{margin:0 0 .7rem}}

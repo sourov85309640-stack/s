@@ -69,3 +69,5 @@ html.has-motion .bf.is-live .bf-spark path:nth-child(2){animation-delay:1.6s}
 .bf:not(.is-js) .bf-sc{position:static;height:auto}
 .bf:not(.is-js) .bf-clipper{position:static;clip-path:none;order:-1}
 .bf:not(.is-js) .bf-handle,.bf:not(.is-js) .bf-range{display:none}
+/* versions (?bfv=): 2 the slider runs the full width with the three notes in a row underneath */
+@media (min-width:1000px){.bf[data-v="2"] .bf-box{grid-template-columns:minmax(0,1fr)}.bf[data-v="2"] .bf-notes{grid-template-columns:repeat(3,minmax(0,1fr))}}
