@@ -120,3 +120,97 @@ html.js .faq[data-v="4"] .faq-index{display:block;margin-top:1.75rem}
 .faq[data-v="4"] .faq-h{font-size:var(--h3)}
 .faq[data-v="4"] .faq-btn{min-height:56px}
 .faq[data-v="4"] .faq-a-in>p{font-size:1.0625rem;color:var(--text);padding-bottom:1.5rem}
+
+/* the drawing board (left column): one scene per question, each with its own small loop while showing */
+.faq-board{display:none;margin-top:1.75rem;padding:1rem 1rem .75rem;border-radius:18px;background:var(--card);box-shadow:var(--shadow-card);max-width:340px}
+@media (min-width:960px){.faq-board{display:block}}
+.faq-scenes{position:relative;aspect-ratio:180/120}
+.faq-sc{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .3s ease,transform .45s var(--ease)}
+.faq-board .faq-ill{margin:0;width:100%;display:block}
+.faq:not([data-q]) .faq-sc0,.faq[data-q="0"] .faq-sc0,.faq[data-q="1"] .faq-sc1,.faq[data-q="2"] .faq-sc2,.faq[data-q="3"] .faq-sc3,.faq[data-q="4"] .faq-sc4,.faq[data-q="5"] .faq-sc5,.faq[data-q="6"] .faq-sc6{opacity:1;transform:none}
+.faq-cap{margin-top:.6rem;font:600 .9375rem/1.4 var(--ui);color:var(--text);min-height:2.8em}
+.faq-head>.faq-ill{display:none}
+/* scene parts */
+.faq-sc *{transform-box:fill-box}
+.faq-sc .b-ln{stroke:rgba(31,43,48,.5);stroke-width:2;stroke-linecap:round}
+.faq-sc1 .b-slope{fill:#D9A383;stroke:var(--copper);stroke-width:2;stroke-linejoin:round}
+.faq-sc1 .b-batten{stroke:#6B4A30;stroke-width:6;stroke-linecap:round}
+.faq-sc1 .b-rot{fill:none;stroke:#2E2A26;stroke-width:1.6;stroke-linecap:round}
+.faq-sc1 .b-tile{fill:#C9774F;stroke:var(--copper);stroke-width:1.5}
+.faq-sc1 .b-lens circle{fill:rgba(234,240,242,.55);stroke:var(--ink);stroke-width:2.2}
+.faq-sc1 .b-lens path{stroke:var(--ink);stroke-width:3.5;stroke-linecap:round}
+.faq-sc1 .b-lens{transform-box:view-box;transform:translate(150px,80px)}
+.faq-sc1 .b-flash{fill:#FFF3C4;opacity:0}
+.faq-sc2 .b-cal,.faq-sc2 .b-page{fill:#FAF9F6;stroke:rgba(31,43,48,.5);stroke-width:1.6}
+.faq-sc2 .b-calt{fill:var(--copper)}
+.faq-sc2 .b-num{font:700 26px Arial,sans-serif;fill:var(--text);text-anchor:middle}
+.faq-sc2 .b-clock{fill:#fff;stroke:rgba(31,43,48,.55);stroke-width:2}
+.faq-sc2 .b-hand,.faq-sc2 .b-hand2{stroke:var(--copper-deep);stroke-width:3;stroke-linecap:round;transform-box:view-box;transform-origin:132px 62px}
+.faq-sc2 .b-page{transform-origin:50% 0}
+.faq-sc3 .b-house{fill:#F1E7DA;stroke:rgba(31,43,48,.55);stroke-width:2;stroke-linejoin:round}
+.faq-sc3 .b-scaf path{fill:none;stroke:#7E8A90;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:80;stroke-dashoffset:0}
+.faq-sc3 .b-board{fill:#C9A27E}
+.faq-sc3 .b-man circle{fill:#E9C8A8;stroke:rgba(31,43,48,.5)}
+.faq-sc3 .b-man path{fill:none;stroke:#3F5560;stroke-width:2.4;stroke-linecap:round}
+.faq-sc4 .b-cloud{fill:#fff;stroke:rgba(31,43,48,.3);stroke-width:1.5}
+.faq-sc4 .b-rain path{stroke:#6F98AE;stroke-width:2;stroke-linecap:round}
+.faq-sc4 .b-roof{fill:#D9A383;stroke:var(--copper);stroke-width:2;stroke-linejoin:round}
+.faq-sc4 .b-tarp{fill:none;stroke:#3E6FA3;stroke-width:5;stroke-linejoin:round;opacity:.8}
+.faq-sc4 .b-van{fill:#FAF9F6;stroke:rgba(31,43,48,.55);stroke-width:2;stroke-linejoin:round}
+.faq-sc4 .b-vwin{fill:#DCE6EA}
+.faq-sc4 .b-whl{fill:#3F5560}
+.faq-sc4 .b-mug{fill:var(--copper)}
+.faq-sc4 .b-steam path{fill:none;stroke:rgba(31,43,48,.3);stroke-width:1.6;stroke-linecap:round}
+.faq-sc5 .b-cert{fill:#FAF9F6;stroke:rgba(31,43,48,.5);stroke-width:2}
+.faq-sc5 .b-cl{stroke:rgba(31,43,48,.3);stroke-width:3;stroke-linecap:round}
+.faq-sc5 .b-sign{fill:none;stroke:#1F2B30;stroke-width:2;stroke-linecap:round;stroke-dasharray:90;stroke-dashoffset:0}
+.faq-sc5 .b-seal circle{fill:var(--copper);stroke:#7A4326;stroke-width:2;stroke-dasharray:3 2}
+.faq-sc5 .b-seal path{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.faq-sc5 .b-pen path{fill:#3F5560}
+.faq-sc5 .b-pen{transform-box:view-box;transform:translate(110px,92px)}
+.faq-sc6 .b-clip{fill:#C9A27E;stroke:rgba(31,43,48,.5);stroke-width:2}
+.faq-sc6 .b-clipt{fill:#7E8A90}
+.faq-sc6 .b-pl{stroke:rgba(255,255,255,.8);stroke-width:3.5;stroke-linecap:round}
+.faq-sc6 .b-ph{fill:#fff;stroke:rgba(31,43,48,.4);stroke-width:1.5}
+.faq-sc6 .b-phr{fill:#D9A383}
+.faq-sc6 .b-str{stroke:rgba(31,43,48,.5);stroke-width:1.5}
+.faq-sc6 .b-tg{fill:#F6C979;stroke:rgba(31,43,48,.5);stroke-width:1.5}
+.faq-sc6 .b-pound{font:700 13px Arial,sans-serif;fill:var(--text);text-anchor:middle}
+.faq-sc6 .b-tag{transform-box:view-box;transform-origin:150px 20px}
+/* loops (motion only, while that scene shows) */
+@keyframes b-lift{0%,15%{transform:none}35%,75%{transform:translate(4px,-16px) rotate(-12deg)}95%,100%{transform:none}}
+@keyframes b-lens{0%,30%{transform:translate(150px,80px)}50%,75%{transform:translate(90px,76px)}100%{transform:translate(150px,80px)}}
+@keyframes b-flash{0%,55%,100%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.5)}72%{opacity:0;transform:scale(2)}}
+@keyframes b-page{0%,30%{transform:none;opacity:1}60%{transform:translate(18px,30px) rotate(28deg);opacity:0}61%,100%{transform:none;opacity:0}}
+@keyframes b-spin{to{transform:rotate(360deg)}}
+@keyframes b-draw{0%{stroke-dashoffset:80}60%,100%{stroke-dashoffset:0}}
+@keyframes b-boardin{0%,45%{transform:translateX(-120px);opacity:0}65%,100%{transform:none;opacity:1}}
+@keyframes b-manin{0%,62%{transform:translateY(12px);opacity:0}78%,100%{transform:none;opacity:1}}
+@keyframes b-rain{0%{transform:translateY(-4px);opacity:0}30%{opacity:1}100%{transform:translateY(14px);opacity:0}}
+@keyframes b-tarp{0%,100%{transform:none}50%{transform:skewX(-6deg) translateY(-2px)}}
+@keyframes b-steam{0%{transform:translateY(3px);opacity:0}40%{opacity:1}100%{transform:translateY(-6px);opacity:0}}
+@keyframes b-sign{0%,20%{stroke-dashoffset:90}60%,100%{stroke-dashoffset:0}}
+@keyframes b-pen{0%,20%{transform:translate(56px,92px)}60%{transform:translate(106px,90px)}100%{transform:translate(110px,92px)}}
+@keyframes b-stamp{0%,60%{transform:scale(1.8);opacity:0}75%{transform:scale(.9);opacity:1}85%,100%{transform:none;opacity:1}}
+@keyframes b-photo{0%,10%{transform:translate(-20px,10px) rotate(-14deg);opacity:0}40%,100%{transform:translate(64px,-4px) rotate(6deg) scale(.7);opacity:1}}
+@keyframes b-swing{0%,100%{transform:rotate(8deg)}50%{transform:rotate(-8deg)}}
+html.has-motion .faq[data-q="1"] .b-lift{animation:b-lift 3.6s var(--ease) infinite}
+html.has-motion .faq[data-q="1"] .b-lens{animation:b-lens 3.6s ease-in-out infinite}
+html.has-motion .faq[data-q="1"] .b-flash{animation:b-flash 3.6s ease-out infinite}
+html.has-motion .faq[data-q="2"] .b-page{animation:b-page 1.6s ease-in infinite}
+html.has-motion .faq[data-q="2"] .b-p2{animation-delay:.8s}
+html.has-motion .faq[data-q="2"] .b-hand{animation:b-spin 1.6s linear infinite}
+html.has-motion .faq[data-q="2"] .b-hand2{animation:b-spin 19.2s linear infinite}
+html.has-motion .faq[data-q="3"] .b-scaf path{animation:b-draw 3.2s var(--ease) infinite}
+html.has-motion .faq[data-q="3"] .b-board{animation:b-boardin 3.2s var(--ease) infinite}
+html.has-motion .faq[data-q="3"] .b-man{animation:b-manin 3.2s var(--ease) infinite}
+html.has-motion .faq[data-q="4"] .b-rain path{animation:b-rain .8s linear infinite}
+html.has-motion .faq[data-q="4"] .b-rain path:nth-child(2n){animation-delay:-.4s}
+html.has-motion .faq[data-q="4"] .b-tarp{animation:b-tarp 1.2s ease-in-out infinite}
+html.has-motion .faq[data-q="4"] .b-steam path{animation:b-steam 2s ease-out infinite}
+html.has-motion .faq[data-q="4"] .b-steam path:nth-child(2){animation-delay:1s}
+html.has-motion .faq[data-q="5"] .b-sign{animation:b-sign 3.4s ease infinite}
+html.has-motion .faq[data-q="5"] .b-pen{animation:b-pen 3.4s ease infinite}
+html.has-motion .faq[data-q="5"] .b-seal{animation:b-stamp 3.4s cubic-bezier(.3,1.4,.5,1) infinite}
+html.has-motion .faq[data-q="6"] .b-photo{animation:b-photo 3s var(--ease) infinite}
+html.has-motion .faq[data-q="6"] .b-tag{animation:b-swing 2.4s ease-in-out infinite}

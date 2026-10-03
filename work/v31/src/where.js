@@ -38,8 +38,10 @@
     /* rows become buttons while the tour runs (so they are never dead controls with motion off, QC-5) */
     var rows = items.map(function (li) {
       var b = d.createElement('button'); b.type = 'button'; b.className = 'dia-row';
+      var more = RW.$('.dia-more', li);                /* the notice/fix/link line stays outside the button */
+      if (more) li.removeChild(more);
       while (li.firstChild) b.appendChild(li.firstChild);
-      li.appendChild(b); return b;
+      li.appendChild(b); if (more) li.appendChild(more); return b;
     });
 
     /* only animate decorative loops while the section is near the viewport */
@@ -60,6 +62,9 @@
         cur = i;
         pins.forEach(function (p, k) { p.classList.toggle('is-on', k === i); });
         items.forEach(function (li, k) { li.classList.toggle('is-on', k === i); li.classList.toggle('is-done', k < i); });
+        var stepN = RW.$('.dia-step-n', sec), stepBar = RW.$('.dia-step-bar i', sec);
+        if (stepN) stepN.textContent = String(i + 1);
+        if (stepBar) stepBar.style.transform = 'scaleX(' + ((i + 1) / N).toFixed(3) + ')';
         rows.forEach(function (r, k) { if (k === i) r.setAttribute('aria-current', 'step'); else r.removeAttribute('aria-current'); });
         parts.forEach(function (g) { g.classList.toggle('is-on', +g.getAttribute('data-part') === i + 1); });
         if (tag) tag.textContent = names[i];

@@ -15,6 +15,21 @@
     var single = V === 2;
     var motion = RW.motionOK;
     var timers = [];
+    /* the drawing board: shows the scene for the open question (or the one being hovered), with a one-line takeaway */
+    var CAPS = ['Open a question to see it drawn.',
+      'Something new under the tiles? You see photos before any extra cost.',
+      'Small repairs take hours. A full re-roof, one to two weeks.',
+      'Scaffolding is often the biggest single line on a quote.',
+      'Rain, wind or frost: the work waits for safe weather.',
+      'Ask for any guarantee in writing.',
+      'Photos help, but most roofs need a visit for a firm price.'];
+    var capT = RW.$('.faq-cap-t', sec), shown = 0, pinned = 0;
+    function board(n) {
+      if (n === shown) return; shown = n;
+      sec.setAttribute('data-q', String(n));
+      if (capT) capT.textContent = CAPS[n] || CAPS[0];
+    }
+    function lastOpen() { for (var k = items.length - 1; k >= 0; k--) if (RW.$('.faq-btn', items[k]).getAttribute('aria-expanded') === 'true') return k + 1; return 0; }
 
     function set(i, on, instant) {
       var it = items[i], b = RW.$('.faq-btn', it), a = RW.$('.faq-a', it);
@@ -25,7 +40,9 @@
         if (instant || !motion) it.classList.add('is-open');
         else requestAnimationFrame(function () { requestAnimationFrame(function () { it.classList.add('is-open'); }); });
         if (V === 3 && motion && !instant) typing(it);
+        if (!instant) { pinned = i + 1; board(pinned); }
       } else {
+        if (pinned === i + 1) { pinned = 0; setTimeout(function () { pinned = lastOpen(); board(pinned); }, 0); }
         it.classList.remove('is-open');
         it.classList.remove('is-typing');
         var hide = function () { if (b.getAttribute('aria-expanded') === 'false') a.setAttribute('hidden', canFind ? 'until-found' : ''); if (!canFind) a.removeAttribute('hidden'); };
@@ -54,7 +71,12 @@
         if (on) set(i, false); else open(i);
       });
       a.addEventListener('beforematch', function () { open(i, true); });
+      if (RW.fine) {
+        b.addEventListener('pointerenter', function () { board(i + 1); });
+        b.addEventListener('pointerleave', function () { board(pinned); });
+      }
     });
+    board(0);
 
     /* deep links: #q4 or #a4 */
     function fromHash(smooth) {

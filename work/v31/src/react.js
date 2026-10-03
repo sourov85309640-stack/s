@@ -17,7 +17,7 @@
   RW.add('react', function () {
     if (!RW.fine) return;
     var d = document, $ = RW.$, $$ = RW.$$, clamp = RW.clamp;
-    var P = { x: -1e4, y: -1e4, sx: -1e4, sy: -1e4, v: 0 };
+    var P = { x: -1e4, y: -1e4, sx: -1e4, sy: -1e4, v: 0, k: 1 };   /* k: field strength, lower while over text so words stay easy to read */
     var cur = null, lastSY = window.pageYOffset, pr = Math.min(window.devicePixelRatio || 1, 1.5);
     var all = [];        /* every reactor: { el, wake(), frame(dt, lx, ly, inside, rect) -> keep awake? } */
     var bySec = new Map();
@@ -60,6 +60,7 @@
     window.addEventListener('pointermove', function (e) {
       if (e.pointerType && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
       P.x = e.clientX; P.y = e.clientY;
+      P.k = e.target.closest && e.target.closest('p,li,h1,h2,h3,dl,label,input,textarea,select,.btn,table') ? 0.3 : 1;
       setCur(secAt(e.target));
       if (cur) wakeSec(cur);
     }, { passive: true });
@@ -101,11 +102,11 @@
           S.onsize(); S.redraw = draw; draw();
         },
         frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * 5);
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
           var busy = pres > 0.01, R = 150;
           for (var i = 0; i < stars.length; i++) {
             var p = stars[i], dx = p.x - lx, dy = p.y - ly, dd = Math.sqrt(dx * dx + dy * dy) || 1;
-            var t = inside && dd < R ? 1 - dd / R : 0;
+            var t = inside && dd < R ? (1 - dd / R) * P.k : 0;
             p.e += (t - p.e) * Math.min(1, dt * (t > p.e ? 10 : 2.4));
             var push = 16 * p.e;
             p.ox += (dx / dd * push - p.ox) * Math.min(1, dt * 8); p.oy += (dy / dd * push - p.oy) * Math.min(1, dt * 8);
@@ -136,7 +137,7 @@
       return {
         init: function (sec) { S = canvasFor(sec, 'rx-tiles'); S.redraw = draw; },
         frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * 5);
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
           if (inside) {
             var R = 120, r0 = Math.floor((ly - R) / (TH + G)), r1 = Math.ceil((ly + R) / (TH + G));
             for (var row = r0; row <= r1; row++) {
@@ -191,7 +192,7 @@
           d.body.appendChild(umb);
         },
         frame: function (dt, lx, ly, inside, rect) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * (inside ? 2.5 : 1.6));
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * (inside ? 2.5 : 1.6));
           if (umb) { umb.style.transform = 'translate(' + (ux + rect.left).toFixed(1) + 'px,' + (uy + rect.top).toFixed(1) + 'px) rotate(' + clamp((lx - ux) * 0.4, -14, 14).toFixed(1) + 'deg)'; umb.style.opacity = pres.toFixed(3); }
           if (inside) { ux += (lx - ux) * Math.min(1, dt * 14); uy += (ly - 34 - uy) * Math.min(1, dt * 14); if (ux < -1e3) { ux = lx; uy = ly - 34; } }
           var r = 46;
@@ -225,7 +226,7 @@
       return {
         init: function (sec) { S = canvasFor(sec, 'rx-grid'); S.redraw = draw; draw(); },
         frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * 4);
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 4);
           if (inside) { if (gx < -1e3) { gx = lx; gy = ly; } gx += (lx - gx) * Math.min(1, dt * 9); gy += (ly - gy) * Math.min(1, dt * 9); }
           draw(); return pres > 0.01 || inside;
         }
@@ -261,10 +262,10 @@
           S.onsize(); S.redraw = draw; draw();
         },
         frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * 5);
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
           var busy = pres > 0.01;
           for (var i = 0; i < dots.length; i++) {
-            var p = dots[i], dd = Math.hypot(p.x - lx, p.y - ly), t = inside && dd < 170 ? 1 - dd / 170 : 0;
+            var p = dots[i], dd = Math.hypot(p.x - lx, p.y - ly), t = inside && dd < 115 ? (1 - dd / 115) * P.k : 0;
             p.e += (t - p.e) * Math.min(1, dt * (t > p.e ? 9 : 2)); if (p.e > 0.004) busy = true;
           }
           this.lx = lx; this.ly = ly; draw(lx, ly); return busy;
@@ -272,13 +273,14 @@
       };
       function draw(lx, ly) {
         var c = S.c; c.clearRect(0, 0, S.w, S.h);
-        c.fillStyle = 'rgba(62,111,163,.16)';
-        for (var i = 0; i < dots.length; i++) { var p = dots[i]; c.beginPath(); c.arc(p.x, p.y, 1.5 + p.e * 2.5, 0, 6.283); c.fill(); }
+        c.fillStyle = 'rgba(62,111,163,.11)';
+        for (var i = 0; i < dots.length; i++) { var p = dots[i]; c.beginPath(); c.arc(p.x, p.y, 1.3 + p.e * 1.6, 0, 6.283); c.fill(); }
         if (lx === undefined) return;
-        c.setLineDash([5, 5]); c.lineWidth = 1.3;
-        for (var j = 0; j < dots.length; j++) {
-          var a = dots[j]; if (a.e < 0.05) continue;
-          c.strokeStyle = 'rgba(62,111,163,' + (0.5 * a.e * pres).toFixed(3) + ')';
+        c.setLineDash([4, 6]); c.lineWidth = 1;
+        var near = dots.filter(function (q) { return q.e > 0.08; }).sort(function (a, b) { return b.e - a.e; }).slice(0, 4);
+        for (var j = 0; j < near.length; j++) {
+          var a = near[j];
+          c.strokeStyle = 'rgba(62,111,163,' + (0.26 * a.e * pres).toFixed(3) + ')';
           c.beginPath(); c.moveTo(a.x, a.y); c.lineTo(lx, ly); c.stroke();
         }
         c.setLineDash([]);
@@ -291,7 +293,7 @@
       return {
         init: function (sec) { S = canvasFor(sec, 'rx-contour'); S.redraw = draw; },
         frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * 3);
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 3);
           if (inside) { if (hx < -1e3) { hx = lx; hy = ly; } hx += (lx - hx) * Math.min(1, dt * 6); hy += (ly - hy) * Math.min(1, dt * 6); }
           draw(); return pres > 0.01;
         }
@@ -373,7 +375,7 @@
       return {
         init: function (sec) { S = canvasFor(sec, 'rx-ticks'); S.onsize = function () { h = new Float32Array(Math.ceil(S.w / 12) + 1); }; S.onsize(); S.redraw = draw; draw(); },
         frame: function (dt, lx, ly, inside) {
-          pres += ((inside ? 1 : 0) - pres) * Math.min(1, dt * 5);
+          pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * 5);
           if (inside) mx = lx;
           var busy = false;
           for (var i = 0; i < h.length; i++) {

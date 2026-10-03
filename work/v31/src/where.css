@@ -274,3 +274,17 @@ html:not(.has-motion) .dia-front{display:none}
 .dia-sec[data-v="6"].is-touring .dia-mini{display:block;position:absolute;left:.6rem;bottom:.6rem;z-index:7;width:clamp(70px,16%,120px);aspect-ratio:769.4/571;background:rgba(251,250,247,.92);border-radius:3px;box-shadow:0 0 0 1px rgba(31,43,48,.14);pointer-events:none}
 .dia-mini svg{display:block;width:100%;height:100%;opacity:.7}
 .dia-mini i{position:absolute;left:0;top:0;border:1.5px solid var(--copper);border-radius:2px;transform-origin:0 0}
+
+/* clearer tour: a stop counter, and for the current stop what you would notice inside, the usual fix and a link */
+.dia-step{display:none;align-items:center;gap:.6rem;margin-top:.75rem;font:600 .875rem/1.2 var(--ui);color:var(--muted)}
+.dia-step b{color:var(--copper-deep)}
+.dia-step-bar{position:relative;width:72px;height:4px;border-radius:2px;background:var(--slate-line);overflow:hidden}
+.dia-step-bar i{position:absolute;inset:0;background:var(--copper);transform-origin:0 50%;transform:scaleX(.167);transition:transform .4s var(--ease)}
+.dia-sec.is-touring .dia-step{display:flex}
+.dia-more{display:grid;gap:.25rem;margin-top:.45rem;font-size:.875rem;line-height:1.45;color:var(--muted)}
+.dia-more b{display:inline;font-size:inherit;font-weight:600;color:var(--text)}
+.dia-mine{justify-self:start;display:inline-flex;align-items:center;min-height:32px;font:600 .875rem/1.2 var(--ui);color:var(--copper);text-decoration:underline;text-underline-offset:.2em}
+.dia-sec.is-touring .dia-list li:not(.is-on) .dia-more{display:none}
+@keyframes dia-more-in{0%{opacity:0;transform:translateY(-4px)}100%{opacity:1;transform:none}}
+html.has-motion .dia-sec.is-touring .dia-list li.is-on .dia-more{animation:dia-more-in .35s var(--ease)}
+.dia-list li:has(>.dia-row) .dia-more{padding:0 .9rem .8rem 3.6rem;margin-top:-.2rem}

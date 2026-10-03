@@ -11,10 +11,11 @@
 (function () {
   'use strict';
   var RW = window.RW, d = document;
-  /* Design options: ?cur=full (default) | ring (follower, no trail) | off */
-  var MODE = 'full';
-  try { var mc = /[?&]cur=(full|ring|off)\b/.exec(location.search); if (mc) MODE = mc[1]; } catch (e) {}
-  if (RW.motionOK && RW.fine) RW.options.push({ id: 'cursor', param: 'cur', allowed: ['full', 'ring', 'off'], names: ['Cursor with trails', 'Cursor only', 'No cursor effects'], current: MODE, label: 'Cursor' });
+  /* Design options: ?cur=soft (default: a short fading line and the odd themed piece on fast moves)
+     | full (busier themed trails) | ring (follower, no trail) | off */
+  var MODE = 'soft';
+  try { var mc = /[?&]cur=(soft|full|ring|off)\b/.exec(location.search); if (mc) MODE = mc[1]; } catch (e) {}
+  if (RW.motionOK && RW.fine) RW.options.push({ id: 'cursor', param: 'cur', allowed: ['soft', 'full', 'ring', 'off'], names: ['Soft trail', 'Busier themed trails', 'Cursor only', 'No cursor effects'], current: MODE, label: 'Cursor' });
   RW.add('cursor', function () {
     if (!RW.fine || MODE === 'off') return;
     var root = d.documentElement;
@@ -82,6 +83,11 @@
     function measure() { var sy = window.pageYOffset; secTops = secs.map(function (s) { var r = s.getBoundingClientRect(); return { id: s.id, t: r.top + sy, b: r.bottom + sy }; }); }
     measure(); window.addEventListener('resize', measure); window.addEventListener('load', function () { setTimeout(measure, 200); });
     if (RW.ST) RW.ST.addEventListener('refresh', measure);
+    function secId(y) {
+      var Y = y + window.pageYOffset;
+      for (var i = 0; i < secTops.length; i++) if (Y >= secTops[i].t && Y < secTops[i].b) return secTops[i].id;
+      return '';
+    }
     function kindAt(y) {
       var Y = y + window.pageYOffset;
       for (var i = 0; i < secTops.length; i++) if (Y >= secTops[i].t && Y < secTops[i].b) return KIND[secTops[i].id] || '';
@@ -111,8 +117,21 @@
       }
       P.push(p);
     }
-    var lastT = 0;
+    var lastT = 0, RIB = [], lastAccent = 0, ribCol = '152,86,50';
+    var TINT = { where: '74,104,122', before: '74,104,122', urgent: '74,104,122', reviews: '214,160,40', team: '214,160,40', care: '122,140,70', problems: '122,140,70', how: '62,111,163', whole: '62,111,163', checks: '62,111,163' };
     function emit(x, y) {
+      if (MODE === 'soft') {
+        if (state === 'text') { RIB.length = 0; return; }
+        var now2 = performance.now();
+        RIB.push({ x: x, y: y, t: now2 });
+        if (RIB.length > 24) RIB.shift();
+        var k2 = kindAt(y), id = secId(y); ribCol = TINT[id] || '152,86,50';
+        if (k2 && RIB.length > 1) {                      /* the odd themed piece, only on a quick flick */
+          var a2 = RIB[RIB.length - 2], sp = Math.hypot(x - a2.x, y - a2.y) / Math.max(8, now2 - a2.t) * 1000;
+          if (sp > 1100 && now2 - lastAccent > 180) { lastAccent = now2; spawn(k2, x, y, (x - a2.x) * 6, (y - a2.y) * 6); P[P.length - 1].soft = true; }
+        }
+        return;
+      }
       if (MODE !== 'full') return;
       var k = kindAt(y); if (!k || state === 'text') { lx = x; ly = y; return; }
       if (lx === null) { lx = x; ly = y; return; }
@@ -130,6 +149,7 @@
     function draw(p, t) {
       var a = 1 - t, k = p.k;
       ctx.save(); ctx.translate(p.x, p.y);
+      if (p.soft) { a *= 0.55; ctx.scale(0.75, 0.75); }
       switch (k) {
         case 'breeze': case 'leaves':
           ctx.rotate(p.rot); ctx.scale(Math.cos(p.rot * 2) * p.s, p.s);
@@ -170,7 +190,7 @@
       }
       ctx.restore();
     }
-    var ripples = [];
+    var ripples = [], drew = false;
     RW.tick(function (time, dt) {
       /* follower */
       if (seen) {
@@ -200,8 +220,19 @@
         }
       }
       /* trail */
-      if (!P.length) return;
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
+      var nowT = performance.now();
+      while (RIB.length && nowT - RIB[0].t > 240) RIB.shift();
+      if (!P.length && !RIB.length) { if (drew) { ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H); drew = false; } return; }
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H); drew = true;
+      if (RIB.length > 1) {                                /* soft trail: a short line that thins and fades behind the pointer */
+        ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+        for (var q = 1; q < RIB.length; q++) {
+          var age = (nowT - RIB[q].t) / 240, al = (1 - age) * 0.32;
+          if (al <= 0) continue;
+          ctx.strokeStyle = 'rgba(' + ribCol + ',' + al.toFixed(3) + ')'; ctx.lineWidth = 0.6 + (1 - age) * 1.8;
+          ctx.beginPath(); ctx.moveTo(RIB[q - 1].x, RIB[q - 1].y); ctx.lineTo(RIB[q].x, RIB[q].y); ctx.stroke();
+        }
+      }
       for (var j = P.length - 1; j >= 0; j--) {
         var p = P[j]; p.life += dt;
         var t = p.life / p.max;
@@ -212,7 +243,6 @@
         p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
         draw(p, t);
       }
-      if (!P.length) ctx.clearRect(0, 0, W, H);
     });
   }, { motion: true });
 }());

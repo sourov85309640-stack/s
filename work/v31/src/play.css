@@ -19,3 +19,12 @@ h2[data-split] .w{display:inline-block;transform-origin:50% 80%}
   @keyframes pl-tape{0%{transform:none}50%{transform:translateX(6px) scaleX(1.25)}100%{transform:translateX(4px)}}
   html.has-motion .btn-text:not([href^="tel:"]):hover svg{animation:pl-tape .4s var(--ease) forwards;transform-origin:0 50%}
 }
+
+/* the loupe over the problem photos (play.js) */
+.rx-loupe{position:fixed;left:0;top:0;z-index:96;width:156px;height:156px;border-radius:50%;pointer-events:none;background-repeat:no-repeat;background-color:#ddd;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--copper),0 12px 30px rgba(31,43,48,.35);opacity:0;scale:.6;transition:opacity .18s,scale .22s var(--ease)}
+.rx-loupe.is-on{opacity:1;scale:1}
+.rx-loupe i::before,.rx-loupe i::after{content:"";position:absolute;left:50%;top:50%;background:rgba(255,255,255,.75)}
+.rx-loupe i::before{width:18px;height:1.5px;margin:-.75px 0 0 -9px}.rx-loupe i::after{width:1.5px;height:18px;margin:-9px 0 0 -.75px}
+.rx-loupe span{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);padding:.2rem .55rem;border-radius:999px;background:var(--copper);color:#fff;font:600 .75rem/1.2 var(--ui);white-space:nowrap}
+html.is-loupe .cur{opacity:0}
+@media (hover:none),(pointer:coarse){.rx-loupe{display:none}}

@@ -203,3 +203,33 @@
     return out;
   }
 }());
+/* DAY BY DAY (owner: lead): six day buttons drive data-day on the drawing; hovering a day previews it. On arrival it plays
+   through the six days once (motion only) and stops as soon as the visitor chooses a day. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  var CAP = ['', 'Scaffold up and the slope sheeted over.', 'Old slates stripped, sorted and stacked for re-use.',
+    'New lead valley dressed in, breathable underlay on.', 'Treated battens fixed and the first courses laid.',
+    'Slating finished up to a re-bedded ridge.', 'Scaffold down, gutters cleared, drive swept.'];
+  RW.add('prj-build', function () {
+    var box = RW.$('#projects .prj-build'); if (!box) return;
+    var btns = RW.$$('.pb-d', box), cap = RW.$('.pb-cap', box), chosen = 1, auto = null;
+    function show(n, keep) {
+      box.setAttribute('data-day', String(n));
+      if (cap) cap.textContent = CAP[n];
+      if (keep) { chosen = n; btns.forEach(function (b) { b.setAttribute('aria-pressed', +b.getAttribute('data-d') === n ? 'true' : 'false'); }); }
+    }
+    function stopAuto() { if (auto) { clearInterval(auto); auto = null; } }
+    btns.forEach(function (b) {
+      var n = +b.getAttribute('data-d');
+      b.addEventListener('click', function () { stopAuto(); show(n, true); });
+      if (RW.fine) { b.addEventListener('pointerenter', function () { if (!auto) show(n, false); }); b.addEventListener('pointerleave', function () { if (!auto) show(chosen, false); }); }
+    });
+    if (RW.motionOK) {
+      RW.onView(box, { once: true, margin: '0px 0px -25% 0px', enter: function () {
+        var n = 1; show(1, true);
+        auto = setInterval(function () { n++; if (n > 6) { stopAuto(); return; } show(n, true); }, 1300);
+      } });
+    }
+  });
+}());

@@ -42,6 +42,33 @@
           </svg>
         </dd></div>
       </dl>
+      <!-- day by day: a drawing of the same job built up one working day at a time (sample, follows the project above) -->
+      <div class="prj-build" data-day="1">
+        <svg class="pb-sc" viewBox="0 0 360 150" aria-hidden="true" focusable="false">
+          <rect class="pb-sky" width="360" height="150"/>
+          <circle class="pb-sun" cx="320" cy="30" r="14"/>
+          <path class="pb-gnd" d="M0 140H360"/>
+          <path class="pb-wall" d="M70 92H290V140H70Z"/><path class="pb-win" d="M96 104h28v22H96zM236 104h28v22h-28z"/><path class="pb-door" d="M166 110h26v30h-26z"/>
+          <path class="pb-rafters" d="M60 94L110 30H250L300 94ZM90 94L128 30M130 94L156 30M170 94L184 30M210 94L212 30M250 94L240 30M290 94L268 30"/>
+          <path class="pb-felt" d="M60 94L110 30H250L300 94Z"/>
+          <path class="pb-lead" d="M212 30L228 94"/>
+          <g class="pb-battens"><path d="M66 86H294M73 76H287M81 66H279M89 56H271M97 46H263M105 36H255"/></g>
+          <g class="pb-low"><path d="M62 92L69 82H291L298 92Z"/><path d="M70 82L77 72H283L290 82Z"/><path d="M78 72L85 62H275L282 72Z"/></g>
+          <g class="pb-high"><path d="M86 62L93 52H267L274 62Z"/><path d="M94 52L101 42H259L266 52Z"/><path d="M102 42L110 31H250L258 42Z"/></g>
+          <g class="pb-old"><path d="M60 94L110 30H250L300 94Z"/><path class="pb-gap" d="M200 60h16v8h-16zM140 74h14v8h-14z"/></g>
+          <path class="pb-ridge" d="M108 30H252"/>
+          <path class="pb-chim" d="M222 12h18v26h-18z"/>
+          <path class="pb-sheet" d="M150 36L196 36L214 90L140 90Z"/>
+          <g class="pb-scaf"><path d="M56 140V24M304 140V24M56 116H304M56 92H304M56 140l24-24M304 140l-24-24"/><path class="pb-plank" d="M54 90h252v4H54z"/></g>
+          <g class="pb-stack"><path d="M300 132h22v8h-22zM302 126h18v6h-18z"/></g>
+          <g class="pb-man"><circle cx="0" cy="-20" r="4"/><path d="M0 -16v9M0 -12l-5 3M0 -12l5 -2M0 -7l-3 6M0 -7l3 6"/></g>
+          <g class="pb-glint"><path d="M200 40l3 6 6 3-6 3-3 6-3-6-6-3 6-3z"/></g>
+        </svg>
+        <div class="pb-days" role="group" aria-label="The job day by day">
+          <button class="pb-d" type="button" aria-pressed="true" data-d="1">Day 1</button><button class="pb-d" type="button" aria-pressed="false" data-d="2">Day 2</button><button class="pb-d" type="button" aria-pressed="false" data-d="3">Day 3</button><button class="pb-d" type="button" aria-pressed="false" data-d="4">Day 4</button><button class="pb-d" type="button" aria-pressed="false" data-d="5">Day 5</button><button class="pb-d" type="button" aria-pressed="false" data-d="6">Day 6</button>
+        </div>
+        <p class="pb-cap" aria-live="polite">Scaffold up and the slope sheeted over.</p>
+      </div>
 
       <!-- v2 only: before / after drawing of the sample fault and fix (a schematic, not the photo, so it works with any photo) -->
       <div class="prj-cond" data-cond="after" data-sample="project-drawing">

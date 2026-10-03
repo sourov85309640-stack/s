@@ -137,3 +137,57 @@ html:not(.js) .prj-cond-tg{display:none}
 .prj[data-v="5"] .prj-spec>div.is-later{opacity:.4}
 .prj[data-v="5"] .prj-spec>div.is-cur::before{opacity:1;transform:none}
 .prj-zoomnote{display:none}
+
+/* DAY BY DAY (projects.js 'prj-build'): the same job drawn one working day at a time. data-day on .prj-build = 1..6 */
+.prj-build{margin-top:1.5rem;padding:1rem;border-radius:16px;background:var(--card);box-shadow:var(--shadow-card)}
+.pb-sc{display:block;width:100%;height:auto;border-radius:10px}
+.pb-days{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.35rem;margin-top:.7rem}
+.pb-d{min-height:44px;border:0;border-radius:10px;background:var(--chip);font:600 .875rem/1.2 var(--ui);color:var(--text);cursor:pointer;transition:background-color .2s,color .2s,transform .16s var(--ease)}
+.pb-d:active{transform:scale(.96)}
+.pb-d[aria-pressed="true"]{background:var(--copper);color:var(--paper)}
+.pb-d:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+@media (hover:hover){.pb-d:not([aria-pressed="true"]):hover{background:var(--sand)}}
+.pb-cap{margin-top:.6rem;color:var(--muted);line-height:1.45;min-height:1.45em}
+.pb-sc *{transform-box:fill-box;transition:opacity .45s ease,transform .6s var(--ease)}
+.pb-sky{fill:#EAF0F2}
+.pb-sun{fill:#F6C979;opacity:.5}
+.pb-gnd{stroke:rgba(31,43,48,.5);stroke-width:2;stroke-linecap:round}
+.pb-wall{fill:#E8D9BF;stroke:rgba(31,43,48,.55);stroke-width:1.6}
+.pb-win{fill:#DCE6EA;stroke:rgba(31,43,48,.5);stroke-width:1.4}
+.pb-door{fill:#7A4326}
+.pb-rafters{fill:#F4EDE2;stroke:#9C7A5E;stroke-width:2;stroke-linejoin:round}
+.pb-felt{fill:#9FB3C2;opacity:0}
+.pb-lead{stroke:#8E9AA0;stroke-width:6;stroke-linecap:round;opacity:0}
+.pb-battens path{stroke:#B98A5E;stroke-width:2.2;opacity:0}
+.pb-low path,.pb-high path{fill:#C9B48E;stroke:rgba(80,64,40,.55);stroke-width:1;opacity:0;transform:translateY(-8px)}
+.pb-old path:first-child{fill:#9A9282;stroke:rgba(31,43,48,.4);stroke-width:1}
+.pb-gap{fill:#3A332C}
+.pb-ridge{stroke:#8F7A5A;stroke-width:6;stroke-linecap:round;opacity:0}
+.pb-chim{fill:#C98B62;stroke:rgba(31,43,48,.55);stroke-width:1.5}
+.pb-sheet{fill:rgba(62,111,163,.55);stroke:#3E6FA3;stroke-width:1.5;opacity:0}
+.pb-scaf path{fill:none;stroke:#7E8A90;stroke-width:2.4;stroke-linecap:round}
+.pb-scaf .pb-plank{fill:#C9A27E;stroke:none}
+.pb-stack path{fill:#9A9282;stroke:rgba(31,43,48,.4);opacity:0}
+.pb-man circle{fill:#E9C8A8;stroke:rgba(31,43,48,.5)}
+.pb-man path{fill:none;stroke:#3F5560;stroke-width:2.4;stroke-linecap:round}
+.pb-man{transform-box:view-box;transform:translate(120px,90px)}
+.pb-glint path{fill:#fff;opacity:0}
+/* day states */
+.prj-build[data-day="1"] .pb-sheet{opacity:1}
+.prj-build:not([data-day="1"]) .pb-old{opacity:0}
+.prj-build[data-day="2"] .pb-stack path{opacity:1}
+.prj-build:is([data-day="3"],[data-day="4"],[data-day="5"],[data-day="6"]) .pb-felt,.prj-build:is([data-day="3"],[data-day="4"],[data-day="5"],[data-day="6"]) .pb-lead{opacity:1}
+.prj-build:is([data-day="3"],[data-day="4"]) .pb-battens path{opacity:1}
+.prj-build:is([data-day="4"],[data-day="5"],[data-day="6"]) .pb-low path{opacity:1;transform:none}
+.prj-build:is([data-day="5"],[data-day="6"]) .pb-high path,.prj-build:is([data-day="5"],[data-day="6"]) .pb-ridge{opacity:1;transform:none}
+.pb-low path:nth-child(2),.pb-high path:nth-child(2){transition-delay:.1s}.pb-low path:nth-child(3),.pb-high path:nth-child(3){transition-delay:.2s}
+.prj-build[data-day="6"] .pb-scaf{opacity:0;transform:translateY(10px)}
+.prj-build[data-day="6"] .pb-sun{opacity:1;transform:scale(1.2)}
+.prj-build[data-day="6"] .pb-man{transform:translate(200px,140px)}
+.prj-build[data-day="2"] .pb-man{transform:translate(160px,90px)}
+.prj-build[data-day="3"] .pb-man{transform:translate(210px,90px)}
+.prj-build[data-day="4"] .pb-man{transform:translate(130px,90px)}
+.prj-build[data-day="5"] .pb-man{transform:translate(180px,90px)}
+@keyframes pb-glint{0%,100%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1) rotate(45deg)}}
+html.has-motion .prj-build[data-day="6"] .pb-glint path{animation:pb-glint 1.6s ease-out .4s 2}
+html.has-motion .prj-build[data-day="3"] .pb-glint path{animation:pb-glint 1.4s ease-out .3s}
