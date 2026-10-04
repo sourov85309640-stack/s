@@ -74,7 +74,19 @@
 
     /* the tip only opens by itself when it would not sit on top of text; otherwise he just peeks with a small
        "..." bubble and the tip opens when he is hovered or clicked */
-    function spaceFree() {
+    function probe(fn) { el.classList.add('is-probe'); try { return fn(); } finally { el.classList.remove('is-probe'); } }
+    function spaceFree() { return probe(function () { return spaceFree0() && tipFree(); }); }
+    function tipFree() {   /* when the tip is open, test its real box: long tips are taller than the fixed points */
+      if (!tip.textContent) return true;
+      var r = tip.getBoundingClientRect(); if (!r.width) return true;
+      for (var x = r.left + 8; x < r.right; x += 24) for (var y = r.top + 6; y < r.bottom; y += 14) {
+        var e = d.elementFromPoint(x, y);
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+      }
+      return true;
+    }
+    function bodyFree() { return probe(bodyFree0); }
+    function spaceFree0() {
       var x0 = window.innerWidth < 1400 ? 60 : 100, y1 = window.innerHeight - 84 - 96, pts = [[x0 + 20, y1 - 10], [x0 + 120, y1 - 10], [x0 + 220, y1 - 10], [x0 + 20, y1 - 60], [x0 + 120, y1 - 60], [x0 + 220, y1 - 60]];
       for (var i = 0; i < pts.length; i++) {
         var e = d.elementFromPoint(pts[i][0], pts[i][1]);
@@ -82,7 +94,7 @@
       }
       return true;
     }
-    function bodyFree() {   /* where he stands must be clear of text too, or he waits for a better moment */
+    function bodyFree0() {   /* where he stands must be clear of text too, or he waits for a better moment */
       var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44] : [30, 70, 92];
       for (var i = 0; i < xs.length; i++) for (var y = H - 200; y < H - 90; y += 36) {
         var e = d.elementFromPoint(xs[i], y);
@@ -97,13 +109,28 @@
       el.setAttribute('data-p', c[0]); el.setAttribute('data-act', c[1]);
       var free = spaceFree();
       tip.textContent = free ? c[2] : '';
-      el.classList.toggle('is-quiet', !free);
+      if (free && !probe(tipFree)) { free = false; tip.textContent = ''; }
+      el.classList.toggle('is-quiet', !free); autoQuiet = !free;
       el.classList.add('is-in'); shown = true;
       el.classList.remove('is-act'); void el.offsetWidth; el.classList.add('is-act');
       clearTimeout(hideT); hideT = setTimeout(hide, free ? 4800 : 3800);
     }
-    function hide() { el.classList.remove('is-in', 'is-act', 'is-quiet'); shown = false; tip.textContent = ''; }
+    function hide() { el.classList.remove('is-in', 'is-act', 'is-quiet'); shown = false; tip.textContent = ''; autoQuiet = false; }
     function speak() { if (!cueNow) return; tip.textContent = CUES[cueNow][2]; el.classList.remove('is-quiet'); }
+    /* while he is out, keep checking as the page moves: text sliding under the bubble shrinks it to "...", text
+       reaching where he stands sends him away */
+    var watchT = 0, autoQuiet = false;
+    window.addEventListener('scroll', function () {
+      if (!shown || watchT) return;
+      watchT = requestAnimationFrame(function () {
+        watchT = 0; if (!shown) return;
+        if (el.matches(':hover')) return;
+        if (!bodyFree()) { hide(); return; }
+        var free = spaceFree();
+        if (!el.classList.contains('is-quiet') && !free) { tip.textContent = ''; el.classList.add('is-quiet'); autoQuiet = true; }
+        else if (autoQuiet && free && cueNow) { speak(); if (!probe(tipFree)) { tip.textContent = ''; el.classList.add('is-quiet'); } else autoQuiet = false; }
+      });
+    }, { passive: true });
 
     /* when a section's top passes 55% of the screen, maybe peek in: never in the hero, at most every 14s, once per section */
     var secs = Object.keys(CUES).map(function (id) { return d.getElementById(id); }).filter(Boolean);

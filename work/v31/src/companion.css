@@ -64,3 +64,4 @@
 .pal.is-act[data-act="wave"] .pal-arm{animation:pal-wave .5s ease-in-out .5s 5}
 .pal.is-act[data-act="sweep"] .pal-arm{animation:pal-sweep .9s ease-in-out .6s 4}
 .pal.is-act[data-act="scratch"] .pal-arm{animation:pal-scratch .3s ease-in-out .5s infinite}
+.pal.is-probe,.pal.is-probe *{pointer-events:none!important}
