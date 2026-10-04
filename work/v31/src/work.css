@@ -60,3 +60,7 @@ html.has-motion .wk-dlg[open] .wk-fig{animation:wk-in .3s var(--ease)}
 .wk-cov-slats i:nth-child(2){top:25%;transition-delay:.08s}.wk-cov-slats i:nth-child(3){top:50%;transition-delay:.16s}.wk-cov-slats i:nth-child(4){top:75%;transition-delay:.24s}
 .wk-cov-slats.is-open i{transform:scaleX(0)}
 .wk-cov.is-open{transition:visibility 0s 1.4s;visibility:hidden}
+@keyframes wk-from-r{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+@keyframes wk-from-l{from{opacity:0;transform:translateX(-28px)}to{opacity:1;transform:none}}
+html.has-motion .wk-big.is-from-r{animation:wk-from-r .28s var(--ease)}
+html.has-motion .wk-big.is-from-l{animation:wk-from-l .28s var(--ease)}

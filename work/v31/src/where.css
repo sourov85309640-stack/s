@@ -295,3 +295,9 @@ html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animati
 .dia-sec.is-flow .dia-list li .dia-more{transition:opacity .25s ease}
 /* without the tour (no motion): the details sit under the stop text, not in the narrow number column */
 .dia-list li:not(:has(>.dia-row))>.dia-more{grid-column:2}
+/* the umbrella held over the current leak keeps it dry: drip, trail and damp patch fade until it moves away */
+.dia-sec .dg-w.is-on{transition:opacity .35s ease}
+.dia-sec.is-dry .dg-w.is-on{opacity:.12!important}
+.dia-sec.is-dry .marker .m-drop,.dia-sec.is-dry .marker .m-splash{visibility:hidden}
+.dia-sec.is-dry .marker .m-tag::after{content:", kept dry";font-weight:600;color:#3E6577}
+.dia-sec.is-dry .marker .m-tag{background:#EAF2F5}

@@ -75,8 +75,11 @@
       var onTouch = function (e) {
         var t = e.touches && e.touches[0]; if (!t) return;
         clearTimeout(liftT);
-        P.x = t.clientX; P.y = t.clientY; P.k = 0.8;
-        var sec = secAt(d.elementFromPoint(P.x, P.y));
+        P.x = t.clientX; P.y = t.clientY;
+        var under = d.elementFromPoint(P.x, P.y);
+        P.art = !!(under && under.closest && under.closest('#where .dia-art'));   /* a finger over the house drawing holds the umbrella */
+        P.k = P.art ? 1 : 0.8;
+        var sec = secAt(under);
         if (sec !== cur) { var prev = cur; cur = sec; if (prev) wakeSec(prev); }
         if (cur) wakeSec(cur);
       };
@@ -199,6 +202,9 @@
     /* WHERE (the leak tour): rain falls while you are here and slides off an umbrella that follows you. */
     reg(d.getElementById('where'), (function () {
       var S, drops = [], pres = 0, uo = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
+      /* rain over the house drawing too: it lands on the roof with a splash, and the umbrella keeps it dry */
+      var H = null, hd = [], sp = [], art = null, svgEl = null, roofs = [], pt = null, wasDry = false;
+      function hseed(p, top) { p.x = R() * H.w; p.y = top ? -R() * 50 : R() * H.h; p.v = 520 + R() * 220; p.vx = -50; p.l = 9 + R() * 9; p.hy = -1; }
       function seed(p, top) { p.x = R() * S.w; p.y = top ? -R() * 60 : R() * S.h; p.v = 520 + R() * 260; p.vx = -60; p.l = 10 + R() * 10; p.s = 0; }
       return {
         init: function (sec) {
@@ -209,12 +215,22 @@
           umb = d.createElement('span'); umb.className = 'rx-umb'; umb.setAttribute('aria-hidden', 'true');
           umb.innerHTML = '<svg viewBox="-60 -56 120 104" focusable="false"><path class="rx-umb-c" d="M-54 4A54 54 0 0 1 54 4Q43.2 14 32.4 4Q21.6 14 10.8 4Q0 14 -10.8 4Q-21.6 14 -32.4 4Q-43.2 14 -54 4Z"/><path class="rx-umb-r" d="M0 -50V40a6 6 0 0 1 -12 0M0 -50Q-18 -20 -10.8 4M0 -50Q18 -20 10.8 4M0 -50Q-40 -20 -32.4 4M0 -50Q40 -20 32.4 4"/></svg>';
           d.body.appendChild(umb);
+          art = sec.querySelector('.dia-art'); svgEl = art && art.querySelector('svg.dg');
+          if (art && svgEl) {
+            roofs = Array.prototype.slice.call(svgEl.querySelectorAll('.dg-roof, .dg-roof-side, .dg-ridge, .dg-ridge-top, .dg-pot, .dg-brick, .dg-cap, .dg-cap-top'));
+            pt = svgEl.createSVGPoint();
+            var hc = d.createElement('canvas'); hc.className = 'rx-house'; hc.setAttribute('aria-hidden', 'true'); art.appendChild(hc);
+            H = { cv: hc, c: hc.getContext('2d'), w: 0, h: 0 };
+            var hsize = function () { var w = art.offsetWidth, h = art.offsetHeight; if (!w || !h) return; H.w = w; H.h = h; hc.width = Math.round(w * pr); hc.height = Math.round(h * pr); H.c.setTransform(pr, 0, 0, pr, 0, 0); hd = []; var n = Math.round(w / 9); for (var i = 0; i < n; i++) { var q = {}; hseed(q); hd.push(q); } };
+            if ('ResizeObserver' in window) new ResizeObserver(hsize).observe(art); hsize();
+          }
         },
         frame: function (dt, lx, ly, inside, rect) {
           pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * (inside ? 2.5 : 1.6));
           if (umb) { umb.style.transform = 'translate(' + (ux + rect.left).toFixed(1) + 'px,' + (uy + rect.top).toFixed(1) + 'px) rotate(' + clamp((lx - ux) * 0.4, -14, 14).toFixed(1) + 'deg)';
             /* the umbrella steps aside over text and controls so it never sits on words; the rain still parts */
-            uo += ((inside && P.k === 1 ? 1 : 0) - uo) * Math.min(1, dt * 8); umb.style.opacity = Math.min(pres, uo).toFixed(3); }
+            uo += ((inside && P.k === 1 ? 1 : 0) - uo) * Math.min(1, dt * 8); umb.style.opacity = Math.min(pres, uo).toFixed(3);
+            if (TOUCH) umb.classList.toggle('rx-umb-touch', !!P.art || uo > 0.05); }
           if (inside) { ux += (lx - ux) * Math.min(1, dt * 14); uy += (ly - 34 - uy) * Math.min(1, dt * 14); if (ux < -1e3) { ux = lx; uy = ly - 34; } }
           var r = 46;
           for (var i = 0; i < drops.length; i++) {
@@ -228,9 +244,52 @@
             }
             if (p.y > S.h + 20 || p.x < -30) seed(p, true);
           }
-          draw(); return pres > 0.01;
+          if (H && H.w) houseRain(dt, rect);
+          draw(); return pres > 0.01 || sp.length > 0;
         }
       };
+      function onRoof(cx, cy, m) {
+        pt.x = cx; pt.y = cy; var q = pt.matrixTransform(m);
+        for (var i = 0; i < roofs.length; i++) { try { if (roofs[i].isPointInFill(q)) return true; } catch (e) { return false; } }
+        return false;
+      }
+      function houseRain(dt, rect) {
+        var ar = art.getBoundingClientRect();
+        if (ar.bottom < 0 || ar.top > window.innerHeight) { H.c.clearRect(0, 0, H.w, H.h); return; }
+        var hx = ux + rect.left - ar.left, hy = uy + rect.top - ar.top, r = 46;
+        var m = null; try { m = svgEl.getScreenCTM().inverse(); } catch (e) {}
+        for (var i = 0; i < hd.length; i++) {
+          var p = hd[i];
+          p.x += p.vx * dt; p.y += p.v * dt;
+          var dx = p.x - hx, dy = p.y - hy, dd = Math.sqrt(dx * dx + dy * dy);
+          if (pres > 0.2 && uo > 0.3 && dd < r && dy < 4) {           /* sheltered: slides off the canopy */
+            var a = Math.atan2(dy, dx); p.x = hx + Math.cos(a) * r; p.y = hy + Math.sin(a) * r; p.vx = (dx < 0 ? -1 : 1) * 150;
+          } else if (m && pres > 0.05 && p.y > 0) {
+            /* seen from the front, a drop lands somewhere down the slope, not on the ridge line */
+            var on = onRoof(ar.left + p.x, ar.top + p.y, m);
+            if (on && p.hy < 0) p.hy = p.y + R() * H.h * 0.34;
+            if (p.hy >= 0 && (p.y >= p.hy || !on)) {
+              if (sp.length < 60) { sp.push({ x: p.x, y: p.y, t: 0, d: -1 }); sp.push({ x: p.x, y: p.y, t: 0, d: 1 }); }
+              hseed(p, true); continue;
+            }
+          }
+          if (p.y > H.h + 10 || p.x < -20 || p.x > H.w + 20) hseed(p, true);
+        }
+        /* hold the umbrella over the current leak and it stops: the drip and the trail into the house fade */
+        var mk = art.querySelector('.marker'), dry = false;
+        if (mk && pres > 0.3 && uo > 0.5) { var mr = mk.getBoundingClientRect(), mx = mr.left + mr.width / 2 - ar.left, my = mr.top + mr.height / 2 - ar.top; dry = Math.abs(hx - mx) < 44 && hy < my + 6 && my - hy < 170; }
+        if (dry !== wasDry) { wasDry = dry; (art.closest('.dia-sec') || art).classList.toggle('is-dry', dry); }
+        for (var j = sp.length - 1; j >= 0; j--) { sp[j].t += dt; if (sp[j].t > 0.28) sp.splice(j, 1); }
+        var c = H.c; c.clearRect(0, 0, H.w, H.h); if (pres < 0.01 && !sp.length) return;
+        c.lineCap = 'round'; c.lineWidth = 1.1;
+        c.strokeStyle = 'rgba(74,104,122,' + (0.5 * pres).toFixed(3) + ')';
+        c.beginPath();
+        for (var k = 0; k < hd.length; k++) { var q = hd[k], kk = q.l / q.v; if (q.y < 0) continue; c.moveTo(q.x, q.y); c.lineTo(q.x - q.vx * kk, q.y - q.l); }
+        c.stroke();
+        c.beginPath();
+        for (var s2 = 0; s2 < sp.length; s2++) { var o = sp[s2], f = o.t / 0.28, sx = o.x + o.d * (2 + 7 * f), sy = o.y - 6 * Math.sin(Math.PI * f); c.moveTo(sx, sy); c.lineTo(sx + o.d * 1.6, sy - 1.6); }
+        c.strokeStyle = 'rgba(74,104,122,' + (0.55 * Math.max(pres, 0.3)).toFixed(3) + ')'; c.stroke();
+      }
       function draw() {
         var c = S.c; c.clearRect(0, 0, S.w, S.h); if (pres < 0.01) return;
         c.lineCap = 'round'; c.lineWidth = 1.2;
