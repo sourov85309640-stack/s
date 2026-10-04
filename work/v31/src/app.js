@@ -206,6 +206,12 @@
       form.hidden = true;
       ok.hidden = false;
       try { ok.focus({ preventScroll: true }); } catch (x) { ok.focus(); }
+      /* a small celebration: a few roof tiles tumble out from the tick */
+      if (RW.motionOK && !ok.querySelector('.ok-tiles')) {
+        var tw = document.createElement('span'); tw.className = 'ok-tiles'; tw.setAttribute('aria-hidden', 'true');
+        for (var ti = 0; ti < 9; ti++) { var t = document.createElement('i'); t.style.setProperty('--tx', Math.round(30 + Math.random() * 170) * (Math.random() < 0.5 ? -0.35 : 1) + 'px'); t.style.setProperty('--ty', Math.round(-30 + Math.random() * 60) + 'px'); t.style.setProperty('--tr', Math.round((Math.random() - 0.5) * 540) + 'deg'); t.style.animationDelay = (0.55 + ti * 0.04).toFixed(2) + 's'; tw.appendChild(t); }
+        ok.appendChild(tw); setTimeout(function () { if (tw.parentNode) tw.parentNode.removeChild(tw); }, 2600);
+      }
       var r = ok.getBoundingClientRect();
       if (r.top < 70 || r.bottom > window.innerHeight) RW.scrollTo(ok, { offset: -24 });
       emit('rw:sent', {});

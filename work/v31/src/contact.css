@@ -266,3 +266,8 @@ html.has-motion .form-ok:not([hidden])>p:nth-of-type(3){animation-delay:.16s}
 .ct-card:active{transform:scale(.97)}
 @media (hover:hover){.ct-card:hover{border-color:var(--copper)}}
 @media (max-width:519px){.ct-pick-row{grid-template-columns:repeat(2,minmax(0,1fr))}.ct-card:last-child{grid-column:1/-1;min-height:64px;grid-auto-flow:column;justify-content:center;align-items:center}.ct-card:last-child svg{width:36px;height:30px}}
+/* success: roof tiles tumble from the tick (transform and opacity only) */
+.ct .ok-tiles{position:absolute;left:clamp(1.25rem,3.2vw,2.25rem);top:clamp(1.25rem,3.2vw,2.25rem);width:52px;height:52px;pointer-events:none}
+.ct .ok-tiles i{position:absolute;left:18px;top:20px;width:16px;height:10px;border-radius:2px 2px 5px 5px;background:var(--copper);opacity:0;animation:ok-tile 1.3s cubic-bezier(.2,.6,.35,1) both}
+.ct .ok-tiles i:nth-child(3n){background:#C98B62}.ct .ok-tiles i:nth-child(3n+1){background:#B9714A}
+@keyframes ok-tile{0%{opacity:0;transform:translate(0,0) rotate(0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--tx),var(--ty)) rotate(var(--tr)) scale(1)}}

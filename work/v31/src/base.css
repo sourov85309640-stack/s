@@ -517,3 +517,8 @@ html.menu-open .hdr::before{background:var(--paper)}
   .svc-p{font-size:1rem}
   .cap{font-size:.8125rem}
 }
+/* logo weathervane: turns to the scroll direction (transform only) */
+.brand-mark .vane{transform-box:view-box;transform-origin:16px -1.5px;transition:transform .6s var(--ease)}
+.brand-mark.is-west .vane{transform:scaleX(-1)}
+@media (prefers-reduced-motion:reduce){.brand-mark .vane{transition:none}}
+html[data-motion="off"] .brand-mark .vane{transition:none}

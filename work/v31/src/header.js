@@ -102,9 +102,12 @@
       a.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hoverLink = a; placeInd(-1, a); } });
     });
     if (nav) nav.addEventListener('pointerleave', function () { hoverLink = null; placeInd(curIdx); });
+    var vaneEl = $('.brand-mark'), lastVY = 0, vaneW = false;
     function onScroll() {
       ticking = false;
       var y = window.pageYOffset || d.documentElement.scrollTop;
+      /* the weathervane on the logo swings round to point the way you are scrolling */
+      if (vaneEl && Math.abs(y - lastVY) > 24) { var w = y < lastVY; if (w !== vaneW) { vaneW = w; vaneEl.classList.toggle('is-west', w); } lastVY = y; }
       var max = d.documentElement.scrollHeight - window.innerHeight;
       if (hdr) hdr.classList.toggle('is-stuck', y > 8);
       var pr = max > 0 ? Math.min(1, y / max).toFixed(4) : 0;
