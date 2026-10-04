@@ -293,3 +293,5 @@ html.has-motion .dia-sec.is-touring .dia-list li.is-on .dia-more{animation:dia-m
 .dia-sec.is-flow.is-touring .dia-list li:not(.is-on) .dia-more{display:grid;opacity:.6}
 html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animation:none}
 .dia-sec.is-flow .dia-list li .dia-more{transition:opacity .25s ease}
+/* without the tour (no motion): the details sit under the stop text, not in the narrow number column */
+.dia-list li:not(:has(>.dia-row))>.dia-more{grid-column:2}

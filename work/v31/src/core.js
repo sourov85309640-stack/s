@@ -156,6 +156,7 @@
     var gsap = RW.gsap, ST = RW.ST;
     if (RW.motionOK) {
       gsap.registerPlugin(ST);
+      ST.config({ ignoreMobileResize: true });   /* the phone address bar showing or hiding must not re-measure the pinned scenes */
       root.classList.add('has-motion');
       RW.safe('lenis', function () {
         if (!window.Lenis) return;

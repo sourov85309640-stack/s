@@ -155,8 +155,8 @@
 .dec-sec[data-v="5"] .dec-roof svg{height:150px;width:auto;margin-inline:auto}
 .dec-sec[data-v="5"] .dec-roof-cap{display:none}
 .dec-sec[data-v="5"] .dec-cards{display:grid;margin-top:1rem}
-.dec-sec[data-v="5"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .22s ease,transform .26s var(--dec-out),visibility 0s linear .22s;padding:1.5rem 1.6rem 1.1rem}
-.dec-sec[data-v="5"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;translate:0 0;transition:opacity .22s ease,transform .26s var(--dec-out),visibility 0s}
+.dec-sec[data-v="5"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .12s ease,transform .26s var(--dec-out),visibility 0s linear .22s;padding:1.5rem 1.6rem 1.1rem}
+.dec-sec[data-v="5"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;translate:0 0;transition:opacity .22s ease .1s,transform .26s var(--dec-out) .1s,visibility 0s}
 .dec-sec[data-v="5"] .dec-card p{font-size:var(--h4)}
 .dec-sec[data-v="5"] .dec-pick::before{display:none}
 @media (min-width:900px){
@@ -220,8 +220,8 @@ html.has-motion .dec-sec[data-v="7"] .dec-rain path:nth-child(2n){animation-dela
 .dec-sec[data-v="7"] .dec-dial{width:min(260px,62%);margin:0 auto}
 .dec-sec[data-v="7"] .dec-tabs{display:none}
 .dec-sec[data-v="7"] .dec-cards{display:grid;grid-template-columns:minmax(0,1fr)}
-.dec-sec[data-v="7"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(18px) scale(.98);transition:opacity .35s ease,transform .5s var(--ease),visibility 0s linear .35s;padding:clamp(1.1rem,2.4vw,1.75rem)}
-.dec-sec[data-v="7"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease,transform .5s var(--ease),visibility 0s}
+.dec-sec[data-v="7"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transition:opacity .14s ease,transform .2s ease,visibility 0s linear .14s;padding:clamp(1.1rem,2.4vw,1.75rem)}
+.dec-sec[data-v="7"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .3s ease .14s,transform .45s var(--ease) .14s,visibility 0s}
 .dec-sec[data-v="7"] .dec-card h3{font-size:clamp(1.25rem,1rem + 1vw,1.75rem)}
 .dec-sec[data-v="7"] .dec-rail-dot{display:none}
 .dec-stage7{position:relative}

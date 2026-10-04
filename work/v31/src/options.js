@@ -26,7 +26,7 @@
     });
     var LET = 'ABCDEFGH';
 
-    var wrap = d.createElement('div'); wrap.className = 'rwopt'; wrap.setAttribute('data-owner-tool', 'design-options');
+    var wrap = d.createElement('div'); wrap.className = 'rwopt'; wrap.setAttribute('data-owner-tool', 'design-options'); wrap.setAttribute('data-lenis-prevent', '');
     wrap.innerHTML =
       '<div class="rwopt-panel" id="rwopt-panel" role="region" aria-label="Versions (owner tool)" hidden>' +
         '<div class="rwopt-top"><p class="rwopt-h"></p><button type="button" class="rwopt-close" aria-label="Close">&times;</button></div>' +

@@ -44,6 +44,13 @@
       nav.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a')) setMenu(false); });
       d.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { setMenu(false); btn.focus(); }
+        /* while the sheet is open, Tab cycles through the menu button and the sheet only */
+        if (e.key === 'Tab' && btn.getAttribute('aria-expanded') === 'true') {
+          var f = [btn].concat($$('a[href], button:not([disabled])', nav).filter(function (x) { return x.offsetParent !== null; }));
+          var i = f.indexOf(d.activeElement);
+          e.preventDefault();
+          f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+        }
       });
       window.addEventListener('resize', function () { if (window.innerWidth >= 1240) setMenu(false); });
     }

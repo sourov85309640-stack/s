@@ -52,7 +52,11 @@
     if (RW.motionOK) {
       RW.onView(view, { once: true, margin: '0px 0px -30% 0px', enter: function () {
         var o = { v: 50 };
-        RW.gsap.timeline({ delay: 0.3, onUpdate: function () { target = shown = o.v; paint(o.v); range.value = Math.round(o.v); } })
+        var intro = RW.gsap.timeline({ delay: 0.3, onUpdate: function () { target = shown = o.v; paint(o.v); range.value = Math.round(o.v); } });
+        /* the moment someone touches, drags, hovers or keys the slider, the intro sweep stops and hands over */
+        var stopIntro = function () { if (intro) { intro.kill(); intro = null; } };
+        ['pointerdown', 'pointerenter', 'keydown', 'input', 'touchstart'].forEach(function (ev) { view.addEventListener(ev, stopIntro, { passive: true }); range.addEventListener(ev, stopIntro, { passive: true }); });
+        intro
           .to(o, { v: 22, duration: 0.7, ease: 'power2.inOut' })
           .to(o, { v: 78, duration: 1, ease: 'power2.inOut' })
           .to(o, { v: 50, duration: 0.6, ease: 'power2.out' });

@@ -317,3 +317,7 @@ html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(4){transiti
 }
 
 @media (max-width:599px){.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:4/5}}
+/* chooser: photos crossfade, but the outgoing caption leaves first so two captions never overlap */
+.svc-sec[data-v="6"] .svc .svc-cap{transition:opacity .12s ease}
+.svc-sec[data-v="6"] .svc:not(.is-on) .svc-cap{opacity:0}
+.svc-sec[data-v="6"] .svc.is-on .svc-cap{opacity:1;transition:opacity .28s ease .16s}

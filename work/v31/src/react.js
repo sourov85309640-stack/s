@@ -198,7 +198,7 @@
 
     /* WHERE (the leak tour): rain falls while you are here and slides off an umbrella that follows you. */
     reg(d.getElementById('where'), (function () {
-      var S, drops = [], pres = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
+      var S, drops = [], pres = 0, uo = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
       function seed(p, top) { p.x = R() * S.w; p.y = top ? -R() * 60 : R() * S.h; p.v = 520 + R() * 260; p.vx = -60; p.l = 10 + R() * 10; p.s = 0; }
       return {
         init: function (sec) {
@@ -212,7 +212,9 @@
         },
         frame: function (dt, lx, ly, inside, rect) {
           pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * (inside ? 2.5 : 1.6));
-          if (umb) { umb.style.transform = 'translate(' + (ux + rect.left).toFixed(1) + 'px,' + (uy + rect.top).toFixed(1) + 'px) rotate(' + clamp((lx - ux) * 0.4, -14, 14).toFixed(1) + 'deg)'; umb.style.opacity = pres.toFixed(3); }
+          if (umb) { umb.style.transform = 'translate(' + (ux + rect.left).toFixed(1) + 'px,' + (uy + rect.top).toFixed(1) + 'px) rotate(' + clamp((lx - ux) * 0.4, -14, 14).toFixed(1) + 'deg)';
+            /* the umbrella steps aside over text and controls so it never sits on words; the rain still parts */
+            uo += ((inside && P.k === 1 ? 1 : 0) - uo) * Math.min(1, dt * 8); umb.style.opacity = Math.min(pres, uo).toFixed(3); }
           if (inside) { ux += (lx - ux) * Math.min(1, dt * 14); uy += (ly - 34 - uy) * Math.min(1, dt * 14); if (ux < -1e3) { ux = lx; uy = ly - 34; } }
           var r = 46;
           for (var i = 0; i < drops.length; i++) {

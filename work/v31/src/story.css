@@ -64,8 +64,10 @@ html.has-motion .st.is-live .st-drip{animation:st-drip 1.4s ease-in infinite;tra
 /* motion: the story drives everything, the copy becomes one step at a time */
 html.has-motion .st.is-js .st-slate{display:inline}
 html.has-motion .st.is-js .st-caps{display:grid;gap:0}
-html.has-motion .st.is-js .st-cap{grid-area:1/1;opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .5s var(--ease);pointer-events:none}
-html.has-motion .st.is-js .st-cap.is-on{opacity:1;transform:none;pointer-events:auto}
+/* the old caption leaves fast and the new one waits for it, so two captions never sit on top of each other */
+html.has-motion .st.is-js .st-cap{grid-area:1/1;opacity:0;transform:translateY(-8px);transition:opacity .14s ease,transform .2s ease;pointer-events:none}
+html.has-motion .st.is-js .st-cap.is-on{opacity:1;transform:none;pointer-events:auto;transition:opacity .3s ease .15s,transform .45s var(--ease) .15s}
+html.has-motion .st.is-js .st-cap:not(.is-on){transform:translateY(-8px)}
 html.has-motion .st.is-js .st-steps{display:flex;position:absolute;z-index:3;gap:6px;right:16px;bottom:16px}
 .st-steps li{width:22px;height:4px;border-radius:2px;background:rgba(31,43,48,.18);transition:background-color .3s}
 .st-steps li.is-on{background:var(--copper)}

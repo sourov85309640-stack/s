@@ -338,30 +338,31 @@
         /* the reading line sits just under the sticky drawing, so the current row is always the first one you can read */
         var plateEl = RW.$('.dia-plate', sec);
         var lineY = function () {
+          /* drawing beside the list (wide but short screens): read at mid screen instead */
+          if (plateEl && items[0]) { var pr = plateEl.getBoundingClientRect(), lr = items[0].getBoundingClientRect(); if (pr.right <= lr.left + 4 || lr.right <= pr.left + 4) return Math.round(window.innerHeight * 0.42); }
           var h = plateEl ? plateEl.offsetHeight : 0;
           return Math.round(Math.min(window.innerHeight * 0.75, Math.max(window.innerHeight * 0.4, (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr-h')) || 64) + 8 + h + 12)));
         };
-        var lowY = function () { return Math.round(Math.min(window.innerHeight * 0.85, Math.max(lineY() + 150, window.innerHeight * 0.66))); };
-        var sts = items.map(function (li, k) {
-          /* a row is current from when its top reaches the lower line until its top meets the drawing, so its heading stays readable */
-          return ST.create({ trigger: li, start: function () { return 'top ' + lowY() + 'px'; }, end: function () { return 'top ' + lineY() + 'px'; },
-            onToggle: function (self) { if (self.isActive) moveTo(k); else if (self.direction < 0 && k > 0) moveTo(k - 1); } });
-        });
+        /* the current stop is the first one whose heading is still in view under the drawing: no gaps, no overlaps */
+        var pick = function () {
+          var L = lineY() - 6, k = N - 1;
+          for (var j = 0; j < N; j++) { if (items[j].getBoundingClientRect().top >= L) { k = j; break; } }
+          return k;
+        };
+        var listEl = items[0] ? items[0].parentNode : sec;
+        var st = ST.create({ trigger: listEl, start: 'top bottom', end: 'bottom top', onUpdate: function () { moveTo(pick()); } });
         var syncFlow = function () {
           measure();
-          var k = -1; sts.forEach(function (s, j) { if (s.isActive) k = j; });
-          if (k < 0) k = window.scrollY > (sts[N - 1].start || 0) ? N - 1 : 0;
-          if (sts[0] && window.scrollY < sts[0].start) k = 0;
-          moveTo(k, true);
+          moveTo(pick(), true);
           if (fx.resize) fx.resize();
         };
         ST.addEventListener('refresh', syncFlow);
-        cleanups.push(function () { ST.removeEventListener('refresh', syncFlow); sts.forEach(function (s) { s.kill(); }); if (mtl) mtl.kill(); });
+        cleanups.push(function () { ST.removeEventListener('refresh', syncFlow); st.kill(); if (mtl) mtl.kill(); });
         moveTo(0, true);
         render = function () { moveTo(flowI < 0 ? 0 : flowI, true); };
         /* tap a pin or a row: bring that row to the reading line (only ever in response to a tap) */
         var goRow = function (k) {
-          var y = items[k].getBoundingClientRect().top + window.scrollY - lowY() + 14;
+          var y = items[k].getBoundingClientRect().top + window.scrollY - lineY() + 2;
           moveTo(k); RW.scrollTo(Math.max(0, y), { duration: 0.9 });
         };
         pins.forEach(function (p, k) { on(p, 'click', function () { goRow(k); }); });
