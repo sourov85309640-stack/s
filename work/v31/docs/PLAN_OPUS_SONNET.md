@@ -145,3 +145,21 @@ data-motion=off show the final state, 44 px targets, visible focus, Lenis only, 
     phone intro text one step smaller so headings lead
   - accessibility: tab roles, aria-hidden on focusable content, focus ring on decide picks, menu toggle target size
 - Client build: `python3 build.py deliver/roofing-v3.1-client.html --client` leaves the Versions tool out.
+
+## Final QA pass (owner: "QA every possible way, fix, don't remove animations")
+Checked at 320, 360, 390, 820, 1024x768, 1100, 1280, 1440, 1920: entrance animations frame by frame (0, 180, 420, 900,
+2000 ms) for every section on phone, tablet and desktop; every control hovered (desktop, laptop) and clicked or tapped
+(desktop, phone); full flows (menu, Services drop-down, quiz into the form, lightbox, advice guides, before/after drag,
+form errors and success, deep links); reduced motion; keyboard; reload part way down; overflow; accessibility (axe).
+Fixed (animations kept, only the faults removed):
+- phone menu would not scroll once Services was open (Lenis blocked touch and wheel while the menu was open): menu, owner
+  panel and photo lightbox now scroll on their own; Tab loops inside the open menu
+- captions and cards that crossfade in one spot no longer overlap mid-fade (story captions, repair or replace cards,
+  service chooser captions): the old one leaves first, the new one follows
+- before/after slider: the intro sweep stops the moment someone touches, hovers or keys it; finger drag anywhere on the
+  picture now works on phones (the hidden range input stays for keyboard and screen readers)
+- leak tour: the current stop is always the first stop whose heading is readable under the drawing (phones, tablets),
+  or mid screen when the drawing sits beside the list; reduced-motion layout of the stop details fixed
+- leak tour umbrella steps aside over text and controls; Services drop-down panel fully solid
+- pinned scenes ignore the phone address bar showing or hiding
+Frame times: the machine changed during this pass; the round 7 build measures the same or slower on it, so no regression.

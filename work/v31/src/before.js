@@ -41,6 +41,12 @@
     range.addEventListener('input', function () { set(+range.value, true); });
     range.addEventListener('pointerdown', function () { view.classList.add('is-drag'); });
     window.addEventListener('pointerup', function () { view.classList.remove('is-drag'); });
+    /* drag anywhere on the picture with a finger, pen or mouse (the hidden range input stays for keyboard and screen readers) */
+    var dragging = false;
+    var fromX = function (e) { var r = view.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100, false); };
+    view.addEventListener('pointerdown', function (e) { dragging = true; try { view.setPointerCapture(e.pointerId); } catch (x) {} fromX(e); });
+    view.addEventListener('pointermove', function (e) { if (dragging) fromX(e); });
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { view.addEventListener(ev, function () { dragging = false; view.classList.remove('is-drag'); }); });
     if (RW.fine) {
       range.addEventListener('pointermove', function (e) {
         var r = view.getBoundingClientRect();

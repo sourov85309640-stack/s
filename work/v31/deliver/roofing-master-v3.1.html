@@ -505,7 +505,7 @@ html.has-motion .hdr .nav.is-open .nav-town{animation:nav-town .8s var(--ease) .
   .hdr .nav-mega{flex-wrap:nowrap}
   .hdr .mega-tg{width:28px;height:44px;margin-left:-.6rem;border-radius:999px}
   /* the Services panel floats under the bar as its own card */
-  .hdr .mega{left:50%;right:auto;top:calc(100% + 10px);width:min(1100px,calc(100vw - 2*var(--gut)));transform:translateX(-50%);border:0;border-radius:22px;background:rgba(250,249,246,.97);
+  .hdr .mega{left:50%;right:auto;top:calc(100% + 10px);width:min(1100px,calc(100vw - 2*var(--gut)));transform:translateX(-50%);border:0;border-radius:22px;background:var(--paper);
     box-shadow:0 0 0 1px rgba(31,43,48,.07),0 30px 60px -30px rgba(31,43,48,.45)}
   .hdr .mega-in{width:auto;padding:1.5rem}
   .hdr .nav-mega{position:static}
@@ -1288,8 +1288,10 @@ html.has-motion .st.is-live .st-drip{animation:st-drip 1.4s ease-in infinite;tra
 /* motion: the story drives everything, the copy becomes one step at a time */
 html.has-motion .st.is-js .st-slate{display:inline}
 html.has-motion .st.is-js .st-caps{display:grid;gap:0}
-html.has-motion .st.is-js .st-cap{grid-area:1/1;opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .5s var(--ease);pointer-events:none}
-html.has-motion .st.is-js .st-cap.is-on{opacity:1;transform:none;pointer-events:auto}
+/* the old caption leaves fast and the new one waits for it, so two captions never sit on top of each other */
+html.has-motion .st.is-js .st-cap{grid-area:1/1;opacity:0;transform:translateY(-8px);transition:opacity .14s ease,transform .2s ease;pointer-events:none}
+html.has-motion .st.is-js .st-cap.is-on{opacity:1;transform:none;pointer-events:auto;transition:opacity .3s ease .15s,transform .45s var(--ease) .15s}
+html.has-motion .st.is-js .st-cap:not(.is-on){transform:translateY(-8px)}
 html.has-motion .st.is-js .st-steps{display:flex;position:absolute;z-index:3;gap:6px;right:16px;bottom:16px}
 .st-steps li{width:22px;height:4px;border-radius:2px;background:rgba(31,43,48,.18);transition:background-color .3s}
 .st-steps li.is-on{background:var(--copper)}
@@ -1641,6 +1643,10 @@ html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(4){transiti
 }
 
 @media (max-width:599px){.svc-sec[data-v="6"] .svc-ph .cw{aspect-ratio:4/5}}
+/* chooser: photos crossfade, but the outgoing caption leaves first so two captions never overlap */
+.svc-sec[data-v="6"] .svc .svc-cap{transition:opacity .12s ease}
+.svc-sec[data-v="6"] .svc:not(.is-on) .svc-cap{opacity:0}
+.svc-sec[data-v="6"] .svc.is-on .svc-cap{opacity:1;transition:opacity .28s ease .16s}
 </style>
 <style>
 /* =====================================================================
@@ -1935,9 +1941,11 @@ html.has-motion .dia-sec.is-touring .dia-list li.is-on .dia-more{animation:dia-m
 .dia-list li:has(>.dia-row) .dia-more{padding:0 .9rem .8rem 3.6rem;margin-top:-.2rem}
 /* flow mode (phones, tablets, short screens): every row keeps its details open so the list never shifts while you
    scroll; rows that are not current are dimmed */
-.dia-sec.is-flow.is-touring .dia-list li:not(.is-on) .dia-more{display:grid;opacity:.6}
+.dia-sec.is-flow.is-touring .dia-list li:not(.is-on) .dia-more{display:grid;opacity:.75}
 html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animation:none}
 .dia-sec.is-flow .dia-list li .dia-more{transition:opacity .25s ease}
+/* without the tour (no motion): the details sit under the stop text, not in the narrow number column */
+.dia-list li:not(:has(>.dia-row))>.dia-more{grid-column:2}
 </style>
 <style>
 /* =====================================================================
@@ -2097,8 +2105,8 @@ html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animati
 .dec-sec[data-v="5"] .dec-roof svg{height:150px;width:auto;margin-inline:auto}
 .dec-sec[data-v="5"] .dec-roof-cap{display:none}
 .dec-sec[data-v="5"] .dec-cards{display:grid;margin-top:1rem}
-.dec-sec[data-v="5"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .22s ease,transform .26s var(--dec-out),visibility 0s linear .22s;padding:1.5rem 1.6rem 1.1rem}
-.dec-sec[data-v="5"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;translate:0 0;transition:opacity .22s ease,transform .26s var(--dec-out),visibility 0s}
+.dec-sec[data-v="5"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .12s ease,transform .26s var(--dec-out),visibility 0s linear .22s;padding:1.5rem 1.6rem 1.1rem}
+.dec-sec[data-v="5"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;translate:0 0;transition:opacity .22s ease .1s,transform .26s var(--dec-out) .1s,visibility 0s}
 .dec-sec[data-v="5"] .dec-card p{font-size:var(--h4)}
 .dec-sec[data-v="5"] .dec-pick::before{display:none}
 @media (min-width:900px){
@@ -2162,8 +2170,8 @@ html.has-motion .dec-sec[data-v="7"] .dec-rain path:nth-child(2n){animation-dela
 .dec-sec[data-v="7"] .dec-dial{width:min(260px,62%);margin:0 auto}
 .dec-sec[data-v="7"] .dec-tabs{display:none}
 .dec-sec[data-v="7"] .dec-cards{display:grid;grid-template-columns:minmax(0,1fr)}
-.dec-sec[data-v="7"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(18px) scale(.98);transition:opacity .35s ease,transform .5s var(--ease),visibility 0s linear .35s;padding:clamp(1.1rem,2.4vw,1.75rem)}
-.dec-sec[data-v="7"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease,transform .5s var(--ease),visibility 0s}
+.dec-sec[data-v="7"] .dec-card{grid-area:1/1;opacity:0;visibility:hidden;transform:translateY(-10px) scale(.98);transition:opacity .14s ease,transform .2s ease,visibility 0s linear .14s;padding:clamp(1.1rem,2.4vw,1.75rem)}
+.dec-sec[data-v="7"] .dec-card.is-on{opacity:1;visibility:visible;transform:none;transition:opacity .3s ease .14s,transform .45s var(--ease) .14s,visibility 0s}
 .dec-sec[data-v="7"] .dec-card h3{font-size:clamp(1.25rem,1rem + 1vw,1.75rem)}
 .dec-sec[data-v="7"] .dec-rail-dot{display:none}
 .dec-stage7{position:relative}
@@ -4918,7 +4926,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       </svg>
       <span class="brand-tx"><span class="brand-name" data-sample="company">Ridgewell Roofing</span><span class="brand-sub" data-sample="town">Roofers in Cirencester</span></span>
     </a>
-    <nav class="nav" id="nav" aria-label="Main">
+    <nav class="nav" id="nav" aria-label="Main" data-lenis-prevent>
       <ul>
         <li class="nav-mega"><a href="#services" data-nav="services">Services</a></li>
         <li><a href="#about" data-nav="about">About</a></li>
@@ -6230,7 +6238,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     </ul>
     <p class="sec-cta wk-cta"><a class="link" href="#contact">Tell us about your roof</a></p>
   </div>
-  <dialog class="wk-dlg" id="wk-dlg" aria-label="Photo">
+  <dialog class="wk-dlg" id="wk-dlg" aria-label="Photo" data-lenis-prevent>
     <figure class="wk-fig"><img class="wk-big" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACw="><figcaption class="wk-figcap"></figcaption></figure>
     <button class="wk-x" type="button" aria-label="Close photo">&times;</button>
     <button class="wk-nav wk-prev" type="button" aria-label="Previous photo">&lsaquo;</button>
@@ -7445,6 +7453,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     var gsap = RW.gsap, ST = RW.ST;
     if (RW.motionOK) {
       gsap.registerPlugin(ST);
+      ST.config({ ignoreMobileResize: true });   /* the phone address bar showing or hiding must not re-measure the pinned scenes */
       root.classList.add('has-motion');
       RW.safe('lenis', function () {
         if (!window.Lenis) return;
@@ -7533,6 +7542,13 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       nav.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('a')) setMenu(false); });
       d.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') { setMenu(false); btn.focus(); }
+        /* while the sheet is open, Tab cycles through the menu button and the sheet only */
+        if (e.key === 'Tab' && btn.getAttribute('aria-expanded') === 'true') {
+          var f = [btn].concat($$('a[href], button:not([disabled])', nav).filter(function (x) { return x.offsetParent !== null; }));
+          var i = f.indexOf(d.activeElement);
+          e.preventDefault();
+          f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+        }
       });
       window.addEventListener('resize', function () { if (window.innerWidth >= 1240) setMenu(false); });
     }
@@ -9852,30 +9868,31 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         /* the reading line sits just under the sticky drawing, so the current row is always the first one you can read */
         var plateEl = RW.$('.dia-plate', sec);
         var lineY = function () {
+          /* drawing beside the list (wide but short screens): read at mid screen instead */
+          if (plateEl && items[0]) { var pr = plateEl.getBoundingClientRect(), lr = items[0].getBoundingClientRect(); if (pr.right <= lr.left + 4 || lr.right <= pr.left + 4) return Math.round(window.innerHeight * 0.42); }
           var h = plateEl ? plateEl.offsetHeight : 0;
           return Math.round(Math.min(window.innerHeight * 0.75, Math.max(window.innerHeight * 0.4, (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hdr-h')) || 64) + 8 + h + 12)));
         };
-        var lowY = function () { return Math.round(Math.min(window.innerHeight * 0.85, Math.max(lineY() + 150, window.innerHeight * 0.66))); };
-        var sts = items.map(function (li, k) {
-          /* a row is current from when its top reaches the lower line until its top meets the drawing, so its heading stays readable */
-          return ST.create({ trigger: li, start: function () { return 'top ' + lowY() + 'px'; }, end: function () { return 'top ' + lineY() + 'px'; },
-            onToggle: function (self) { if (self.isActive) moveTo(k); else if (self.direction < 0 && k > 0) moveTo(k - 1); } });
-        });
+        /* the current stop is the first one whose heading is still in view under the drawing: no gaps, no overlaps */
+        var pick = function () {
+          var L = lineY() - 6, k = N - 1;
+          for (var j = 0; j < N; j++) { if (items[j].getBoundingClientRect().top >= L) { k = j; break; } }
+          return k;
+        };
+        var listEl = items[0] ? items[0].parentNode : sec;
+        var st = ST.create({ trigger: listEl, start: 'top bottom', end: 'bottom top', onUpdate: function () { moveTo(pick()); } });
         var syncFlow = function () {
           measure();
-          var k = -1; sts.forEach(function (s, j) { if (s.isActive) k = j; });
-          if (k < 0) k = window.scrollY > (sts[N - 1].start || 0) ? N - 1 : 0;
-          if (sts[0] && window.scrollY < sts[0].start) k = 0;
-          moveTo(k, true);
+          moveTo(pick(), true);
           if (fx.resize) fx.resize();
         };
         ST.addEventListener('refresh', syncFlow);
-        cleanups.push(function () { ST.removeEventListener('refresh', syncFlow); sts.forEach(function (s) { s.kill(); }); if (mtl) mtl.kill(); });
+        cleanups.push(function () { ST.removeEventListener('refresh', syncFlow); st.kill(); if (mtl) mtl.kill(); });
         moveTo(0, true);
         render = function () { moveTo(flowI < 0 ? 0 : flowI, true); };
         /* tap a pin or a row: bring that row to the reading line (only ever in response to a tap) */
         var goRow = function (k) {
-          var y = items[k].getBoundingClientRect().top + window.scrollY - lowY() + 14;
+          var y = items[k].getBoundingClientRect().top + window.scrollY - lineY() + 2;
           moveTo(k); RW.scrollTo(Math.max(0, y), { duration: 0.9 });
         };
         pins.forEach(function (p, k) { on(p, 'click', function () { goRow(k); }); });
@@ -10767,6 +10784,12 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     range.addEventListener('input', function () { set(+range.value, true); });
     range.addEventListener('pointerdown', function () { view.classList.add('is-drag'); });
     window.addEventListener('pointerup', function () { view.classList.remove('is-drag'); });
+    /* drag anywhere on the picture with a finger, pen or mouse (the hidden range input stays for keyboard and screen readers) */
+    var dragging = false;
+    var fromX = function (e) { var r = view.getBoundingClientRect(); set((e.clientX - r.left) / r.width * 100, false); };
+    view.addEventListener('pointerdown', function (e) { dragging = true; try { view.setPointerCapture(e.pointerId); } catch (x) {} fromX(e); });
+    view.addEventListener('pointermove', function (e) { if (dragging) fromX(e); });
+    ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { view.addEventListener(ev, function () { dragging = false; view.classList.remove('is-drag'); }); });
     if (RW.fine) {
       range.addEventListener('pointermove', function (e) {
         var r = view.getBoundingClientRect();
@@ -10778,7 +10801,11 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     if (RW.motionOK) {
       RW.onView(view, { once: true, margin: '0px 0px -30% 0px', enter: function () {
         var o = { v: 50 };
-        RW.gsap.timeline({ delay: 0.3, onUpdate: function () { target = shown = o.v; paint(o.v); range.value = Math.round(o.v); } })
+        var intro = RW.gsap.timeline({ delay: 0.3, onUpdate: function () { target = shown = o.v; paint(o.v); range.value = Math.round(o.v); } });
+        /* the moment someone touches, drags, hovers or keys the slider, the intro sweep stops and hands over */
+        var stopIntro = function () { if (intro) { intro.kill(); intro = null; } };
+        ['pointerdown', 'pointerenter', 'keydown', 'input', 'touchstart'].forEach(function (ev) { view.addEventListener(ev, stopIntro, { passive: true }); range.addEventListener(ev, stopIntro, { passive: true }); });
+        intro
           .to(o, { v: 22, duration: 0.7, ease: 'power2.inOut' })
           .to(o, { v: 78, duration: 1, ease: 'power2.inOut' })
           .to(o, { v: 50, duration: 0.6, ease: 'power2.out' });
@@ -13385,7 +13412,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 
     /* WHERE (the leak tour): rain falls while you are here and slides off an umbrella that follows you. */
     reg(d.getElementById('where'), (function () {
-      var S, drops = [], pres = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
+      var S, drops = [], pres = 0, uo = 0, ux = -1e4, uy = -1e4, R = rnd(11), umb = null;
       function seed(p, top) { p.x = R() * S.w; p.y = top ? -R() * 60 : R() * S.h; p.v = 520 + R() * 260; p.vx = -60; p.l = 10 + R() * 10; p.s = 0; }
       return {
         init: function (sec) {
@@ -13399,7 +13426,9 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         },
         frame: function (dt, lx, ly, inside, rect) {
           pres += ((inside ? P.k : 0) - pres) * Math.min(1, dt * (inside ? 2.5 : 1.6));
-          if (umb) { umb.style.transform = 'translate(' + (ux + rect.left).toFixed(1) + 'px,' + (uy + rect.top).toFixed(1) + 'px) rotate(' + clamp((lx - ux) * 0.4, -14, 14).toFixed(1) + 'deg)'; umb.style.opacity = pres.toFixed(3); }
+          if (umb) { umb.style.transform = 'translate(' + (ux + rect.left).toFixed(1) + 'px,' + (uy + rect.top).toFixed(1) + 'px) rotate(' + clamp((lx - ux) * 0.4, -14, 14).toFixed(1) + 'deg)';
+            /* the umbrella steps aside over text and controls so it never sits on words; the rain still parts */
+            uo += ((inside && P.k === 1 ? 1 : 0) - uo) * Math.min(1, dt * 8); umb.style.opacity = Math.min(pres, uo).toFixed(3); }
           if (inside) { ux += (lx - ux) * Math.min(1, dt * 14); uy += (ly - 34 - uy) * Math.min(1, dt * 14); if (ux < -1e3) { ux = lx; uy = ly - 34; } }
           var r = 46;
           for (var i = 0; i < drops.length; i++) {
@@ -14213,7 +14242,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     });
     var LET = 'ABCDEFGH';
 
-    var wrap = d.createElement('div'); wrap.className = 'rwopt'; wrap.setAttribute('data-owner-tool', 'design-options');
+    var wrap = d.createElement('div'); wrap.className = 'rwopt'; wrap.setAttribute('data-owner-tool', 'design-options'); wrap.setAttribute('data-lenis-prevent', '');
     wrap.innerHTML =
       '<div class="rwopt-panel" id="rwopt-panel" role="region" aria-label="Versions (owner tool)" hidden>' +
         '<div class="rwopt-top"><p class="rwopt-h"></p><button type="button" class="rwopt-close" aria-label="Close">&times;</button></div>' +

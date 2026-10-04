@@ -470,7 +470,7 @@ html.has-motion .hdr .nav.is-open .nav-town{animation:nav-town .8s var(--ease) .
   .hdr .nav-mega{flex-wrap:nowrap}
   .hdr .mega-tg{width:28px;height:44px;margin-left:-.6rem;border-radius:999px}
   /* the Services panel floats under the bar as its own card */
-  .hdr .mega{left:50%;right:auto;top:calc(100% + 10px);width:min(1100px,calc(100vw - 2*var(--gut)));transform:translateX(-50%);border:0;border-radius:22px;background:rgba(250,249,246,.97);
+  .hdr .mega{left:50%;right:auto;top:calc(100% + 10px);width:min(1100px,calc(100vw - 2*var(--gut)));transform:translateX(-50%);border:0;border-radius:22px;background:var(--paper);
     box-shadow:0 0 0 1px rgba(31,43,48,.07),0 30px 60px -30px rgba(31,43,48,.45)}
   .hdr .mega-in{width:auto;padding:1.5rem}
   .hdr .nav-mega{position:static}
