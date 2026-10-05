@@ -74,3 +74,73 @@ Build tested: `roofing-master-v3.1.html` built from `src/` with `python3 build.p
 
 ## Performance (headless software rendering, so indicative only)
 Full-page scroll, unthrottled: 1440 p50 16.7 ms, p95 33.4 ms; 390 p50 16.7 ms, p95 16.7 ms. With 4x CPU throttling at 1440 the particles now switch themselves off; at 390 p50 16.7 ms, p95 33.4 ms.
+
+---
+
+# Round 10: five independent audits (October 2026)
+## Audit 1: words, meaning, logic, roofing facts
+Checked: every visible string with JS off and on (quiz results, companion lines, form messages, area search, FAQ drawings, scene captions), meta and JSON-LD, dashes (none), US spellings (none), contractions, issue keys vs form tags.
+Fixed:
+- Hero "a chimney that needs relaying" -> "repointing" (chimneys are repointed or rebuilt, not relaid)
+- Meta and social description promised "a written quote" from photos; FAQ and About say most roofs need a visit -> "send photos and we will arrange a look"
+- Trust band repeated itself (sub-line and line both about what is left out) -> "Free and itemised"
+- Clay tiles "every few courses are nailed" is out of date -> "some or all are nailed or clipped, depending on its age"
+- Story caption used "quiet" twice -> "A calm evening"
+- Leak tour: "damp on the loft along the top", "damp on where the roof meets a wall", "damp on a corner of a ceiling" -> fixed grammar
+- Decide: "Ask about a repair" opened the form as "water coming in" -> now "a roof repair"; "nails sliding" -> "nails rusting through"; "patching costs more than a new roof" (absolute) -> "tends to cost more"
+- Team: "the person who quotes is the person who turns up" contradicted the office role and the owner/crew split -> "you meet the people who will be on your roof"
+- How it works step 3 described only a re-roof for every job -> "The agreed work, done as quoted. On a re-roof..."
+- Example quote "Strip and replace six slates" (strip means the whole roof) -> "Replace six slates"
+- Care: "saves most of the repairs" overclaim -> "heads off many"
+- FAQ: guarantee answer read like advice about other firms and contradicted the trust band -> "Yes. Written on the invoice..."; more-work answer now in our voice
+- Contact heading "you've" (only contraction on the site) -> "you have"
+- Gallery intro called stock photos "roofs we have repaired" -> "Repairs and re-roofs of the kind we do every week"
+- Footer "Talk to a roofer, not a call centre" contradicted the office person answering the phone -> "A small local team, not a call centre"
+- Quiz "arrange a look in the next few weeks" (implied delay) -> "arrange a time to look"
+- Companion "A few details is plenty" -> "are"; area search comma splice
+- Story: roofer stood directly on slates (bad practice, breaks slates) -> added a roof ladder he slides up and hooks over the ridge
+## Audit 2: animated scenes frame by frame
+Method: new tool scrolls every section forwards, then backwards to the same points, and diffs the two screenshots (catches reverse-scroll bugs); contact sheets reviewed; separate checks for CSS loops fighting GSAP, CSS transitions fighting GSAP, reduced motion and data-motion=off full pages, decorations over text.
+Fixed:
+- Story lamp: its flicker loop overrode the "lamp off at dawn" step, so it glowed in daylight -> glow wrapped, timeline drives the wrapper
+- Problems photo: a 6 second CSS zoom transition sat on the same property as the scroll drift, so the drift lagged seconds behind the scroll -> zoom moved to the separate scale property
+- Every entrance animation (shared reveal helper) fought the cards' hover transitions, making entrances mushy -> transitions paused during the entrance and restored after; same for the hero rating and area roofs
+- Decorations behind text (leaf, calendar, book, vane, question mark, sun, crane, clouds) at several sizes -> new layer guard hides any small decoration whose resting box touches text, rechecked on resize, works with and without motion
+- Checks inset photo touched the screen edge on phones -> kept inside the margin
+- Motion-off (data-motion="off") verified identical to reduced motion
+- Resizing or rotating while in the page threw you back to the top (breakpoint rebuild of pinned scenes ran a refresh inside a refresh and lost the scroll) -> the page now remembers which section you are in and how far through, and returns there after the resize settles
+- Decide scene on phones and tablets: dead band under the card (a third of a tablet screen) -> stage fills the space between header and bottom bar and centres; tablets keep the heading in view
+- Verified: every section forwards vs backwards matches at 1440 (all sections), and the four pinned scenes at 390, 820 and 1440 with 16 to 18 frames each; companion never covers text at 1024 to 1920; story tap version all six steps; no page errors anywhere
+## Audit 3: layout at every screen size
+Method: automated layout check (overlap, clipped text, spill, offscreen, tap size, font size, alignment) at 16 sizes from 320x568 to 2560x1440 plus 125% text at 390 and 1440; visual walks of the whole page at 320x568, 667x375 (phone on its side), 1024x1366 (iPad Pro upright), 1366x768, 2560x1440 and 390 with larger text; in-page link landing at four sizes; phone menu on its side; scrollbar styling of every horizontal strip; story caption fit at six sizes.
+Fixed:
+- Story on short phones (320x568) and phones on their side: the caption ran under the bottom bar or off the screen (scene had a fixed 56% height) -> scene and caption now share exactly one screen; on a phone on its side the caption sits beside the scene
+- Leak tour on a phone on its side: the sticky drawing filled the whole short screen and hid the stops -> drawing on the left, stops on the right
+- About section on phones led with the drawing; the menu's About link landed on a picture (and in landscape the heading was off screen) -> text first, drawing after
+- Recent project on phones led with a tall photo before its heading -> heading, then photo, then details; shorter crop on phones
+- iPad Pro upright (1024x1366) used the desktop layout for the story and decide scenes: a small house under a huge empty sky, cards floating in empty space -> layout now follows orientation as well as width, so tall screens get the stacked tablet layout
+- 2000px and wider screens: content sat small in the middle -> content width and text size grow on very large screens
+Checked and fine: every in-page link lands with its heading in view (the privacy link sits low only because it is at the very end of the page); menu reachable and scrollable on phones on their side; all horizontal strips hide scrollbars; remaining automated flags were mid-animation readings or by design (two-column headings)
+## Audit 4: every interaction and state
+Method: inventory of every link, button and input (broken targets, duplicate ids, missing references); every one of about 100 buttons pressed by mouse at 1440 and by touch at 390 to find dead ones; full keyboard walks (about 150 stops each at 1440 and 390) checking each focus is visible, ringed, not hidden and not under the header or bar; arrow keys, Home and End on all tab sets, carousel and slider; lightbox open, arrows, focus trap, Escape and focus return; all 90 quiz answer paths; full form test (empty, wrong formats, long text, emoji, chips, photo upload, submit locally and on a live address); reload part way down; Back and Forward; JavaScript turned off; rapid clicking; menu opened mid-scene.
+Fixed:
+- Form: with the placeholder endpoint, a live site said "Thanks, we have your details" while sending nothing, so real enquiries could vanish -> on a live address it now says the form is not taking enquiries and gives the phone number; local previews still show the thank-you for demos
+- Photo upload accepted any file and any size silently -> only photos (including iPhone HEIC), each up to 10 MB; anything else is left out with a plain note
+- "Start with what you can see" was completely blank with JavaScript off (all five problem cards hidden, and dark text on a dark card) -> shown as a readable list
+- Keyboard focus could land on things still waiting for their entrance animation (form fields, buttons) and so be invisible for a second -> entrance finishes the moment focus arrives
+- Story: the link in a hidden caption could take keyboard focus -> hidden captions cannot be focused
+- Leak tour on desktop: on screens under 900px tall the pinned stage was taller than the screen, so the last stop and the links under it were cut off -> those screens use the side by side layout; when pinned, focusing a stop walks the tour there and focusing the links scrolls past the pin
+- Back button after a menu link left the site -> Back and Forward now return to where you were in the page
+Checked and fine: no dead buttons, no broken links, no duplicate ids; all tab sets, the carousel and slider work by keyboard; lightbox is a true modal; all 90 quiz paths give a result and fill the form; reload keeps your place; menu reachable everywhere
+## Audit 5: accessibility, structure, performance, technical
+Method: axe (WCAG 2.2 AA plus best practice) in six states (desktop, phone, reduced motion, menu open, lightbox open, FAQ + quiz + form errors); heading outline, landmarks, link names out of context, live regions, image and SVG text; CSS rule checks via the browser's own parser; network requests; load metrics on 4G, slow 4G and cable with a slowed phone CPU; start-up profile per feature; animations running off screen; removing each of the 28 sections in turn; Windows high contrast; printing to PDF.
+Fixed:
+- Hover effects on buttons, links and three card sets also fired on phones (stuck hover after a tap) -> hover only where a mouse can hover
+- "Sounds like mine" (x6) and "Read more" (x7) said the same thing out of context -> each now says which stop or whose review
+- No site icon (browser asked the server for one and got a 404) -> small copper house icon built in
+- Structured data had no opening hours -> hours match the footer exactly; social links added
+- Start-up on a mid-range phone blocked the page for 1.7 seconds in one go -> features start in short slices, top of the page first; longest freeze now 0.4 seconds, blocking time down about 40% on phones and 65% on desktop
+- Reload part way down landed too high after that change (scroll engine had the old page height) -> engine re-measures before restoring; same for the resize keeper
+- About 15 looping animations kept running in sections far off screen (battery) -> paused until the section comes back near the screen
+- Printing gave blank pages (fixed sky layer over everything, pinned scenes, faded-out items, curtains over photos, lazy photos, counters at 0) -> a proper print style: a plain complete copy with photos and real numbers
+Checked and fine: axe 0 violations in every state; one h1, no skipped heading levels; every image described or marked decorative; the page makes no network requests beyond itself; first paint 0.6 seconds on 4G; layout shift under 0.04; removing any section causes no errors; high contrast mode readable with visible focus

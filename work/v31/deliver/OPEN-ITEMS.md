@@ -5,7 +5,7 @@ Things that still need the owner, the client, or a real device. There are no kno
 ## Needs the owner or the client
 1. **Photos.** The page uses stock photos already in the package (licence not confirmed). Confirm the licence or swap in the client's own photos (SWAP-MAP lists every photo slot). Captions say "Photo for illustration only"; stock photos are never described as the client's work.
 2. **Reviews are samples.** Replace with real Google reviews, the real rating, count and review link, or delete the section.
-3. **Form endpoint.** `REPLACE-ENDPOINT` in the contact section must be set. Until then the form only shows its success message.
+3. **Form endpoint.** `REPLACE-ENDPOINT` in the contact section must be set. Until then nothing is sent: a local preview (opened as a file, on localhost, or with `?demo` in the address) shows the thank-you message for demos, and a live site tells the visitor the form is not taking enquiries and to call.
 4. **Owner facts** marked `data-sample` (name, phone, address, hours, stats, towns, project details) and `data-confirm` (accreditations, guarantee wording, monthly payments line, yearly roof check, landlord, business and insurance work, timescales) must be checked with the client. Delete any line the client does not offer.
 5. **Accreditation badges** are neutral placeholders. Real logos only once the client supplies them and is a member.
 6. **Team section** is hidden (`?team=on` shows it) and needs real photos before use; it is meant for a separate team page.
@@ -24,3 +24,5 @@ Things that still need the owner, the client, or a real device. There are no kno
 15. Under 1440 px wide the big foreground pieces step out to keep them off the text; small safe corner pieces stay.
 16. The other versions in the Versions tool were checked for errors, overflow and interactions, but got less visual polish than the defaults.
 17. File size is about 2 MB as a single file (images are most of it).
+18. **Share image.** Add `<meta property="og:image">` with a 1200x630 photo of the client's own work when the site goes live (a comment in the page head marks the spot).
+19. **Opening hours** appear in three places: header, footer and the JSON-LD `openingHoursSpecification`. Change all three together.
