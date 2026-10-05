@@ -15,7 +15,10 @@
       var bits = c ? Array.prototype.map.call(c.children.length ? c.children : [c], function (n) { return n.textContent.replace(/\s+/g, ' ').trim(); }).filter(Boolean) : [];
       cap.textContent = (idx + 1) + ' of ' + btns.length + (bits.length ? ': ' + bits.join(', ') : '');
     }
-    btns.forEach(function (b, i) { b.addEventListener('click', function () { opener = b; show(i); dlg.showModal(); RW.$('.wk-x', dlg).focus(); if (RW.lenis) RW.lenis.stop(); }); });
+    btns.forEach(function (b) { b.addEventListener('click', function () {
+      /* step through the photos in the order they appear on this screen (the grid reorders on tablets) */
+      btns.sort(function (x, y) { var p = x.getBoundingClientRect(), q = y.getBoundingClientRect(); return Math.abs(p.top - q.top) > 4 ? p.top - q.top : p.left - q.left; });
+      opener = b; show(btns.indexOf(b)); dlg.showModal(); RW.$('.wk-x', dlg).focus(); if (RW.lenis) RW.lenis.stop(); }); });
     RW.$('.wk-x', dlg).addEventListener('click', function () { dlg.close(); });
     RW.$('.wk-prev', dlg).addEventListener('click', function () { show(idx - 1, -1); });
     RW.$('.wk-next', dlg).addEventListener('click', function () { show(idx + 1, 1); });

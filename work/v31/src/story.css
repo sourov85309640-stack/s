@@ -98,3 +98,4 @@ html.has-motion .st.is-js .st-hint{display:flex;align-items:center;gap:.5rem;mar
 .st.is-tap .st-next{border-radius:999px}
 .st.is-tap .st-pin{min-height:auto}
 @media (min-width:1000px){.st.is-tap .st-pin{height:min(100vh,860px)}}
+@media (max-width:999px){.st-pin{grid-template-rows:auto 1fr}}

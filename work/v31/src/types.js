@@ -127,8 +127,20 @@
         return;
       }
       var col = kind === 'ridge-slate' ? '#4A565D' : kind === 'ridge-stone' ? '#A89270' : kind === 'ridge-lead' ? '#7E8A90' : '#A5532F';
-      for (var x = TOPL - 6; x < TOPR + 6; x += 34) {
-        gT.appendChild(el('path', { d: 'M' + x + ' ' + (RIDGE + 3) + 'q17 -16 34 0', fill: col, stroke: 'rgba(31,43,48,.5)', 'stroke-width': '1.2', 'class': 'ty-ridge' }));
+      /* ridge pieces fit exactly between the two top corners; each covering gets its real ridge:
+         half-round clay on tiles, an angled ridge on slate and stone, a folded flat cap on lead and metal */
+      var span = TOPR - TOPL;
+      if (kind === 'ridge-lead') {
+        gT.appendChild(el('path', { d: 'M' + TOPL + ' ' + (RIDGE + 2) + 'L' + (TOPL + 4) + ' ' + (RIDGE - 7) + 'H' + (TOPR - 4) + 'L' + TOPR + ' ' + (RIDGE + 2) + 'Z', fill: col, stroke: 'rgba(31,43,48,.5)', 'stroke-width': '1.2', 'stroke-linejoin': 'round', 'class': 'ty-ridge' }));
+        gT.appendChild(el('path', { d: 'M' + (TOPL + 6) + ' ' + (RIDGE - 3) + 'H' + (TOPR - 6), stroke: 'rgba(255,255,255,.35)', 'stroke-width': '1.2', fill: 'none', 'class': 'ty-ridge' }));
+      } else {
+        var n = Math.max(1, Math.round(span / 34)), w = span / n, angled = kind === 'ridge-slate' || kind === 'ridge-stone';
+        for (var k = 0; k < n; k++) {
+          var x = TOPL + k * w;
+          var d = angled ? 'M' + x + ' ' + (RIDGE + 3) + 'L' + (x + 2) + ' ' + (RIDGE - 6) + 'H' + (x + w - 2) + 'L' + (x + w) + ' ' + (RIDGE + 3) + 'Z'
+                         : 'M' + x + ' ' + (RIDGE + 3) + 'q' + (w / 2) + ' -16 ' + w + ' 0';
+          gT.appendChild(el('path', { d: d, fill: col, stroke: 'rgba(31,43,48,.5)', 'stroke-width': '1.2', 'stroke-linejoin': 'round', 'class': 'ty-ridge' }));
+        }
       }
       gT.appendChild(el('path', { d: 'M' + (LEFT - 8) + ' ' + (EAVES + 6) + 'H' + (RIGHT + 8), stroke: '#3F4A50', 'stroke-width': '7', 'stroke-linecap': 'round', fill: 'none' }));   /* gutter */
       gT.appendChild(el('path', { d: 'M' + (RIGHT - 30) + ' ' + (EAVES + 9) + 'v40', stroke: '#3F4A50', 'stroke-width': '6', 'stroke-linecap': 'round' }));   /* downpipe */

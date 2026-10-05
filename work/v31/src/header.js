@@ -1,6 +1,6 @@
 /* Header (owner: lead): nav pruning, mobile menu, current section, progress bar, sliding nav line,
-   hide on the way down (desktop), weathervane in the brand mark. Works without GSAP; the vane and
-   the hide behaviour are skipped under reduced motion or data-motion="off". */
+   hide on the way down (desktop). The logo is static (the client's mark replaces it). Works without GSAP;
+   the hide behaviour is skipped under reduced motion or data-motion="off". */
 (function () {
   'use strict';
   var RW = window.RW, d = document;
@@ -102,12 +102,9 @@
       a.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hoverLink = a; placeInd(-1, a); } });
     });
     if (nav) nav.addEventListener('pointerleave', function () { hoverLink = null; placeInd(curIdx); });
-    var vaneEl = $('.brand-mark'), lastVY = 0, vaneW = false;
     function onScroll() {
       ticking = false;
       var y = window.pageYOffset || d.documentElement.scrollTop;
-      /* the weathervane on the logo swings round to point the way you are scrolling */
-      if (vaneEl && Math.abs(y - lastVY) > 24) { var w = y < lastVY; if (w !== vaneW) { vaneW = w; vaneEl.classList.toggle('is-west', w); } lastVY = y; }
       var max = d.documentElement.scrollHeight - window.innerHeight;
       if (hdr) hdr.classList.toggle('is-stuck', y > 8);
       var pr = max > 0 ? Math.min(1, y / max).toFixed(4) : 0;
@@ -190,20 +187,5 @@
     window.addEventListener('resize', function () { if (isOpen && !wide()) root.classList.remove('mega-open'); });
   });
 
-  /* 5. weathervane: the arrow turns with scroll direction and settles back (transform only) */
-  RW.add('vane', function () {
-    var vane = $('.brand-mark .vane');
-    if (!vane) return;
-    var ang = 0, vel = 0, lastY = window.pageYOffset, target = 0, idle = 0, lastVx = 1;
-    RW.tick(function (t, dt) {
-      var y = window.pageYOffset, dy = y - lastY; lastY = y;
-      if (dy) { target = RW.clamp(target + dy * 0.004, -3.2, 3.2); idle = 0; } else { idle += dt; }
-      if (idle > 0.6) target *= Math.pow(0.4, dt); /* wind drops, the vane swings home */
-      var acc = (target - ang) * 30 - vel * 7; /* damped spring */
-      vel += acc * dt; ang += vel * dt;
-      var vx = Math.cos(ang);
-      vx = Math.abs(vx) < 0.06 ? (vx < 0 ? -0.06 : 0.06) : vx;
-      if (Math.abs(vx - lastVx) > 0.002) { lastVx = vx; vane.style.setProperty('--vx', vx.toFixed(3)); }
-    });
-  }, { motion: true });
+  /* the logo stays still on purpose: it is the client's mark and gets replaced as is */
 }());

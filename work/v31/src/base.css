@@ -153,7 +153,6 @@ h4{font-size:var(--h4);line-height:1.3}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:4rem;flex-wrap:wrap}
 .brand{display:inline-flex;align-items:center;gap:.6rem;min-height:44px;text-decoration:none;font-family:var(--ui);font-weight:600;font-size:var(--h4);letter-spacing:-.01em;color:var(--text);white-space:nowrap}
 .brand-mark{width:30px;height:34px;color:var(--copper);flex:none;overflow:visible}
-.brand-mark .vane{transform-box:view-box;transform-origin:16px -1px;transform:scaleX(var(--vx,1))}
 .hdr-act{display:flex;align-items:center;gap:.5rem}
 .hdr-phone{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;min-width:44px;justify-content:center;text-decoration:none;font-family:var(--ui);font-weight:600;color:var(--text)}
 .hdr-phone svg{width:22px;height:22px;color:var(--copper)}
@@ -310,8 +309,6 @@ html.mega-open .hdr{background:var(--paper);-webkit-backdrop-filter:none;backdro
 @keyframes hdr-ring{0%,100%{transform:none}15%{transform:rotate(-16deg)}30%{transform:rotate(13deg)}45%{transform:rotate(-9deg)}60%{transform:rotate(6deg)}75%{transform:rotate(-3deg)}}
 html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin:50% 60%}
 @media (hover:hover){html.has-motion .hdr-phone:hover svg{animation:hdr-ring .7s ease 1}}
-@media (hover:hover){.brand:hover .brand-mark{animation:brand-bob .6s var(--ease)}}
-@keyframes brand-bob{0%,100%{transform:none}40%{transform:translateY(-3px) rotate(-4deg)}}
 
 /* ---------------- Services mega menu (built by header.js from the "What we do" cards) ---------------- */
 .nav-mega{position:relative;display:flex;align-items:center;flex-wrap:wrap}
@@ -517,8 +514,9 @@ html.menu-open .hdr::before{background:var(--paper)}
   .svc-p{font-size:1rem}
   .cap{font-size:.8125rem}
 }
-/* logo weathervane: turns to the scroll direction (transform only) */
-.brand-mark .vane{transform-box:view-box;transform-origin:16px -1.5px;transition:transform .6s var(--ease)}
-.brand-mark.is-west .vane{transform:scaleX(-1)}
-@media (prefers-reduced-motion:reduce){.brand-mark .vane{transition:none}}
-html[data-motion="off"] .brand-mark .vane{transition:none}
+/* no stranded last words in headings and paragraphs (browsers without support simply wrap as before) */
+p,li,dd,figcaption{text-wrap:pretty}
+/* touch screens: footer links get a full finger-sized row */
+@media (hover:none),(pointer:coarse),(max-width:767px){.ftr-links li a,.ftr-areas a,.legal a{display:inline-flex;align-items:center;min-height:44px}}
+/* no grey or blue browser flash on tap: every control has its own pressed state */
+a,button,summary,label,[role=tab],[role=button],input,select,textarea{-webkit-tap-highlight-color:transparent}

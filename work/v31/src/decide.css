@@ -251,3 +251,5 @@ html:not(.has-motion) .dec-sec[data-v="7"] .dec-cards{gap:1rem}
 /* V7: the card is shown, not chosen, so no radio circle; plain copper wash instead of the tile mask */
 .dec-sec[data-v="7"] .dec-pick::before{display:none}
 .dec-sec[data-v="7"] .dec-card::before{-webkit-mask:none;mask:none;background:linear-gradient(160deg,var(--copper-tint),transparent 70%)}
+/* the pinned stage already leaves room below its centred content, so the section needs less of its own */
+@media (min-width:1000px){.dec-sec.dec-head-in[data-v="7"]{padding-bottom:clamp(.5rem,2vh,1.5rem)}}

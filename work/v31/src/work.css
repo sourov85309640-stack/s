@@ -36,7 +36,8 @@
 .wk-x:focus-visible,.wk-nav:focus-visible{outline:3px solid var(--copper-tint);outline-offset:3px}
 html.has-motion .wk-dlg[open] .wk-fig{animation:wk-in .3s var(--ease)}
 @keyframes wk-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
-@media (max-width:899px){.wk-f{grid-column:span 2}}
+/* tablets and phones: the wide slot goes to a photo big enough to fill it (the fish-scale photo is small) */
+@media (max-width:899px){.wk-b{grid-column:span 2;order:6}}
 
 /* depth: a big camera viewfinder behind, a stray photo print and a bit of tape in front */
 .wk{position:relative;overflow-x:clip}

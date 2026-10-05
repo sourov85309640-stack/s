@@ -81,7 +81,7 @@
       var r = tip.getBoundingClientRect(); if (!r.width) return true;
       for (var x = r.left + 8; x < r.right; x += 24) for (var y = r.top + 6; y < r.bottom; y += 14) {
         var e = d.elementFromPoint(x, y);
-        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main .dec-roof,main .dia-art,main .xv-stage,main .ty-stage,main .cr-art,main .qz-art,main .sc-art,main .faq-board,main .bf-view,main .prj-build,main .ab-art,main .sv-art,main .ug-art,main .chk-photo,main .how-art,main .are-list,main .ad-card,main .svc-stage,main .st-stage,main .ct-photo,main .wk-btn,main .rv-card,main dl,footer p,footer a,footer li')) return false;
       }
       return true;
     }
@@ -90,15 +90,15 @@
       var x0 = window.innerWidth < 1400 ? 60 : 100, y1 = window.innerHeight - 84 - 96, pts = [[x0 + 20, y1 - 10], [x0 + 120, y1 - 10], [x0 + 220, y1 - 10], [x0 + 20, y1 - 60], [x0 + 120, y1 - 60], [x0 + 220, y1 - 60]];
       for (var i = 0; i < pts.length; i++) {
         var e = d.elementFromPoint(pts[i][0], pts[i][1]);
-        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main .dec-roof,main .dia-art,main .xv-stage,main .ty-stage,main .cr-art,main .qz-art,main .sc-art,main .faq-board,main .bf-view,main .prj-build,main .ab-art,main .sv-art,main .ug-art,main .chk-photo,main .how-art,main .are-list,main .ad-card,main .svc-stage,main .st-stage,main .ct-photo,main .wk-btn,main .rv-card,main dl,footer p,footer a,footer li')) return false;
       }
       return true;
     }
     function bodyFree0() {   /* where he stands must be clear of text too, or he waits for a better moment */
-      var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44] : [30, 70, 92];
+      var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44, 70, 92] : [30, 70, 92, 120];
       for (var i = 0; i < xs.length; i++) for (var y = H - 200; y < H - 90; y += 36) {
         var e = d.elementFromPoint(xs[i], y);
-        if (e && !e.closest('.pal,.rwopt') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main img,footer p,footer a,footer li')) return false;
+        if (e && !e.closest('.pal,.rwopt') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main img,main .dec-roof,main .dia-art,main .xv-stage,main .ty-stage,main .cr-art,main .qz-art,main .sc-art,main .faq-board,main .bf-view,main .prj-build,main .ab-art,main .sv-art,main .ug-art,main .chk-photo,main .how-art,main .are-list,main .ad-card,main .svc-stage,main .st-stage,main .ct-photo,main .wk-btn,main .rv-card,footer p,footer a,footer li')) return false;
       }
       return true;
     }

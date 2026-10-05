@@ -125,9 +125,9 @@ html.js .faq[data-v="4"] .faq-index{display:block;margin-top:1.75rem}
 .faq-board{display:none;margin-top:1.75rem;padding:1rem 1rem .75rem;border-radius:18px;background:var(--card);box-shadow:var(--shadow-card);max-width:340px}
 @media (min-width:960px){.faq-board{display:block}}
 .faq-scenes{position:relative;aspect-ratio:180/120}
-.faq-sc{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .3s ease,transform .45s var(--ease)}
+.faq-sc{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .14s ease,transform .2s ease}
 .faq-board .faq-ill{margin:0;width:100%;display:block}
-.faq:not([data-q]) .faq-sc0,.faq[data-q="0"] .faq-sc0,.faq[data-q="1"] .faq-sc1,.faq[data-q="2"] .faq-sc2,.faq[data-q="3"] .faq-sc3,.faq[data-q="4"] .faq-sc4,.faq[data-q="5"] .faq-sc5,.faq[data-q="6"] .faq-sc6{opacity:1;transform:none}
+.faq:not([data-q]) .faq-sc0,.faq[data-q="0"] .faq-sc0,.faq[data-q="1"] .faq-sc1,.faq[data-q="2"] .faq-sc2,.faq[data-q="3"] .faq-sc3,.faq[data-q="4"] .faq-sc4,.faq[data-q="5"] .faq-sc5,.faq[data-q="6"] .faq-sc6{opacity:1;transform:none;transition:opacity .3s ease .14s,transform .45s var(--ease) .14s}
 .faq-cap{margin-top:.6rem;font:600 .9375rem/1.4 var(--ui);color:var(--text);min-height:2.8em}
 .faq-head>.faq-ill{display:none}
 /* scene parts */
@@ -178,7 +178,7 @@ html.js .faq[data-v="4"] .faq-index{display:block;margin-top:1.75rem}
 .faq-sc6 .b-pound{font:700 13px Arial,sans-serif;fill:var(--text);text-anchor:middle}
 .faq-sc6 .b-tag{transform-box:view-box;transform-origin:150px 20px}
 /* loops (motion only, while that scene shows) */
-@keyframes b-lift{0%,15%{transform:none}35%,75%{transform:translate(4px,-16px) rotate(-12deg)}95%,100%{transform:none}}
+@keyframes b-lift{0%,15%{transform:none}35%,75%{transform:translate(3px,-9px) rotate(-7deg)}95%,100%{transform:none}}
 @keyframes b-lens{0%,30%{transform:translate(150px,80px)}50%,75%{transform:translate(90px,76px)}100%{transform:translate(150px,80px)}}
 @keyframes b-flash{0%,55%,100%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.5)}72%{opacity:0;transform:scale(2)}}
 @keyframes b-page{0%,30%{transform:none;opacity:1}60%{transform:translate(18px,30px) rotate(28deg);opacity:0}61%,100%{transform:none;opacity:0}}

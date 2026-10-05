@@ -301,3 +301,4 @@ html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animati
 .dia-sec.is-dry .marker .m-drop,.dia-sec.is-dry .marker .m-splash{visibility:hidden}
 .dia-sec.is-dry .marker .m-tag::after{content:", kept dry";font-weight:600;color:#3E6577}
 .dia-sec.is-dry .marker .m-tag{background:#EAF2F5}
+@media (hover:none),(pointer:coarse),(max-width:767px){.dia-mine{display:inline-flex;align-items:center;min-height:44px}}

@@ -27,12 +27,14 @@
       aim();
     }
     /* camera: cam.z 0 = the whole scene, 1 = close on the slipped slate; cam.tx/ty = the point it looks at */
-    var base = null, cam = { z: 0, tx: 770, ty: 360 };
+    var base = null, cam = { z: 0, tx: 770, ty: 360, floor: 0 };
     function aim() {
       if (!base) return;
       var K = 2.3, w1 = base.w / K, h1 = base.h / K;
       var sx = base.f ? base.f + (1 - base.f) * 0.5 : 0.5;          /* the open part of the screen */
       var x1 = cam.tx - w1 * sx, y1 = cam.ty - h1 * 0.5, e = cam.z;
+      /* the water shot keeps the bedroom floor in frame on every screen shape (wide screens see less height) */
+      if (cam.floor) y1 = y1 + (Math.max(y1, 616 - h1) - y1) * cam.floor;
       var x = base.x + (x1 - base.x) * e, y = base.y + (y1 - base.y) * e, w = base.w + (w1 - base.w) * e, h = base.h + (h1 - base.h) * e;
       svg.setAttribute('viewBox', x.toFixed(1) + ' ' + y.toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1));
     }
@@ -115,8 +117,8 @@
       .to($('.st-p-arm'), { rotation: -110, duration: 0.15, yoyo: true, repeat: 3 }, 10.05)
       /* camera moves: in on the slate as it goes, hold while the water runs, out for the winter, in again for the fix */
       .to(cam, { z: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: aim }, 1.9)
-      .to(cam, { tx: 790, ty: 395, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
-      .to(cam, { z: 0, duration: 1, ease: 'power2.inOut', onUpdate: aim }, 5.5)
+      .to(cam, { tx: 790, ty: 395, floor: 1, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
+      .to(cam, { z: 0, floor: 0, duration: 1, ease: 'power2.inOut', onUpdate: aim }, 5.5)
       .to(cam, { z: 0.55, tx: 820, ty: 400, duration: 0.9, ease: 'power2.inOut', onUpdate: aim }, 8.5)
       .to(cam, { z: 0, duration: 0.8, ease: 'power2.inOut', onUpdate: aim }, 9.7);
 
