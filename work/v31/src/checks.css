@@ -232,3 +232,4 @@ html.js .chk[data-v="5"] .chk-strip{display:grid;grid-template-columns:repeat(3,
   html.js .chk[data-v="5"] .chk-strip{gap:.4rem;margin-top:.6rem;width:70%}
   .chk-strip li::after{font-size:.75rem}
 }
+@media (max-width:767px){.chk[data-v="1"] .chk-photo{left:-.25rem;top:-1.25rem;width:30%}}

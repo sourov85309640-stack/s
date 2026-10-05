@@ -126,7 +126,7 @@
         } else if (hits.length > 1) {
           out.textContent = hits.length + ' towns match. Keep typing or pick one below.';
         } else if (q.length >= 3) {
-          out.innerHTML = 'Not on our list. <a href="' + phone.getAttribute('href') + '">Call ' + phone.textContent.replace(/^Call\s*/, '') + '</a> and ask, it may still be close enough.';
+          out.innerHTML = 'Not on our list. <a href="' + phone.getAttribute('href') + '">Call ' + phone.textContent.replace(/^Call\s*/, '') + '</a> and ask. It may still be close enough.';
         } else out.textContent = '';
       });
     }
@@ -153,9 +153,9 @@
     }
     if (V === 2) {
       var roofs = RW.$$('.h-roof', sec);
-      gsap.set(roofs, { y: -14, opacity: 0 });
+      gsap.set(roofs, { y: -14, opacity: 0, transition: 'none' });
       ST.create({ trigger: RW.$('.are-list', sec), start: 'top 80%', once: true, onEnter: function () {
-        gsap.to(roofs, { y: 0, opacity: 1, duration: 0.9, ease: 'expo.out', stagger: 0.06, clearProps: 'transform,opacity' });
+        gsap.to(roofs, { y: 0, opacity: 1, duration: 0.9, ease: 'expo.out', stagger: 0.06, clearProps: 'transform,opacity,transition' });
         /* then the windows light in a wave out from the home town, like an evening across the Cotswolds */
         var home = RW.$('.are-town.is-home', sec), hp = home ? (home.getAttribute('data-pos') || '50,50').split(',') : [50, 50];
         towns.forEach(function (t) {

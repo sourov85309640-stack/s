@@ -21,7 +21,7 @@
       'Small repairs take hours. A full re-roof, one to two weeks.',
       'Scaffolding is often the biggest single line on a quote.',
       'Rain, wind or frost: the work waits for safe weather.',
-      'Ask for any guarantee in writing.',
+      'Guaranteed in writing, on the invoice.',
       'Photos help, but most roofs need a visit for a firm price.'];
     var capT = RW.$('.faq-cap-t', sec), shown = 0, pinned = 0;
     function board(n) {

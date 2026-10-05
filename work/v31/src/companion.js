@@ -28,7 +28,7 @@
     areas: ['map', 'raise', 'Not on the list? Ask anyway.'],
     faq: ['mug', 'raise', 'Anything not covered here? Just ask.'],
     urgent: ['bucket', 'raise', 'Bucket first, electrics away, then call.'],
-    contact: ['wave', 'wave', 'A few details is plenty. We will do the rest.']
+    contact: ['wave', 'wave', 'A few details are plenty. We will do the rest.']
   };
 
   RW.add('companion', function () {

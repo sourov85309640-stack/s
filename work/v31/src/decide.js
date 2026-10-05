@@ -117,7 +117,7 @@
     if (V === '7') {
       /* on wide screens the heading rides along in the pinned stage, so the scene never loses its title */
       var st7 = $('.dec-stage7', sec), hd7 = $('.head2', sec);
-      if (st7 && hd7 && window.innerWidth > 999) { st7.insertBefore(hd7, st7.firstChild); sec.classList.add('dec-head-in'); }
+      if (st7 && hd7 && window.innerWidth > 599 && window.innerHeight > 700) { st7.insertBefore(hd7, st7.firstChild); sec.classList.add('dec-head-in'); }
       S.active = true; S.i = -2; paint();
       RW.ST.create({ trigger: $('.dec-stage7', sec) || body, start: 'top top+=' + ((RW.HDR || 76) + 8), end: '+=' + (window.innerWidth > 999 ? 230 : 190) + '%',
         pin: true, anticipatePin: 1, invalidateOnRefresh: true, onUpdate: function (self) { pinP = self.progress; } });

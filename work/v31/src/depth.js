@@ -86,3 +86,48 @@
     RW.depth = { measure: measure, frames: frames };
   }, { motion: true });
 }());
+
+/* Layer guard (owner: lead). A decoration in .layers must never sit behind or over text. On load and after a resize,
+   any small piece (an icon, bird, cloud, leaf) whose resting box touches a heading, paragraph, list item or link in its section is hidden at that
+   screen size (class is-clash). Runs with or without motion; resting box = measured with our own movement cleared. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('layer-guard', function () {
+    var pieces = RW.$$('.layers > *');
+    if (!pieces.length) return;
+    var PAD = 6;
+    function rest(el) {
+      var s = el.style, t = s.translate, r = s.rotate, tr = s.transform;
+      s.translate = 'none'; s.rotate = 'none'; s.transform = 'none';
+      var b = el.getBoundingClientRect();
+      s.translate = t; s.rotate = r; s.transform = tr;
+      return b;
+    }
+    function check() {
+      var bySec = new Map();
+      pieces.forEach(function (el) { el.classList.remove('is-clash'); });
+      pieces.forEach(function (el) {
+        if (getComputedStyle(el).display === 'none') return;
+        var sec = el.closest('section,footer'); if (!sec) return;
+        if (!bySec.has(sec)) {
+          bySec.set(sec, RW.$$('h1,h2,h3,p,li,a,label,dt,dd,blockquote', sec).filter(function (t) {
+            return !t.closest('.layers') && t.textContent.trim() && t.getClientRects().length;
+          }).map(function (t) { return t.getBoundingClientRect(); }));
+        }
+        var b = rest(el); if (!b.width || !b.height) return;
+        if (b.width > 200 || b.height > 240) return;   /* full-width backdrops (skylines, textures, rain) are meant to sit behind */
+        var hit = bySec.get(sec).some(function (r) {
+          return b.left < r.right + PAD && b.right > r.left - PAD && b.top < r.bottom + PAD && b.bottom > r.top - PAD;
+        });
+        if (hit) el.classList.add('is-clash');
+      });
+    }
+    var t = 0;
+    var later = function () { clearTimeout(t); t = setTimeout(check, 250); };
+    check();
+    window.addEventListener('load', later);
+    window.addEventListener('resize', later);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  });
+}());

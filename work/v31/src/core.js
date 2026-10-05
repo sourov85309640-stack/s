@@ -102,11 +102,12 @@
     var els = (typeof sel === 'string' ? RW.$$(sel) : sel).filter(function (e) { return !(o.skip && e.closest(o.skip)); });
     if (!els.length) return;
     var gsap = RW.gsap, ST = RW.ST;
-    gsap.set(els, { y: o.y == null ? 26 : o.y, opacity: 0 });
+    /* CSS transitions (hover lifts) are paused while GSAP moves the element, or every frame would ease behind it */
+    gsap.set(els, { y: o.y == null ? 26 : o.y, opacity: 0, transition: 'none' });
     ST.batch(els, {
       start: o.start || 'top 90%', once: true,
       onEnter: function (batch) {
-        gsap.to(batch, { y: 0, opacity: 1, duration: o.dur || 0.95, ease: 'power3.out', stagger: o.stagger == null ? 0.08 : o.stagger, overwrite: true, clearProps: 'transform,opacity' });
+        gsap.to(batch, { y: 0, opacity: 1, duration: o.dur || 0.95, ease: 'power3.out', stagger: o.stagger == null ? 0.08 : o.stagger, overwrite: true, clearProps: 'transform,opacity,transition' });
       }
     });
   };
@@ -187,6 +188,41 @@
         }
       } catch (x) {}
     }
+    /* resize and rotate keep your place. Pinned scenes change the page height at every width, and a breakpoint change
+       rebuilds some of them (refresh inside refresh), which can drop the scroll to the top. So while scrolling we note
+       which section is at the top of the screen and how far through it you are, and after a resize has settled we go
+       back to the same point of the same section in the new layout. */
+    if (RW.motionOK) {
+      var anchor = null, lastNote = 0, settle = 0, resizing = false, lastW = window.innerWidth;
+      var blocks = RW.$$('body > header ~ * section[id], main > section[id], body > section[id], footer').filter(function (e, i, a) { return a.indexOf(e) === i; });
+      var note = function () {
+        if (resizing) return;
+        var now = Date.now(); if (now - lastNote < 120) return; lastNote = now;
+        if (window.pageYOffset < 4) { anchor = { top: true }; return; }
+        for (var i = 0; i < blocks.length; i++) {
+          var r = blocks[i].getBoundingClientRect();
+          if (r.bottom > 1 && r.height > 0) { anchor = { el: blocks[i], f: Math.max(0, -r.top) / r.height }; return; }
+        }
+      };
+      var restore = function () {
+        resizing = false;
+        if (!anchor) return;
+        var y = 0;
+        if (!anchor.top) { var r = anchor.el.getBoundingClientRect(); y = r.top + window.pageYOffset + anchor.f * r.height; }
+        RW.scrollTo(Math.round(y), { immediate: true, offset: 0 });
+        lastNote = 0; note();
+      };
+      if (RW.lenis) RW.lenis.on('scroll', note); else window.addEventListener('scroll', note, { passive: true });
+      note();
+      window.addEventListener('resize', function () {
+        if (window.innerWidth === lastW && window.matchMedia('(pointer: coarse)').matches) return;   /* phone address bar only: nothing moves */
+        lastW = window.innerWidth;
+        resizing = true;   /* keep the note taken before the resize: the layout has already changed by now */
+        clearTimeout(settle);
+        settle = setTimeout(function () { ST.refresh(); requestAnimationFrame(restore); }, 420);
+      });
+    }
+
     /* hooks for tests and for tearing the page down in a single-page app */
     window.rwMotion = { lenis: RW.lenis, ST: ST, gsap: gsap };
     window.rwScrollTo = function (el) { RW.scrollTo(el); };

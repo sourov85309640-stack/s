@@ -16,7 +16,7 @@
   var WHERE = { main: 'the main roof', flat: 'a flat roof, extension or garage', chimney: 'the chimney', edges: 'the gutters, fascias or edges', notsure: 'not sure where' };
   var WHEN = {
     now: 'Water is coming in now, so please call. Put a bucket under it and move anything electrical away; we will tell you what to do first.',
-    soon: 'Send it over and we will arrange a look in the next few weeks, with a written quote after.',
+    soon: 'Send it over and we will arrange a time to look, then send you a written quote.',
     plan: 'Planning ahead is the best time: we can look, explain the options and give you a written quote with no rush.'
   };
   RW.add('quiz', function () {

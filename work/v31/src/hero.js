@@ -35,7 +35,9 @@
     var h1 = $('#h-hero'), words = h1 ? RW.splitWords(h1) : [];
     var panes = $$('.hero-pane').filter(function (p) { return p.offsetParent !== null; });
     var order = panes.length === 3 ? [panes[1], panes[0], panes[2]] : panes;
-    var tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    var rating = $('.hero-rating');
+    if (rating) gsap.set(rating, { transition: 'none' });   /* its hover lift transition would trail the intro */
+    var tl = gsap.timeline({ defaults: { ease: 'expo.out' }, onComplete: function () { if (rating) gsap.set(rating, { clearProps: 'transition' }); } });
     tl.from(order, { opacity: 0, y: 34, duration: 1.1, stagger: 0.08, clearProps: 'opacity,transform' }, 0.05)
       .from(order.map(function (p) { return p.querySelector('img'); }), { scale: 1.12, duration: 1.8, ease: 'power3.out', stagger: 0.08, clearProps: 'transform' }, 0.05)
       .from(words, { yPercent: 112, duration: 1.05, stagger: 0.06 }, 0.15)

@@ -520,3 +520,4 @@ p,li,dd,figcaption{text-wrap:pretty}
 @media (hover:none),(pointer:coarse),(max-width:767px){.ftr-links li a,.ftr-areas a,.legal a{display:inline-flex;align-items:center;min-height:44px}}
 /* no grey or blue browser flash on tap: every control has its own pressed state */
 a,button,summary,label,[role=tab],[role=button],input,select,textarea{-webkit-tap-highlight-color:transparent}
+.layers>.is-clash{visibility:hidden}

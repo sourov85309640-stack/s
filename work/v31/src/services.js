@@ -201,7 +201,7 @@
     var drift = V === '1' ? [$('.svc:first-child .cw img', sec)] : V === '6' ? $$('.svc .cw img', sec) : [];
     drift.forEach(function (im) {
       if (!im) return;
-      gsap.fromTo(im, { yPercent: -5, scale: 1.12 }, { yPercent: 5, scale: 1.12, ease: 'none', scrollTrigger: { trigger: im.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.fromTo(im, { yPercent: -5, scale: 1.1 }, { yPercent: 5, scale: 1.1, ease: 'none', scrollTrigger: { trigger: im.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
     if (V === '1' || V === '3' || V === '4') RW.reveal(cards, { y: 22, stagger: 0.06 });
     if (V === '3') RW.reveal([$('.svc-map', sec)], { y: 18 });

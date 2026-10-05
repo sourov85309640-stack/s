@@ -102,11 +102,11 @@
     var tl = gsap.timeline({ paused: true, defaults: { ease: 'none' }, onUpdate: drawAll });
     var t = function (target, vars, at) { tl.to(target, vars, at); };
     var slope = { x: 0.768, y: 0.640 };
-    tl.set([$('.st-sky-eve'), $('.st-glass-eve'), $('.st-moonw'), $('.st-clouds'), $('.st-slate'), $('.st-lamp-glow'), $('.st-p-book')], { opacity: 1 }, 0)
+    tl.set([$('.st-sky-eve'), $('.st-glass-eve'), $('.st-moonw'), $('.st-clouds'), $('.st-slate'), $('.st-lamp-gw'), $('.st-p-book')], { opacity: 1 }, 0)
       .set([$('.st-sky-storm'), $('.st-sky-night'), $('.st-sky-dawn'), $('.st-glass-storm'), $('.st-glass-night'), $('.st-glass-dawn'), $('.st-stars'), $('.st-sunw'),
         $('.st-dark'), $('.st-bolt'), $('.st-rain-far'), $('.st-rain-near'), $('.st-wind'), $('.st-leaves'),
         $('.st-win-rain'), $('.st-water'), $('.st-bead'), $('.st-stain'), $('.st-drips'), $('.st-floordrop'), $('.st-bucket'),
-        $('.st-felt-wet'), $$('.st-say'), $('.st-r-beam'), $('.st-spot'), $('.st-r-torch'), $('.st-r-phone'), $('.st-r-flash'), $('.st-r-hammer'), $('.st-newslate'), $('.st-shards'), $('.st-spark'), $('.st-birds'), $('.st-done'), $('.st-roofer'),
+        $('.st-felt-wet'), $$('.st-say'), $('.st-rladder'), $('.st-r-beam'), $('.st-spot'), $('.st-r-torch'), $('.st-r-phone'), $('.st-r-flash'), $('.st-r-hammer'), $('.st-newslate'), $('.st-shards'), $('.st-spark'), $('.st-birds'), $('.st-done'), $('.st-roofer'),
         $('.st-blossom'), $('.st-exhaust'), $('.st-p-q'), $('.st-p-waves'), $('.st-p-phone')], { opacity: 0 }, 0)
       .set($('.st-water'), { strokeDashoffset: 1 }, 0)
       .set($('.st-ladder'), { scaleY: 0, transformOrigin: '50% 100%' }, 0)
@@ -190,7 +190,7 @@
     t([$('.st-sky-night'), $('.st-glass-night'), $('.st-sky-storm'), $('.st-glass-storm'), $('.st-stars'), $('.st-moonw')], { opacity: 0, duration: 0.45 }, 7.05);
     t($('.st-clouds'), { opacity: 1, duration: 0.6 }, 7.15);
     t($('.st-sunw'), { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 7.05);
-    t($('.st-lamp-glow'), { opacity: 0, duration: 0.4 }, 7.2);
+    t($('.st-lamp-gw'), { opacity: 0, duration: 0.4 }, 7.2);
     t($('.st-blossom'), { opacity: 1, duration: 0.6 }, 7.4);
     t($('.st-exhaust'), { opacity: 1, duration: 0.1 }, 7.3);
     t(V, { x: 880, duration: 0.7, ease: 'power2.out' }, 7.3);
@@ -240,6 +240,8 @@
     t($('.st-shards'), { opacity: 0, duration: 0.2 }, 10.05);
     t(R, { climb: 1, ru: -150, rf: -20, lu: -150, lf: -20, duration: 0.08 }, 10.3);
     t(R, { y: 384, x: 852, duration: 0.55, ease: 'none' }, 10.35);
+    /* the roof ladder goes up the slope and hooks over the ridge before he steps onto it */
+    tl.fromTo($('.st-rladder'), { opacity: 0, x: 170 }, { opacity: 1, x: 0, duration: 0.2, ease: 'power2.out' }, 10.72);
     t(R, { climb: 0, ru: 0, rf: 0, lu: 0, lf: 0, duration: 0.1 }, 10.9);
     t(R, { x: 828, y: 365, duration: 0.15, ease: 'power1.out' }, 10.92);
     t(R, { ll: -24, lr: 10, bend: 30, ru: -72, rf: -28, lu: 12, lf: -35, head: 14, duration: 0.15 }, 11.07);

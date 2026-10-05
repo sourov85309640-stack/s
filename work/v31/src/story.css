@@ -85,6 +85,8 @@
 .st .st-wheel circle{fill:#3F5560}.st .st-spoke{stroke:#9AA9B1;stroke-width:2.5;stroke-linecap:round}
 .st .st-exhaust circle{fill:#E8E6E1;opacity:.8}
 .st .st-ladder path{fill:none;stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}
+.st .st-rl-rail{stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}.st .st-rl-rung{stroke:#7A5A40;stroke-width:3;stroke-linecap:round}
+.st .st-rl-hook{fill:none;stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}.st .st-rl-wheel{fill:#3F5560}
 .st .st-birds path{fill:none;stroke:#3F5560;stroke-width:2.5;stroke-linecap:round}
 .st .st-spark path{fill:#F6C979}
 .st .st-door-hole{fill:#5A4636}.st .st-door{fill:#C9A27E;stroke:rgba(31,43,48,.35);stroke-width:1.5}
@@ -130,7 +132,7 @@
 .st .st-rain,.st .st-wind,.st .st-win-rain,.st .st-say,.st .st-r-beam,.st .st-spot,.st .st-r-torch,.st .st-r-phone,.st .st-r-flash,
 .st .st-glass-eve,.st .st-glass-storm,.st .st-glass-night,.st .st-water,.st .st-bead,.st .st-stain,.st .st-drips,.st .st-floordrop,
 .st .st-bucket,.st .st-slate,.st .st-shards,.st .st-felt-wet,.st .st-spark,.st .st-exhaust,
-.st .st-p-q,.st .st-p-waves,.st .st-p-book,.st .st-p-phone,.st .st-done{opacity:0}
+.st .st-lamp-gw,.st .st-p-q,.st .st-p-waves,.st .st-p-book,.st .st-p-phone,.st .st-done{opacity:0}
 .st:not(.is-js) .st-van{transform:translate(880px,0)}
 .st:not(.is-js) .st-roofer{transform:translate(812px,366px)}
 .st:not(.is-js) .st-r-flip{transform:scaleX(-1)}
