@@ -3,7 +3,7 @@
    on phones the scene sits above the caption. Far and middle layers drift slower than the house (parallax).
    The homeowner and the roofer are jointed rigs. Every joint turns around its own point (neck, shoulder, elbow,
    hip) by writing rotate(angle x y) itself, so no part can come loose whatever the screen or scroll speed.
-   Reduced motion / data-motion="off" / no JS: the repaired scene and all five steps as a plain list (CSS). */
+   Reduced motion / data-motion="off" / no JS: the repaired scene and all six steps as a plain list (CSS). */
 (function () {
   'use strict';
   var RW = window.RW;
@@ -59,11 +59,11 @@
     /* joint angles in degrees; for both people "forward" (the way they face) is a negative turn */
     var P = { x: 575, head: 14, bend: 0, ru: -22, rf: -96, lu: -12, lf: -84, walk: 0, wave: 0 };
     var R = { x: 905, y: 600, face: -1, head: 0, bend: 0, ru: 0, rf: 0, lu: 0, lf: 0, walk: 0, climb: 0, ham: 0, wave: 0, ll: 0, lr: 0 };
-    var V = { x: 1300 }, W = { bead: 0, cal: 0, lvl: 0 };
+    var V = { x: 1300 }, W = { bead: 0, lvl: 0 };
     var bead = $('.st-bead'), water = $('.st-water'), wlen = 0;
     try { wlen = water.getTotalLength(); } catch (e) { wlen = 0; }
     var vanG = $('.st-van'), wF = $('.st-wheel-f'), wB = $('.st-wheel-b');
-    var calN = $('.st-cal-n'), calPage = $('.st-cal-page'), bkWater = $('.st-bk-water'), bkRing = $('.st-bk-ring');
+    var bkWater = $('.st-bk-water'), bkRing = $('.st-bk-ring');
     function drawPerson(now) {
       var sw = Math.sin(P.x * 0.3) * 22 * P.walk, aw = Math.sin(P.x * 0.3) * 12 * P.walk;
       var wv = P.wave ? Math.sin(now * 0.012) * 26 * P.wave : 0;
@@ -90,11 +90,6 @@
       var wa = (V.x - 880) / 13 * 57.3;
       rot(wF, wa, 26, 600); rot(wB, wa, 108, 600);
       if (wlen) { var pt = water.getPointAtLength(W.bead * wlen); bead.setAttribute('cx', f1(pt.x)); bead.setAttribute('cy', f1(pt.y)); }
-      var k = Math.min(5.999, W.cal * 6), wk = Math.floor(k) + 1, fr = k - Math.floor(k);
-      if (calN.textContent !== String(wk)) calN.textContent = String(wk);
-      var flip = W.cal > 0 && W.cal < 1 && fr < 0.45 ? 1 - fr / 0.45 : 0;
-      calPage.style.opacity = flip ? 1 : 0;
-      calPage.setAttribute('transform', 'translate(0 452) scale(1 ' + (flip ? flip.toFixed(3) : 1) + ') translate(0 -452)');
       var ly = 595 - W.lvl * 17;
       bkWater.setAttribute('cy', f1(ly)); bkRing.setAttribute('cy', f1(ly));
       bkWater.setAttribute('rx', f1(11 + W.lvl * 3.2));
@@ -102,19 +97,22 @@
     function drawAll() { var now = performance.now(); drawPerson(now); drawRoofer(now); drawProps(); }
     drawAll();
 
-    /* ---------- the story, in time units (10.3 in all) ---------- */
+    /* ---------- the story, in time units (T in all) ---------- */
+    var T = 12.1;
     var tl = gsap.timeline({ paused: true, defaults: { ease: 'none' }, onUpdate: drawAll });
     var t = function (target, vars, at) { tl.to(target, vars, at); };
     var slope = { x: 0.768, y: 0.640 };
     tl.set([$('.st-sky-eve'), $('.st-glass-eve'), $('.st-moonw'), $('.st-clouds'), $('.st-slate'), $('.st-lamp-glow'), $('.st-p-book')], { opacity: 1 }, 0)
       .set([$('.st-sky-storm'), $('.st-sky-night'), $('.st-sky-dawn'), $('.st-glass-storm'), $('.st-glass-night'), $('.st-glass-dawn'), $('.st-stars'), $('.st-sunw'),
-        $('.st-dark'), $('.st-bolt'), $('.st-rain-far'), $('.st-rain-near'), $('.st-snow'), $('.st-wind'), $('.st-leaves'), $('.st-snowgnd'), $$('.st-snowroof'),
-        $('.st-win-rain'), $('.st-frost'), $('.st-water'), $('.st-bead'), $('.st-stain'), $('.st-drips'), $('.st-floordrop'), $('.st-bucket'), $('.st-mould'),
-        $('.st-rot'), $('.st-felt-wet'), $('.st-cal'), $('.st-newslate'), $('.st-shards'), $('.st-spark'), $('.st-birds'), $('.st-done'), $('.st-roofer'),
+        $('.st-dark'), $('.st-bolt'), $('.st-rain-far'), $('.st-rain-near'), $('.st-wind'), $('.st-leaves'),
+        $('.st-win-rain'), $('.st-water'), $('.st-bead'), $('.st-stain'), $('.st-drips'), $('.st-floordrop'), $('.st-bucket'),
+        $('.st-felt-wet'), $$('.st-say'), $('.st-r-beam'), $('.st-spot'), $('.st-r-torch'), $('.st-r-phone'), $('.st-r-flash'), $('.st-r-hammer'), $('.st-newslate'), $('.st-shards'), $('.st-spark'), $('.st-birds'), $('.st-done'), $('.st-roofer'),
         $('.st-blossom'), $('.st-exhaust'), $('.st-p-q'), $('.st-p-waves'), $('.st-p-phone')], { opacity: 0 }, 0)
       .set($('.st-water'), { strokeDashoffset: 1 }, 0)
       .set($('.st-ladder'), { scaleY: 0, transformOrigin: '50% 100%' }, 0)
-      .set($('.st-icicles'), { scaleY: 0, transformOrigin: '50% 0%' }, 0)
+      .set($('.st-door'), { scaleX: 1, transformOrigin: '100% 50%' }, 0)
+      .set($('.st-say-r'), { scale: 0.3, transformOrigin: '55% 100%' }, 0)
+      .set($('.st-say-p'), { scale: 0.3, transformOrigin: '40% 100%' }, 0)
       .set($('.st-sunw'), { y: 110 }, 0)
       .set($('.st-dark'), { x: -260 }, 0)
       .set($('.st-done'), { scale: 0.2, transformOrigin: '50% 50%' }, 0)
@@ -174,87 +172,112 @@
     t($('.st-floordrop'), { opacity: 0, duration: 0.1 }, 5.55);
     t(P, { bend: 0, ru: 0, rf: -10, lu: 0, lf: -10, head: -30, duration: 0.18 }, 5.66);
 
-    /* 4: weeks go by in winter: snow, a night sky, the calendar turns, it gets worse; the homeowner phones */
-    t([$('.st-rain-far'), $('.st-rain-near'), $('.st-win-rain'), $('.st-wind')], { opacity: 0, duration: 0.3 }, 5.6);
-    t([$('.st-sky-night'), $('.st-glass-night')], { opacity: 1, duration: 0.5 }, 5.65);
-    t($('.st-stars'), { opacity: 1, duration: 0.5 }, 5.8);
-    t($('.st-moonw'), { opacity: 1, duration: 0.5 }, 5.8);
-    t($('.st-snow'), { opacity: 1, duration: 0.4 }, 5.7);
-    t([$('.st-snowgnd'), $$('.st-snowroof'), $('.st-frost')], { opacity: 1, duration: 0.6 }, 5.9);
-    t($('.st-icicles'), { scaleY: 1, duration: 0.6 }, 6.0);
-    t($('.st-crown'), { opacity: 0.12, duration: 0.5 }, 5.8);
-    t($('.st-tree'), { rotation: 0, duration: 0.4 }, 5.8);
-    t($('.st-cal'), { opacity: 1, duration: 0.3 }, 5.7);
-    t(W, { cal: 1, duration: 1.2 }, 5.8);
-    t(W, { lvl: 1, duration: 1.4 }, 5.7);
-    t($('.st-stain'), { scale: 1.55, duration: 0.9 }, 5.8);
-    t($('.st-rot'), { opacity: 1, duration: 0.6 }, 5.9);
-    t([$('.st-s2'), $('.st-s3')], { x: 10, rotation: 4, transformOrigin: '0% 50%', duration: 0.5, stagger: 0.2 }, 6.0);
-    t($('.st-mould'), { opacity: 1, duration: 0.6 }, 6.3);
-    t(P, { ru: -38, rf: -150, head: -4, duration: 0.2 }, 6.25);
-    t($('.st-p-phone'), { opacity: 1, duration: 0.1 }, 6.3);
-    tl.fromTo($('.st-p-waves'), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.15, repeat: 3, yoyo: true }, 6.4);
-    t(P, { ru: 0, rf: -12, head: -20, duration: 0.2 }, 7.05);
-    t($('.st-p-phone'), { opacity: 0, duration: 0.1 }, 7.1);
-    t($('.st-cal'), { opacity: 0, duration: 0.25 }, 7.15);
+    /* 4: she gets in touch straight away; the storm passes overnight and the van pulls up in the morning */
+    t(P, { ru: -38, rf: -150, head: -4, duration: 0.2 }, 5.75);
+    t($('.st-p-phone'), { opacity: 1, duration: 0.1 }, 5.8);
+    tl.fromTo($('.st-p-waves'), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.15, repeat: 3, yoyo: true }, 5.9);
+    t(W, { lvl: 0.35, duration: 2.3 }, 5.7);
+    t(P, { ru: 0, rf: -12, head: -20, duration: 0.2 }, 6.5);
+    t($('.st-p-phone'), { opacity: 0, duration: 0.1 }, 6.55);
+    t(P, { head: 6, duration: 0.3 }, 6.75);
+    t([$('.st-rain-far'), $('.st-rain-near'), $('.st-win-rain'), $('.st-wind')], { opacity: 0, duration: 0.3 }, 6.6);
+    t([$('.st-sky-night'), $('.st-glass-night')], { opacity: 1, duration: 0.35 }, 6.6);
+    t($('.st-dark'), { x: 300, opacity: 0, duration: 0.6 }, 6.6);
+    t([$('.st-stars'), $('.st-moonw')], { opacity: 1, duration: 0.3 }, 6.7);
+    t($('.st-tree'), { rotation: 0, duration: 0.4 }, 6.6);
+    t($('.st-smoke'), { skewX: 0, x: 0, opacity: 1, duration: 0.5 }, 6.7);
+    t([$('.st-sky-dawn'), $('.st-glass-dawn')], { opacity: 1, duration: 0.5 }, 7.0);
+    t([$('.st-sky-night'), $('.st-glass-night'), $('.st-sky-storm'), $('.st-glass-storm'), $('.st-stars'), $('.st-moonw')], { opacity: 0, duration: 0.45 }, 7.05);
+    t($('.st-clouds'), { opacity: 1, duration: 0.6 }, 7.15);
+    t($('.st-sunw'), { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 7.05);
+    t($('.st-lamp-glow'), { opacity: 0, duration: 0.4 }, 7.2);
+    t($('.st-blossom'), { opacity: 1, duration: 0.6 }, 7.4);
+    t($('.st-exhaust'), { opacity: 1, duration: 0.1 }, 7.3);
+    t(V, { x: 880, duration: 0.7, ease: 'power2.out' }, 7.3);
+    t($('.st-exhaust'), { opacity: 0, duration: 0.2 }, 7.9);
 
-    /* 5: morning: the snow goes, the van arrives, the roofer climbs up and puts it right */
-    t([$('.st-sky-dawn'), $('.st-glass-dawn')], { opacity: 1, duration: 0.6 }, 7.3);
-    t([$('.st-sky-night'), $('.st-glass-night'), $('.st-sky-storm'), $('.st-glass-storm'), $('.st-stars'), $('.st-moonw'), $('.st-snow')], { opacity: 0, duration: 0.5 }, 7.35);
-    t($('.st-dark'), { x: 300, opacity: 0, duration: 0.8 }, 7.3);
-    t($('.st-clouds'), { opacity: 1, duration: 0.6 }, 7.5);
-    t($('.st-sunw'), { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 7.4);
-    t([$('.st-snowgnd'), $$('.st-snowroof'), $('.st-frost')], { opacity: 0, duration: 0.6 }, 7.6);
-    t($('.st-icicles'), { scaleY: 0, duration: 0.5 }, 7.6);
-    t($('.st-crown'), { opacity: 1, duration: 0.6 }, 7.6);
-    t($('.st-blossom'), { opacity: 1, duration: 0.6 }, 7.9);
-    t($('.st-smoke'), { skewX: 0, x: 0, opacity: 1, duration: 0.5 }, 7.5);
-    t($('.st-lamp-glow'), { opacity: 0, duration: 0.5 }, 7.6);
-    t($('.st-exhaust'), { opacity: 1, duration: 0.1 }, 7.6);
-    t(V, { x: 880, duration: 0.7, ease: 'power2.out' }, 7.6);
-    t($('.st-exhaust'), { opacity: 0, duration: 0.2 }, 8.2);
-    t($('.st-shards'), { opacity: 0, duration: 0.2 }, 8.1);
-    t($('.st-roofer'), { opacity: 1, duration: 0.1 }, 8.3);
-    t(R, { walk: 1, duration: 0.05 }, 8.3);
-    t(R, { x: 886, duration: 0.18 }, 8.3);
-    t(R, { walk: 0, duration: 0.05 }, 8.45);
-    t($('.st-ladder'), { scaleY: 1, duration: 0.3, ease: 'power2.out' }, 8.2);
-    t(R, { climb: 1, ru: -150, rf: -20, lu: -150, lf: -20, duration: 0.08 }, 8.5);
-    t(R, { y: 384, x: 852, duration: 0.55, ease: 'none' }, 8.55);
-    t(R, { climb: 0, ru: 0, rf: 0, lu: 0, lf: 0, duration: 0.1 }, 9.1);
-    t(R, { x: 828, y: 365, duration: 0.15, ease: 'power1.out' }, 9.12);
-    t(R, { ll: -24, lr: 10, bend: 30, ru: -72, rf: -28, lu: 12, lf: -35, head: 14, duration: 0.15 }, 9.27);
-    tl.fromTo($('.st-newslate'), { opacity: 0, x: 40, y: 34 }, { opacity: 1, x: 0, y: 0, duration: 0.15, ease: 'power2.out' }, 9.3);
-    t(R, { ham: 1, duration: 0.45 }, 9.45);
-    [9.48, 9.63, 9.78].forEach(function (s) {
+    /* 5: the visit: in through the bedroom door, a torch on the stain, a photo, then shown and talked through */
+    t($('.st-roofer'), { opacity: 1, duration: 0.08 }, 8.02);
+    t(R, { walk: 1, duration: 0.04 }, 8.05);
+    t(R, { x: 838, duration: 0.25 }, 8.05);
+    t(R, { walk: 0, duration: 0.04 }, 8.27);
+    t($('.st-roofer'), { opacity: 0, duration: 0.08 }, 8.3);
+    t(P, { walk: 1, duration: 0.05 }, 8.15);
+    t(P, { x: 652, head: 0, duration: 0.3, ease: 'power1.inOut' }, 8.15);
+    t(P, { walk: 0, duration: 0.05 }, 8.42);
+    t($('.st-door'), { scaleX: 0.14, duration: 0.15, ease: 'power2.out' }, 8.4);
+    tl.set(R, { x: 780, y: 598 }, 8.45);
+    t($('.st-roofer'), { opacity: 1, duration: 0.1 }, 8.48);
+    t(R, { head: -30, ru: -150, rf: -22, duration: 0.18 }, 8.6);
+    t([$('.st-r-torch'), $('.st-r-beam'), $('.st-spot')], { opacity: 1, duration: 0.1 }, 8.7);
+    t($('.st-r-beam'), { opacity: 0.55, duration: 0.1, yoyo: true, repeat: 1 }, 8.85);
+    t([$('.st-r-torch'), $('.st-r-beam'), $('.st-spot')], { opacity: 0, duration: 0.08 }, 9.0);
+    t($('.st-r-phone'), { opacity: 1, duration: 0.06 }, 9.02);
+    t(R, { ru: -128, rf: -34, duration: 0.1 }, 9.0);
+    tl.fromTo($('.st-r-flash'), { opacity: 0, scale: 0.4, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1.3, duration: 0.05, yoyo: true, repeat: 1 }, 9.1);
+    t(R, { head: 4, ru: -58, rf: -46, duration: 0.15 }, 9.22);
+    tl.to($('.st-say-r'), { opacity: 1, scale: 1, duration: 0.15, ease: 'back.out(2.2)' }, 9.3);
+    t(P, { head: -6, bend: 4, duration: 0.15 }, 9.32);
+    t(P, { head: 10, duration: 0.07 }, 9.55);
+    t(P, { head: -2, duration: 0.07 }, 9.62);
+    t(P, { head: 9, duration: 0.07 }, 9.69);
+    t(P, { head: 2, bend: 0, duration: 0.08 }, 9.76);
+    tl.to($('.st-say-p'), { opacity: 1, scale: 1, duration: 0.15, ease: 'back.out(2.2)' }, 9.58);
+    t($$('.st-say'), { opacity: 0, duration: 0.12 }, 9.84);
+    t($('.st-r-phone'), { opacity: 0, duration: 0.06 }, 9.84);
+    t(R, { head: 0, ru: 0, rf: 0, duration: 0.08 }, 9.84);
+    t($('.st-roofer'), { opacity: 0, duration: 0.08 }, 9.9);
+    t($('.st-door'), { scaleX: 1, duration: 0.15, ease: 'power2.inOut' }, 9.96);
+
+    /* 6: the fix: ladder up, onto the slates, the new slate in, the ceiling dries */
+    tl.set(R, { x: 905, y: 600, head: 0, bend: 0, ru: 0, rf: 0, lu: 0, lf: 0 }, 9.98);
+    t($('.st-r-hammer'), { opacity: 1, duration: 0.05 }, 9.98);
+    t($('.st-roofer'), { opacity: 1, duration: 0.1 }, 10.08);
+    t(R, { walk: 1, duration: 0.05 }, 10.1);
+    t(R, { x: 886, duration: 0.18 }, 10.1);
+    t(R, { walk: 0, duration: 0.05 }, 10.25);
+    t($('.st-ladder'), { scaleY: 1, duration: 0.3, ease: 'power2.out' }, 10.0);
+    t($('.st-shards'), { opacity: 0, duration: 0.2 }, 10.05);
+    t(R, { climb: 1, ru: -150, rf: -20, lu: -150, lf: -20, duration: 0.08 }, 10.3);
+    t(R, { y: 384, x: 852, duration: 0.55, ease: 'none' }, 10.35);
+    t(R, { climb: 0, ru: 0, rf: 0, lu: 0, lf: 0, duration: 0.1 }, 10.9);
+    t(R, { x: 828, y: 365, duration: 0.15, ease: 'power1.out' }, 10.92);
+    t(R, { ll: -24, lr: 10, bend: 30, ru: -72, rf: -28, lu: 12, lf: -35, head: 14, duration: 0.15 }, 11.07);
+    tl.fromTo($('.st-newslate'), { opacity: 0, x: 40, y: 34 }, { opacity: 1, x: 0, y: 0, duration: 0.15, ease: 'power2.out' }, 11.1);
+    t(R, { ham: 1, duration: 0.45 }, 11.25);
+    [11.28, 11.43, 11.58].forEach(function (s) {
       tl.fromTo($('.st-spark'), { opacity: 0, scale: 0.3, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1.2, duration: 0.05, yoyo: true, repeat: 1 }, s);
     });
-    t([$('.st-s2'), $('.st-s3')], { x: 0, rotation: 0, duration: 0.2 }, 9.5);
-    t([$('.st-rot'), $('.st-felt-wet'), $('.st-water'), $('.st-drips'), $('.st-mould')], { opacity: 0, duration: 0.3 }, 9.55);
-    t($('.st-stain'), { opacity: 0, scale: 0.6, duration: 0.4 }, 9.6);
-    t(W, { lvl: 0.4, duration: 0.4 }, 9.6);
-    t($('.st-bucket'), { opacity: 0, duration: 0.2 }, 9.9);
-    t(R, { bend: 4, head: -6, ru: -165, rf: 0, lu: 0, lf: -10, wave: 1, duration: 0.15 }, 9.92);
-    t(P, { ru: -165, rf: 0, head: -24, wave: 1, duration: 0.15 }, 9.95);
-    tl.to($('.st-done'), { opacity: 1, scale: 1, duration: 0.15, ease: 'back.out(2.5)' }, 10.0);
-    tl.fromTo($('.st-birds'), { opacity: 0, x: -60 }, { opacity: 1, x: 80, duration: 0.6 }, 9.65);
-    tl.set({}, {}, 10.3);
+    t([$('.st-felt-wet'), $('.st-water'), $('.st-drips')], { opacity: 0, duration: 0.3 }, 11.35);
+    t($('.st-stain'), { opacity: 0, scale: 0.6, duration: 0.4 }, 11.4);
+    t(W, { lvl: 0.15, duration: 0.4 }, 11.4);
+    t($('.st-bucket'), { opacity: 0, duration: 0.2 }, 11.7);
+    t(R, { bend: 4, head: -6, ru: -165, rf: 0, lu: 0, lf: -10, wave: 1, duration: 0.15 }, 11.72);
+    t(P, { ru: -165, rf: 0, head: -24, wave: 1, duration: 0.15 }, 11.75);
+    tl.to($('.st-done'), { opacity: 1, scale: 1, duration: 0.15, ease: 'back.out(2.5)' }, 11.8);
+    tl.fromTo($('.st-birds'), { opacity: 0, x: -60 }, { opacity: 1, x: 80, duration: 0.6 }, 11.45);
+    tl.set({}, {}, T);
 
-    /* camera: onto the slate, follow it down, back up to the felt, into the bedroom, wide for the winter, the ladder, the fix, wide */
+    /* camera: onto the slate, follow it down, back up to the felt, into the bedroom for the leak and the call,
+       wide for the night and the van, back in for the visit, the ladder, the fix, wide */
     var c = function (vars, at, d, ease) { vars.duration = d; vars.ease = ease || 'power2.inOut'; vars.onUpdate = aim; tl.to(cam, vars, at); };
     c({ z: 1, tx: 770, ty: 350 }, 1.9, 0.9);
     c({ z: 0.45, tx: 830, ty: 470 }, 3.0, 0.6);
     c({ z: 1, tx: 790, ty: 360 }, 3.75, 0.35);
     c({ z: 0.85, tx: 700, ty: 480, floor: 1 }, 4.6, 0.5);
-    c({ z: 0, floor: 0 }, 5.75, 0.5);
-    c({ z: 0.5, tx: 880, ty: 470 }, 8.35, 0.5);
-    c({ z: 0.95, tx: 800, ty: 340 }, 9.05, 0.3);
-    c({ z: 0 }, 9.95, 0.35);
+    c({ z: 0, floor: 0 }, 6.55, 0.5);
+    c({ z: 0.85, tx: 724, ty: 480, floor: 1 }, 8.2, 0.4);
+    c({ z: 0.5, tx: 880, ty: 470, floor: 0 }, 9.95, 0.4);
+    c({ z: 0.95, tx: 800, ty: 340 }, 10.85, 0.3);
+    c({ z: 0 }, 11.75, 0.35);
 
     /* waving keeps going while the end is on screen */
     RW.tick(function () { if ((P.wave || R.wave) && sec.classList.contains('is-live')) { var now = performance.now(); drawPerson(now); drawRoofer(now); } });
 
-    var STEPS = [0, 0.17, 0.37, 0.54, 0.72], cur = -1;
+    /* the playhead never rests exactly on 0: GSAP leaves the time-0 set-up unrendered there, which would show the finished scene */
+    var T0 = 0.004, seek = function (p) { tl.time(Math.max(T0, p * T)); };
+    seek(0);
+    var STEPS = [0, 1.75, 3.85, 5.7, 8.05, 9.95].map(function (x) { return x / T; }), cur = -1;
     function show(p) {
       var k = 0; for (var i = 0; i < STEPS.length; i++) if (p >= STEPS[i]) k = i;
       if (k === cur) return; cur = k;
@@ -266,7 +289,7 @@
     var desk = window.matchMedia('(min-width:1000px)').matches;
     if (sec.getAttribute('data-v') === '2') {
       /* tap through: no pinning; Back and Next play the scene to each step */
-      var AT = [0, 3.9, 5.7, 7.2, 10.3], step = 0, nav = document.createElement('div');
+      var AT = [T0, 3.85, 5.7, 8.0, 9.9, T], step = 0, nav = document.createElement('div');
       nav.className = 'st-nav';
       nav.innerHTML = '<button type="button" class="st-prev" aria-label="Previous step">Back</button><button type="button" class="btn btn-fill st-next">Next</button>';
       copy.appendChild(nav);
@@ -279,15 +302,15 @@
       };
       next.addEventListener('click', function () { goStep(step === AT.length - 1 ? 0 : step + 1); });
       prev.addEventListener('click', function () { goStep(step - 1); });
-      tl.progress(0); goStep(0);
+      seek(0); goStep(0);
       sec.classList.add('is-tap');
       RW.onView(sec, { enter: function () { sec.classList.add('is-live'); }, leave: function () { sec.classList.remove('is-live'); } });
       return;
     }
     ST.create({
-      trigger: sec, start: 'top top', end: '+=' + (desk ? 460 : 340) + '%', pin: $('.st-pin'), scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
-      onUpdate: function (self) { tl.progress(self.progress); show(self.progress); },
-      onRefresh: function (self) { frame(); tl.progress(self.progress); show(self.progress); }
+      trigger: sec, start: 'top top', end: '+=' + (desk ? 540 : 400) + '%', pin: $('.st-pin'), scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate: function (self) { seek(self.progress); show(self.progress); },
+      onRefresh: function (self) { frame(); seek(self.progress); show(self.progress); }
     });
     RW.onView(sec, { enter: function () { sec.classList.add('is-live'); }, leave: function () { sec.classList.remove('is-live'); } });
   }, { motion: true });

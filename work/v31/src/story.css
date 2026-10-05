@@ -1,5 +1,5 @@
 /* THE STORY OF ONE SLATE, prefix .st- (owner: lead). A full-screen pinned scene driven by scroll (story.js).
-   Static state (no JS, reduced motion): the repaired morning scene and the five steps as a list. */
+   Static state (no JS, reduced motion): the repaired morning scene and the six steps as a list. */
 .st{padding:0;background:var(--sky);overflow-x:clip}
 .st-pin{position:relative;display:grid;min-height:100vh;min-height:100svh}
 .st-stage{position:relative;overflow:hidden;min-height:56svh}
@@ -31,7 +31,6 @@
 .st .st-dark path{fill:#7D8A93;opacity:.92}
 .st .st-bolt{fill:#FFF3B8;stroke:#F2C35B;stroke-width:2;stroke-linejoin:round}
 .st .st-hill{fill:#C9D6B8}.st .st-ground{fill:#B7C79E}
-.st .st-snowgnd{fill:#FBFBF8}
 .st .st-trunk{fill:none;stroke:#7A5A40;stroke-width:8;stroke-linecap:round}
 .st .st-crown circle{fill:#86A35B}
 .st .st-blossom circle{fill:#F2B8C2}
@@ -42,7 +41,6 @@
 .st .st-win-frame{fill:#FAF6EE;stroke:#B79B79;stroke-width:3}
 .st .st-glass-eve{fill:#E9D6C2}.st .st-glass-storm{fill:#8E9BA5}.st .st-glass-night{fill:#3F4E62}.st .st-glass-dawn{fill:#F8E3C8}
 .st .st-win-rain path{stroke:rgba(255,255,255,.75);stroke-width:1.5;stroke-linecap:round}
-.st .st-frost path{fill:rgba(255,255,255,.75)}
 .st .st-win-bar{stroke:#FAF6EE;stroke-width:3}
 .st .st-sill{stroke:#B79B79;stroke-width:4;stroke-linecap:round}
 .st .st-curtain path{fill:#C98B62;opacity:.92}
@@ -57,7 +55,6 @@
 .st .st-cat-body,.st .st-cat-head,.st .st-cat-ear{fill:#5B5550}
 .st .st-cat-tail{fill:none;stroke:#5B5550;stroke-width:4;stroke-linecap:round}
 .st .st-rug{fill:#D9A383;opacity:.6}
-.st .st-mould circle{fill:#6E7A5A;opacity:.7}
 .st .st-stain-o{fill:rgba(140,110,70,.35)}.st .st-stain-i{fill:rgba(110,84,52,.45)}
 .st .st-drip{fill:#6F98AE}
 .st .st-floordrop ellipse{fill:rgba(111,152,174,.5)}
@@ -73,23 +70,15 @@
 .st .st-chimtop{stroke:rgba(31,43,48,.7);stroke-width:7;stroke-linecap:round}
 .st .st-sm{fill:#ECEAE5;opacity:.9}
 .st .st-felt{stroke:#7C93A3;stroke-width:3}.st .st-felt-wet{stroke:#4E7487;stroke-width:4}
-.st .st-battens rect{fill:#B98A5E}.st .st-rot rect{fill:#4A3526}
+.st .st-battens rect{fill:#B98A5E}
 .st .st-slates path,.st .st-slate path,.st .st-newslate path,.st .st-shards path{fill:#5E6B73;stroke:#3C474D;stroke-width:1.2}
 .st .st-newslate path{fill:#74838C}
-.st .st-snowroof path,.st path.st-snowroof{fill:#FBFBF8}
 .st .st-gutter{fill:#4A565D}.st .st-pipe{stroke:#4A565D;stroke-width:5}
-.st .st-icicles path{fill:#E6F1F6;stroke:#BFD6E1;stroke-width:1}
 .st .st-water{fill:none;stroke:#4E86A6;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
 .st .st-bead{fill:#4E86A6;stroke:#DCEAF1;stroke-width:1.5}
 .st .st-rain-far path{stroke:rgba(74,104,122,.4);stroke-width:2;stroke-linecap:round}
 .st .st-rain-near path{stroke:rgba(74,104,122,.6);stroke-width:3;stroke-linecap:round}
-.st .st-snow circle{fill:#FFFFFF}
 .st .st-wind path{fill:none;stroke:rgba(74,104,122,.45);stroke-width:3;stroke-linecap:round}
-.st .st-cal-b{fill:#fff;stroke:rgba(31,43,48,.45);stroke-width:2}.st .st-cal-t{fill:var(--copper)}
-.st .st-cal-ring{stroke:#4A565D;stroke-width:4;stroke-linecap:round}
-.st .st-cal-n{font:700 34px Arial,sans-serif;fill:var(--text);text-anchor:middle}
-.st .st-cal-w{font:600 15px Arial,sans-serif;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:rgba(31,43,48,.55);stroke-width:3px}
-.st .st-cal-page{fill:#fff;stroke:rgba(31,43,48,.25);stroke-width:1.5;opacity:0}
 .st .st-van-b{fill:#FAF9F6;stroke:rgba(31,43,48,.55);stroke-width:2.5;stroke-linejoin:round}.st .st-van-w{fill:#DCE6EA}
 .st .st-van-stripe{stroke:var(--copper);stroke-width:5}.st .st-van-door{stroke:rgba(31,43,48,.25);stroke-width:1.5}
 .st .st-van-lamp{fill:#F6C979}
@@ -98,6 +87,14 @@
 .st .st-ladder path{fill:none;stroke:#9C7A5E;stroke-width:4;stroke-linecap:round}
 .st .st-birds path{fill:none;stroke:#3F5560;stroke-width:2.5;stroke-linecap:round}
 .st .st-spark path{fill:#F6C979}
+.st .st-door-hole{fill:#5A4636}.st .st-door{fill:#C9A27E;stroke:rgba(31,43,48,.35);stroke-width:1.5}
+.st .st-door-k{fill:#7A5A40}.st .st-door-f{fill:none;stroke:#B79B79;stroke-width:4;stroke-linejoin:round}
+.st .st-say-b{fill:#fff;stroke:rgba(31,43,48,.4);stroke-width:2;stroke-linejoin:round}
+.st .st-say-ph{fill:#DCE6EA}.st .st-say-roof{fill:none;stroke:#5E6B73;stroke-width:5;stroke-linejoin:round}
+.st .st-say-gap{fill:#3C474D}.st .st-say-ring{fill:none;stroke:var(--copper);stroke-width:2.5}
+.st .st-say-ok{fill:none;stroke:#5E8A5A;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+.st .st-r-beam{fill:rgba(255,206,92,.5)}.st .st-spot{fill:rgba(255,214,110,.75)}.st .st-r-torch{fill:#3F5560}
+.st .st-r-phone{fill:#1F2B30}.st .st-r-flash{fill:#FFFDF0}
 .st .st-done circle{fill:#5E8A5A}.st .st-done path{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .st .st-flash{fill:#fff;opacity:0;pointer-events:none}
 /* the homeowner */
@@ -128,11 +125,11 @@
 .st .st-r-boot{fill:#5A3A26}
 .st .st-r-hm-h{stroke:#7A5A40;stroke-width:3;stroke-linecap:round}.st .st-r-hm-k{fill:#4A565D}
 
-/* ---------- the finished morning (no JS, reduced motion): storm, winter and leak parts hidden ---------- */
+/* ---------- the finished morning (no JS, reduced motion): storm, leak and visit parts hidden ---------- */
 .st .st-sky-eve,.st .st-sky-storm,.st .st-sky-night,.st .st-stars,.st .st-moonw,.st .st-dark,.st .st-bolt,.st .st-leaves,
-.st .st-rain,.st .st-snow,.st .st-wind,.st .st-snowgnd,.st .st-snowroof,.st .st-icicles,.st .st-frost,.st .st-win-rain,
+.st .st-rain,.st .st-wind,.st .st-win-rain,.st .st-say,.st .st-r-beam,.st .st-spot,.st .st-r-torch,.st .st-r-phone,.st .st-r-flash,
 .st .st-glass-eve,.st .st-glass-storm,.st .st-glass-night,.st .st-water,.st .st-bead,.st .st-stain,.st .st-drips,.st .st-floordrop,
-.st .st-bucket,.st .st-mould,.st .st-slate,.st .st-shards,.st .st-rot,.st .st-felt-wet,.st .st-cal,.st .st-spark,.st .st-exhaust,
+.st .st-bucket,.st .st-slate,.st .st-shards,.st .st-felt-wet,.st .st-spark,.st .st-exhaust,
 .st .st-p-q,.st .st-p-waves,.st .st-p-book,.st .st-p-phone,.st .st-done{opacity:0}
 .st:not(.is-js) .st-van{transform:translate(880px,0)}
 .st:not(.is-js) .st-roofer{transform:translate(812px,366px)}
@@ -141,7 +138,6 @@
 /* ---------- small loops while the section is on screen (motion only, never on GSAP-driven groups) ---------- */
 @keyframes st-fall{0%{transform:translateY(-40px)}100%{transform:translate(-24px,70px)}}
 @keyframes st-fall2{0%{transform:translateY(-60px)}100%{transform:translate(-40px,110px)}}
-@keyframes st-snowf{0%{transform:translate(0,-30px)}50%{transform:translate(14px,40px)}100%{transform:translate(-6px,110px)}}
 @keyframes st-drip{0%,20%{transform:none;opacity:0}30%{opacity:1}88%{transform:translateY(178px);opacity:1}92%,100%{transform:translateY(180px);opacity:0}}
 @keyframes st-ring{0%,82%{transform:scale(.3);opacity:0}86%{opacity:1}100%{transform:scale(2.2);opacity:0}}
 @keyframes st-sway{0%,100%{transform:rotate(-1.2deg)}50%{transform:rotate(1.4deg)}}
@@ -155,9 +151,6 @@
 html.has-motion .st.is-live .st-rain-far path{animation:st-fall .7s linear infinite}
 html.has-motion .st.is-live .st-rain-near path{animation:st-fall2 .5s linear infinite}
 html.has-motion .st.is-live .st-rain path:nth-child(2n){animation-delay:-.25s}
-html.has-motion .st.is-live .st-snow circle{animation:st-snowf 3.2s linear infinite}
-html.has-motion .st.is-live .st-snow circle:nth-child(3n){animation-delay:-1.1s;animation-duration:3.8s}
-html.has-motion .st.is-live .st-snow circle:nth-child(3n+1){animation-delay:-2.2s}
 html.has-motion .st.is-live .st-win-rain path{animation:st-fall .9s linear infinite}
 html.has-motion .st.is-live .st-drip{animation:st-drip 1.5s ease-in infinite;transform-box:fill-box}
 html.has-motion .st.is-live .st-drip2{animation-delay:-.75s}
