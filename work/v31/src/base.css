@@ -103,14 +103,14 @@ h4{font-size:var(--h4);line-height:1.3}
 .btn svg{width:20px;height:20px;flex:none}
 .btn svg[viewBox="0 0 28 10"]{width:28px;height:10px}
 .btn-fill{background:var(--copper);color:var(--paper)}
-.btn-fill:hover{border-color:var(--text)}
+@media (hover:hover){.btn-fill:hover{border-color:var(--text)}}
 .btn-line{background:transparent;color:var(--copper);--wipe:var(--copper)}
-.btn-line:hover{color:var(--paper)}
+@media (hover:hover){.btn-line:hover{color:var(--paper)}}
 @media (hover:hover){.btn:hover::before{transform:none}}
 .btn:active{transform:scale(.97)}
 .btn-wide{width:100%}
 .link{display:inline-flex;align-items:center;min-height:44px;font-family:var(--ui);font-weight:600;color:var(--copper);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.25em}
-.link:hover{text-decoration-color:transparent}
+@media (hover:hover){.link:hover{text-decoration-color:transparent}}
 .btn-text{display:inline-flex;align-items:center;gap:.7rem;min-height:48px;font-family:var(--ui);font-weight:600;color:var(--text);text-decoration:none;border-bottom:1px solid var(--copper)}
 .btn-text svg{width:28px;height:10px;color:var(--copper);flex:none;transition:transform .15s var(--ease)}
 @media (hover:hover){.btn-text:hover svg{transform:translateX(4px)}}
@@ -169,7 +169,7 @@ h4{font-size:var(--h4);line-height:1.3}
 .nav.is-open{display:block}
 .nav>ul>li>a{display:flex;align-items:center;min-height:48px;font-family:var(--ui);font-weight:600;text-decoration:none;color:var(--text);border-bottom:1px solid var(--line)}
 .nav>ul>li:last-child>a{border-bottom:0}
-.nav>ul>li>a:hover,.nav>ul>li>a[aria-current=true]{color:var(--copper)}
+.nav>ul>li>a[aria-current=true]{color:var(--copper)}@media (hover:hover){.nav>ul>li>a:hover{color:var(--copper)}}
 .nav-ind{display:none}
 @media (max-width:399px){.menu-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.menu{padding:0 .75rem}.brand{font-size:var(--h5)}.brand-mark{width:26px;height:30px}}
 @media (min-width:768px){.hdr-cta{display:inline-flex}}
@@ -524,3 +524,27 @@ a,button,summary,label,[role=tab],[role=button],input,select,textarea{-webkit-ta
 /* very large screens: the content grows with the screen instead of sitting small in the middle */
 @media (min-width:2000px){:root{--max:1440px}html{font-size:112.5%}}
 @media (min-width:2400px){:root{--max:1640px}html{font-size:125%}}
+.rw-off *,.rw-off *::before,.rw-off *::after{animation-play-state:paused!important}
+
+/* ---------- print: a plain, complete copy of the page (no scenes pinned, nothing waiting to fade in) ---------- */
+@media print{
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html,body{background:#fff!important}
+  .wk-cov,.hdr,.bar,.skip,.layers,.fx-sky,.fx-layer,.cur,.pal,.rwopt,.st-stage,.st-steps,.st-hint,.st-nav,.dia-plate,.rx-house,.rx-umb,dialog,canvas,video,.dec-roof,.dec-m,.wk-dlg{display:none!important}
+  .pin-spacer{padding:0!important;height:auto!important;max-height:none!important;width:auto!important;max-width:none!important;inset:auto!important}
+  .pin-spacer>*{position:static!important;transform:none!important;top:auto!important;left:auto!important;width:auto!important;height:auto!important;max-width:none!important}
+  [style*="opacity: 0"],[style*="opacity:0"]{opacity:1!important}
+  [style*="visibility: hidden"]{visibility:visible!important}
+  [style*="clip-path"]{clip-path:none!important}
+  img{opacity:1!important}
+  [style*="translate"]:not(svg *){transform:none!important;translate:none!important}
+  .st-pin{display:block!important;height:auto!important;min-height:0!important}
+  .st-copy{position:static!important;transform:none!important;width:auto!important;box-shadow:none!important;background:none!important}
+  .st-caps{display:grid!important;gap:.6rem!important}
+  .st .st-cap,.dec-card,.svc-sec .svc{grid-area:auto!important;opacity:1!important;visibility:visible!important;transform:none!important;position:static!important}
+  .svc-tabs,.dec-tabs,.rv-arrow,.rv-ctrl,.rv-dots{display:none!important}
+  section,.sec{min-height:0!important;padding-block:1.25rem!important;break-inside:auto}
+  h2,h3{break-after:avoid}
+  img,figure,li,.of-card{break-inside:avoid}
+  a[href^="tel:"]::after{content:" (" attr(href) ")";font-size:.85em}
+}

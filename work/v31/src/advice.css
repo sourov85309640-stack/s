@@ -44,17 +44,17 @@ html.has-motion .ad-d[open] .ad-body{animation:ad-open .35s var(--ease)}
 @keyframes ad-bend{0%,100%{transform:none}40%{transform:skewX(-12deg)}}
 @keyframes ad-sweep{0%,100%{transform:translate(170px,40px)}50%{transform:translate(90px,62px)}}
 @keyframes ad-gone{0%,30%{transform:none;opacity:1}60%,85%{transform:translateX(-14px) scale(.3);opacity:0}100%{transform:none;opacity:1}}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-bino,html.has-motion .ad-d[open] .ad-bino{animation:ad-scan 3.6s ease-in-out infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-glint,html.has-motion .ad-d[open] .ad-glint{animation:ad-glint 1.8s ease infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-flytile,html.has-motion .ad-d[open] .ad-flytile{animation:ad-fly 2.4s cubic-bezier(.3,.1,.4,1) infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path,html.has-motion .ad-d[open] .ad-wind path{animation:ad-wind 1.2s linear infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path:nth-child(2){animation-delay:-.4s}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path:nth-child(3){animation-delay:-.8s}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-tree,html.has-motion .ad-d[open] .ad-tree{animation:ad-bend 1.2s ease-in-out infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-brush,html.has-motion .ad-d[open] .ad-brush{animation:ad-sweep 1.6s ease-in-out infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse,html.has-motion .ad-d[open] .ad-moss ellipse{animation:ad-gone 3.2s ease infinite}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(2){animation-delay:.3s}
-html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(3){animation-delay:.6s}
+html.has-motion .ad-card:is(:focus-within) .ad-bino,html.has-motion .ad-d[open] .ad-bino{animation:ad-scan 3.6s ease-in-out infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-bino,html.has-motion .ad-d[open] .ad-bino{animation:ad-scan 3.6s ease-in-out infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-glint,html.has-motion .ad-d[open] .ad-glint{animation:ad-glint 1.8s ease infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-glint,html.has-motion .ad-d[open] .ad-glint{animation:ad-glint 1.8s ease infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-flytile,html.has-motion .ad-d[open] .ad-flytile{animation:ad-fly 2.4s cubic-bezier(.3,.1,.4,1) infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-flytile,html.has-motion .ad-d[open] .ad-flytile{animation:ad-fly 2.4s cubic-bezier(.3,.1,.4,1) infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-wind path,html.has-motion .ad-d[open] .ad-wind path{animation:ad-wind 1.2s linear infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path,html.has-motion .ad-d[open] .ad-wind path{animation:ad-wind 1.2s linear infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-wind path:nth-child(2){animation-delay:-.4s}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path:nth-child(2){animation-delay:-.4s}}
+html.has-motion .ad-card:is(:focus-within) .ad-wind path:nth-child(3){animation-delay:-.8s}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-wind path:nth-child(3){animation-delay:-.8s}}
+html.has-motion .ad-card:is(:focus-within) .ad-tree,html.has-motion .ad-d[open] .ad-tree{animation:ad-bend 1.2s ease-in-out infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-tree,html.has-motion .ad-d[open] .ad-tree{animation:ad-bend 1.2s ease-in-out infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-brush,html.has-motion .ad-d[open] .ad-brush{animation:ad-sweep 1.6s ease-in-out infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-brush,html.has-motion .ad-d[open] .ad-brush{animation:ad-sweep 1.6s ease-in-out infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-moss ellipse,html.has-motion .ad-d[open] .ad-moss ellipse{animation:ad-gone 3.2s ease infinite}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse,html.has-motion .ad-d[open] .ad-moss ellipse{animation:ad-gone 3.2s ease infinite}}
+html.has-motion .ad-card:is(:focus-within) .ad-moss ellipse:nth-child(2){animation-delay:.3s}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(2){animation-delay:.3s}}
+html.has-motion .ad-card:is(:focus-within) .ad-moss ellipse:nth-child(3){animation-delay:.6s}@media (hover:hover){html.has-motion .ad-card:is(:hover,:focus-within) .ad-moss ellipse:nth-child(3){animation-delay:.6s}}
 /* versions (?adv=): 2 a list, the picture small on the left of each guide */
 @media (min-width:760px){
   .ad[data-v="2"] .ad-grid{grid-template-columns:minmax(0,1fr);max-width:860px}

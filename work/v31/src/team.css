@@ -54,11 +54,11 @@ html.has-motion .tm.is-live .tm-steam{animation:tm-steam 2.6s ease-out infinite;
 @keyframes tm-cap{0%,100%{transform:none}35%,65%{transform:translateY(-12px) rotate(-14deg)}}
 @keyframes tm-ring{0%,100%{transform:none}10%,30%,50%{transform:rotate(-12deg)}20%,40%,60%{transform:rotate(12deg)}}
 @keyframes tm-wave{0%,100%{opacity:0}20%,60%{opacity:1}}
-html.has-motion .tm-card:is(.is-play,:hover) .tm-board{animation:tm-board .9s var(--ease)}
-html.has-motion .tm-card:is(.is-play,:hover) .tm-hammer{animation:tm-hammer 1s var(--ease)}
-html.has-motion .tm-card:is(.is-play,:hover) .tm-cap{animation:tm-cap 1.1s var(--ease)}
-html.has-motion .tm-card:is(.is-play,:hover) .tm-phone{animation:tm-ring .9s ease}
-html.has-motion .tm-card:is(.is-play,:hover) .tm-ph-w{animation:tm-wave .9s ease}
+html.has-motion .tm-card:is(.is-play) .tm-board{animation:tm-board .9s var(--ease)}@media (hover:hover){html.has-motion .tm-card:is(.is-play,:hover) .tm-board{animation:tm-board .9s var(--ease)}}
+html.has-motion .tm-card:is(.is-play) .tm-hammer{animation:tm-hammer 1s var(--ease)}@media (hover:hover){html.has-motion .tm-card:is(.is-play,:hover) .tm-hammer{animation:tm-hammer 1s var(--ease)}}
+html.has-motion .tm-card:is(.is-play) .tm-cap{animation:tm-cap 1.1s var(--ease)}@media (hover:hover){html.has-motion .tm-card:is(.is-play,:hover) .tm-cap{animation:tm-cap 1.1s var(--ease)}}
+html.has-motion .tm-card:is(.is-play) .tm-phone{animation:tm-ring .9s ease}@media (hover:hover){html.has-motion .tm-card:is(.is-play,:hover) .tm-phone{animation:tm-ring .9s ease}}
+html.has-motion .tm-card:is(.is-play) .tm-ph-w{animation:tm-wave .9s ease}@media (hover:hover){html.has-motion .tm-card:is(.is-play,:hover) .tm-ph-w{animation:tm-wave .9s ease}}
 
 /* hidden by default (?team=on shows it): the head script sets data-team on <html> */
 html[data-team="off"] #team{display:none}

@@ -50,14 +50,14 @@
 @keyframes sc-print{0%,20%{transform:translateY(-14px) scaleY(.1);opacity:0}45%{opacity:1}100%{transform:none;opacity:1}}
 @keyframes sc-smoke{0%{transform:translateY(6px) scale(.4);opacity:0}30%{opacity:1}100%{transform:translate(6px,-14px) scale(1.3);opacity:0}}
 @keyframes sc-glow{0%,25%{fill:#E3EAED}40%,80%{fill:#F6C979}100%{fill:#E3EAED}}
-html.has-motion .sc-home:is(.is-play,:hover,:focus-within) .sc-dr{animation:sc-door 2.2s var(--ease)}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-glow{animation:sc-glow 2.2s ease}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle{animation:sc-smoke 1.6s ease-out 2}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle:nth-child(2){animation-delay:.5s}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-board{animation:sc-swing 1.8s ease-out}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-shutter{animation:sc-roll 2.6s var(--ease)}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-flash{animation:sc-flash .9s ease-out}
-html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:sc-print 1.2s var(--ease) .25s backwards}
+html.has-motion .sc-home:is(.is-play,:focus-within) .sc-dr{animation:sc-door 2.2s var(--ease)}@media (hover:hover){html.has-motion .sc-home:is(.is-play,:hover,:focus-within) .sc-dr{animation:sc-door 2.2s var(--ease)}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-glow{animation:sc-glow 2.2s ease}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-glow{animation:sc-glow 2.2s ease}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-smoke circle{animation:sc-smoke 1.6s ease-out 2}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle{animation:sc-smoke 1.6s ease-out 2}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-smoke circle:nth-child(2){animation-delay:.5s}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-smoke circle:nth-child(2){animation-delay:.5s}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-board{animation:sc-swing 1.8s ease-out}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-board{animation:sc-swing 1.8s ease-out}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-shutter{animation:sc-roll 2.6s var(--ease)}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-shutter{animation:sc-roll 2.6s var(--ease)}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-flash{animation:sc-flash .9s ease-out}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-flash{animation:sc-flash .9s ease-out}}
+html.has-motion .sc-card:is(.is-play,:focus-within) .sc-photo{animation:sc-print 1.2s var(--ease) .25s backwards}@media (hover:hover){html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:sc-print 1.2s var(--ease) .25s backwards}}
 /* versions (?scv=): 2 alternating rows, picture one side and words the other */
 @media (min-width:760px){
   .sc[data-v="2"] .sc-grid{grid-template-columns:minmax(0,1fr);max-width:900px;margin-inline:auto;gap:1.25rem}
@@ -71,6 +71,6 @@ html.has-motion .sc-card:is(.is-play,:hover,:focus-within) .sc-photo{animation:s
 /* landlords: no doors swinging; the three homes light up one after another while the sign swings */
 @keyframes sc-lit{0%,15%{fill:#E3EAED}30%,80%{fill:#F6C979}100%{fill:#E3EAED}}
 .sc-let .sc-wn{transition:none}
-html.has-motion .sc-let:is(.is-play,:hover,:focus-within) .sc-wn{animation:sc-lit 2.4s ease}
+html.has-motion .sc-let:is(.is-play,:focus-within) .sc-wn{animation:sc-lit 2.4s ease}@media (hover:hover){html.has-motion .sc-let:is(.is-play,:hover,:focus-within) .sc-wn{animation:sc-lit 2.4s ease}}
 .sc-let .sc-wn{fill:#E3EAED}
 html.has-motion .sc-let .sc-w2{animation-delay:.35s!important}html.has-motion .sc-let .sc-w3{animation-delay:.7s!important}

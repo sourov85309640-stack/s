@@ -125,9 +125,23 @@
     }
     var t = 0;
     var later = function () { clearTimeout(t); t = setTimeout(check, 250); };
-    check();
+    setTimeout(check, 0);   /* its own small task, not part of start-up */
     window.addEventListener('load', later);
     window.addEventListener('resize', later);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(later);
+  });
+}());
+
+/* Off-screen pause (owner: lead). Looping CSS animations in a section that is well away from the screen are paused
+   (class rw-off), so a phone is not drawing tickers, shines and drifting clouds nobody can see. */
+(function () {
+  'use strict';
+  var RW = window.RW;
+  RW.add('offscreen-pause', function () {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { e.target.classList.toggle('rw-off', !e.isIntersecting); });
+    }, { rootMargin: '300px 0px 300px 0px' });
+    RW.$$('main > section, body > section, section[id], footer').forEach(function (s) { io.observe(s); });
   });
 }());

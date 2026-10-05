@@ -23,7 +23,7 @@
     RW.$$('.ab-n', sec).forEach(function (el) {
       var to = parseFloat(el.getAttribute('data-to')), dec = +el.getAttribute('data-dec') || 0, sep = el.hasAttribute('data-sep'), fin = el.textContent;
       function fmt(v) { var s = v.toFixed(dec); return sep ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : s; }
-      el.textContent = fmt(0);
+      el.setAttribute('data-final', fin); el.textContent = fmt(0);
       RW.onView(el, { once: true, margin: '0px 0px -10% 0px', enter: function () {
         var o = { v: 0 };
         RW.gsap.to(o, { v: to, duration: 1.6, ease: 'power2.out', onUpdate: function () { el.textContent = fmt(o.v); }, onComplete: function () { el.textContent = fin; } });

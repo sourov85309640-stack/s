@@ -12,7 +12,12 @@
   RW.$$ = function (s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); };
   RW.clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
   RW.lerp = function (a, b, t) { return a + (b - a) * t; };
-  RW.safe = function (name, fn) { try { return fn(); } catch (e) { if (window.console) console.warn('rw: ' + name + ' skipped', e); } };
+  RW.timing = /[?&]rwperf\b/.test(location.search) ? [] : null;   /* ?rwperf in the address records how long each feature takes to start */
+  RW.safe = function (name, fn) {
+    var t0 = RW.timing ? performance.now() : 0;
+    try { return fn(); } catch (e) { if (window.console) console.warn('rw: ' + name + ' skipped', e); }
+    finally { if (RW.timing) RW.timing.push([name, Math.round((performance.now() - t0) * 10) / 10]); }
+  };
 
   RW.off = root.getAttribute('data-motion') === 'off';
   RW.reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -168,14 +173,24 @@
       });
       RW.mm = gsap.matchMedia();
     }
-    RW.features.forEach(function (f) {
-      if (f.motion && !RW.motionOK) return;
-      RW.safe(f.name, f.fn);
-    });
+    /* features start in slices of about 40ms, top of the page first, so a slower phone can still answer a tap or a
+       scroll while the scenes further down are being built. The rest of start-up runs once they are all in. */
+    var list = RW.features.filter(function (f) { return !(f.motion && !RW.motionOK); }), at = 0;
+    var onLoad = function (fn) { if (d.readyState === 'complete') setTimeout(fn, 0); else window.addEventListener('load', fn); };
+    var slice = function () {
+      var t0 = Date.now();
+      while (at < list.length) {
+        RW.safe(list[at].name, list[at].fn); at++;
+        if (Date.now() - t0 > 40 && at < list.length) { setTimeout(slice, 0); return; }
+      }
+      finish();
+    };
+    var finish = function () {
     if (RW.motionOK) {
       var refresh = function () { ST.refresh(); };
+      ST.refresh();
       if (d.fonts && d.fonts.ready) d.fonts.ready.then(refresh);
-      window.addEventListener('load', function () { setTimeout(refresh, 60); });
+      onLoad(function () { setTimeout(refresh, 60); });
       /* reload part way down: pinned scenes change the page height after load, so the browser's own restore lands in
          the wrong place. Keep the position ourselves and go back to it once the pins are measured. */
       try {
@@ -184,7 +199,7 @@
         window.addEventListener('pagehide', function () { try { sessionStorage.setItem(KEY, String(Math.round(window.pageYOffset))); } catch (x) {} });
         var saved = +sessionStorage.getItem(KEY) || 0;
         if (nav.type === 'reload' && saved > 0 && !location.hash) {
-          window.addEventListener('load', function () { setTimeout(function () { ST.refresh(); RW.scrollTo(saved, { immediate: true }); }, 140); });
+          onLoad(function () { setTimeout(function () { ST.refresh(); if (RW.lenis && RW.lenis.resize) RW.lenis.resize(); RW.scrollTo(saved, { immediate: true }); }, 140); });
         }
       } catch (x) {}
     }
@@ -209,6 +224,7 @@
         if (!anchor) return;
         var y = 0;
         if (!anchor.top) { var r = anchor.el.getBoundingClientRect(); y = r.top + window.pageYOffset + anchor.f * r.height; }
+        if (RW.lenis && RW.lenis.resize) RW.lenis.resize();   /* the engine must know the new page height first */
         RW.scrollTo(Math.round(y), { immediate: true, offset: 0 });
         lastNote = 0; note();
       };
@@ -236,6 +252,12 @@
       });
     }
 
+    /* printing: numbers still waiting to count up print their real value */
+    window.addEventListener('beforeprint', function () {
+      RW.$$('[data-final]').forEach(function (el) { el.textContent = el.getAttribute('data-final'); });
+      RW.$$('img[loading="lazy"]').forEach(function (im) { im.loading = 'eager'; });   /* photos further down print too */
+    });
+
     /* hooks for tests and for tearing the page down in a single-page app */
     window.rwMotion = { lenis: RW.lenis, ST: ST, gsap: gsap };
     window.rwScrollTo = function (el) { RW.scrollTo(el); };
@@ -244,5 +266,7 @@
       if (RW.lenis) RW.lenis.destroy();
       root.classList.remove('has-motion');
     };
+    };
+    slice();
   };
 }());

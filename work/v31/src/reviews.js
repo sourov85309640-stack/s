@@ -25,8 +25,12 @@
   /* =================== Read more (inline expand) =================== */
   RW.add('reviews-more', function () {
     var items = slides.map(function (s) {
-      return { t: RW.$('.rv-text', s), b: RW.$('.rv-more', s) };
+      var nm = RW.$('.rv-name', s), who = nm ? nm.textContent.trim() : '';
+      return { t: RW.$('.rv-text', s), b: RW.$('.rv-more', s), who: who };
     });
+    /* out of context every button says the same, so its name says whose review it opens */
+    var label = function (it, open) { if (it.who) it.b.setAttribute('aria-label', (open ? 'Show less of ' : 'Read more of ') + it.who + '\u2019s review'); };
+    items.forEach(function (it) { if (it.b) label(it, false); });
     function measure() {
       items.forEach(function (it) {
         if (!it.t || !it.b) return;
@@ -43,6 +47,7 @@
         var open = it.b.getAttribute('aria-expanded') !== 'true';
         it.b.setAttribute('aria-expanded', open ? 'true' : 'false');
         it.b.textContent = open ? 'Show less' : 'Read more';
+        label(it, open);
         it.t.classList.toggle('is-clamp', !open);
         if (api) api.relayout();
       });
@@ -362,7 +367,7 @@
     var dealing = V === '2';
     if (dealing) gsap.set(cards, { opacity: 0, y: -70, rotation: function (i) { return (i % 2 ? 1 : -1) * (6 + i); } });
     else if (V !== '4') gsap.set(first, { opacity: 0, y: 22 });
-    if (num) num.textContent = '0.0';
+    if (num) { num.setAttribute('data-final', num.textContent); num.textContent = '0.0'; }
 
     ST.create({
       trigger: w, start: 'top 82%', once: true, onEnter: function () {
