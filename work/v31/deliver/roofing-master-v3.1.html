@@ -188,7 +188,6 @@ h4{font-size:var(--h4);line-height:1.3}
 .hdr-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:4rem;flex-wrap:wrap}
 .brand{display:inline-flex;align-items:center;gap:.6rem;min-height:44px;text-decoration:none;font-family:var(--ui);font-weight:600;font-size:var(--h4);letter-spacing:-.01em;color:var(--text);white-space:nowrap}
 .brand-mark{width:30px;height:34px;color:var(--copper);flex:none;overflow:visible}
-.brand-mark .vane{transform-box:view-box;transform-origin:16px -1px;transform:scaleX(var(--vx,1))}
 .hdr-act{display:flex;align-items:center;gap:.5rem}
 .hdr-phone{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;min-width:44px;justify-content:center;text-decoration:none;font-family:var(--ui);font-weight:600;color:var(--text)}
 .hdr-phone svg{width:22px;height:22px;color:var(--copper)}
@@ -345,8 +344,6 @@ html.mega-open .hdr{background:var(--paper);-webkit-backdrop-filter:none;backdro
 @keyframes hdr-ring{0%,100%{transform:none}15%{transform:rotate(-16deg)}30%{transform:rotate(13deg)}45%{transform:rotate(-9deg)}60%{transform:rotate(6deg)}75%{transform:rotate(-3deg)}}
 html.has-motion .hdr-phone svg{animation:hdr-ring .8s ease 6s 1;transform-origin:50% 60%}
 @media (hover:hover){html.has-motion .hdr-phone:hover svg{animation:hdr-ring .7s ease 1}}
-@media (hover:hover){.brand:hover .brand-mark{animation:brand-bob .6s var(--ease)}}
-@keyframes brand-bob{0%,100%{transform:none}40%{transform:translateY(-3px) rotate(-4deg)}}
 
 /* ---------------- Services mega menu (built by header.js from the "What we do" cards) ---------------- */
 .nav-mega{position:relative;display:flex;align-items:center;flex-wrap:wrap}
@@ -552,11 +549,12 @@ html.menu-open .hdr::before{background:var(--paper)}
   .svc-p{font-size:1rem}
   .cap{font-size:.8125rem}
 }
-/* logo weathervane: turns to the scroll direction (transform only) */
-.brand-mark .vane{transform-box:view-box;transform-origin:16px -1.5px;transition:transform .6s var(--ease)}
-.brand-mark.is-west .vane{transform:scaleX(-1)}
-@media (prefers-reduced-motion:reduce){.brand-mark .vane{transition:none}}
-html[data-motion="off"] .brand-mark .vane{transition:none}
+/* no stranded last words in headings and paragraphs (browsers without support simply wrap as before) */
+p,li,dd,figcaption{text-wrap:pretty}
+/* touch screens: footer links get a full finger-sized row */
+@media (hover:none),(pointer:coarse),(max-width:767px){.ftr-links li a,.ftr-areas a,.legal a{display:inline-flex;align-items:center;min-height:44px}}
+/* no grey or blue browser flash on tap: every control has its own pressed state */
+a,button,summary,label,[role=tab],[role=button],input,select,textarea{-webkit-tap-highlight-color:transparent}
 </style>
 <style>
 /* =====================================================================
@@ -1327,6 +1325,7 @@ html.has-motion .st.is-js .st-hint{display:flex;align-items:center;gap:.5rem;mar
 .st.is-tap .st-next{border-radius:999px}
 .st.is-tap .st-pin{min-height:auto}
 @media (min-width:1000px){.st.is-tap .st-pin{height:min(100vh,860px)}}
+@media (max-width:999px){.st-pin{grid-template-rows:auto 1fr}}
 </style>
 <style>
 /* =====================================================================
@@ -1957,6 +1956,7 @@ html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animati
 .dia-sec.is-dry .marker .m-drop,.dia-sec.is-dry .marker .m-splash{visibility:hidden}
 .dia-sec.is-dry .marker .m-tag::after{content:", kept dry";font-weight:600;color:#3E6577}
 .dia-sec.is-dry .marker .m-tag{background:#EAF2F5}
+@media (hover:none),(pointer:coarse),(max-width:767px){.dia-mine{display:inline-flex;align-items:center;min-height:44px}}
 </style>
 <style>
 /* =====================================================================
@@ -2212,6 +2212,8 @@ html:not(.has-motion) .dec-sec[data-v="7"] .dec-cards{gap:1rem}
 /* V7: the card is shown, not chosen, so no radio circle; plain copper wash instead of the tile mask */
 .dec-sec[data-v="7"] .dec-pick::before{display:none}
 .dec-sec[data-v="7"] .dec-card::before{-webkit-mask:none;mask:none;background:linear-gradient(160deg,var(--copper-tint),transparent 70%)}
+/* the pinned stage already leaves room below its centred content, so the section needs less of its own */
+@media (min-width:1000px){.dec-sec.dec-head-in[data-v="7"]{padding-bottom:clamp(.5rem,2vh,1.5rem)}}
 </style>
 <style>
 /* =====================================================================
@@ -2464,9 +2466,9 @@ html.has-motion .whole[data-v="6"] .xv.is-drag{cursor:grabbing}
 .qz-art{position:relative;border-radius:22px;background:linear-gradient(#EEF3F5,#FAF9F6 70%);box-shadow:var(--shadow-card);padding:clamp(.75rem,2vw,1.25rem) clamp(.75rem,2vw,1.25rem) 1rem}
 .qz-scene{display:block;width:100%;height:auto;overflow:visible}
 .qz-steps{display:flex;justify-content:center;gap:.5rem;margin-top:.5rem}
-.qz-st{padding:.3rem .8rem;border-radius:999px;background:var(--chip);font:600 .8125rem/1.2 var(--ui);color:var(--muted);transition:background-color .3s,color .3s}
+.qz-st{padding:.3rem .8rem;border-radius:999px;background:var(--chip);font:600 .8125rem/1.2 var(--ui);color:var(--muted);box-shadow:inset 0 0 0 1.5px transparent;transition:background-color .3s,color .3s,box-shadow .3s}
 .qz-st.is-on{background:var(--card);color:var(--text);box-shadow:inset 0 0 0 1.5px var(--copper)}
-.qz-st.is-done{background:var(--copper);color:var(--paper)}
+.qz-st.is-done{background:var(--copper);color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--copper)}
 /* the drawing */
 .qz .qz-ground{stroke:rgba(31,43,48,.55);stroke-width:2.5;stroke-linecap:round}
 .qz .qz-wall,.qz .qz-ext{fill:#F1E7DA;stroke:rgba(31,43,48,.6);stroke-width:2}
@@ -2738,7 +2740,8 @@ html[data-team="off"] #team{display:none}
 .wk-x:focus-visible,.wk-nav:focus-visible{outline:3px solid var(--copper-tint);outline-offset:3px}
 html.has-motion .wk-dlg[open] .wk-fig{animation:wk-in .3s var(--ease)}
 @keyframes wk-in{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
-@media (max-width:899px){.wk-f{grid-column:span 2}}
+/* tablets and phones: the wide slot goes to a photo big enough to fill it (the fish-scale photo is small) */
+@media (max-width:899px){.wk-b{grid-column:span 2;order:6}}
 
 /* depth: a big camera viewfinder behind, a stray photo print and a bit of tape in front */
 .wk{position:relative;overflow-x:clip}
@@ -3036,6 +3039,7 @@ html:not(.js) .prj-cond-tg{display:none}
 @keyframes pb-glint{0%,100%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1) rotate(45deg)}}
 html.has-motion .prj-build[data-day="6"] .pb-glint path{animation:pb-glint 1.6s ease-out .4s 2}
 html.has-motion .prj-build[data-day="3"] .pb-glint path{animation:pb-glint 1.4s ease-out .3s}
+@media (max-width:359px){.pb-days{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 <style>
 /* WHO WE WORK FOR, prefix .sc- (owner: lead). Four cards, four little scenes, each with its own motion:
@@ -4176,9 +4180,9 @@ html.js .faq[data-v="4"] .faq-index{display:block;margin-top:1.75rem}
 .faq-board{display:none;margin-top:1.75rem;padding:1rem 1rem .75rem;border-radius:18px;background:var(--card);box-shadow:var(--shadow-card);max-width:340px}
 @media (min-width:960px){.faq-board{display:block}}
 .faq-scenes{position:relative;aspect-ratio:180/120}
-.faq-sc{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .3s ease,transform .45s var(--ease)}
+.faq-sc{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .14s ease,transform .2s ease}
 .faq-board .faq-ill{margin:0;width:100%;display:block}
-.faq:not([data-q]) .faq-sc0,.faq[data-q="0"] .faq-sc0,.faq[data-q="1"] .faq-sc1,.faq[data-q="2"] .faq-sc2,.faq[data-q="3"] .faq-sc3,.faq[data-q="4"] .faq-sc4,.faq[data-q="5"] .faq-sc5,.faq[data-q="6"] .faq-sc6{opacity:1;transform:none}
+.faq:not([data-q]) .faq-sc0,.faq[data-q="0"] .faq-sc0,.faq[data-q="1"] .faq-sc1,.faq[data-q="2"] .faq-sc2,.faq[data-q="3"] .faq-sc3,.faq[data-q="4"] .faq-sc4,.faq[data-q="5"] .faq-sc5,.faq[data-q="6"] .faq-sc6{opacity:1;transform:none;transition:opacity .3s ease .14s,transform .45s var(--ease) .14s}
 .faq-cap{margin-top:.6rem;font:600 .9375rem/1.4 var(--ui);color:var(--text);min-height:2.8em}
 .faq-head>.faq-ill{display:none}
 /* scene parts */
@@ -4229,7 +4233,7 @@ html.js .faq[data-v="4"] .faq-index{display:block;margin-top:1.75rem}
 .faq-sc6 .b-pound{font:700 13px Arial,sans-serif;fill:var(--text);text-anchor:middle}
 .faq-sc6 .b-tag{transform-box:view-box;transform-origin:150px 20px}
 /* loops (motion only, while that scene shows) */
-@keyframes b-lift{0%,15%{transform:none}35%,75%{transform:translate(4px,-16px) rotate(-12deg)}95%,100%{transform:none}}
+@keyframes b-lift{0%,15%{transform:none}35%,75%{transform:translate(3px,-9px) rotate(-7deg)}95%,100%{transform:none}}
 @keyframes b-lens{0%,30%{transform:translate(150px,80px)}50%,75%{transform:translate(90px,76px)}100%{transform:translate(150px,80px)}}
 @keyframes b-flash{0%,55%,100%{opacity:0;transform:scale(.4)}62%{opacity:1;transform:scale(1.5)}72%{opacity:0;transform:scale(2)}}
 @keyframes b-page{0%,30%{transform:none;opacity:1}60%{transform:translate(18px,30px) rotate(28deg);opacity:0}61%,100%{transform:none;opacity:0}}
@@ -7520,8 +7524,8 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
 </script>
 <script>
 /* Header (owner: lead): nav pruning, mobile menu, current section, progress bar, sliding nav line,
-   hide on the way down (desktop), weathervane in the brand mark. Works without GSAP; the vane and
-   the hide behaviour are skipped under reduced motion or data-motion="off". */
+   hide on the way down (desktop). The logo is static (the client's mark replaces it). Works without GSAP;
+   the hide behaviour is skipped under reduced motion or data-motion="off". */
 (function () {
   'use strict';
   var RW = window.RW, d = document;
@@ -7623,12 +7627,9 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       a.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { hoverLink = a; placeInd(-1, a); } });
     });
     if (nav) nav.addEventListener('pointerleave', function () { hoverLink = null; placeInd(curIdx); });
-    var vaneEl = $('.brand-mark'), lastVY = 0, vaneW = false;
     function onScroll() {
       ticking = false;
       var y = window.pageYOffset || d.documentElement.scrollTop;
-      /* the weathervane on the logo swings round to point the way you are scrolling */
-      if (vaneEl && Math.abs(y - lastVY) > 24) { var w = y < lastVY; if (w !== vaneW) { vaneW = w; vaneEl.classList.toggle('is-west', w); } lastVY = y; }
       var max = d.documentElement.scrollHeight - window.innerHeight;
       if (hdr) hdr.classList.toggle('is-stuck', y > 8);
       var pr = max > 0 ? Math.min(1, y / max).toFixed(4) : 0;
@@ -7711,22 +7712,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     window.addEventListener('resize', function () { if (isOpen && !wide()) root.classList.remove('mega-open'); });
   });
 
-  /* 5. weathervane: the arrow turns with scroll direction and settles back (transform only) */
-  RW.add('vane', function () {
-    var vane = $('.brand-mark .vane');
-    if (!vane) return;
-    var ang = 0, vel = 0, lastY = window.pageYOffset, target = 0, idle = 0, lastVx = 1;
-    RW.tick(function (t, dt) {
-      var y = window.pageYOffset, dy = y - lastY; lastY = y;
-      if (dy) { target = RW.clamp(target + dy * 0.004, -3.2, 3.2); idle = 0; } else { idle += dt; }
-      if (idle > 0.6) target *= Math.pow(0.4, dt); /* wind drops, the vane swings home */
-      var acc = (target - ang) * 30 - vel * 7; /* damped spring */
-      vel += acc * dt; ang += vel * dt;
-      var vx = Math.cos(ang);
-      vx = Math.abs(vx) < 0.06 ? (vx < 0 ? -0.06 : 0.06) : vx;
-      if (Math.abs(vx - lastVx) > 0.002) { lastVx = vx; vane.style.setProperty('--vx', vx.toFixed(3)); }
-    });
-  }, { motion: true });
+  /* the logo stays still on purpose: it is the client's mark and gets replaced as is */
 }());
 </script>
 <script>
@@ -9089,8 +9075,20 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
         return;
       }
       var col = kind === 'ridge-slate' ? '#4A565D' : kind === 'ridge-stone' ? '#A89270' : kind === 'ridge-lead' ? '#7E8A90' : '#A5532F';
-      for (var x = TOPL - 6; x < TOPR + 6; x += 34) {
-        gT.appendChild(el('path', { d: 'M' + x + ' ' + (RIDGE + 3) + 'q17 -16 34 0', fill: col, stroke: 'rgba(31,43,48,.5)', 'stroke-width': '1.2', 'class': 'ty-ridge' }));
+      /* ridge pieces fit exactly between the two top corners; each covering gets its real ridge:
+         half-round clay on tiles, an angled ridge on slate and stone, a folded flat cap on lead and metal */
+      var span = TOPR - TOPL;
+      if (kind === 'ridge-lead') {
+        gT.appendChild(el('path', { d: 'M' + TOPL + ' ' + (RIDGE + 2) + 'L' + (TOPL + 4) + ' ' + (RIDGE - 7) + 'H' + (TOPR - 4) + 'L' + TOPR + ' ' + (RIDGE + 2) + 'Z', fill: col, stroke: 'rgba(31,43,48,.5)', 'stroke-width': '1.2', 'stroke-linejoin': 'round', 'class': 'ty-ridge' }));
+        gT.appendChild(el('path', { d: 'M' + (TOPL + 6) + ' ' + (RIDGE - 3) + 'H' + (TOPR - 6), stroke: 'rgba(255,255,255,.35)', 'stroke-width': '1.2', fill: 'none', 'class': 'ty-ridge' }));
+      } else {
+        var n = Math.max(1, Math.round(span / 34)), w = span / n, angled = kind === 'ridge-slate' || kind === 'ridge-stone';
+        for (var k = 0; k < n; k++) {
+          var x = TOPL + k * w;
+          var d = angled ? 'M' + x + ' ' + (RIDGE + 3) + 'L' + (x + 2) + ' ' + (RIDGE - 6) + 'H' + (x + w - 2) + 'L' + (x + w) + ' ' + (RIDGE + 3) + 'Z'
+                         : 'M' + x + ' ' + (RIDGE + 3) + 'q' + (w / 2) + ' -16 ' + w + ' 0';
+          gT.appendChild(el('path', { d: d, fill: col, stroke: 'rgba(31,43,48,.5)', 'stroke-width': '1.2', 'stroke-linejoin': 'round', 'class': 'ty-ridge' }));
+        }
       }
       gT.appendChild(el('path', { d: 'M' + (LEFT - 8) + ' ' + (EAVES + 6) + 'H' + (RIGHT + 8), stroke: '#3F4A50', 'stroke-width': '7', 'stroke-linecap': 'round', fill: 'none' }));   /* gutter */
       gT.appendChild(el('path', { d: 'M' + (RIGHT - 30) + ' ' + (EAVES + 9) + 'v40', stroke: '#3F4A50', 'stroke-width': '6', 'stroke-linecap': 'round' }));   /* downpipe */
@@ -9164,12 +9162,14 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       aim();
     }
     /* camera: cam.z 0 = the whole scene, 1 = close on the slipped slate; cam.tx/ty = the point it looks at */
-    var base = null, cam = { z: 0, tx: 770, ty: 360 };
+    var base = null, cam = { z: 0, tx: 770, ty: 360, floor: 0 };
     function aim() {
       if (!base) return;
       var K = 2.3, w1 = base.w / K, h1 = base.h / K;
       var sx = base.f ? base.f + (1 - base.f) * 0.5 : 0.5;          /* the open part of the screen */
       var x1 = cam.tx - w1 * sx, y1 = cam.ty - h1 * 0.5, e = cam.z;
+      /* the water shot keeps the bedroom floor in frame on every screen shape (wide screens see less height) */
+      if (cam.floor) y1 = y1 + (Math.max(y1, 616 - h1) - y1) * cam.floor;
       var x = base.x + (x1 - base.x) * e, y = base.y + (y1 - base.y) * e, w = base.w + (w1 - base.w) * e, h = base.h + (h1 - base.h) * e;
       svg.setAttribute('viewBox', x.toFixed(1) + ' ' + y.toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1));
     }
@@ -9252,8 +9252,8 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       .to($('.st-p-arm'), { rotation: -110, duration: 0.15, yoyo: true, repeat: 3 }, 10.05)
       /* camera moves: in on the slate as it goes, hold while the water runs, out for the winter, in again for the fix */
       .to(cam, { z: 1, duration: 1.1, ease: 'power2.inOut', onUpdate: aim }, 1.9)
-      .to(cam, { tx: 790, ty: 395, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
-      .to(cam, { z: 0, duration: 1, ease: 'power2.inOut', onUpdate: aim }, 5.5)
+      .to(cam, { tx: 790, ty: 395, floor: 1, duration: 1.2, ease: 'power1.inOut', onUpdate: aim }, 4.0)
+      .to(cam, { z: 0, floor: 0, duration: 1, ease: 'power2.inOut', onUpdate: aim }, 5.5)
       .to(cam, { z: 0.55, tx: 820, ty: 400, duration: 0.9, ease: 'power2.inOut', onUpdate: aim }, 8.5)
       .to(cam, { z: 0, duration: 0.8, ease: 'power2.inOut', onUpdate: aim }, 9.7);
 
@@ -10751,7 +10751,10 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       var bits = c ? Array.prototype.map.call(c.children.length ? c.children : [c], function (n) { return n.textContent.replace(/\s+/g, ' ').trim(); }).filter(Boolean) : [];
       cap.textContent = (idx + 1) + ' of ' + btns.length + (bits.length ? ': ' + bits.join(', ') : '');
     }
-    btns.forEach(function (b, i) { b.addEventListener('click', function () { opener = b; show(i); dlg.showModal(); RW.$('.wk-x', dlg).focus(); if (RW.lenis) RW.lenis.stop(); }); });
+    btns.forEach(function (b) { b.addEventListener('click', function () {
+      /* step through the photos in the order they appear on this screen (the grid reorders on tablets) */
+      btns.sort(function (x, y) { var p = x.getBoundingClientRect(), q = y.getBoundingClientRect(); return Math.abs(p.top - q.top) > 4 ? p.top - q.top : p.left - q.left; });
+      opener = b; show(btns.indexOf(b)); dlg.showModal(); RW.$('.wk-x', dlg).focus(); if (RW.lenis) RW.lenis.stop(); }); });
     RW.$('.wk-x', dlg).addEventListener('click', function () { dlg.close(); });
     RW.$('.wk-prev', dlg).addEventListener('click', function () { show(idx - 1, -1); });
     RW.$('.wk-next', dlg).addEventListener('click', function () { show(idx + 1, 1); });
@@ -11104,6 +11107,14 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
     var cards = RW.$$('.sc-card', sec);
     RW.headings(sec);
     RW.reveal(cards, { y: 30, stagger: 0.08 });
+    /* on touch screens a tap on the picture replays its scene (hover does this with a mouse) */
+    cards.forEach(function (c) {
+      c.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' || (e.target.closest && e.target.closest('a'))) return;
+        c.classList.remove('is-play'); void c.offsetWidth; c.classList.add('is-play');
+        clearTimeout(c._pt); c._pt = setTimeout(function () { c.classList.remove('is-play'); }, 2800);
+      }, { passive: true });
+    });
     cards.forEach(function (c, i) {
       RW.onView(c, { once: true, margin: '0px 0px -20% 0px', enter: function () {
         setTimeout(function () { c.classList.add('is-play'); setTimeout(function () { c.classList.remove('is-play'); }, 2800); }, 300 + i * 180);
@@ -14161,7 +14172,7 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       var r = tip.getBoundingClientRect(); if (!r.width) return true;
       for (var x = r.left + 8; x < r.right; x += 24) for (var y = r.top + 6; y < r.bottom; y += 14) {
         var e = d.elementFromPoint(x, y);
-        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main .dec-roof,main .dia-art,main .xv-stage,main .ty-stage,main .cr-art,main .qz-art,main .sc-art,main .faq-board,main .bf-view,main .prj-build,main .ab-art,main .sv-art,main .ug-art,main .chk-photo,main .how-art,main .are-list,main .ad-card,main .svc-stage,main .st-stage,main .ct-photo,main .wk-btn,main .rv-card,main dl,footer p,footer a,footer li')) return false;
       }
       return true;
     }
@@ -14170,15 +14181,15 @@ html:has(.rwopt-toggle[aria-expanded="true"]) .pal{opacity:0;pointer-events:none
       var x0 = window.innerWidth < 1400 ? 60 : 100, y1 = window.innerHeight - 84 - 96, pts = [[x0 + 20, y1 - 10], [x0 + 120, y1 - 10], [x0 + 220, y1 - 10], [x0 + 20, y1 - 60], [x0 + 120, y1 - 60], [x0 + 220, y1 - 60]];
       for (var i = 0; i < pts.length; i++) {
         var e = d.elementFromPoint(pts[i][0], pts[i][1]);
-        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main dl,footer p,footer a,footer li')) return false;
+        if (e && !e.closest('.pal') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main textarea,main img,main .dec-roof,main .dia-art,main .xv-stage,main .ty-stage,main .cr-art,main .qz-art,main .sc-art,main .faq-board,main .bf-view,main .prj-build,main .ab-art,main .sv-art,main .ug-art,main .chk-photo,main .how-art,main .are-list,main .ad-card,main .svc-stage,main .st-stage,main .ct-photo,main .wk-btn,main .rv-card,main dl,footer p,footer a,footer li')) return false;
       }
       return true;
     }
     function bodyFree0() {   /* where he stands must be clear of text too, or he waits for a better moment */
-      var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44] : [30, 70, 92];
+      var H = window.innerHeight, xs = window.innerWidth < 1400 ? [20, 44, 70, 92] : [30, 70, 92, 120];
       for (var i = 0; i < xs.length; i++) for (var y = H - 200; y < H - 90; y += 36) {
         var e = d.elementFromPoint(xs[i], y);
-        if (e && !e.closest('.pal,.rwopt') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main img,footer p,footer a,footer li')) return false;
+        if (e && !e.closest('.pal,.rwopt') && e.closest('main p,main h1,main h2,main h3,main li,main a,main button,main label,main input,main img,main .dec-roof,main .dia-art,main .xv-stage,main .ty-stage,main .cr-art,main .qz-art,main .sc-art,main .faq-board,main .bf-view,main .prj-build,main .ab-art,main .sv-art,main .ug-art,main .chk-photo,main .how-art,main .are-list,main .ad-card,main .svc-stage,main .st-stage,main .ct-photo,main .wk-btn,main .rv-card,footer p,footer a,footer li')) return false;
       }
       return true;
     }
