@@ -1,55 +1,143 @@
 <!-- ================= THE STORY OF ONE SLATE (scroll story) =================
      A pinned, scroll-driven scene: a quiet evening, a storm lifts one slate, water finds the gap and stains the ceiling,
-     a winter makes it worse, then a roofer puts it right in a morning. Scroll moves the story (story.js); nothing is
-     forced. Teaching copy, no claims. Without JS or with reduced motion: the repaired scene and all five steps as a list. -->
+     a winter makes it worse, then a roofer puts it right in a morning. Scroll moves the story both ways (story.js).
+     The two people are jointed rigs: story.js turns each joint around its own point (neck, shoulder, elbow, hip),
+     so nothing ever comes apart. Teaching copy, no claims.
+     Without JS or with reduced motion: the repaired morning scene and all five steps as a list. -->
 <section class="sec st" id="story" aria-labelledby="h-story">
   <div class="st-pin">
     <div class="st-stage">
-      <svg class="st-sc" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <svg class="st-sc" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
         <defs>
-          <linearGradient id="st-g-eve" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCE5EC"/><stop offset="1" stop-color="#F3E6D6"/></linearGradient>
-          <linearGradient id="st-g-storm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9C3C9"/><stop offset="1" stop-color="#DCE1E3"/></linearGradient>
-          <linearGradient id="st-g-dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6DFC4"/><stop offset="1" stop-color="#FBF3E8"/></linearGradient>
+          <linearGradient id="st-g-eve" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9D7E3"/><stop offset=".7" stop-color="#F1DCC4"/><stop offset="1" stop-color="#F6E6D2"/></linearGradient>
+          <linearGradient id="st-g-storm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8E9AA3"/><stop offset="1" stop-color="#C9CFD2"/></linearGradient>
+          <linearGradient id="st-g-night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3B4A5C"/><stop offset="1" stop-color="#8B98A6"/></linearGradient>
+          <linearGradient id="st-g-dawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3D6B4"/><stop offset=".6" stop-color="#FBEBD6"/><stop offset="1" stop-color="#FDF5EA"/></linearGradient>
+          <radialGradient id="st-g-lamp"><stop offset="0" stop-color="#FFE3A6" stop-opacity=".85"/><stop offset="1" stop-color="#FFE3A6" stop-opacity="0"/></radialGradient>
+          <radialGradient id="st-g-moon"><stop offset="0" stop-color="#FFF8E6" stop-opacity=".7"/><stop offset="1" stop-color="#FFF8E6" stop-opacity="0"/></radialGradient>
+          <pattern id="st-paper" width="18" height="18" patternUnits="userSpaceOnUse"><rect width="18" height="18" fill="#F4E8D6"/><path d="M9 0V18" stroke="#EBDCC5" stroke-width="5"/></pattern>
           <clipPath id="st-room"><path d="M402 382H798V598H402Z"/></clipPath>
+          <clipPath id="st-win"><path d="M424 410H492V470H424Z"/></clipPath>
         </defs>
+
+        <!-- sky: four moods, cross-faded by the story -->
         <rect class="st-sky st-sky-eve" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-eve)"/>
         <rect class="st-sky st-sky-storm" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-storm)"/>
+        <rect class="st-sky st-sky-night" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-night)"/>
         <rect class="st-sky st-sky-dawn" x="-800" y="-900" width="2800" height="1700" fill="url(#st-g-dawn)"/>
-        <circle class="st-moon" cx="1010" cy="120" r="30"/>
-        <circle class="st-sun" cx="1030" cy="150" r="46"/>
-        <g class="st-clouds"><path d="M120 150h170c14 0 18-20 3-24 0-18-24-24-35-12-7-15-33-17-41 0-13-8-33 0-31 13-14-2-22 23-66 23z"/><path d="M820 110h200c16 0 20-24 3-28 0-22-28-28-41-14-9-18-39-20-48 0-15-10-39 0-36 15-17-2-26 27-78 27z"/></g>
-        <g class="st-wind"><path d="M60 250h140c14 0 14-18 0-18M30 300h220M80 350h120c14 0 14 18 0 18"/><path d="M960 260h140c14 0 14-18 0-18M940 310h200"/></g>
-        <path class="st-hill" d="M-800 556C0 540 200 530 380 548S1000 520 2000 536V800H-800Z"/>
+        <g class="st-stars"><circle cx="120" cy="60" r="1.8"/><circle cx="260" cy="120" r="1.4"/><circle cx="380" cy="40" r="2"/><circle cx="700" cy="70" r="1.6"/><circle cx="860" cy="30" r="1.4"/><circle cx="980" cy="110" r="2"/><circle cx="1100" cy="50" r="1.5"/><circle cx="560" cy="20" r="1.3"/><circle cx="1180" cy="150" r="1.6"/><circle cx="30" cy="160" r="1.4"/></g>
+        <g class="st-moonw"><circle class="st-moonglow" cx="1010" cy="120" r="80" fill="url(#st-g-moon)"/><circle class="st-moon" cx="1010" cy="120" r="28"/><circle class="st-moon-sh" cx="1000" cy="112" r="5"/><circle class="st-moon-sh" cx="1020" cy="130" r="3.5"/></g>
+        <g class="st-sunw"><g class="st-rays"><path d="M1030 70v-26M1030 230v26M950 150h-26M1110 150h26M973 93l-18-18M1087 207l18 18M973 207l-18 18M1087 93l18-18"/></g><circle class="st-sun" cx="1030" cy="150" r="44"/></g>
+
+        <!-- far layer (moves least with the camera) -->
+        <g class="st-far">
+          <path class="st-far-hill" d="M-800 520C-300 470 100 488 420 500S900 470 1300 492 2000 480 2000 480V700H-800Z"/>
+          <g class="st-village"><path d="M-40 500v-22l14-12 14 12v22zM-6 500v-30l18-16 18 16v30zM40 500v-18l11-10 11 10v18zM980 498v-24l15-13 15 13v24zM1016 498v-36l4-4v-26l3-8 3 8v26l4 4v36zM1060 498v-20l12-10 12 10v20zM1100 498v-28l16-14 16 14v28z"/></g>
+          <g class="st-clouds"><g class="st-cl st-cl1"><path d="M90 150h190c14 0 18-22 3-26 0-20-26-26-38-12-8-17-36-19-45 0-14-9-36 0-34 14-15-2-24 24-76 24z"/></g><g class="st-cl st-cl2"><path d="M760 96h210c16 0 20-25 3-29 0-23-29-29-42-15-9-18-40-20-50 0-15-10-40 0-37 16-18-2-27 28-84 28z"/></g><g class="st-cl st-cl3"><path d="M420 70h120c10 0 13-15 2-18 0-13-17-17-25-8-5-11-23-12-29 0-9-6-23 0-22 9-10-1-15 17-46 17z"/></g></g>
+          <g class="st-dark"><g class="st-cl st-cl4"><path d="M-60 210h380c26 0 32-40 6-48 0-38-48-48-70-24-14-30-66-34-80 0-24-16-66 0-60 26-28-4-44 46-176 46z"/></g><g class="st-cl st-cl5"><path d="M640 170h460c28 0 36-46 6-54 0-42-54-54-78-28-16-34-74-38-90 0-26-18-74 0-68 30-32-4-50 52-230 52z"/></g><g class="st-cl st-cl6"><path d="M300 120h300c20 0 25-32 4-38 0-30-38-38-55-19-11-24-52-27-63 0-19-13-52 0-48 21-22-3-35 36-138 36z"/></g></g>
+        </g>
+        <path class="st-bolt" d="M930 140l-34 70h26l-30 74 64-92h-28l28-52z"/>
+
+        <!-- middle layer -->
+        <g class="st-mid">
+          <path class="st-hill" d="M-800 556C0 540 200 530 380 548S1000 520 2000 536V800H-800Z"/>
+          <g class="st-tree"><g class="st-tree-s">
+            <path class="st-trunk" d="M250 600V478M250 528l-26-26M250 512l24-24M250 492l-12-22M250 492l14-18"/>
+            <g class="st-crown"><circle cx="250" cy="452" r="50"/><circle cx="214" cy="482" r="32"/><circle cx="288" cy="478" r="34"/><circle cx="252" cy="418" r="30"/></g>
+            <g class="st-blossom"><circle cx="230" cy="440" r="3"/><circle cx="268" cy="430" r="3"/><circle cx="290" cy="470" r="3"/><circle cx="214" cy="478" r="3"/><circle cx="250" cy="462" r="3"/><circle cx="236" cy="410" r="3"/></g>
+          </g></g>
+        </g>
         <path class="st-ground" d="M-800 600H2000V900H-800Z"/>
-        <!-- tree -->
-        <g class="st-tree"><path class="st-trunk" d="M1000 600V470M1000 510l-22-24M1000 495l20-22"/><g class="st-crown"><circle cx="1000" cy="440" r="48"/><circle cx="966" cy="468" r="30"/><circle cx="1036" cy="466" r="32"/></g></g>
-        <!-- house shell -->
+        <path class="st-snowgnd" d="M-800 600C-400 592 0 596 380 594S1000 590 2000 596V610H-800Z"/>
+        <g class="st-leaves"><path d="M0 0c6-6 14-6 18 0-6 5-13 5-18 0z" transform="translate(240 450)"/><path d="M0 0c6-6 14-6 18 0-6 5-13 5-18 0z" transform="translate(270 470)"/><path d="M0 0c6-6 14-6 18 0-6 5-13 5-18 0z" transform="translate(222 430)"/><path d="M0 0c6-6 14-6 18 0-6 5-13 5-18 0z" transform="translate(286 440)"/></g>
+
+        <!-- weather (behind the cut-away house, so it never rains indoors) -->
+        <g class="st-rain st-rain-far"><path d="M100 40l-10 30M220 20l-10 30M340 60l-10 30M460 10l-10 30M580 50l-10 30M700 20l-10 30M820 60l-10 30M940 30l-10 30M1060 50l-10 30M160 120l-10 30M400 130l-10 30M640 110l-10 30M880 140l-10 30M1120 120l-10 30M40 200l-10 30M280 210l-10 30M520 190l-10 30M760 220l-10 30M1000 200l-10 30"/></g>
+        <g class="st-rain st-rain-near"><path d="M60 80l-16 46M300 40l-16 46M540 90l-16 46M780 30l-16 46M1020 80l-16 46M180 260l-16 46M420 300l-16 46M660 250l-16 46M900 290l-16 46M1140 260l-16 46"/></g>
+        <g class="st-snow"><circle cx="80" cy="40" r="3"/><circle cx="200" cy="120" r="2.5"/><circle cx="330" cy="60" r="3.5"/><circle cx="460" cy="150" r="2.5"/><circle cx="590" cy="30" r="3"/><circle cx="720" cy="110" r="3.5"/><circle cx="850" cy="60" r="2.5"/><circle cx="970" cy="140" r="3"/><circle cx="1090" cy="40" r="3.5"/><circle cx="140" cy="250" r="2.5"/><circle cx="380" cy="280" r="3"/><circle cx="640" cy="240" r="2.5"/><circle cx="900" cy="270" r="3"/><circle cx="1150" cy="230" r="2.5"/></g>
+        <g class="st-wind"><path d="M60 250h140c14 0 14-18 0-18M30 300h220M80 350h120c14 0 14 18 0 18"/><path d="M960 260h140c14 0 14-18 0-18M940 310h200"/></g>
+        <!-- the house, cut away -->
         <path class="st-wall" d="M380 380H820V600H380Z"/>
         <path class="st-room-bg" d="M402 382H798V598H402Z"/>
         <g clip-path="url(#st-room)">
-          <path class="st-wallpaper" d="M402 382H798V598H402Z"/>
-          <path class="st-pic" d="M450 430h70v52h-70z"/><path class="st-pic-in" d="M458 438h54v36h-54z"/>
-          <path class="st-lamp-l" d="M650 512h20l-6-20h-8z"/><path class="st-lamp-p" d="M660 512v28M648 540h24"/>
-          <ellipse class="st-lamp-glow" cx="660" cy="508" rx="60" ry="46"/>
-          <path class="st-bed" d="M520 560h200v30H520zM520 548h56v14h-56z"/><path class="st-bed-h" d="M716 520h8v70h-8z"/>
-          <ellipse class="st-stain" cx="752" cy="390" rx="44" ry="12"/>
-          <g class="st-drips"><path class="st-drip" d="M752 396c-3 5-4 7-4 9a4 4 0 0 0 8 0c0-2-1-4-4-9z"/></g>
-          <path class="st-bucket" d="M736 574h32l-4 24h-24z"/>
-          <g class="st-person"><g transform="translate(610 598)">
-            <g class="st-p-head"><circle cx="0" cy="-74" r="10"/><path class="st-p-hair" d="M-10 -78c1-11 19-13 20 0-5-5-15-5-20 0z"/></g>
-            <path class="st-p-body" d="M0 -63v34M0 -29l-8 29M0 -29l8 29"/>
-            <path class="st-p-arm-l" d="M0 -56l-12 18"/>
-            <g class="st-p-arm"><path d="M0 -56l14 14"/><rect class="st-p-phone" x="10" y="-48" width="6" height="10" rx="1.5"/></g>
-            <g class="st-p-q"><path d="M10 -104c0-8 12-8 12 0 0 5-6 5-6 10M16 -88v1"/></g>
+          <path d="M402 382H798V598H402Z" fill="url(#st-paper)"/>
+          <path class="st-skirt" d="M402 586H798"/>
+          <!-- window with the weather outside -->
+          <g class="st-window">
+            <path class="st-win-frame" d="M418 404H498V476H418Z"/>
+            <g clip-path="url(#st-win)">
+              <rect class="st-glass st-glass-eve" x="424" y="410" width="68" height="60"/>
+              <rect class="st-glass st-glass-storm" x="424" y="410" width="68" height="60"/>
+              <rect class="st-glass st-glass-night" x="424" y="410" width="68" height="60"/>
+              <rect class="st-glass st-glass-dawn" x="424" y="410" width="68" height="60"/>
+              <g class="st-win-rain"><path d="M432 404l-6 18M448 410l-6 18M464 402l-6 18M480 412l-6 18M440 436l-6 18M458 440l-6 18M476 434l-6 18M490 446l-6 18"/></g>
+              <g class="st-frost"><path d="M424 470c10-14 18-6 26-16s16-4 22-14 14-2 20-10V470z"/></g>
+            </g>
+            <path class="st-win-bar" d="M458 410V470M424 440H492"/>
+            <path class="st-sill" d="M414 476H502"/>
+            <g class="st-curtain st-curtain-l"><path d="M414 400h16c-4 26 4 52-2 80h-14z"/></g>
+            <g class="st-curtain st-curtain-r"><path d="M502 400h-16c4 26-4 52 2 80h14z"/></g>
+          </g>
+          <g class="st-pic"><path class="st-pic-f" d="M588 420h56v40h-56z"/><path class="st-pic-in" d="M594 426h44v28h-44z"/><path class="st-pic-hill" d="M594 448c10-8 18-10 26-4s12-6 18-2v12h-44z"/></g>
+          <!-- bedside table and lamp -->
+          <path class="st-table" d="M462 556h40v42h-40zM466 568h32"/>
+          <ellipse class="st-lamp-glow" cx="482" cy="526" rx="70" ry="56" fill="url(#st-g-lamp)"/>
+          <path class="st-lamp-sh" d="M470 530h24l-6-20h-12z"/><path class="st-lamp-p" d="M482 530v24M474 556h16"/>
+          <!-- bed -->
+          <path class="st-bed-head" d="M512 518h8v80h-8z"/>
+          <path class="st-bed-base" d="M518 562h196v24H518zM522 586v12M708 586v12"/>
+          <path class="st-duvet" d="M548 546h164c4 0 6 3 6 6v14H548z"/>
+          <path class="st-pillow" d="M522 540c0-6 4-8 10-8h16c6 0 8 4 8 8v12h-34z"/>
+          <path class="st-duvet-f" d="M596 548c18 6 40 4 60 0"/>
+          <!-- the cat -->
+          <g class="st-cat"><g class="st-cat-b">
+            <ellipse class="st-cat-body" cx="672" cy="540" rx="20" ry="9"/>
+            <circle class="st-cat-head" cx="690" cy="532" r="7"/>
+            <path class="st-cat-ear" d="M685 527l1-7 4 5zM693 526l3-6 2 7z"/>
+            <path class="st-cat-tail" d="M653 542c-10 2-12 -6-6-8"/>
           </g></g>
+          <ellipse class="st-rug" cx="612" cy="598" rx="86" ry="5"/>
+          <!-- mould and the stain -->
+          <g class="st-mould"><circle cx="782" cy="394" r="4"/><circle cx="790" cy="402" r="2.5"/><circle cx="772" cy="390" r="2.2"/><circle cx="786" cy="412" r="1.8"/></g>
+          <g class="st-stain"><path class="st-stain-o" d="M714 384c4 10 20 14 38 12s30-2 40-12z"/><path class="st-stain-i" d="M730 384c4 6 14 8 24 7s16-2 22-7z"/></g>
+          <g class="st-drips"><path class="st-drip" d="M752 394c-3 5-4 7-4 9a4 4 0 0 0 8 0c0-2-1-4-4-9z"/><path class="st-drip st-drip2" d="M752 394c-3 5-4 7-4 9a4 4 0 0 0 8 0c0-2-1-4-4-9z"/></g>
+          <g class="st-floordrop"><ellipse cx="752" cy="597" rx="9" ry="2"/></g>
+          <!-- the bucket (water level rises over the winter) -->
+          <g class="st-bucket">
+            <path class="st-bk-body" d="M736 574h32l-4 24h-24z"/>
+            <ellipse class="st-bk-water" cx="752" cy="578" rx="14" ry="2.6"/>
+            <ellipse class="st-bk-ring" cx="752" cy="578" rx="6" ry="1.4"/>
+            <path class="st-bk-handle" d="M737 575c2-10 28-10 30 0"/>
+          </g>
+          <!-- the homeowner: a jointed rig, feet at (0,0); story.js sets every joint -->
+          <g class="st-person" transform="translate(560 598)">
+            <g class="st-p-armL" transform="rotate(0 -8 -84)"><path class="st-p-sleeve st-p-sleeve-b" d="M-8 -84L-10 -66"/><g class="st-p-foreL" transform="rotate(0 -10 -66)"><path class="st-p-sleeve st-p-sleeve-b" d="M-10 -66L-9 -51"/><circle class="st-p-hand" cx="-9" cy="-49" r="3.2"/></g></g>
+            <g class="st-p-legL" transform="rotate(0 -3 -48)"><path class="st-p-leg" d="M-3 -48L-4 -5"/><path class="st-p-shoe" d="M-7 -6h11c2 0 3 2 3 4v2h-14z"/></g>
+            <g class="st-p-legR" transform="rotate(0 4 -48)"><path class="st-p-leg" d="M4 -48L5 -5"/><path class="st-p-shoe" d="M1 -6h11c2 0 3 2 3 4v2h-14z"/></g>
+            <g class="st-p-upper" transform="rotate(0 0 -48)">
+              <path class="st-p-torso" d="M-11 -86c4-4 18-4 22 0l1 38c-6 4-18 4-24 0z"/>
+              <g class="st-p-head" transform="rotate(0 0 -88)">
+                <path class="st-p-neck" d="M-3 -92h6v6h-6z"/>
+                <circle class="st-p-face" cx="0" cy="-101" r="11"/>
+                <path class="st-p-hair" d="M-11 -102c-1-14 20-17 22-4-6-5-14-6-22 4z"/>
+                <path class="st-p-hairb" d="M-11 -103c-3 6-2 12 2 16 0-6 0-11-2-16z"/>
+                <circle class="st-p-eye" cx="5" cy="-102" r="1.5"/>
+                <path class="st-p-mouth" d="M3 -95c2 1.5 4 1.5 6 0"/>
+                <g class="st-p-q"><path d="M10 -136c0-8 12-8 12 0 0 5-6 5-6 10M16 -120v1"/></g>
+                <g class="st-p-waves"><path d="M16 -110c4 3 4 9 0 12M21 -113c6 5 6 13 0 18"/></g>
+              </g>
+              <g class="st-p-armR" transform="rotate(0 9 -84)"><path class="st-p-sleeve" d="M9 -84L11 -66"/><g class="st-p-foreR" transform="rotate(0 11 -66)"><path class="st-p-sleeve" d="M11 -66L12 -51"/><circle class="st-p-hand" cx="12" cy="-49" r="3.2"/><g class="st-p-book"><path d="M5 -56h16v11H5z"/><path class="st-p-book-l" d="M13 -56v11"/></g><rect class="st-p-phone" x="9" y="-56" width="6" height="11" rx="1.5"/></g></g>
+            </g>
+          </g>
         </g>
         <path class="st-floor" d="M402 598H798"/>
         <path class="st-ceiling" d="M380 382H820"/>
         <!-- loft and roof, seen in section -->
         <path class="st-loft" d="M360 390L600 190L840 390Z"/>
         <path class="st-rafter-l" d="M360 390L600 190"/><path class="st-rafter-r" d="M600 190L840 390"/>
-        <path class="st-chim" d="M452 214h36v100h-36z"/><path class="st-chimtop" d="M446 214h48"/>
-        <g class="st-smoke"><circle cx="470" cy="196" r="8"/><circle cx="480" cy="178" r="10"/><circle cx="468" cy="158" r="12"/></g>
+        <path class="st-joist" d="M402 382V350M500 382V300M700 382V300M798 382V350"/>
+        <path class="st-chim" d="M452 214h36v100h-36z"/><path class="st-chim-b" d="M452 236h36M452 258h36M452 280h36M470 214v22M462 236v22M478 258v22"/><path class="st-chimtop" d="M446 214h48"/>
+        <g class="st-smoke"><circle class="st-sm st-sm1" cx="470" cy="198" r="8"/><circle class="st-sm st-sm2" cx="476" cy="186" r="10"/><circle class="st-sm st-sm3" cx="468" cy="170" r="12"/></g>
         <!-- right slope in its own frame: x along the slope, -y outward -->
         <g class="st-slope" transform="translate(600 190) rotate(39.8)">
           <path class="st-felt" d="M0 0H312"/>
@@ -57,23 +145,54 @@
           <g class="st-battens"><rect x="20" y="-4" width="6" height="4"/><rect x="60" y="-4" width="6" height="4"/><rect x="100" y="-4" width="6" height="4"/><rect x="140" y="-4" width="6" height="4"/><rect x="180" y="-4" width="6" height="4"/><rect x="220" y="-4" width="6" height="4"/><rect x="260" y="-4" width="6" height="4"/><rect x="300" y="-4" width="6" height="4"/></g>
           <g class="st-rot"><rect x="220" y="-4" width="6" height="4"/><rect x="260" y="-4" width="6" height="4"/><rect x="300" y="-4" width="6" height="4"/></g>
           <g class="st-slates"><path d="M0 -9h34v6H0z"/><path d="M20 -10h34v6H20z"/><path d="M40 -10h34v6H40z"/><path d="M60 -10h34v6H60z"/><path d="M80 -10h34v6H80z"/><path d="M100 -10h34v6h-34z"/><path d="M120 -10h34v6h-34z"/><path d="M140 -10h34v6h-34z"/><path d="M160 -10h34v6h-34z"/><path d="M180 -10h34v6h-34z"/><path d="M200 -10h34v6h-34z"/><path class="st-s2" d="M244 -10h34v6h-34z"/><path class="st-s3" d="M264 -10h34v6h-34z"/><path d="M284 -10h34v6h-34z"/></g>
+          <g class="st-snowroof"><path d="M-4 -12C40 -16 90 -13 140 -15S240 -12 318 -15V-10H-4z"/></g>
         </g>
-        <!-- the slate that slips (its own group so it can travel) -->
+        <!-- left slope snow -->
+        <path class="st-snowroof st-snowroof-l" d="M600 186L364 384l-6-4 236-200z"/>
+        <!-- gutter, downpipe, icicles -->
+        <path class="st-gutter" d="M828 392h22v8h-22z"/><path class="st-pipe" d="M846 400v196"/>
+        <g class="st-icicles"><path d="M830 400l3 14 3-14zM838 400l2 10 2-10zM844 400l3 18 3-18z"/></g>
+        <!-- the slate that slips (its own group so it can travel), and its two pieces on the ground -->
         <g class="st-slate"><g transform="translate(776 337) rotate(39.8)"><path d="M-12 -10h34v6h-34z"/></g></g>
+        <g class="st-shards"><path d="M852 596l14-4 2 5-15 3z"/><path d="M872 598l10-6 3 4-11 5z"/></g>
         <g class="st-newslate"><g transform="translate(776 337) rotate(39.8)"><path d="M-12 -10h34v6h-34z"/></g></g>
-        <!-- water path -->
+        <!-- water path through the gap, and the bead that runs along it -->
         <path class="st-water" pathLength="1" d="M777 334L820 370L806 383L760 386"/>
-        <g class="st-rain"><path d="M100 40l-14 40M220 20l-14 40M340 60l-14 40M460 10l-14 40M580 50l-14 40M700 20l-14 40M820 60l-14 40M940 30l-14 40M1060 50l-14 40M160 120l-14 40M400 130l-14 40M640 110l-14 40M880 140l-14 40M1120 120l-14 40"/></g>
-        <!-- weeks later -->
-        <g class="st-cal"><path class="st-cal-b" d="M880 430h90v84h-90z"/><path class="st-cal-t" d="M880 430h90v20h-90z"/><text class="st-cal-n" x="925" y="494">6</text><text class="st-cal-w" x="925" y="534">weeks later</text></g>
-        <!-- the repair -->
-        <g class="st-van"><g transform="translate(230 0)"><path class="st-van-b" d="M0 548h120l26 22v30H0z"/><path class="st-van-w" d="M120 552l20 18h-20z"/><path class="st-van-stripe" d="M0 576h146"/><circle class="st-wheel" cx="30" cy="600" r="13"/><circle class="st-wheel" cx="112" cy="600" r="13"/></g></g>
-
+        <circle class="st-bead" cx="777" cy="334" r="4.5"/>
+        <!-- weeks later: a wall calendar whose pages turn -->
+        <g class="st-cal"><path class="st-cal-b" d="M880 430h96v90h-96z"/><path class="st-cal-t" d="M880 430h96v22h-96z"/><path class="st-cal-ring" d="M902 424v12M954 424v12"/><text class="st-cal-n" x="928" y="497">1</text><text class="st-cal-w" x="928" y="540">weeks later</text><path class="st-cal-page" d="M880 452h96v68h-96z"/></g>
+        <!-- the repair: van, ladder, roofer -->
+        <g class="st-van" transform="translate(1300 0)">
+          <path class="st-van-b" d="M26 548h104v52H0v-30l20-20z"/><path class="st-van-w" d="M6 570l16-16h14v16z"/><path class="st-van-stripe" d="M0 584h130"/><path class="st-van-door" d="M44 552v44M88 552v44"/><circle class="st-van-lamp" cx="4" cy="586" r="3"/>
+          <g class="st-wheel st-wheel-f" transform="rotate(0 26 600)"><circle cx="26" cy="600" r="13"/><path class="st-spoke" d="M26 590v20M16 600h20"/></g>
+          <g class="st-wheel st-wheel-b" transform="rotate(0 108 600)"><circle cx="108" cy="600" r="13"/><path class="st-spoke" d="M108 590v20M98 600h20"/></g>
+          <g class="st-exhaust"><circle cx="136" cy="594" r="5"/><circle cx="146" cy="590" r="7"/></g>
+        </g>
         <g class="st-ladder"><path d="M872 600L838 384M900 600L866 384M866 572h28M861 540h28M856 508h28M851 476h28M846 444h28M841 412h28"/></g>
-        <g class="st-man"><g transform="translate(858 420)"><circle cx="0" cy="-34" r="7"/><path class="st-hat" d="M-7 -36c1-8 13-9 15 0z"/><path class="st-bd" d="M0 -27v18M0 -9l-6 12M0 -9l7 11M0 -22l-10 -6M0 -22l9 4"/></g></g>
-        <g class="st-birds"><path d="M300 120c5-5 10-5 13 0 3-5 8-5 13 0M340 100c4-4 8-4 10 0 2-4 6-4 10 0"/></g>
+        <!-- the roofer: jointed rig, feet at (0,0) -->
+        <g class="st-roofer" transform="translate(900 600)">
+          <g class="st-r-flip">
+            <g class="st-r-armL" transform="rotate(0 -8 -84)"><path class="st-r-sleeve st-r-sleeve-b" d="M-8 -84L-10 -66"/><g class="st-r-foreL" transform="rotate(0 -10 -66)"><path class="st-r-sleeve st-r-sleeve-b" d="M-10 -66L-9 -51"/><circle class="st-r-hand" cx="-9" cy="-49" r="3.2"/></g></g>
+            <g class="st-r-legL" transform="rotate(0 -3 -48)"><path class="st-r-leg" d="M-3 -48L-4 -5"/><path class="st-r-boot" d="M-7 -7h11c2 0 4 2 4 4v3h-15z"/></g>
+            <g class="st-r-legR" transform="rotate(0 4 -48)"><path class="st-r-leg" d="M4 -48L5 -5"/><path class="st-r-boot" d="M1 -7h11c2 0 4 2 4 4v3h-15z"/></g>
+            <g class="st-r-upper" transform="rotate(0 0 -48)">
+              <path class="st-r-torso" d="M-12 -86c4-4 20-4 24 0l1 38c-6 4-20 4-26 0z"/>
+              <path class="st-r-vest" d="M-12 -70h25M-12 -60h25"/>
+              <g class="st-r-head" transform="rotate(0 0 -88)">
+                <path class="st-r-neck" d="M-3 -92h6v6h-6z"/>
+                <circle class="st-r-face" cx="0" cy="-101" r="11"/>
+                <path class="st-r-cap" d="M-11 -103c0-12 22-12 22 0zM9 -104h8v3h-8z"/>
+                <circle class="st-r-eye" cx="5" cy="-101" r="1.5"/>
+                <path class="st-r-mouth" d="M3 -94c2 1.5 4 1.5 6 0"/>
+              </g>
+              <g class="st-r-armR" transform="rotate(0 9 -84)"><path class="st-r-sleeve" d="M9 -84L11 -66"/><g class="st-r-foreR" transform="rotate(0 11 -66)"><path class="st-r-sleeve" d="M11 -66L12 -51"/><circle class="st-r-hand" cx="12" cy="-49" r="3.2"/><g class="st-r-hammer"><path class="st-r-hm-h" d="M12 -49l14 -10"/><path class="st-r-hm-k" d="M22 -66l10 12-4 3-10-12z"/></g></g></g>
+            </g>
+          </g>
+        </g>
+        <g class="st-birds"><path d="M300 120c5-5 10-5 13 0 3-5 8-5 13 0M340 100c4-4 8-4 10 0 2-4 6-4 10 0M372 130c4-4 8-4 10 0 2-4 6-4 10 0"/></g>
+        <g class="st-spark"><path d="M776 312l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/><path class="st-spark2" d="M796 300l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></g>
+        <g class="st-done"><circle cx="740" cy="250" r="20"/><path d="M730 250l7 7 13-14"/></g>
         <rect class="st-flash" x="-800" y="-900" width="2800" height="1700"/>
-        <g class="st-spark"><path d="M776 312l4 9 9 4-9 4-4 9-4-9-9-4 9-4z"/></g>
       </svg>
       <ol class="st-steps" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
     </div>

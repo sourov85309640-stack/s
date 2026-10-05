@@ -34,6 +34,8 @@
             <clipPath id="dec-rc"><path d="M100 58H320L392 186H28Z"/></clipPath>
           </defs>
           <g class="dec-sky"><circle class="dec-sun" cx="380" cy="34" r="18"/><path class="dec-cloud" d="M330 40h56c7 0 9-10 1-12 0-9-12-12-18-6-4-8-17-9-21 0-7-4-17 0-16 7-7-1-11 11-2 11z"/></g>
+          <!-- V7 only: a tree that grows with the years and turns with the seasons -->
+          <g class="dec-x7 dec-tree" transform="translate(404 250) scale(.55)"><path class="dec-tr-trunk" d="M0 0V-62M0 -34l-12 -12M0 -44l10 -10"/><g class="dec-tr-crown"><circle cx="0" cy="-74" r="20"/><circle cx="-13" cy="-60" r="13"/><circle cx="13" cy="-62" r="14"/></g><g class="dec-tr-bloom"><circle cx="-6" cy="-80" r="2.2"/><circle cx="8" cy="-70" r="2.2"/><circle cx="-12" cy="-62" r="2.2"/><circle cx="12" cy="-58" r="2.2"/></g></g>
           <path d="M0 250H420" stroke="#1F2B30" stroke-opacity=".25" stroke-width="1.5"/>
           <path d="M56 186H364V250H56Z" fill="#FAF9F6" stroke="#1F2B30" stroke-opacity=".55" stroke-width="1.5"/>
           <path d="M92 204h40v30H92zM288 204h40v30h-40zM190 210h40v40h-40z" fill="#EAF0F2" stroke="#1F2B30" stroke-opacity=".45" stroke-width="1.3"/>
@@ -44,6 +46,8 @@
           <g data-lx="3"><path d="M100 58H320L392 186H28Z" fill="url(#dec-tl)" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/><path d="M96 58H324" stroke="#985632" stroke-width="3.5" stroke-linecap="round"/></g>
           <!-- sagging roof (past repair) -->
           <g data-lc="3"><path d="M100 58Q210 74 320 58L392 186H28Z" fill="url(#dec-tl)" stroke="#1F2B30" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/><path d="M96 58Q210 75 324 58" fill="none" stroke="#985632" stroke-width="3.5" stroke-linecap="round"/></g>
+          <!-- V7 only: chimney pot that leans with age -->
+          <g class="dec-x7 dec-pot" transform="rotate(0 291 16)"><path d="M284 16l2-12h10l2 12z" fill="#C98B62" stroke="#1F2B30" stroke-opacity=".5" stroke-width="1.2"/></g>
           <g clip-path="url(#dec-rc)">
             <!-- tired: moss in the courses and along the eaves -->
             <g data-lc="1" fill="#A9AE7E" fill-opacity=".85"><path d="M64 178c4-6 10-7 13-3 3-5 10-6 13 0 4-3 9-1 9 5H64z"/><path d="M150 132c3-4 8-5 10-2 3-4 8-4 10 1 3-2 7 0 7 4h-27z"/><path d="M262 160c3-5 9-5 11-1 3-4 9-4 11 1 3-2 7 0 7 4h-29z"/><path d="M318 182c3-5 9-6 12-2 3-4 9-4 11 1 3-2 7 0 7 5h-30z"/><path d="M212 98c3-4 7-4 9-1 2-3 7-3 9 1 2-1 5 0 5 3h-23z"/></g>
@@ -52,6 +56,14 @@
             <!-- past repair: gaps, slipped and broken tiles -->
             <g data-lc="3"><path d="M118 120h24v16h-24zM238 152h24v16h-24zM300 104h24v16h-24z" fill="#1F2B30" fill-opacity=".62"/><path d="M120 138l24 4-3 15-24-4z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/><path d="M240 170l22 7-4 13-22-7z" fill="#E9D3C1" stroke="#985632" stroke-width="1.1"/></g>
           </g>
+          <!-- V7 only: the one slipped slate of a sound roof (the repair case) -->
+          <g class="dec-x7 dec-slip"><path d="M118 120h24v16h-24z" fill="#1F2B30" fill-opacity=".55"/><path d="M122 133l24 3-2 15-24-3z" fill="#E9D3C1" stroke="#985632" stroke-width="1.2"/></g>
+          <!-- V7 only: gutter and downpipe (sag with age), a weed, a nest, drips, and a ring on the current problem -->
+          <g class="dec-x7 dec-gut" transform="rotate(0 392 188)"><path d="M26 186H394v6H26z" fill="#4A565D"/><path d="M386 192v58" stroke="#4A565D" stroke-width="4"/></g>
+          <g class="dec-x7 dec-weed" transform="translate(70 186) scale(0)"><path d="M0 0c-2-8-8-12-12-12 4 4 6 8 6 12M0 0c1-10 6-16 12-17-4 5-6 11-6 17M0 0V-14" fill="none" stroke="#7E9A55" stroke-width="2" stroke-linecap="round"/></g>
+          <g class="dec-x7 dec-nest" transform="translate(340 186)"><path d="M-12 0c2 6 22 6 24 0z" fill="#9C7A5E"/><g class="dec-bird"><path d="M-4 -8c0-5 8-6 9-1 3 0 5 1 6 3h-5c0 3-4 5-8 4z" fill="#3F5560"/><circle cx="3" cy="-8" r=".9" fill="#fff"/></g></g>
+          <g class="dec-x7 dec-gdrips"><path class="dec-gd" d="M120 194c-2 3-3 5-3 6a3 3 0 0 0 6 0c0-1-1-3-3-6z"/><path class="dec-gd" d="M250 194c-2 3-3 5-3 6a3 3 0 0 0 6 0c0-1-1-3-3-6z"/></g>
+          <g class="dec-x7 dec-ring" transform="translate(130 128)"><circle class="dec-ring-a" r="16"/><circle class="dec-ring-b" r="16"/></g>
         </svg>
         <svg class="dec-rain" viewBox="0 0 420 260" aria-hidden="true" focusable="false"><path d="M40 10l-8 20M110 0l-8 20M180 16l-8 20M250 4l-8 20M330 12l-8 20M70 60l-8 20M150 70l-8 20M290 64l-8 20M380 50l-8 20"/></svg>
         <p class="dec-roof-cap"><span class="dec-cap-t">Sound</span></p>

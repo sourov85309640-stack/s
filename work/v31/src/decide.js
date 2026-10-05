@@ -37,6 +37,7 @@
     if (V === '7') {   /* the years tick on with the condition */
       var yr = Math.round(2 + S.s / 3 * 38);
       if (yr !== S.yr) { S.yr = yr; var ye = $('.dec-yr', sec); if (ye) ye.textContent = yr; }
+      paint7(S.s);
     }
     if (i === S.i) return;
     S.i = i;
@@ -52,6 +53,28 @@
     if (range && S.lock < 0) { range.value = String(i); }
     if (range) range.setAttribute('aria-valuetext', VALUETEXT[+range.value]);
   }
+  /* V7: the scene ages with the years. The tree grows and turns with the seasons (one round every four years),
+     the chimney pot leans, the gutter sags and sprouts a weed, birds nest in it, and a ring sits on the fault */
+  var X7 = V === '7' ? { tree: $('.dec-tree', sec), crown: $('.dec-tr-crown', sec), bloom: $('.dec-tr-bloom', sec), pot: $('.dec-pot', sec), gut: $('.dec-gut', sec),
+    weed: $('.dec-weed', sec), slip: $('.dec-slip', sec), nest: $('.dec-nest', sec), ring: $('.dec-ring', sec) } : null;
+  var RING = [[130, 128], [165, 132], [184, 122], [210, 70]], SEASON = ['#9DBE6A', '#6F9A4E', '#D08A3E', '#8C7A62'];
+  function paint7(v) {
+    if (!X7 || !X7.tree) return;
+    var cl = function (x) { return RW.clamp(x, 0, 1); }, yrF = 2 + v / 3 * 38, ph = (yrF / 4) % 1, q = Math.floor(ph * 4);
+    X7.tree.setAttribute('transform', 'translate(404 250) scale(' + (0.55 + v / 3 * 0.6).toFixed(3) + ')');
+    X7.crown.style.setProperty('--dec-leaf', SEASON[q]);
+    X7.crown.style.opacity = q === 3 ? 0.2 : 1;
+    X7.bloom.style.opacity = q === 0 ? 1 : 0;
+    X7.pot.setAttribute('transform', 'rotate(' + (-cl((v - 1.8) / 1.2) * 12).toFixed(2) + ' 291 16)');
+    X7.gut.setAttribute('transform', 'rotate(' + (-cl(v - 2) * 1.2).toFixed(2) + ' 392 188)');
+    X7.slip.style.opacity = (1 - cl((v - 0.55) / 0.4)).toFixed(3);
+    X7.weed.setAttribute('transform', 'translate(70 186) scale(' + cl((v - 1.4) / 1).toFixed(3) + ')');
+    X7.nest.style.opacity = cl((v - 1.8) / 0.5).toFixed(3);
+    var a = Math.floor(RW.clamp(v, 0, 2.999)), f = v - a, p0 = RING[a], p1 = RING[Math.min(3, a + 1)];
+    f = f * f * (3 - 2 * f);
+    X7.ring.setAttribute('transform', 'translate(' + (p0[0] + (p1[0] - p0[0]) * f).toFixed(1) + ' ' + (p0[1] + (p1[1] - p0[1]) * f).toFixed(1) + ')');
+  }
+  if (V === '7') RW.onView(sec, { enter: function () { sec.classList.add('is-live'); }, leave: function () { sec.classList.remove('is-live'); } });
   function wanted() { return S.lock > -1 ? S.lock : S.hover > -1 ? S.hover : S.scrollT != null ? S.scrollT : S.s; }
   /* without the motion engine the scale jumps straight to the new stop */
   function settle() { S.t = wanted(); if (!loop) { S.s = S.t; S.i = -2; paint(); } }
