@@ -322,3 +322,12 @@ html.has-motion .svc-sec[data-v="6"] .svc.is-on .svc-cap>*:nth-child(4){transiti
 .svc-sec[data-v="6"] .svc .svc-cap{transition:opacity .12s ease}
 .svc-sec[data-v="6"] .svc:not(.is-on) .svc-cap{opacity:0}
 .svc-sec[data-v="6"] .svc.is-on .svc-cap{opacity:1;transition:opacity .28s ease .16s}
+/* without JavaScript the tabs cannot switch cards, so every problem card is shown as a simple list */
+html:not(.js) .svc-sec[data-v="6"] .svc-list{gap:2rem}
+html:not(.js) .svc-sec[data-v="6"] .svc{grid-area:auto;opacity:1;visibility:visible;transform:none}
+html:not(.js) .svc-sec[data-v="6"] .svc{background:var(--card);color:var(--text);padding:0 0 1.25rem;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-card)}
+html:not(.js) .svc-sec[data-v="6"] .svc>:not(.svc-ph){margin-inline:1.1rem}
+html:not(.js) .svc-sec[data-v="6"] .svc-ph{margin-bottom:1rem}
+html:not(.js) .svc-sec[data-v="6"] .svc-ph::after{display:none}
+html:not(.js) .svc-sec[data-v="6"] .svc-t{color:var(--text)}
+html:not(.js) .svc-sec[data-v="6"] .svc-p{color:var(--muted)}

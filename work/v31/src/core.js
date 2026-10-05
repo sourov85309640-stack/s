@@ -223,6 +223,19 @@
       });
     }
 
+    /* keyboard focus never sits on something still waiting for its entrance: an element (or a parent) faded out by
+       GSAP for a reveal is finished at once when focus lands inside it. Scroll-scrubbed animations are left alone. */
+    if (RW.motionOK) {
+      d.addEventListener('focusin', function (e) {
+        for (var n = e.target; n && n !== d.body; n = n.parentElement) {
+          if (!n._gsap || n.style.opacity === '' || parseFloat(n.style.opacity) > 0.99) continue;
+          var tw = gsap.getTweensOf(n).filter(function (t) { var p = t; while (p) { if (p.scrollTrigger && p.vars && p.vars.scrollTrigger && p.vars.scrollTrigger.scrub) return false; p = p.parent; } return true; });
+          if (tw.length) tw.forEach(function (t) { t.progress(1); });
+          else gsap.set(n, { clearProps: 'opacity,transform,transition' });
+        }
+      });
+    }
+
     /* hooks for tests and for tearing the page down in a single-page app */
     window.rwMotion = { lenis: RW.lenis, ST: ST, gsap: gsap };
     window.rwScrollTo = function (el) { RW.scrollTo(el); };

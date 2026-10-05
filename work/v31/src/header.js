@@ -70,10 +70,18 @@
         }
         e.preventDefault();
         if (d.documentElement.classList.contains('menu-open')) setMenu(false);   /* Lenis ignores scrollTo while the sheet has it stopped */
+        /* Back returns to where you were: the current place is kept on this history entry, the jump gets its own */
+        try { history.replaceState({ rwY: window.pageYOffset }, ''); history.pushState({ rwY: null }, '', id); } catch (x2) {}
         RW.scrollTo(id === '#top' ? 0 : t, { offset: 0 });
-        try { history.replaceState(null, '', id); } catch (x2) {}
         if (id !== '#top') focusTarget(t);
       });
+    });
+    window.addEventListener('popstate', function (e) {
+      var s = e.state;
+      if (s && typeof s.rwY === 'number') { RW.scrollTo(s.rwY, { offset: 0 }); return; }
+      var h = location.hash, t2 = null;
+      try { t2 = h && h.length > 1 ? d.querySelector(h) : null; } catch (x4) {}
+      if (t2) RW.scrollTo(t2, { offset: 0 }); else if (s && s.rwY === null) RW.scrollTo(0, { offset: 0 });
     });
     function focusTarget(t) {
       if (!t.hasAttribute('tabindex')) t.setAttribute('tabindex', '-1');

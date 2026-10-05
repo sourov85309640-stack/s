@@ -175,8 +175,23 @@
     var files = $('#f-files'), pa = $('#photo-add'), thumbs = $('#f-thumbs'), urls = [];
     if (files && pa) {
       var paText = pa.innerHTML;
+      /* only photos, and none too big to send: anything else is left out with a plain note */
+      var MAX = 10 * 1024 * 1024, note = d.createElement('p');
+      note.className = 'err err-files'; note.id = 'e-files'; note.setAttribute('role', 'status'); note.hidden = true;
+      var hint = $('#h-files'); (hint && hint.parentNode ? hint.parentNode : pa.parentNode).insertBefore(note, hint ? hint.nextSibling : null);
+      var isPhoto = function (f) { return /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic|heif)$/i.test(f.name || ''); };
       files.addEventListener('change', function () {
-        var list = files.files ? Array.prototype.slice.call(files.files) : [];
+        var all = files.files ? Array.prototype.slice.call(files.files) : [];
+        var notPhoto = all.filter(function (f) { return !isPhoto(f); }), big = all.filter(function (f) { return isPhoto(f) && f.size > MAX; });
+        var list = all.filter(function (f) { return isPhoto(f) && f.size <= MAX; });
+        if (notPhoto.length || big.length) {
+          try { var dt = new DataTransfer(); list.forEach(function (f) { dt.items.add(f); }); files.files = dt.files; }
+          catch (x) { if (!list.length) files.value = ''; }
+          var msg = [];
+          if (notPhoto.length) msg.push(notPhoto.length === 1 ? 'Only photos can be added, so ' + notPhoto[0].name + ' was left out.' : 'Only photos can be added, so ' + notPhoto.length + ' files were left out.');
+          if (big.length) msg.push((big.length === 1 ? big[0].name + ' is' : big.length + ' photos are') + ' over 10 MB, too big to send. A smaller copy, or a photo taken at a lower size, works.');
+          note.textContent = msg.join(' '); note.hidden = false;
+        } else { note.hidden = true; note.textContent = ''; }
         urls.forEach(function (u) { try { URL.revokeObjectURL(u); } catch (x) {} }); urls = [];
         if (thumbs) {
           thumbs.textContent = '';
@@ -229,9 +244,20 @@
       var action = form.getAttribute('action') || '';
       var err = $('#e-form');
       err.hidden = true;
+      var tel = $('.big-phone .ct-num') || $('.big-phone'), telTxt = tel ? tel.textContent.trim() : 'us';
       if (!action || action === 'REPLACE-ENDPOINT') {
-        if (window.console && console.info) console.info('Form endpoint not set: nothing was sent (see the FORM ENDPOINT comment in the contact section).');
-        showOk(); return;
+        /* no form service yet. A local preview (a file, localhost or ?demo in the address) shows the thank-you so the
+           template can be demonstrated; a live site says plainly that nothing was sent, so no enquiry is lost quietly */
+        var demo = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || /[?&]demo\b/.test(location.search);
+        if (demo) {
+          if (window.console && console.info) console.info('Form endpoint not set: nothing was sent (see the FORM ENDPOINT comment in the contact section).');
+          showOk(); return;
+        }
+        if (window.console && console.error) console.error('Form endpoint not set: set the form action (see the FORM ENDPOINT comment in the contact section).');
+        err.textContent = 'Sorry, the form is not taking enquiries at the moment. Please call ' + telTxt + '.';
+        err.hidden = false;
+        try { err.focus(); } catch (x) {}
+        return;
       }
       var submit = form.querySelector('button[type="submit"]');
       var label = submit.querySelector('.send-t'), oldLabel = label ? label.textContent : '';
@@ -239,8 +265,7 @@
       fetch(action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(function (r) { if (!r.ok) throw new Error('bad'); showOk(); })
         .catch(function () {
-          var tel = $('.big-phone .ct-num') || $('.big-phone');
-          err.textContent = 'That did not send. Check your connection and try again, or call ' + (tel ? tel.textContent.trim() : 'us') + '.';
+          err.textContent = 'That did not send. Check your connection and try again, or call ' + telTxt + '.';
           err.hidden = false;
           submit.disabled = false; if (label) label.textContent = oldLabel;
         });

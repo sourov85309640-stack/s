@@ -1,6 +1,6 @@
 /* WHERE: "Where a roof lets water in." (owner: where team)
    Survey-marker scroll tour over the house drawing.
-   - pinned (min-width:1000px and min-height:800px): the stage pins and the marker travels pin to pin with scroll.
+   - pinned (min-width:1000px and min-height:900px; shorter screens cannot show the whole pinned stage): the stage pins and the marker travels pin to pin with scroll.
    - flow (smaller or shorter screens): the plate is sticky, each list row crossing the reading line moves the marker.
    - pins and rows are clickable (scroll to that stop); rows become real buttons only while the tour runs.
    - reload at depth / resize while pinned: onRefresh re-applies the scroll progress (handover 7, QC-1).
@@ -268,7 +268,7 @@
     };
 
     /* ======================= tour engine ======================= */
-    RW.mm.add({ pinned: '(min-width:1000px) and (min-height:800px)', flow: '(max-width:999px), (max-height:799px)' }, function (ctx) {
+    RW.mm.add({ pinned: '(min-width:1000px) and (min-height:900px)', flow: '(max-width:999px), (max-height:899px)' }, function (ctx) {
       var pinned = ctx.conditions.pinned, cleanups = [];
       sec.classList.add('is-touring'); sec.classList.toggle('is-flow', !pinned);
       measure();
@@ -314,6 +314,16 @@
         };
         pins.forEach(function (p, k) { on(p, 'click', function () { go(k); }); });
         rows.forEach(function (r, k) { on(r, 'click', function () { go(k); }); });
+        /* keyboard: a row taking focus walks the tour to that stop; anything below the pinned stage (the links under
+           the list) scrolls past the pin so it is on screen when it has focus */
+        rows.forEach(function (r, k) { on(r, 'focus', function () { go(k); }); });
+        on(sec, 'focusin', function (e) {
+          if (rows.indexOf(e.target) > -1) return;
+          var st = tl.scrollTrigger, b = e.target.getBoundingClientRect();
+          if (st && (b.bottom > window.innerHeight || b.top < 0) && window.pageYOffset >= st.start - 2 && window.pageYOffset <= st.end) {
+            RW.scrollTo(st.end + Math.max(0, b.bottom - window.innerHeight) + 96, { immediate: true });
+          }
+        });
       } else {
         /* flow: rows crossing the reading line (62% of the viewport) move the marker */
         var mpos = { x: pos(0).x, y: pos(0).y, lift: 0, h: 1 }, flowI = -1, mtl = null;
