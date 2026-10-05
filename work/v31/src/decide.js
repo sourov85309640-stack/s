@@ -119,7 +119,7 @@
       var st7 = $('.dec-stage7', sec), hd7 = $('.head2', sec);
       if (st7 && hd7 && window.innerWidth > 599 && window.innerHeight > 700) { st7.insertBefore(hd7, st7.firstChild); sec.classList.add('dec-head-in'); }
       S.active = true; S.i = -2; paint();
-      RW.ST.create({ trigger: $('.dec-stage7', sec) || body, start: 'top top+=' + ((RW.HDR || 76) + 8), end: '+=' + (window.innerWidth > 999 ? 230 : 190) + '%',
+      RW.ST.create({ trigger: $('.dec-stage7', sec) || body, start: 'top top+=' + ((RW.HDR || 76) + 8), end: '+=' + (window.innerWidth > 999 && window.innerWidth > window.innerHeight ? 230 : 190) + '%',
         pin: true, anticipatePin: 1, invalidateOnRefresh: true, onUpdate: function (self) { pinP = self.progress; } });
     }
     var narrow = window.matchMedia('(max-width: 767px)');

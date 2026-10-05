@@ -192,3 +192,15 @@ html:not(.js) .prj-cond-tg{display:none}
 html.has-motion .prj-build[data-day="6"] .pb-glint path{animation:pb-glint 1.6s ease-out .4s 2}
 html.has-motion .prj-build[data-day="3"] .pb-glint path{animation:pb-glint 1.4s ease-out .3s}
 @media (max-width:359px){.pb-days{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* phones and small tablets: the heading comes first, then the photo, then the details (the body's children join the
+   single-column grid so the heading can sit above the photo); the photo crop is a little less tall */
+@media (max-width:799px){
+  .prj-grid{row-gap:1.5rem}
+  .prj-body{display:contents}
+  .prj-body h2{order:-2;margin-bottom:0}
+  .prj-media{order:-1}
+  .prj-build{margin-top:0}
+  .prj-cw,.prj-line{aspect-ratio:430/440}
+  .prj-media{max-width:min(25rem,100%)}
+}
+@media (max-width:799px) and (max-height:500px){.prj-media{max-width:16rem}}

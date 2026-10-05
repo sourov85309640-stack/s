@@ -21,7 +21,7 @@
     var base = null, cam = { z: 0, tx: 770, ty: 360, floor: 0 };
     function frame() {
       var r = stage.getBoundingClientRect(); if (!r.width || !r.height) return;
-      var desk = window.innerWidth >= 1000, aspect = r.width / r.height;
+      var desk = window.innerWidth >= 1000 && window.innerWidth > window.innerHeight, aspect = r.width / r.height;
       var f = desk ? (copy.getBoundingClientRect().right - r.left + 24) / r.width : 0;
       var X1 = desk ? 1080 : 1010, X0c = desk ? 190 : 205;
       var Wv = (X1 - X0c) / (1 - f), H = Wv / aspect;
@@ -288,7 +288,7 @@
       sec.classList.toggle('is-end', k === STEPS.length - 1);
     }
     show(0);
-    var desk = window.matchMedia('(min-width:1000px)').matches;
+    var desk = window.matchMedia('(min-width:1000px) and (orientation:landscape)').matches;
     if (sec.getAttribute('data-v') === '2') {
       /* tap through: no pinning; Back and Next play the scene to each step */
       var AT = [T0, 3.85, 5.7, 8.0, 9.9, T], step = 0, nav = document.createElement('div');

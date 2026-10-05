@@ -66,3 +66,4 @@ html:not(.has-motion) .ab-gap{opacity:0}
 .ab-fr-ham{width:52px;height:52px;left:1.2%;bottom:10%;fill:none;stroke:#9C7A5E;stroke-width:5;stroke-linecap:round}
 .ab-fr-ham .ab-fr-head{fill:#5B656A;stroke:none}
 .ab-fr-leaf{width:34px;height:34px;right:4%;top:30%;fill:rgba(201,119,79,.7);stroke:var(--copper);stroke-width:1.5}
+@media (max-width:959px){.ab-art{order:2}}

@@ -58,11 +58,11 @@
 .dec-g-labels{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:.6rem;font-size:.875rem;line-height:1.25;color:var(--muted);text-align:center}
 .dec-g-labels li{transition:color .2s ease}
 .dec-g-labels li.is-on{color:var(--copper);font-weight:600}
-@media (max-width:999px){
+@media (max-width:999px),(orientation:portrait){
   .dec-sec[data-v="1"] .dec-gauge{position:sticky;top:4rem;z-index:5;margin-inline:calc(-1 * var(--gut));padding:2.4rem var(--gut) .7rem;background:var(--paper);box-shadow:0 10px 18px -16px rgba(31,43,48,.5)}
 }
 @media (min-width:600px){.dec-sec[data-v="1"] .dec-cards,.dec-sec[data-v="6"] .dec-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1000px){
+@media (min-width:1000px) and (orientation:landscape){
   .dec-sec[data-v="1"] .dec-cards,.dec-sec[data-v="4"] .dec-cards,.dec-sec[data-v="6"] .dec-cards{grid-template-columns:repeat(4,minmax(0,1fr))}
   /* the gauge's four stops sit over the four card centres */
   .dec-gauge{--g:var(--dec-gap)}
@@ -225,13 +225,13 @@ html.has-motion .dec-sec[data-v="7"] .dec-rain path:nth-child(2n){animation-dela
 .dec-sec[data-v="7"] .dec-card h3{font-size:clamp(1.25rem,1rem + 1vw,1.75rem)}
 .dec-sec[data-v="7"] .dec-rail-dot{display:none}
 .dec-stage7{position:relative}
-@media (min-width:1000px){
+@media (min-width:1000px) and (orientation:landscape){
   .dec-sec[data-v="7"] .dec-body{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(2rem,4vw,4rem);min-height:calc(100vh - 140px)}
   .dec-sec[data-v="7"] .dec-roof{grid-row:1/3}
   .dec-sec[data-v="7"] .dec-dial{width:min(300px,80%);align-self:end}
   .dec-sec[data-v="7"] .dec-cards{align-self:start}
 }
-@media (max-width:999px){
+@media (max-width:999px),(orientation:portrait){
   .dec-sec[data-v="7"] .dec-roof svg:not(.dec-rain){max-height:34svh}
   .dec-sec[data-v="7"] .dec-dial{width:min(190px,52%)}
   .dec-sec[data-v="7"] .dec-card p{font-size:.9375rem}
@@ -239,10 +239,10 @@ html.has-motion .dec-sec[data-v="7"] .dec-rain path:nth-child(2n){animation-dela
 /* without motion: no pinning, the four cards simply sit in a list */
 html:not(.has-motion) .dec-sec[data-v="7"] .dec-card{grid-area:auto;opacity:1;visibility:visible;transform:none}
 html:not(.has-motion) .dec-sec[data-v="7"] .dec-cards{gap:1rem}
-@media (min-width:1000px){.dec-sec[data-v="7"] .dec-roof{align-self:center}.dec-sec[data-v="7"] .dec-body{min-height:calc(100vh - 160px)}}
+@media (min-width:1000px) and (orientation:landscape){.dec-sec[data-v="7"] .dec-roof{align-self:center}.dec-sec[data-v="7"] .dec-body{min-height:calc(100vh - 160px)}}
 .dec-pick:focus-visible{outline:3px solid var(--copper);outline-offset:3px;border-radius:6px}
 /* V7 wide: heading inside the pinned stage; the stage fills the screen under the header and centres its content */
-@media (min-width:1000px){
+@media (min-width:1000px) and (orientation:landscape){
   .dec-sec.dec-head-in[data-v="7"] .dec-stage7{min-height:calc(100vh - var(--hdr-h,76px) - 16px);display:flex;flex-direction:column;justify-content:center}
   .dec-sec.dec-head-in[data-v="7"] .dec-stage7 .head2{margin-bottom:clamp(1.25rem,3vh,2.25rem)}
   .dec-sec.dec-head-in[data-v="7"] .dec-body{min-height:0}
@@ -252,7 +252,7 @@ html:not(.has-motion) .dec-sec[data-v="7"] .dec-cards{gap:1rem}
 .dec-sec[data-v="7"] .dec-pick::before{display:none}
 .dec-sec[data-v="7"] .dec-card::before{-webkit-mask:none;mask:none;background:linear-gradient(160deg,var(--copper-tint),transparent 70%)}
 /* the pinned stage already leaves room below its centred content, so the section needs less of its own */
-@media (min-width:1000px){.dec-sec.dec-head-in[data-v="7"]{padding-bottom:clamp(.5rem,2vh,1.5rem)}}
+@media (min-width:1000px) and (orientation:landscape){.dec-sec.dec-head-in[data-v="7"]{padding-bottom:clamp(.5rem,2vh,1.5rem)}}
 /* V7 extras: tree, chimney pot, gutter, weed, nest, overflowing gutter, a ring on the current problem */
 .dec-x7{display:none}
 .dec-sec[data-v="7"] .dec-x7{display:inline}
@@ -271,13 +271,13 @@ html.has-motion .dec-sec[data-v="7"].is-live .dec-gd:nth-child(2){animation-dela
 html.has-motion .dec-sec[data-v="7"].is-live .dec-bird{animation:dec-hop 2.4s ease-in-out infinite;transform-box:fill-box}
 /* V7 phones and tablets: the pinned stage fills the space between the header and the bottom bar and centres its
    content, so there is no dead band under the card; tablets keep the heading inside the stage like desktop */
-@media (max-width:999px){
+@media (max-width:999px),(orientation:portrait){
   html.has-motion .dec-sec[data-v="7"] .dec-stage7{min-height:calc(100svh - var(--hdr-h,76px) - 8px);display:flex;flex-direction:column;justify-content:center}
 }
 @media (max-width:767px){
   html.has-motion .dec-sec[data-v="7"] .dec-stage7{min-height:calc(100svh - var(--hdr-h,64px) - 8px - var(--bar) - env(safe-area-inset-bottom))}
 }
-@media (min-width:600px) and (max-width:999px){
+@media (min-width:600px) and (max-width:999px),(min-width:600px) and (orientation:portrait){
   .dec-sec.dec-head-in[data-v="7"] .dec-stage7 .head2{margin-bottom:clamp(1rem,2.5vh,2rem)}
   .dec-sec[data-v="7"] .dec-roof svg:not(.dec-rain){max-height:38svh}
   .dec-sec[data-v="7"] .dec-dial{width:min(240px,42%)}

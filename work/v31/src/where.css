@@ -302,3 +302,11 @@ html.has-motion .dia-sec.is-flow.is-touring .dia-list li.is-on .dia-more{animati
 .dia-sec.is-dry .marker .m-tag::after{content:", kept dry";font-weight:600;color:#3E6577}
 .dia-sec.is-dry .marker .m-tag{background:#EAF2F5}
 @media (hover:none),(pointer:coarse),(max-width:767px){.dia-mine{display:inline-flex;align-items:center;min-height:44px}}
+/* phones on their side: the drawing sticks on the left and the stops scroll beside it, so a stop is never hidden
+   under a drawing that fills the whole short screen */
+@media (max-width:999px) and (orientation:landscape) and (max-height:560px){
+  .dia-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"head head" "plate side";column-gap:1.25rem;align-items:start}
+  .dia-sec.is-flow .dia-plate{top:calc(var(--hdr-h,64px) + .5rem)}
+  .dia-sec.is-flow .dia-plate::before{box-shadow:none}
+  .dia-sec.is-flow .dia-plate{box-shadow:var(--shadow-soft),0 0 0 1px rgba(31,43,48,.06)}
+}

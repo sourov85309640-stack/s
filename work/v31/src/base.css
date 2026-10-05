@@ -521,3 +521,6 @@ p,li,dd,figcaption{text-wrap:pretty}
 /* no grey or blue browser flash on tap: every control has its own pressed state */
 a,button,summary,label,[role=tab],[role=button],input,select,textarea{-webkit-tap-highlight-color:transparent}
 .layers>.is-clash{visibility:hidden}
+/* very large screens: the content grows with the screen instead of sitting small in the middle */
+@media (min-width:2000px){:root{--max:1440px}html{font-size:112.5%}}
+@media (min-width:2400px){:root{--max:1640px}html{font-size:125%}}
