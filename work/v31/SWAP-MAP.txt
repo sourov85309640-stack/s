@@ -30,7 +30,7 @@ about                #about [data-sample="about"]             Client's own story
                                                               Every number is a placeholder. A team photo can replace the drawing.
 gallery              #work [data-sample="gallery"]            6 to 9 real job photos with job type and town. Today: stock photos for illustration (the intro says so).
 urgent band          #urgent (data-confirm="urgent")          Keep only if the client takes urgent work; never promise a response time they cannot keep.
-opening hours        [data-sample="hours"] (footer)           Real hours, confirm with the client
+opening hours        [data-sample="hours"] (footer, header)  Real hours, confirm with the client; also openingHoursSpecification in the JSON-LD
 company details      [data-sample="company-details"]          Company number and VAT number, or delete the line
 social links         [data-sample="social"]                   Real profile URLs, or delete the list
 reviews              #reviews [data-sample="reviews"]         The reviews are INVENTED SAMPLES. Paste the client's real Google reviews (15 to 60 words each), real rating and count,
