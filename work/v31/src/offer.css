@@ -130,6 +130,6 @@ html:not(.has-motion) .of-ic .i-roll{transform:translateX(34px)}
 @media (max-width:559px){
   .of-grid{gap:.6rem}
   .of-link{padding:.9rem 1rem;column-gap:.85rem}
-  .of-d{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:.9375rem}
+  .of-d{font-size:.9375rem}
 }
 .of-ic .i-roll,.of-ic .i-spark{transform-box:fill-box;transform-origin:50% 50%}

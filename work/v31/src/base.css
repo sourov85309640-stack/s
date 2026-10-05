@@ -246,7 +246,7 @@ h4{font-size:var(--h4);line-height:1.3}
 .ftr-h-hours,.ftr-h-social{margin-top:1.4rem}
 .ftr-hours>div{display:flex;justify-content:space-between;gap:1rem;padding:.3rem 0;border-bottom:1px solid rgba(31,43,48,.1);max-width:20rem}
 .ftr-hours dt{color:var(--muted)}.ftr-hours dd{color:var(--text)}
-.ftr-links li a{display:inline-flex;align-items:center;min-height:36px;text-decoration:none;color:var(--muted);transition:color .2s}
+.ftr-links li a{display:inline-flex;align-items:center;min-height:36px;min-width:44px;text-decoration:none;color:var(--muted);transition:color .2s}
 @media (hover:hover){.ftr-links li a:hover{color:var(--copper);text-decoration:underline}}
 .ftr-areas{columns:8rem 2;column-gap:1.5rem}
 .ftr-areas li{padding:.2rem 0}
